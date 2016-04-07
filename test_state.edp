@@ -1,0 +1,21 @@
+verbosity=0;
+
+/****** 00.Parametri ******/
+
+real N=80;
+
+real T=1.;
+real t=0.01;
+real dt=0.5;
+
+func f = sin(t);
+func u = 0.;
+
+/****** 01.MESH ******/
+mesh Th = square( N, N );
+
+
+/****** 02.SOLVE ******/
+include "state.edp";
+
+statet();
