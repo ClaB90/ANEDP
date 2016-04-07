@@ -9,25 +9,26 @@ verbosity=0;
 // 00.Parametri
 
 // Definition of variables
+real N=80;
+
 real lambda, dJ0norm, J, J0, dJtol, epsilon, alpha;
 int k, Nmax;
-
 
 // Problem's data
 func f = 0;
 
 // 01.Mesh
-mesh Th = square( 80, 80 );
+mesh Th = square( N, N );
 
 // 02.FE space, FE functions
 fespace Vh( Th, P1 );
-Vh y, p, u, yd, wtest, ptest, err, dJ;
+Vh y, p, u, yd, ytest, ptest, err, dJ;
 
 //03.matrix definition
 
 //04.solution
 // State problem 
-problem state( w, wtest) = ...
+problem state( y, ytest) = ...
 
 
 // Adjoint Problem 
