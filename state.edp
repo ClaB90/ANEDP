@@ -1,0 +1,102 @@
+/****************** Politecnico di Milano - ANEDP project ******************/
+/* 														 					*
+ *  	authors Edorado Arbib 							 					*
+ *				Claudia Bonomi 							 					*
+ *											   			 					*
+ *  	Descrizione: Per il problema di stato definiamo  					*
+ *						- spazi funzionali		         					*
+ *						- problema spaziale				 					*
+ *					    - funzione per la soluzione del problema temporale  *
+ ****************************************************************************/
+
+/****** 00.PARAMETRI ******/
+real ts=0.01;
+real Ts=1.;
+real dts=0.01;
+
+// k == soluzione all'istante iniziale
+func y0 = 0.;
+
+// yb funzione al bordo di dirchlet 
+func yb = 0.;
+
+/****** 01.SPAZI FUNZIONALI ******/
+fespace Yh( Th, P0 );
+Yh y, yold, ytest, fold;
+
+
+/****** 02.PROBLEMA SPAZIALE ******/ 
+ 
+/*	gamma0 and gamma1 legend
+ * 	EI gamma0 = 0 
+ *     gamma1= 1.
+ *  CN gamma0=gamma1= 0.5
+ *  EA gamma0 = 1.
+ *	  gamma1 = 0.
+ */
+real gamma0,gamma1;
+
+problem state(y, ytest) =   int2d(Th)( y*ytest/dts )
+						  - int2d(Th)( yold*ytest/dts )
+						  + int2d(Th)( gamma0*( dx(yold)*dx(ytest) + dy(yold)*dy(ytest) ) ) 
+						  + int2d(Th)( gamma1*( dx(y)*dx(ytest) + dy(y)*dy(ytest) ) ) 
+						  - int2d(Th)( gamma0*( (fold+u)*ytest ) ) 
+						  - int2d(Th)( gamma1*( (f+u)*ytest ) ) 
+						  + on(1,2,3,4, y=yb);
+
+/* NB - u non cambia al passo temporale della y quello che cambia è la f, se dipende dal tempo, 
+ *   	 quindi bisogna tener traccia della fold;
+ */
+
+/****** 03.FUNZIONE PER SOLUZIONE IN TEMPO ******/ 
+
+func real statet()
+{
+	yold=y0;
+	
+	//Primo passo con EI
+	gamma0=0.;
+	gamma1=1.;
+	
+	state;
+	yold=y;
+	fold=f;
+
+	while(ts+dts <= Ts )
+	{
+		gamma0=0.5;
+		gamma1=0.5;
+		
+		state;
+		yold=y;
+		fold=f;
+		
+		ts += dts;
+	}
+	
+	gamma0=1.;
+	gamma1=0.;
+	
+	state;
+	
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
