@@ -1,67 +1,94 @@
-// Politecnico di Milano
-// 
-// ANEDP project - CB EA
-//
-// Description: Optimal control
+/****************** Politecnico di Milano - ANEDP project ******************/
+/* 														 					*
+ *  	authors Edorado Arbib 							 					*
+ *				Claudia Bonomi 							 					*
+ *											   			 					*
+ *  	Descrizione:   					   			 				        *
+ *					   					   			 				        *
+ *					   					   			 				        *
+ *					    					   			 				    *
+ ****************************************************************************/
 
 verbosity=0;
 
-// 00.Parametri
+/****** 00.Parametri ******/
 
-// Definition of variables
 real N=80;
 
+//Per il problema di controllo
 real lambda, dJ0norm, J, J0, dJtol, epsilon, alpha;
 int k, Nmax;
 
-// Problem's data
 func f = 0;
 
-// 01.Mesh
+/****** 01.MESH ******/
 mesh Th = square( N, N );
 
-// 02.FE space, FE functions
-fespace Vh( Th, P1 );
-Vh y, p, u, yd, ytest, ptest, err, dJ;
+/****** 02.SPAZI FUNZIONALI ******/
+fespace Xh( Th, P0 );
 
-//03.matrix definition
+Xh u, yd, err, dJ;
 
-//04.solution
+/****** 03.MATRICI E VETTORI ******/
+
+/****** 04.SOLVE ******/   
+
 // State problem 
-problem state( y, ytest) = ...
+include "state.edp";
 
 
-// Adjoint Problem 
-problem adjoint( p, ptest) = ...
+// Adjoint Problem
+include "adjoint.edp";
 
 
 //Solution at 1st step
 u = 0;             //control
-state; 
-adjoint;
+statet(); 
+adjointt();
 
 dJ = p + lambda * u;                     // J'(u0) = grad f(u0)
 dJ0norm = sqrt( int2d( Th )( dJ^2 ) );   // || J'(u0) ||_{L^2(Omega)}
 dJtol = 1.0;                             // to enter in the while loop
 
-plot( w, nbiso = 40, value = true, wait = true, cmm="initial y" );
+plot( y, nbiso = 40, value = true, wait = true, cmm="initial y" );
 plot( p, nbiso = 40, value = true, wait = true, cmm="initial p");
 
+
+dJ = p + lambda * u;                     // J'(u0) = grad f(u0)
+dJ0norm = sqrt( int2d( Th )( dJ^2 ) );   // || J'(u0) ||_{L^2(Omega)}
+dJtol = 1.0;                             // to enter in the while loop
 
 //Iterative algorithm
 while ( dJtol > epsilon  && k <= Nmax){
       
-    ...
+      k = k + 1;
+      
+      //Control Update
+      u = u - alpha * dJ;  
 
+      state;  
+     
+      J = int2d( Th ) ( 0.5*( y - yd )^2 ) + lambda * 0.5 * int2d( Th ) ( u^2 );     
 
-
-
+      adjoint;
+      dJ = p + lambda * u;
+      dJtol = sqrt( int2d( Th )( dJ^2 ) ) / dJ0norm;  // Monitored quantity for the Stopping criterion
+      
+      cout << "k = " << k << endl;
+      cout << "realtive error for J' = " << dJtol << endl;
 
     };
 
+cout << "==========================" << endl;
+cout << "J0 = " << J0 << endl;
+cout << "J  = " << J << endl;
+cout << "Number of  iterations = " << k << endl;
 
+
+
+/****** 05.VISUALIZATION ******/ 
 // Difference between the final state and the desired observation 
-err = abs( w - yd );       
-plot( err, nbiso = 40, value = true, wait = true, cmm="|y-y_d|" );
-plot( w, nbiso = 40, value = true, wait = true, cmm="final y" );
+err = abs( y - yd );       
+//plot( err, nbiso = 40, value = true, wait = true, cmm="|y-y_d|" );
+plot( y, nbiso = 40, value = true, wait = true, cmm="final y" );
 plot( u, nbiso = 40, value = true, wait = true, cmm="final u" );
