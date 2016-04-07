@@ -1,0 +1,66 @@
+// Politecnico di Milano
+// 
+// ANEDP project - CB EA
+//
+// Description: Optimal control
+
+verbosity=0;
+
+// 00.Parametri
+
+// Definition of variables
+real lambda, dJ0norm, J, J0, dJtol, epsilon, alpha;
+int k, Nmax;
+
+
+// Problem's data
+func f = 0;
+
+// 01.Mesh
+mesh Th = square( 80, 80 );
+
+// 02.FE space, FE functions
+fespace Vh( Th, P1 );
+Vh y, p, u, yd, wtest, ptest, err, dJ;
+
+//03.matrix definition
+
+//04.solution
+// State problem 
+problem state( w, wtest) = ...
+
+
+// Adjoint Problem 
+problem adjoint( p, ptest) = ...
+
+
+//Solution at 1st step
+u = 0;             //control
+state; 
+adjoint;
+
+dJ = p + lambda * u;                     // J'(u0) = grad f(u0)
+dJ0norm = sqrt( int2d( Th )( dJ^2 ) );   // || J'(u0) ||_{L^2(Omega)}
+dJtol = 1.0;                             // to enter in the while loop
+
+plot( w, nbiso = 40, value = true, wait = true, cmm="initial y" );
+plot( p, nbiso = 40, value = true, wait = true, cmm="initial p");
+
+
+//Iterative algorithm
+while ( dJtol > epsilon  && k <= Nmax){
+      
+    ...
+
+
+
+
+
+    };
+
+
+// Difference between the final state and the desired observation 
+err = abs( w - yd );       
+plot( err, nbiso = 40, value = true, wait = true, cmm="|y-y_d|" );
+plot( w, nbiso = 40, value = true, wait = true, cmm="final y" );
+plot( u, nbiso = 40, value = true, wait = true, cmm="final u" );
