@@ -1,18 +1,14 @@
 /****************** Politecnico di Milano - ANEDP project ******************/
 /* 														 					*
- *  	authors Edorado Arbib 							 					*
+ *  	authors Edoardo Arbib 							 					*
  *				Claudia Bonomi 							 					*
  *											   			 					*
  *  	Descrizione: Per il problema aggiuto definiamo  					*
  *						- spazi funzionali		         					*
  *						- problema spaziale				 					*
  *					    - funzione per la soluzione del problema temporale  *
+ * 														 					*
  ****************************************************************************/
-
-/****** 00.PARAMETRI ******/
-real Ta=1.;
-real ta=Ta;
-real dta=0.01;
 
 // funzione p all'istante finale
 func pT = 0.;
@@ -20,9 +16,10 @@ func pT = 0.;
 // funzione p sul bordo di dirichlet
 func pb = 0.;
 
-//definisco la funzione h = ystate - yd;
+//definisco la funzione h = wstate - wd;
 Yh h, hnext;
-h = y -yd;
+h = w -wd;
+hnext = h;
 
 /****** 01.SPAZI FUNZIONALI ******/
 
@@ -31,9 +28,9 @@ Ph p, pnext, ptest;
 
 /****** 02.PROBLEMA SPAZIALE ******/ 
   
-problem adjoint( p, ptest) =   int2d(Th)( pnext*ptest/dta )
-							 - int2d(Th)( p*ptest/dta )			
-						     + int2d(Th)( 0.5*( dx(p)*dx(ptest) + dy(p)*dy(ptest) ) ) 
+problem adjoint( p, ptest) =   int2d(Th)( pnext*ptest/dt )
+							 - int2d(Th)( p*ptest/dt )			
+						     + int2d(Th)( 0.5*( dx(p)*dx(ptest) + dy(p)*y(ptest) ) ) 
 						     + int2d(Th)( 0.5*( dx(pnext)*dx(ptest) + dy(pnext)*dy(ptest) ) ) 
 						     - int2d(Th)( 0.5*( h*ptest ) ) 
 						     - int2d(Th)( 0.5*( hnext*ptest ) ) 
@@ -48,6 +45,7 @@ problem adjoint( p, ptest) =   int2d(Th)( pnext*ptest/dta )
 func real adjointt()
 {
 	pnext=pT;
+	t=T;
 
 	while(ts-dts >= 0 )
 	{

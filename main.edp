@@ -1,25 +1,30 @@
 /****************** Politecnico di Milano - ANEDP project ******************/
 /* 														 					*
- *  	authors Edorado Arbib 							 					*
+ *  	authors Edoardo Arbib 							 					*
  *				Claudia Bonomi 							 					*
  *											   			 					*
  *  	Descrizione:   					   			 				        *
  *					   					   			 				        *
  *					   					   			 				        *
  *					    					   			 				    *
+ * 														 					*
  ****************************************************************************/
 
 verbosity=0;
 
-/****** 00.Parametri ******/
+/****** 00.PARAMETRI ******/
 
 real N=80;
+
+real T=1.;
+real t=0.01;
+real dt=1;
 
 //Per il problema di controllo
 real lambda, dJ0norm, J, J0, dJtol, epsilon, alpha;
 int k, Nmax;
 
-func f = 0;
+func f = 0.;
 
 /****** 01.MESH ******/
 mesh Th = square( N, N );
@@ -27,7 +32,7 @@ mesh Th = square( N, N );
 /****** 02.SPAZI FUNZIONALI ******/
 fespace Xh( Th, P0 );
 
-Xh u, yd, err, dJ;
+Xh u, wd, err, dJ;
 
 /****** 03.MATRICI E VETTORI ******/
 
@@ -50,7 +55,7 @@ dJ = p + lambda * u;                     // J'(u0) = grad f(u0)
 dJ0norm = sqrt( int2d( Th )( dJ^2 ) );   // || J'(u0) ||_{L^2(Omega)}
 dJtol = 1.0;                             // to enter in the while loop
 
-plot( y, nbiso = 40, value = true, wait = true, cmm="initial y" );
+plot( w, nbiso = 40, value = true, wait = true, cmm="initial w" );
 plot( p, nbiso = 40, value = true, wait = true, cmm="initial p");
 
 
@@ -68,11 +73,11 @@ while ( dJtol > epsilon  && k <= Nmax){
 
       state;  
      
-      J = int2d( Th ) ( 0.5*( y - yd )^2 ) + lambda * 0.5 * int2d( Th ) ( u^2 );     
+      J = int2d( Th ) ( 0.5*( w - wd )^2 ) + lambda * 0.5 * int2d( Th ) ( u^2 );     
 
       adjoint;
       dJ = p + lambda * u;
-      dJtol = sqrt( int2d( Th )( dJ^2 ) ) / dJ0norm;  // Monitored quantity for the Stopping criterion
+      dJtol = sqrt( int2d( Th )( dJ^2 ) ) / dJ0norm;  // Monitored quantitw for the Stopping criterion
       
       cout << "k = " << k << endl;
       cout << "realtive error for J' = " << dJtol << endl;
@@ -88,7 +93,7 @@ cout << "Number of  iterations = " << k << endl;
 
 /****** 05.VISUALIZATION ******/ 
 // Difference between the final state and the desired observation 
-err = abs( y - yd );       
-//plot( err, nbiso = 40, value = true, wait = true, cmm="|y-y_d|" );
-plot( y, nbiso = 40, value = true, wait = true, cmm="final y" );
+err = abs( w - wd );       
+//plot( err, nbiso = 40, value = true, wait = true, cmm="|w-w_d|" );
+plot( w, nbiso = 40, value = true, wait = true, cmm="final w" );
 plot( u, nbiso = 40, value = true, wait = true, cmm="final u" );
