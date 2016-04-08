@@ -8,7 +8,7 @@ real T=1.;
 real t=0.01;
 real dt=0.5;
 
-func f = sin(t);
+func f = sin(x);
 func u = 0.;
 
 /****** 01.MESH ******/

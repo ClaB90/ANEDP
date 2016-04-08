@@ -30,7 +30,7 @@ Ph p, pnext, ptest;
   
 problem adjoint( p, ptest) =   int2d(Th)( pnext*ptest/dt )
 							 - int2d(Th)( p*ptest/dt )			
-						     + int2d(Th)( 0.5*( dx(p)*dx(ptest) + dy(p)*y(ptest) ) ) 
+						     + int2d(Th)( 0.5*( dx(p)*dx(ptest) + dy(p)*dy(ptest) ) ) 
 						     + int2d(Th)( 0.5*( dx(pnext)*dx(ptest) + dy(pnext)*dy(ptest) ) ) 
 						     - int2d(Th)( 0.5*( h*ptest ) ) 
 						     - int2d(Th)( 0.5*( hnext*ptest ) ) 
@@ -47,13 +47,13 @@ func real adjointt()
 	pnext=pT;
 	t=T;
 
-	while(ts-dts >= 0 )
+	while(t-dt >= 0 )
 	{
 		adjoint;
 		pnext=p;
 		hnext=h;
 		
-		ts -= dts;
+		t -= dt;
 	}
 	
 	return 0;
