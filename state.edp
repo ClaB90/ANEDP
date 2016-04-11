@@ -19,6 +19,7 @@ func wb = 0.;
 /****** 01.SPAZI FUNZIONALI ******/
 fespace Yh( Th, P0 );
 Yh w, wold, wtest, fold;
+Yh[int] sol(T/dt+1);
 
 /****** 02.PROBLEMA SPAZIALE ******/ 
  
@@ -47,6 +48,7 @@ problem state(w, wtest) =   int2d(Th)( w*wtest/dt )
 
 func real statet()
 {
+	int i=0;
 	t=0.01;
 	wold=w0;
 	
@@ -58,6 +60,8 @@ func real statet()
 	plot( w, nbiso=40, value = 1, fill=1, wait = 0, cmm="w" );
 	wold=w;
 	fold=f;
+	sol[i] = w;
+	i++;
 
 	while(t+dt <= T )
 	{
@@ -69,7 +73,10 @@ func real statet()
 		wold=w;
 		fold=f;
 		
+		sol[i]=w;
+		
 		t += dt;
+		i++;
 	}
 	
 	gamma0=0.5;
@@ -77,6 +84,7 @@ func real statet()
 	
 	state;
 	plot( w, nbiso=40, value = 1, fill=1, wait = 0, cmm="w" );
+	sol[i]=w;
 	
 	return 0;
 }

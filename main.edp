@@ -18,7 +18,7 @@ real N=80;
 
 real T=1.;
 real t=0.01;
-real dt=1;
+real dt=0.5;
 
 //Per il problema di controllo
 real lambda, dJ0norm, J, J0, dJtol, epsilon, alpha;
