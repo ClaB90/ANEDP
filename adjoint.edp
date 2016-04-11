@@ -18,8 +18,11 @@ func pb = 0.;
 
 //definisco la funzione h = wstate - wd;
 Yh h, hnext;
-h = w -wd;
-hnext = h;
+
+//NB generalizza x dt
+int j = T/dt-1;
+hnext = sol[j] - wd;
+h = sol[j-1] - wd;
 
 /****** 01.SPAZI FUNZIONALI ******/
 
@@ -46,14 +49,17 @@ func real adjointt()
 {
 	pnext=pT;
 	t=T;
+	j -= 1;
 
-	while(t-dt >= 0 )
+	while(t-dt > 0 )
 	{
 		adjoint;
 		pnext=p;
-		hnext=h;
+		hnext = h;
+		h = sol[j-1] - wd;
 		
 		t -= dt;
+		j--;
 	}
 	
 	return 0;
