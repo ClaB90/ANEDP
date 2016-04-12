@@ -19,11 +19,6 @@ func pb = 0.;
 //definisco la funzione h = wstate - wd;
 Yh h, hnext;
 
-//NB generalizza x dt
-int j = T/dt-1;
-hnext = sol[j] - wd;
-h = sol[j-1] - wd;
-
 /****** 01.SPAZI FUNZIONALI ******/
 
 fespace Ph( Th, P1 );
@@ -47,16 +42,25 @@ problem adjoint( p, ptest) =   int2d(Th)( pnext*ptest/dt )
 
 func real adjointt()
 {
+	//NB generalizza x dt
+	int j = T/dt;
+	
+	cout << j << endl;
+		
 	pnext=pT;
 	t=T;
-	j -= 1;
+	h = sol[j] - wd;
+	
+	j--;
 
+	//Devi risolvere un passo in meno per l'aggiunta poichè beta_0 == 0
 	while(t-dt > 0 )
 	{
+		hnext = h;
+		h = sol[j] - wd;
+		
 		adjoint;
 		pnext=p;
-		hnext = h;
-		h = sol[j-1] - wd;
 		
 		t -= dt;
 		j--;

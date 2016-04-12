@@ -16,6 +16,15 @@ func w0 = sin(t);
 // wb funzione al bordo di dirchlet 
 func wb = 0.;
 
+/*
+int totalsol=1, tmp=t;
+while(tmp <= T)
+{
+	totalsol++;
+}
+totalsol++;
+*/
+
 /****** 01.SPAZI FUNZIONALI ******/
 fespace Yh( Th, P0 );
 Yh w, wold, wtest, fold;
@@ -43,6 +52,7 @@ problem state(w, wtest) =   int2d(Th)( w*wtest/dt )
 /* NB - u non cambia al passo temporale della w quello che cambia è la f, se dipende dal tempo, 
  *   	 quindi bisogna tener traccia della fold;
  */
+
 
 /****** 03.FUNZIONE PER SOLUZIONE IN TEMPO ******/ 
 
@@ -93,7 +103,6 @@ func real statet()
 	plot( w, nbiso=40, value = 1, fill=1, wait = 0, cmm="w final" );
 	
 	sol[i]=w;
-	cout << "siamo al tempo  = " << i << endl;
 	
 	return 0;
 }

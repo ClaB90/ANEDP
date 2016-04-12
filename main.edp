@@ -18,13 +18,13 @@ real N=80;
 
 real T=1.;
 real t=0.01;
-real dt=0.2;
+real dt=0.5;
 
 //Per il problema di controllo
 real lambda, dJ0norm, J, J0, dJtol, epsilon, alpha;
 int k, Nmax;
 
-func f = 0.0;
+func f = sin(x);
 lambda = 0.001;
 
 /****** 01.MESH ******/
@@ -68,8 +68,8 @@ dJ = p + lambda * u;                     // J'(u0) = grad f(u0)
 dJ0norm = sqrt( int2d( Th )( dJ^2 ) );   // || J'(u0) ||_{L^2(Omega)}
 dJtol = 1.0;                             // to enter in the while loop
 
-plot( w, nbiso = 40, value = true, wait = true, cmm="initial w" );
-plot( p, nbiso = 40, value = true, wait = true, cmm="initial p");
+plot( w, nbiso = 40, value = true, wait = 0, cmm="initial w" );
+plot( p, nbiso = 40, value = true, wait = 0, cmm="initial p");
 
 
 dJ = p + lambda * u;                     // J'(u0) = grad f(u0)
