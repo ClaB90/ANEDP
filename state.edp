@@ -11,7 +11,7 @@
  ****************************************************************************/
 
 // k == soluzione all'istante iniziale
-func w0 = sin(t);
+func w0 = sin(2*x)*sin(2*y);
 
 // wb funzione al bordo di dirchlet 
 func wb = 0.;
@@ -58,6 +58,9 @@ problem state(w, wtest) =   int2d(Th)( w*wtest/dt )
 
 func real statet()
 {
+	cout << "State " << endl;
+	
+	//inizializzo le variabili iniziali ogni volta che chiamo la funzione
 	int i=0;
 	t=0.01;
 	wold=w0;
@@ -67,7 +70,7 @@ func real statet()
 	gamma1=0.5;
 	
 	state;
-	plot( w, nbiso=40, value = 1, fill=1, wait = 0, cmm="w" );
+	plot( w, value = 1, fill=1, wait = 0, cmm="w" );
 	cout << "siamo al tempo   = " << t << endl;
 	
 	wold=w;
@@ -83,7 +86,7 @@ func real statet()
 		gamma1=0.5;
 		
 		state;
-	    //plot( w, nbiso=40, value = 1, fill=1, wait = 0, cmm="w" );
+	    plot( w, value = 1, fill=1, wait = 0, cmm="w" );
 		cout << "siamo al tempo   = " << t << endl;
 		
 		wold=w;
@@ -100,7 +103,7 @@ func real statet()
 	
 	state;
 	cout << "siamo al tempo = " << t << endl;
-	plot( w, nbiso=40, value = 1, fill=1, wait = 0, cmm="w final" );
+	plot( w, value = 1, fill=1, wait = 0, cmm="w final" );
 	
 	sol[i]=w;
 	

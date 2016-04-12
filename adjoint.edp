@@ -42,6 +42,9 @@ problem adjoint( p, ptest) =   int2d(Th)( pnext*ptest/dt )
 
 func real adjointt()
 {
+	cout << "Adjoint " << endl;
+	
+	//inizializzo le variabili iniziali ogni volta che chiamo la funzione
 	//NB generalizza x dt
 	int j = T/dt;
 	
@@ -54,8 +57,10 @@ func real adjointt()
 	j--;
 
 	//Devi risolvere un passo in meno per l'aggiunta poichè beta_0 == 0
-	while(t-dt > 0 )
+	while( t > 0 )
 	{
+		cout << "siamo al tempo   = " << t << endl;
+		
 		hnext = h;
 		h = sol[j] - wd;
 		
