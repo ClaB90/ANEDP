@@ -60,6 +60,7 @@ func real adjointt()
 		h = sol[j] - wd;
 		
 		adjoint;
+		plot( p, nbiso=40, value = 1, fill=1, wait = 0, cmm="p" );
 		pnext=p;
 		
 		t -= dt;

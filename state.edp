@@ -83,7 +83,7 @@ func real statet()
 		gamma1=0.5;
 		
 		state;
-	    plot( w, nbiso=40, value = 1, fill=1, wait = 0, cmm="w" );
+	    //plot( w, nbiso=40, value = 1, fill=1, wait = 0, cmm="w" );
 		cout << "siamo al tempo   = " << t << endl;
 		
 		wold=w;
