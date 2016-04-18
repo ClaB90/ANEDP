@@ -12,8 +12,12 @@
 
 // Parametro per il calcolo dell'errore dello stato
 
+// || pi*y -y_k ||L2
 real errStateL2=0.;
 
+// || y -pi*y_k ||L2
+real errProjectStateL2 = 0.; 
+	
 // k == soluzione all'istante iniziale
 func w0 = sin(2*x)*sin(2*y);
 
@@ -32,7 +36,7 @@ totalsol++;
 /****** 01.SPAZI FUNZIONALI ******/
 fespace Yh( Th, P2 );
 Yh w, wold, wtest, fold;
-Yh[int] sol(T/dt+1);
+Yh[int] sol(nsol);
 
 /****** 02.PROBLEMA SPAZIALE ******/ 
  
@@ -84,11 +88,11 @@ func real statet()
 	real errL2=0.,normL2=0.;
 	
 	//inizializzo le variabili iniziali ogni volta che chiamo la funzione
-	int i=0;
+	
 	t=dt;
 	wold=w0;
 
-	while( t < T-dt )
+	for( int i=0; i<nsol-1; i++ )
 	{
 		
 		tmp = c(0,Yh);
@@ -108,7 +112,6 @@ func real statet()
 		sol[i]=w;
 		
 		t += dt;
-		i++;
 	}
 	
 	gamma=0.;
@@ -120,6 +123,8 @@ func real statet()
 	
 	w[] = S^-1*tmp;
 	
+	sol[nsol-1]=w;
+	
 	cout << "siamo al tempo = " << t << endl;
 	plot( w, value = 1, fill=1, wait = 0, cmm="w final" );
 	
@@ -129,7 +134,34 @@ func real statet()
 	
 	cout << "errore state L2  " << errStateL2 << endl;
 	
-	sol[i]=w;
+	errL2 = 0.;
+	
+	errL2 = (   int2d(Th)( ( 1.5*sol[0] - 0.5*sol[1] - 1.5*we2 + 0.5*we1 )^2 )
+		      + int2d(Th)( ( (sol[0]-we2)^2 ) )
+			  + (1./4.)*int2d(Th)( ( 5*sol[0]-sol[1]-5*we2 +we1 )^2 )
+			    )*(dt/12.);
+	
+	for( int i=1; i< nsol-3; i++)
+	{
+		errL2 += (   int2d(Th)( ( (sol[i-1]-we2)^2 ) )
+					+ int2d(Th)( ( (sol[i]-we1)^2 ) )
+					+ int2d(Th)( ( sol[i]+sol[i-1]-we2 -we1 )^2 ) 
+					  )*(dt/6.);
+		t1 += dt;
+		t2 += dt;
+	}
+	
+/*	errL2 += (   int2d(Th)( ( 1.5*sol[nsol-1] - 0.5*sol[nsol-2] - 1.5*we1 + 0.5*we2 )^2 )
+			   + int2d(Th)( ( (sol[nsol-1]-we1)^2 ) )
+			   + (1./4.)*int2d(Th)( ( 5*sol[nsol-1]-sol[nsol-2]-5*we1 +we2 )^2 )
+				 )*(dt/12.); */
+	errL2 += (   int2d(Th)( ( 1.5*sol[nsol-2] - 0.5*sol[nsol-3] - 1.5*we1 + 0.5*we2 )^2 )
+			   + int2d(Th)( ( (sol[nsol-2]-we1)^2 ) )
+			   + (1./4.)*int2d(Th)( ( 5*sol[nsol-2]-sol[nsol-3]-5*we1 +we2 )^2 )
+				 )*(dt/12.);
+	errProjectStateL2 = sqrt(errL2);
+	
+	cout << "errore project state L2  " << errProjectStateL2 << endl;
 	
 	return 0;
 }

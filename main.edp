@@ -18,7 +18,10 @@ real N=80;
 
 real T=1.;
 real t=0.01;
-real dt=0.5;
+
+real nsol = 10;
+real dt=T/nsol;
+
 
 include "solEs.edp";
 

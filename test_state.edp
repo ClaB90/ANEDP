@@ -6,7 +6,9 @@ real N=80;
 
 real T=1.;
 real t=0.01;
-real dt=0.05;
+
+real nsol = 10;
+real dt=T/(nsol-1);
 
 func f = 0.;
 func u = 0.;
