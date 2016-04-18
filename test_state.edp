@@ -11,6 +11,8 @@ real dt=0.05;
 func f = 0.;
 func u = 0.;
 
+include "solEs.edp";
+
 /****** 01.MESH ******/
 mesh Th = square( N, N, [2*pi*x, 2*pi*y] );
 

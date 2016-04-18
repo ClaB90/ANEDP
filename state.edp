@@ -10,6 +10,10 @@
  * 														 					*
  ****************************************************************************/
 
+// Parametro per il calcolo dell'errore dello stato
+
+real errStateL2=0.;
+
 // k == soluzione all'istante iniziale
 func w0 = sin(2*x)*sin(2*y);
 
@@ -26,7 +30,7 @@ totalsol++;
 */
 
 /****** 01.SPAZI FUNZIONALI ******/
-fespace Yh( Th, P0 );
+fespace Yh( Th, P2 );
 Yh w, wold, wtest, fold;
 Yh[int] sol(T/dt+1);
 
@@ -39,8 +43,8 @@ Yh[int] sol(T/dt+1);
  *  EA gamma0 = 0.5 poichè abbiamo il passo temporale dimezzato
  *	  gamma1 = 0.
  */
-real gamma0,gamma1;
-
+real gamma=0.5;
+/*
 problem state(w, wtest) =   int2d(Th)( w*wtest/dt )
 						  - int2d(Th)( wold*wtest/dt )
 						  + int2d(Th)( gamma0*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) ) ) 
@@ -48,6 +52,22 @@ problem state(w, wtest) =   int2d(Th)( w*wtest/dt )
 						  - int2d(Th)( gamma0*( (fold+u)*wtest ) ) 
 						  - int2d(Th)( gamma1*( (f+u)*wtest ) ) 
 						  + on(1,2,3,4, w=wb);
+*/
+
+varf s(w,wtest) =   int2d(Th)( w*wtest/dt )
+	        	  + int2d(Th)( gamma*( dx(w)*dx(wtest) + dy(w)*dy(wtest) ) )
+				  + on(1,2,3,4, w=wb);
+
+varf c(w,wtest) =   int2d(Th)( wold*wtest/dt )
+				  - int2d(Th)( 0.5*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) )*(t>dt) )
+				  + int2d(Th)( 0.5*( (fold+u)*wtest )*(t>dt) ) 
+				  + int2d(Th)( gamma*( (f+u)*wtest ) );
+					  
+matrix S; 
+real[int] bc(Yh.ndof);
+
+S=s(Yh,Yh,solver=UMFPACK);
+bc=s(0,Yh);
 
 /* NB - u non cambia al passo temporale della w quello che cambia è la f, se dipende dal tempo, 
  *   	 quindi bisogna tener traccia della fold;
@@ -60,34 +80,27 @@ func real statet()
 {
 	cout << "State " << endl;
 	
+	real[int] tmp(Yh.ndof);
+	real errL2=0.,normL2=0.;
+	
 	//inizializzo le variabili iniziali ogni volta che chiamo la funzione
 	int i=0;
-	t=0.01;
+	t=dt;
 	wold=w0;
-	
-	//Primo passo con EI
-	gamma0=0.;
-	gamma1=0.5;
-	
-	state;
-	plot( w, value = 1, fill=1, wait = 0, cmm="w" );
-	cout << "siamo al tempo   = " << t << endl;
-	
-	wold=w;
-	fold=f;
-	
-	sol[i] = w;
-	i++;
-	t += dt;
 
-	while( t <= T )
+	while( t < T-dt )
 	{
-		gamma0=0.5;
-		gamma1=0.5;
 		
-		state;
+		tmp = c(0,Yh);
+		tmp += bc;
+		
+		w[] = S^-1*tmp;
+		
 	    plot( w, value = 1, fill=1, wait = 0, cmm="w" );
 		cout << "siamo al tempo   = " << t << endl;
+		
+		normL2 = int2d(Th)( (w-we)^2 );
+		errL2 += dt*normL2;
 		
 		wold=w;
 		fold=f;
@@ -98,12 +111,23 @@ func real statet()
 		i++;
 	}
 	
-	gamma0=0.5;
-	gamma1=0.;
+	gamma=0.;
 	
-	state;
+	S=s(Yh,Yh);
+	
+	tmp = c(0,Yh);
+	tmp += bc;
+	
+	w[] = S^-1*tmp;
+	
 	cout << "siamo al tempo = " << t << endl;
 	plot( w, value = 1, fill=1, wait = 0, cmm="w final" );
+	
+	normL2 = int2d(Th)( (w-we)^2 );
+	errL2 += dt*normL2;
+	errStateL2 = sqrt(errL2);
+	
+	cout << "errore state L2  " << errStateL2 << endl;
 	
 	sol[i]=w;
 	

@@ -1,0 +1,1 @@
+func we = exp(-8*t)*sin(2*x)*sin(2*y);

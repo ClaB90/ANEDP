@@ -20,6 +20,8 @@ real T=1.;
 real t=0.01;
 real dt=0.5;
 
+include "solEs.edp";
+
 //Per il problema di controllo
 real lambda, dJ0norm, J, J0, dJtol, epsilon, alpha;
 int k, Nmax;
@@ -28,7 +30,7 @@ func f = 0.;
 lambda = 0.001;
 
 /****** 01.MESH ******/
-mesh Th = square( N, N );
+mesh Th = square( N, N, flags=1 );
 
 /****** 02.SPAZI FUNZIONALI ******/
 fespace Xh( Th, P0 );
@@ -42,7 +44,6 @@ wd = 100.0 * x * y * ( 1 - x ) * ( 1 - y );
 
 // State problem 
 include "state.edp";
-
 
 // Adjoint Problem
 include "adjoint.edp";
