@@ -19,7 +19,8 @@ real errStateL2=0.;
 real errProjectStateL2 = 0.; 
 	
 // k == soluzione all'istante iniziale
-func w0 = sin(2*x)*sin(2*y);
+t=0.;
+func w0 = -1.*(pi^2*wa)/(2+a1);
 
 // wb funzione al bordo di dirchlet 
 func wb = 0.;
@@ -47,7 +48,7 @@ Yh[int] sol(nsol);
  *  EA gamma0 = 0.5 poichè abbiamo il passo temporale dimezzato
  *	  gamma1 = 0.
  */
-real gamma=0.5;
+real gamma=0.5, uold=0., ui;
 /*
 problem state(w, wtest) =   int2d(Th)( w*wtest/dt )
 						  - int2d(Th)( wold*wtest/dt )
@@ -64,8 +65,8 @@ varf s(w,wtest) =   int2d(Th)( w*wtest/dt )
 
 varf c(w,wtest) =   int2d(Th)( wold*wtest/dt )
 				  - int2d(Th)( 0.5*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) )*(t>dt) )
-				  + int2d(Th)( 0.5*( (fold+u)*wtest )*(t>dt) ) 
-				  + int2d(Th)( gamma*( (f+u)*wtest ) );
+				  + int2d(Th)( 0.5*( (uold)*wtest )*(t>dt) ) 
+				  + int2d(Th)( gamma*( (ui)*wtest ) );
 					  
 matrix S; 
 real[int] bc(Yh.ndof);
@@ -94,20 +95,26 @@ func real statet()
 
 	for( int i=0; i<nsol-1; i++ )
 	{
+		if( i > 0 )
+		{
+			uold= u[i-1];
+		}
+		
+		ui=u[i];
 		
 		tmp = c(0,Yh);
 		tmp += bc;
 		
 		w[] = S^-1*tmp;
 		
-	    plot( w, value = 1, fill=1, wait = 0, cmm="w" );
-		cout << "siamo al tempo   = " << t << endl;
+	    //plot( w, value = 1, fill=1, wait = 0, cmm="w" );
+		//cout << "siamo al tempo   = " << t << endl;
 		
 		normL2 = int2d(Th)( (w-we)^2 );
 		errL2 += dt*normL2;
 		
 		wold=w;
-		fold=f;
+		//fold=f;
 		
 		sol[i]=w;
 		
@@ -125,8 +132,8 @@ func real statet()
 	
 	sol[nsol-1]=w;
 	
-	cout << "siamo al tempo = " << t << endl;
-	plot( w, value = 1, fill=1, wait = 0, cmm="w final" );
+	//cout << "siamo al tempo = " << t << endl;
+	//plot( w, value = 1, fill=1, wait = 0, cmm="w final" );
 	
 	normL2 = int2d(Th)( (w-we)^2 );
 	errL2 += dt*normL2;

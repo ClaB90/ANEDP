@@ -16,21 +16,33 @@ verbosity=0;
 
 real N=80;
 
-real T=1.;
+real T=0.1;
 real t=0.01;
 
+/* NB: fissato un numero di soluzioni il numero di intervalli sarà nsol-1 poichè la soluzione 
+ *     è nota per i valori nodali.
+ */
 real nsol = 10;
-real dt=T/nsol;
+real dt=T/(nsol-1);
 
-
+/* nel file soluzioniEsatte.edp sono contenute le definizioni delle soluzioni esatte per w,p,u
+ */
 include "solEs.edp";
 
 //Per il problema di controllo
-real lambda, dJ0norm, J, J0, dJtol, epsilon, alpha;
+real alpha, a, b, toll=0.,epsilon;
 int k, Nmax;
 
 func f = 0.;
-lambda = 0.001;
+func g = sin(pi*x)*sin(pi*y);
+func  real PUab(real& x, real& y, real& z)
+{
+	real tmp=0.;
+	
+	tmp = max( x, min( z, y ) );
+		
+	return tmp;
+}
 
 /****** 01.MESH ******/
 mesh Th = square( N, N, flags=1 );
@@ -38,12 +50,19 @@ mesh Th = square( N, N, flags=1 );
 /****** 02.SPAZI FUNZIONALI ******/
 fespace Xh( Th, P0 );
 
-Xh u, wd, err, dJ;
-wd = 100.0 * x * y * ( 1 - x ) * ( 1 - y );
+Xh err, dJ;
+real[int] u(nsol);
+
+real a1 = -sqrt(5.);
+func wa = exp(a1*pi^2*t)*sin(x*pi)*sin(y*pi);
+func waT = exp(a1*pi^2*T)*sin(x*pi)*sin(y*pi);
+func wd = (a1^2 - 5.)*pi^2*wa/(a1+2.) + 2.*pi^2*waT;
 
 /****** 03.MATRICI E VETTORI ******/
 
 /****** 04.SOLVE ******/   
+//Vado a salvare il pezzetto B'pk per ogni passo temporale
+real[int] Bpk(nsol), Bpkold(nsol);
 
 // State problem 
 include "state.edp";
@@ -53,59 +72,78 @@ include "adjoint.edp";
 
 
 //Solution at 1st step
-u = 0.;             //control
-alpha = 200.0;     //acceleration parameter
-epsilon = 1e-3;    //tolerance for the stopping criterion
+u = -25.;             //control
+a = - 25.;
+b = -1.;
+alpha = pi^(-4.);     //acceleration parameter
+epsilon = 1e-5;    //tolerance for the stopping criterion
 Nmax = 300;        //max iterations number
 k = 0;             //couter for iterative algorithm
 
 statet(); 
-plot( w, nbiso = 40, fill=1, value = 1, wait = 0, cmm="initial y" );
+//plot( w, nbiso = 40, fill=1, value = 1, wait = 0, cmm="initial y" );
 //Initial value of the cost functional
-J0 = int2d( Th )(0.5*( w - wd )^2) + lambda *0.5* int2d( Th )( u^2 ); 
-cout << "J0 = " << J0 << endl;
 
 adjointt();
-plot( p, nbiso = 40, fill=1, value = 1, wait = 0, cmm="initial p");
+//plot( p, nbiso = 40, fill=1, value = 1, wait = 1, cmm="initial p");
 
-dJ = p + lambda * u;                     // J'(u0) = grad f(u0)
-dJ0norm = sqrt( int2d( Th )( dJ^2 ) );   // || J'(u0) ||_{L^2(Omega)}
-dJtol = 1.0;                             // to enter in the while loop
+Bpkold = Bpk;
 
-plot( w, nbiso = 40, value = true, wait = 0, cmm="initial w" );
-plot( p, nbiso = 40, value = true, wait = 0, cmm="initial p");
+toll = 1;
+
 
 //Iterative algorithm
-while ( dJtol > epsilon  && k <= Nmax){
+while ( toll > epsilon  && k <= Nmax){
       
       k = k + 1;
       
       //Control Update
-      u = u - alpha * dJ;  
+	  for(int i=0; i<nsol; i++)
+	  {
+		  u[i] = PUab(a,b,Bpk[i]);
+		  //cout << "u[ " << i << "  ]" << u[i] << endl;
+	  }
+	  
+      //u[] = tmp;  
 
       statet();  
-     
-      J = int2d( Th ) ( 0.5*( w - wd )^2 ) + lambda * 0.5 * int2d( Th ) ( u^2 );     
 
       adjointt();
-      dJ = p + lambda * u;
-      dJtol = sqrt( int2d( Th )( dJ^2 ) ) / dJ0norm;  // Monitored quantitw for the Stopping criterion
       
       cout << "k = " << k << endl;
-      cout << "realtive error for J' = " << dJtol << endl;
+	  
+	  
+	  for( int i = 0; i < nsol-1; i++)
+	  {
+		  if( i == 0 )
+		  {
+		  	toll = abs(Bpk[i]-Bpkold[i]);
+		  }
+		  else
+		  {
+		  	toll = max( toll, abs(Bpk[i]-Bpkold[i]));
+		  }
+		  
+		  cout << " i = " << i << endl;
+		  cout << "Bpk[i] = " << Bpk[i] << "  Bpkold[i] = " <<  Bpkold[i] << endl;
+		  cout << "toll = " << toll << endl;
+	  }
+
+	  cout << "toll final = " << toll << endl;
+	  
+	  Bpkold = Bpk;
 
     };
 
 cout << "==========================" << endl;
-cout << "J0 = " << J0 << endl;
-cout << "J  = " << J << endl;
 cout << "Number of  iterations = " << k << endl;
 
 
 
 /****** 05.VISUALIZATION ******/ 
 // Difference between the final state and the desired observation 
-err = abs( w - wd );       
+err = abs( w - wd );  
+//plot( wdsol, nbiso = 40, fill=1, value = 1, wait = 1, cmm="w_d" );    
 plot( err, nbiso = 40, fill=1, value = 1, wait = 1, cmm="|w-w_d|" );
 plot( w, nbiso = 40, fill=1, value = 1, wait = 1, cmm="final w" );
-plot( u, nbiso = 40, fill=1, value = 1, wait = 1, cmm="final u" );
+plot( p, nbiso = 40, fill=1, value = 1, wait = 1, cmm="final p" );

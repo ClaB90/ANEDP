@@ -26,8 +26,8 @@ Ph p, pnext, ptest;
 
 /****** 02.PROBLEMA SPAZIALE ******/ 
   
-problem adjoint( p, ptest) =   int2d(Th)( pnext*ptest/dt )
-							 - int2d(Th)( p*ptest/dt )			
+problem adjoint( p, ptest) = - int2d(Th)( pnext*ptest/dt )
+							 + int2d(Th)( p*ptest/dt )			
 						     + int2d(Th)( 0.5*( dx(p)*dx(ptest) + dy(p)*dy(ptest) ) ) 
 						     + int2d(Th)( 0.5*( dx(pnext)*dx(ptest) + dy(pnext)*dy(ptest) ) ) 
 						     - int2d(Th)( 0.5*( h*ptest ) ) 
@@ -46,27 +46,32 @@ func real adjointt()
 	
 	//inizializzo le variabili iniziali ogni volta che chiamo la funzione
 	//NB generalizza x dt
-	int j = T/dt;
+	int j = nsol;
 	
-	cout << j << endl;
-		
+	//cout << j << endl;
+	
+	Bpk[j-1] = pT;
 	pnext=pT;
 	t=T;
-	h = sol[j] - wd;
+	h = sol[j-1] - wd;
 	
 	j--;
 
 	//Devi risolvere un passo in meno per l'aggiunta poichè beta_0 == 0
-	while( t > 0 )
+	while( j > 0 )
 	{
-		cout << "siamo al tempo   = " << t << endl;
+		//cout << "siamo al tempo   = " << t << endl;
 		
 		hnext = h;
 		h = sol[j] - wd;
 		
 		adjoint;
-		plot( p, nbiso=40, value = 1, fill=1, wait = 0, cmm="p" );
+		//plot( p, nbiso=40, value = 1, fill=1, wait = 0, cmm="p" );
 		pnext=p;
+		
+		//cout << " j " << j << endl;
+		Bpk[j-1]= (-1./alpha)*int2d(Th)( p * g );
+		
 		
 		t -= dt;
 		j--;
