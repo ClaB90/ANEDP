@@ -1,0 +1,40 @@
+/****************** Politecnico di Milano - ANEDP project ******************/
+/* 														 					*
+ *  	authors Edoardo Arbib 							 					*
+ *				Claudia Bonomi 							 					*
+ *											   			 					*
+ *  	Descrizione: per la gestione dell'insieme Uab definiamo 			*
+ *						- a = limite inferiore dell'insieme Uad      		*
+ *						- b = limite superiore dell'insieme Uad      		*
+ *					    - funzione per la proiezione di un valore su Uab    *
+ * 														 					*
+ * 		Dipendenze: conoscenza di nsol definito nel main  			 		* 
+ * 														 					*
+ ****************************************************************************/
+
+real a, b;
+
+a = - 25.;
+b = -1.;
+
+func real PUabScal(real& z)
+{
+	real tmp=0.;
+	
+	tmp = max( a, min( z, b ) );
+		
+	return tmp;
+}
+
+func real[int] PUab(real[int]& z)
+{
+	real[int] tmp(nsol);
+	
+  	for(int i=0; i<nsol; i++)
+  	{
+	  tmp[i] = PUabScal(z[i]);
+	  //cout << "u[ " << i << "  ]" << u[i] << endl;
+  	}
+		
+	return tmp;
+}

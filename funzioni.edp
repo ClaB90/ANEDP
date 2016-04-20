@@ -1,0 +1,28 @@
+/****************** Politecnico di Milano - ANEDP project ******************/
+/* 														 					*
+ *  	authors Edoardo Arbib 							 					*
+ *				Claudia Bonomi 							 					*
+ *											   			 					*
+ *  	Descrizione: definiamo le funzioni					 				*
+ *						- wa e waT								      		*
+ *						- g1  per B								      		*
+ *					    - yd 											    *
+ *					 definiamo il parametro	   							    *
+ *						- a1												*
+ *																			*
+ * 		Dipendenze:	main -> variabili t e T definite  						*
+ *						 -> alpha parametro del problema di controllo 		*
+ * 														 					*
+ ****************************************************************************/
+
+real a1 = -sqrt(5.);
+
+func g = sin(pi*x)*sin(pi*y);
+
+func wa = exp(a1*pi^2*t)*sin(x*pi)*sin(y*pi);
+func waT = exp(a1*pi^2*T)*sin(x*pi)*sin(y*pi);
+
+func wd = (a1^2 - 5.)*pi^2*wa/(a1+2.) + 2.*pi^2*waT;
+
+
+	

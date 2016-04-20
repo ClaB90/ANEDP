@@ -1,63 +1,83 @@
-/****************** Politecnico di Milano - ANEDP project ******************/
-/* 														 					*
- *  	authors Edoardo Arbib 							 					*
- *				Claudia Bonomi 							 					*
- *											   			 					*
- *  	Descrizione: Per il problema di stato definiamo  					*
- *						- spazi funzionali		         					*
- *						- problema spaziale				 					*
- *					    - funzione per la soluzione del problema temporale  *
- * 														 					*
- ****************************************************************************/
+/*********************** Politecnico di Milano - ANEDP project ************************/
+/* 														 					          *
+ *  	authors Edoardo Arbib 							 					          *
+ *				Claudia Bonomi 							 					          *
+ *											   			 					          *
+ *  	Descrizione: Per il problema di stato definiamo  					          *
+ *						- spazi funzionali		         					          *
+ *						- problema spaziale				 					          *
+ *					    - funzione per la soluzione del problema temporale            * 
+ *    					- norme dell'errore e analisi di convergenza                  *
+ * 														 				 	 	 	  *
+ * 		Dipendenze: main -> nsol + paramtri temporali + u(=soluzione controllo)  	  * 
+ * 					soluzioniEsatte -> soluzione esatta di y e parametri t1 e t2 	  * 
+ * 									   necessarie per il calcolo dell'errore     	  *
+ * 														 				 	 	 	  *
+ **************************************************************************************/
 
-// Parametro per il calcolo dell'errore dello stato
-
-// || pi*y -y_k ||L2
-real errStateL2=0.;
-
-// || y -pi*y_k ||L2
-real errProjectStateL2 = 0.; 
 	
-// k == soluzione all'istante iniziale
+/****************** 00.PARAMETRI E FUNZIONI ******************/
+// w0 soluzione all'istante iniziale
 t=0.;
 func w0 = -1.*(pi^2*wa)/(2+a1);
 
 // wb funzione al bordo di dirchlet 
 func wb = 0.;
 
-/*
-int totalsol=1, tmp=t;
-while(tmp <= T)
-{
-	totalsol++;
-}
-totalsol++;
-*/
+/*la forzante del problema ha la seguente forma
+ *	g0(t,x,y) = -pi^(4)*wa - PUad(-(exp(a1*pi^2*t)+exp(a1*pi^2*T))/(4.*alpha))
+ * per calcolare il secondo termine è necessario usare le variabili di ausilio g0part e g0II
+ * poichè freefem non ci permette di aglomerare le funzioni in un unica riga faremo dunque:
+ * 		g0part= g0exp;
+ *		g0II = PUabScal(g0part);
+ */
+func g0I = -pi^(4)*wa;
+func g0exp = -(exp(a1*pi^2*t)+exp(a1*pi^2*T))/(4.*alpha);
+real g0part, g0II;
 
-/****** 01.SPAZI FUNZIONALI ******/
+func g0 = g0I - g0II;
+
+/* Parametri per il calcolo dell'errore dello stato
+ * errStateL2 = || pi*y -y_k ||L2
+ *
+ * errProjectStateL2 = || y -pi*y_k ||L2
+ */
+real errStateL2=0.;
+real errProjectStateL2 = 0.; 
+
+/****************** 01.SPAZI FUNZIONALI ******************/
+
 fespace Yh( Th, P2 );
-Yh w, wold, wtest, fold;
+
+/* w soluzione del problema di stato al passo temporale corrente
+ * wold suluzione del problema di stato al passo temporale precedente
+ * wtest funzione test
+ * g0old forzante al passo temporale precedente
+ */
+Yh w, wold, wtest, g0old;
+
+//vettore della soluzioni w ad ogni passo temporale
 Yh[int] sol(nsol);
 
-/****** 02.PROBLEMA SPAZIALE ******/ 
+/******************  02.PROBLEMA SPAZIALE ******************/
  
-/*	gamma0 and gamma1 legend
- * 	EI gamma0 = 0 
- *     gamma1= 0.5 poichè abbiamo il passo temporale dimezzato
- *  CN gamma0=gamma1= 0.5
- *  EA gamma0 = 0.5 poichè abbiamo il passo temporale dimezzato
- *	  gamma1 = 0.
+/* Lo schema di integrazione temporale implementato è una variante di Crank-Nicolson
+ * in particolare viene effettuato:
+ *  un passo di EI con passo temporale dimezzato
+ *  nsol-2 passi di CN
+ *  un passo di EA
+ * Per questo motivo la matrice S rimane invariata dal primo al penultimo passo
+ *  il parametro gamma verà settato a zero prima che la matrice S venga ricacolata 
+ *  nel ultimo passo.
  */
-real gamma=0.5, uold=0., ui;
-/*
-problem state(w, wtest) =   int2d(Th)( w*wtest/dt )
-						  - int2d(Th)( wold*wtest/dt )
-						  + int2d(Th)( gamma0*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) ) ) 
-						  + int2d(Th)( gamma1*( dx(w)*dx(wtest) + dy(w)*dy(wtest) ) ) 
-						  - int2d(Th)( gamma0*( (fold+u)*wtest ) ) 
-						  - int2d(Th)( gamma1*( (f+u)*wtest ) ) 
-						  + on(1,2,3,4, w=wb);
-*/
+real gamma=0.5;
+
+/* uold e ui contengono il valore della soluzione di controllo al tempo t e t-dt
+ * Al passo di EI solo la componente u(0) deve essere considerata
+ * Per ogni passo i di CN le componenti u(i) ed u(i-1) devono essere considerati
+ * Al passo di EA solo la componente u(nsol-1) deve essere considerata
+ */
+real uold=0., ui;
 
 varf s(w,wtest) =   int2d(Th)( w*wtest/dt )
 	        	  + int2d(Th)( gamma*( dx(w)*dx(wtest) + dy(w)*dy(wtest) ) )
@@ -65,18 +85,14 @@ varf s(w,wtest) =   int2d(Th)( w*wtest/dt )
 
 varf c(w,wtest) =   int2d(Th)( wold*wtest/dt )
 				  - int2d(Th)( 0.5*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) )*(t>dt) )
-				  + int2d(Th)( 0.5*( (uold)*wtest )*(t>dt) ) 
-				  + int2d(Th)( gamma*( (ui)*wtest ) );
+				  + int2d(Th)( 0.5*( (uold + g0old)*wtest )*(t>dt) ) 
+				  + int2d(Th)( gamma*( (ui + g0)*wtest ) );
 					  
 matrix S; 
 real[int] bc(Yh.ndof);
 
 S=s(Yh,Yh,solver=UMFPACK);
 bc=s(0,Yh);
-
-/* NB - u non cambia al passo temporale della w quello che cambia è la f, se dipende dal tempo, 
- *   	 quindi bisogna tener traccia della fold;
- */
 
 
 /****** 03.FUNZIONE PER SOLUZIONE IN TEMPO ******/ 
@@ -89,12 +105,12 @@ func real statet()
 	real errL2=0.,normL2=0.;
 	
 	//inizializzo le variabili iniziali ogni volta che chiamo la funzione
-	
-	t=dt;
 	wold=w0;
+	t=dt;
 
 	for( int i=0; i<nsol-1; i++ )
 	{
+		//setto le variabili ui ed uold asicurandomi di non andare ad accedere la posizione u[-1]
 		if( i > 0 )
 		{
 			uold= u[i-1];
@@ -102,25 +118,34 @@ func real statet()
 		
 		ui=u[i];
 		
+		//aggiorno g0II
+		g0part= g0exp;
+		g0II = PUabScal(g0part);
+		
 		tmp = c(0,Yh);
 		tmp += bc;
 		
+		//Risolvo
 		w[] = S^-1*tmp;
 		
 	    //plot( w, value = 1, fill=1, wait = 0, cmm="w" );
 		//cout << "siamo al tempo   = " << t << endl;
 		
+		//Calcolo dell'errore
 		normL2 = int2d(Th)( (w-we)^2 );
 		errL2 += dt*normL2;
 		
-		wold=w;
-		//fold=f;
-		
+		// salvo la mia soluzione al passo precedente
 		sol[i]=w;
 		
+		//aggiorno wold, il tempo e g0old
+		wold=w;
 		t += dt;
+		g0old = g0;
+		
 	}
 	
+	// passo di EA
 	gamma=0.;
 	
 	S=s(Yh,Yh);
@@ -135,6 +160,7 @@ func real statet()
 	//cout << "siamo al tempo = " << t << endl;
 	//plot( w, value = 1, fill=1, wait = 0, cmm="w final" );
 	
+	//Calcolo dell'errore
 	normL2 = int2d(Th)( (w-we)^2 );
 	errL2 += dt*normL2;
 	errStateL2 = sqrt(errL2);
@@ -158,14 +184,11 @@ func real statet()
 		t2 += dt;
 	}
 	
-/*	errL2 += (   int2d(Th)( ( 1.5*sol[nsol-1] - 0.5*sol[nsol-2] - 1.5*we1 + 0.5*we2 )^2 )
-			   + int2d(Th)( ( (sol[nsol-1]-we1)^2 ) )
-			   + (1./4.)*int2d(Th)( ( 5*sol[nsol-1]-sol[nsol-2]-5*we1 +we2 )^2 )
-				 )*(dt/12.); */
 	errL2 += (   int2d(Th)( ( 1.5*sol[nsol-2] - 0.5*sol[nsol-3] - 1.5*we1 + 0.5*we2 )^2 )
 			   + int2d(Th)( ( (sol[nsol-2]-we1)^2 ) )
 			   + (1./4.)*int2d(Th)( ( 5*sol[nsol-2]-sol[nsol-3]-5*we1 +we2 )^2 )
 				 )*(dt/12.);
+	
 	errProjectStateL2 = sqrt(errL2);
 	
 	cout << "errore project state L2  " << errProjectStateL2 << endl;

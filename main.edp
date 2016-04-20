@@ -14,71 +14,63 @@ verbosity=0;
 
 /****** 00.PARAMETRI ******/
 
-real N=80;
-
+/* Parametri temporali */
 real T=0.1;
 real t=0.01;
 
-/* NB: fissato un numero di soluzioni il numero di intervalli sarà nsol-1 poichè la soluzione 
- *     è nota per i valori nodali.
- */
+/* NB: fissato un numero di soluzioni il numero di intervalli sarà nsol-1 poichè la soluzione è nota per i valori nodali. */
 real nsol = 10;
 real dt=T/(nsol-1);
 
-/* nel file soluzioniEsatte.edp sono contenute le definizioni delle soluzioni esatte per w,p,u
+/* nel file funzioni.edp sono contenute le funzioni che caratterizzano l'operatore B ed yd
  */
-include "solEs.edp";
+include "funzioni.edp";
 
-//Per il problema di controllo
-real alpha, a, b, toll=0.,epsilon;
+/* nel file UabSet.edp vengono definiti i limiti dell'insieme Uab e le funzioni di proiezione di 
+ * uno scalare o di un vettore sullo spazio Uab
+ */
+include "UabSet.edp";
+
+/* nel file soluzioniEsatte.edp sono contenute le funzioni per soluzioni esatte per w,p,u
+ */
+include "soluzioniEsatte.edp"; 
+
+/* Parametri Per il problema di controllo:
+ *	alpha = acceleration parameter
+ *	toll = variabile per la tolleranza
+ *	epsilon = valore limite per la tolleranza
+ *  k = numero di iterazione del ciclo di controllo
+ *  Nmax = numero massimo di iterazioni
+ *  u = vettore soluzione di controllo
+ */
+real alpha, toll=0.,epsilon;
 int k, Nmax;
+alpha = pi^(-4.);    
+epsilon = 1e-5;    
+Nmax = 300;        
+k = 0;  
 
-func f = 0.;
-func g = sin(pi*x)*sin(pi*y);
-func  real PUab(real& x, real& y, real& z)
-{
-	real tmp=0.;
-	
-	tmp = max( x, min( z, y ) );
-		
-	return tmp;
-}
+real[int] u(nsol);          
 
 /****** 01.MESH ******/
+real N=10;
 mesh Th = square( N, N, flags=1 );
+ 
 
-/****** 02.SPAZI FUNZIONALI ******/
-fespace Xh( Th, P0 );
-
-Xh err, dJ;
-real[int] u(nsol);
-
-real a1 = -sqrt(5.);
-func wa = exp(a1*pi^2*t)*sin(x*pi)*sin(y*pi);
-func waT = exp(a1*pi^2*T)*sin(x*pi)*sin(y*pi);
-func wd = (a1^2 - 5.)*pi^2*wa/(a1+2.) + 2.*pi^2*waT;
-
-/****** 03.MATRICI E VETTORI ******/
-
-/****** 04.SOLVE ******/   
 //Vado a salvare il pezzetto B'pk per ogni passo temporale
 real[int] Bpk(nsol), Bpkold(nsol);
 
-// State problem 
+/* nel file state.edp i parametri e le funzioni necessari per il problema di stato 
+ */
 include "state.edp";
 
-// Adjoint Problem
+/* nel file adjoint.edp i parametri e le funzioni necessari per il problema aggiunto 
+ */
 include "adjoint.edp";
 
-
-//Solution at 1st step
-u = -25.;             //control
-a = - 25.;
-b = -1.;
-alpha = pi^(-4.);     //acceleration parameter
-epsilon = 1e-5;    //tolerance for the stopping criterion
-Nmax = 300;        //max iterations number
-k = 0;             //couter for iterative algorithm
+//Primo passo soluzione
+//La variabile di controllo al primo passo viene settatta uguale al limite inferiore di Uab
+u = a;          
 
 statet(); 
 //plot( w, nbiso = 40, fill=1, value = 1, wait = 0, cmm="initial y" );
@@ -98,11 +90,7 @@ while ( toll > epsilon  && k <= Nmax){
       k = k + 1;
       
       //Control Update
-	  for(int i=0; i<nsol; i++)
-	  {
-		  u[i] = PUab(a,b,Bpk[i]);
-		  //cout << "u[ " << i << "  ]" << u[i] << endl;
-	  }
+	  u = PUab(Bpk);
 	  
       //u[] = tmp;  
 
@@ -142,8 +130,8 @@ cout << "Number of  iterations = " << k << endl;
 
 /****** 05.VISUALIZATION ******/ 
 // Difference between the final state and the desired observation 
-err = abs( w - wd );  
+//err = abs( w - wd );  
 //plot( wdsol, nbiso = 40, fill=1, value = 1, wait = 1, cmm="w_d" );    
-plot( err, nbiso = 40, fill=1, value = 1, wait = 1, cmm="|w-w_d|" );
+//plot( err, nbiso = 40, fill=1, value = 1, wait = 1, cmm="|w-w_d|" );
 plot( w, nbiso = 40, fill=1, value = 1, wait = 1, cmm="final w" );
 plot( p, nbiso = 40, fill=1, value = 1, wait = 1, cmm="final p" );

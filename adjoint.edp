@@ -1,14 +1,17 @@
-/****************** Politecnico di Milano - ANEDP project ******************/
-/* 														 					*
- *  	authors Edoardo Arbib 							 					*
- *				Claudia Bonomi 							 					*
- *											   			 					*
- *  	Descrizione: Per il problema aggiuto definiamo  					*
- *						- spazi funzionali		         					*
- *						- problema spaziale				 					*
- *					    - funzione per la soluzione del problema temporale  *
- * 														 					*
- ****************************************************************************/
+/*********************** Politecnico di Milano - ANEDP project ************************/
+/* 														 							  *
+ *  	authors Edoardo Arbib 							 							  *
+ *				Claudia Bonomi 							 							  *
+ *											   			 							  *
+ *  	Descrizione: Per il problema aggiuto definiamo  							  *
+ *						- spazi funzionali		         							  *
+ *						- problema spaziale				 							  *
+ *					    - funzione per la soluzione del problema temporale  		  *
+ * 		Dipendenze: main -> nsol + paramtri temporali 							 	  * 
+ * 					state -> sol(nsol) ed wd 										  * 
+ * 									   necessarie per il calcolo dell'errore     	  *
+ * 														 				 	 	 	  *
+ **************************************************************************************/
 
 // funzione p all'istante finale
 func pT = 0.;
@@ -34,8 +37,8 @@ problem adjoint( p, ptest) = - int2d(Th)( pnext*ptest/dt )
 						     - int2d(Th)( 0.5*( hnext*ptest ) ) 
 						     + on(1,2,3,4, p=pb);
 
-/* NB - u non cambia al passo temporale della p quello che cambia è la f, se dipende dal tempo, 
- *   	 quindi bisogna tener traccia della fnext;
+/* NB - u non cambia al passo temporale della p quello che cambia è la h, se dipende dal tempo, 
+ *   	 quindi bisogna tener traccia della hnext;
  */
 
 /****** 03.FUNZIONE PER SOLUZIONE IN TEMPO ******/ 
@@ -45,10 +48,7 @@ func real adjointt()
 	cout << "Adjoint " << endl;
 	
 	//inizializzo le variabili iniziali ogni volta che chiamo la funzione
-	//NB generalizza x dt
 	int j = nsol;
-	
-	//cout << j << endl;
 	
 	Bpk[j-1] = pT;
 	pnext=pT;

@@ -1,3 +1,16 @@
+/****************** Politecnico di Milano - ANEDP project ******************/
+/* 														 					*
+ *  	authors Edoardo Arbib 							 					*
+ *				Claudia Bonomi 							 					*
+ *											   			 					*
+ *  	Descrizione: definizioni delle soluzioni esatte per w,p,u 			*
+ *																			*
+ * 		Dipendenze:	file funzioni.edp dove è contenuta la definizione       *
+ *					 di wa e waT											*
+ * 														 					*
+ ****************************************************************************/
+
+
 func we = exp(-8*t)*sin(2*x)*sin(2*y);
 
 
