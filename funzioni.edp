@@ -11,7 +11,6 @@
  *						- a1												*
  *																			*
  * 		Dipendenze:	main -> variabili t e T definite  						*
- *						 -> alpha parametro del problema di controllo 		*
  * 														 					*
  ****************************************************************************/
 

@@ -10,8 +10,10 @@
  *    					- norme dell'errore e analisi di convergenza                  *
  * 														 				 	 	 	  *
  * 		Dipendenze: main -> nsol + paramtri temporali + u(=soluzione controllo)  	  * 
+ *						 -> alpha parametro del problema di controllo 				  *
  * 					soluzioniEsatte -> soluzione esatta di y e parametri t1 e t2 	  * 
  * 									   necessarie per il calcolo dell'errore     	  *
+ * 					funzioni -> wa ed a1								 			  *
  * 														 				 	 	 	  *
  **************************************************************************************/
 
