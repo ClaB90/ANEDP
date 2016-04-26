@@ -172,10 +172,10 @@ func real statet()
 	//Calcolo dell'errore
 	errL2 += dt*normL2state();
 	errStateL2 = sqrt(errL2);
-	real tr = normL2statetry();
+	//real tr = normL2statetry();
 	
 	cout << "errore state L2  " << errStateL2 << endl;
-	cout << "errore state L2 try  " << tr << endl;
+	//cout << "errore state L2 try  " << tr << endl;
 	
 	errProjectStateL2 = statetrap();
 	

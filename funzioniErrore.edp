@@ -75,7 +75,7 @@ func real statetrap()
 }
 
 /* Per il calcolo dell'errore di || ues -u_k ||L2 viene implementato il metodo dei trapezi
-*/
+ */
 func real controltrap(real[int]& controlsol)
 {
 	real tmp=0., med=0.;
@@ -94,6 +94,8 @@ func real controltrap(real[int]& controlsol)
 	return tmp;
 }
 
+/* Calcolo della || ues - u_k ||L2 con il metodo di cavalieri simpson
+ */
 func real controlCS(real[int]& controlsol)
 {
 	real tmp=0., med=0.;
