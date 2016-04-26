@@ -13,13 +13,13 @@ real dt=T/(nsol-1);
 func f = 0.;
 func u = 0.;
 
-include "solEs.edp";
+include "SolEsatte.edp";
 
 /****** 01.MESH ******/
 mesh Th = square( N, N, [2*pi*x, 2*pi*y] );
 
 
 /****** 02.SOLVE ******/
-include "state.edp";
+include "../state.edp";
 
 statet();
