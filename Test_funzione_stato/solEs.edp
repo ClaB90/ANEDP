@@ -1,0 +1,7 @@
+func we = exp(-8*t)*sin(2*x)*sin(2*y);
+
+
+real t1=dt*3./2.;
+real t2=dt/2.;
+func we1 = exp(-8*t1)*sin(2*x)*sin(2*y);
+func we2 = exp(-8*t2)*sin(2*x)*sin(2*y);

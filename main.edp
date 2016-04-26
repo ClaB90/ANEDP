@@ -16,10 +16,10 @@ verbosity=0;
 
 /* Parametri temporali */
 real T=0.1;
-real t=0.01;
+real t=0.;
 
 /* NB: fissato un numero di soluzioni il numero di intervalli sarà nsol-1 poichè la soluzione è nota per i valori nodali. */
-real nsol = 10;
+real nsol = 19;
 real dt=T/(nsol-1);
 
 /* nel file funzioni.edp sono contenute le funzioni che caratterizzano l'operatore B ed yd
@@ -59,13 +59,18 @@ mesh Th = square( N, N, flags=1 );
 //Vado a salvare il pezzetto B'pk per ogni passo temporale
 real[int] Bpk(nsol), Bpkold(nsol);
 
-/* nel file state.edp i parametri e le funzioni necessari per il problema di stato 
+/* nel file state.edp sono contenuti i parametri e le funzioni necessari per il problema di stato 
  */
 include "state.edp";
 
-/* nel file adjoint.edp i parametri e le funzioni necessari per il problema aggiunto 
+/* nel file adjoint.edp sono contenuti i parametri e le funzioni necessari per il problema aggiunto 
  */
 include "adjoint.edp";
+
+/* nel file funzioniErrore.edp le funzioni necessarie per il calcolo dell'errore del problema di stato
+ * e di quello di controllo 
+ */
+//include "funzioniErrore.edp";
 
 //Primo passo soluzione
 //La variabile di controllo al primo passo viene settatta uguale al limite inferiore di Uab
@@ -107,9 +112,9 @@ while ( toll > epsilon  && k <= Nmax)
 		  	toll = max( toll, abs(Bpk[i]-Bpkold[i]));
 		  }
 		  
-		  cout << " i = " << i << endl;
-		  cout << "Bpk[i] = " << Bpk[i] << "  Bpkold[i] = " <<  Bpkold[i] << endl;
-		  cout << "toll = " << toll << endl;
+		  //cout << " i = " << i << endl;
+		  //cout << "Bpk[i] = " << Bpk[i] << "  Bpkold[i] = " <<  Bpkold[i] << endl;
+		  //cout << "toll = " << toll << endl;
 	  }
 
 	  cout << "toll final = " << toll << endl;
@@ -121,6 +126,11 @@ while ( toll > epsilon  && k <= Nmax)
 cout << "==========================" << endl;
 cout << "Number of  iterations = " << k << endl;
 
+real errProjectControlL2 = 0.; 
+
+errProjectControlL2 = controltrap(u);
+cout << "Errore errProjectControlL2 = " << errProjectControlL2 << endl;
+cout << "Errore errProjectStateL2 = " << errProjectStateL2 << endl;
 
 
 /****** 05.VISUALIZATION ******/ 

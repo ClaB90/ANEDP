@@ -1,0 +1,186 @@
+/****************** Politecnico di Milano - ANEDP project ******************/
+/* 														 					*
+ *  	authors Edoardo Arbib 							 					*
+ *				Claudia Bonomi 							 					*
+ *											   			 					*
+ *  	Descrizione: Per il problema di stato definiamo  					*
+ *						- spazi funzionali		         					*
+ *						- problema spaziale				 					*
+ *					    - funzione per la soluzione del problema temporale  *
+ * 														 					*
+ ****************************************************************************/
+
+// Parametro per il calcolo dell'errore dello stato
+
+// || pi*y -y_k ||L2
+real errStateL2=0.;
+
+// || y -pi*y_k ||L2
+real errProjectStateL2 = 0.; 
+	
+// k == soluzione all'istante iniziale
+func w0 = sin(2*x)*sin(2*y);
+
+// wb funzione al bordo di dirchlet 
+func wb = 0.;
+
+/*
+int totalsol=1, tmp=t;
+while(tmp <= T)
+{
+	totalsol++;
+}
+totalsol++;
+*/
+
+/****** 01.SPAZI FUNZIONALI ******/
+fespace Yh( Th, P2 );
+Yh w, wold, wtest, fold;
+Yh[int] sol(nsol);
+
+/****** 02.PROBLEMA SPAZIALE ******/ 
+ 
+/*	gamma0 and gamma1 legend
+ * 	EI gamma0 = 0 
+ *     gamma1= 0.5 poichè abbiamo il passo temporale dimezzato
+ *  CN gamma0=gamma1= 0.5
+ *  EA gamma0 = 0.5 poichè abbiamo il passo temporale dimezzato
+ *	  gamma1 = 0.
+ */
+real gamma=0.5;
+/*
+problem state(w, wtest) =   int2d(Th)( w*wtest/dt )
+						  - int2d(Th)( wold*wtest/dt )
+						  + int2d(Th)( gamma0*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) ) ) 
+						  + int2d(Th)( gamma1*( dx(w)*dx(wtest) + dy(w)*dy(wtest) ) ) 
+						  - int2d(Th)( gamma0*( (fold+u)*wtest ) ) 
+						  - int2d(Th)( gamma1*( (f+u)*wtest ) ) 
+						  + on(1,2,3,4, w=wb);
+*/
+
+varf s(w,wtest) =   int2d(Th)( w*wtest/dt )
+	        	  + int2d(Th)( gamma*( dx(w)*dx(wtest) + dy(w)*dy(wtest) ) )
+				  + on(1,2,3,4, w=wb);
+
+varf c(w,wtest) =   int2d(Th)( wold*wtest/dt )
+				  - int2d(Th)( 0.5*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) )*(t>dt) )
+				  + int2d(Th)( 0.5*( (fold+u)*wtest )*(t>dt) ) 
+				  + int2d(Th)( gamma*( (f+u)*wtest ) );
+					  
+matrix S; 
+real[int] bc(Yh.ndof);
+
+S=s(Yh,Yh,solver=UMFPACK);
+bc=s(0,Yh);
+
+/* NB - u non cambia al passo temporale della w quello che cambia è la f, se dipende dal tempo, 
+ *   	 quindi bisogna tener traccia della fold;
+ */
+
+
+/****** 03.FUNZIONE PER SOLUZIONE IN TEMPO ******/ 
+
+func real statet()
+{
+	cout << "State " << endl;
+	
+	real[int] tmp(Yh.ndof);
+	real errL2=0.,normL2=0.;
+	
+	//inizializzo le variabili iniziali ogni volta che chiamo la funzione
+	
+	t=dt;
+	wold=w0;
+
+	for( int i=0; i<nsol-1; i++ )
+	{
+		
+		tmp = c(0,Yh);
+		tmp += bc;
+		
+		w[] = S^-1*tmp;
+		
+	    plot( w, value = 1, fill=1, wait = 0, cmm="w" );
+		cout << "siamo al tempo   = " << t << endl;
+		
+		normL2 = int2d(Th)( (w-we)^2 );
+		errL2 += dt*normL2;
+		
+		wold=w;
+		fold=f;
+		
+		sol[i]=w;
+		
+		t += dt;
+	}
+	
+	gamma=0.;
+	
+	S=s(Yh,Yh);
+	
+	tmp = c(0,Yh);
+	tmp += bc;
+	
+	w[] = S^-1*tmp;
+	
+	sol[nsol-1]=w;
+	
+	cout << "siamo al tempo = " << t << endl;
+	plot( w, value = 1, fill=1, wait = 0, cmm="w final" );
+	
+	normL2 = int2d(Th)( (w-we)^2 );
+	errL2 += dt*normL2;
+	errStateL2 = sqrt(errL2);
+	
+	cout << "errore state L2  " << errStateL2 << endl;
+	
+	errL2 = 0.;
+	
+	errL2 = (   int2d(Th)( ( 1.5*sol[0] - 0.5*sol[1] - 1.5*we2 + 0.5*we1 )^2 )
+		      + int2d(Th)( ( (sol[0]-we2)^2 ) )
+			  + (1./4.)*int2d(Th)( ( 5*sol[0]-sol[1]-5*we2 +we1 )^2 )
+			    )*(dt/12.);
+	
+	for( int i=1; i< nsol-3; i++)
+	{
+		errL2 += (   int2d(Th)( ( (sol[i-1]-we2)^2 ) )
+					+ int2d(Th)( ( (sol[i]-we1)^2 ) )
+					+ int2d(Th)( ( sol[i]+sol[i-1]-we2 -we1 )^2 ) 
+					  )*(dt/6.);
+		t1 += dt;
+		t2 += dt;
+	}
+	
+/*	errL2 += (   int2d(Th)( ( 1.5*sol[nsol-1] - 0.5*sol[nsol-2] - 1.5*we1 + 0.5*we2 )^2 )
+			   + int2d(Th)( ( (sol[nsol-1]-we1)^2 ) )
+			   + (1./4.)*int2d(Th)( ( 5*sol[nsol-1]-sol[nsol-2]-5*we1 +we2 )^2 )
+				 )*(dt/12.); */
+	errL2 += (   int2d(Th)( ( 1.5*sol[nsol-2] - 0.5*sol[nsol-3] - 1.5*we1 + 0.5*we2 )^2 )
+			   + int2d(Th)( ( (sol[nsol-2]-we1)^2 ) )
+			   + (1./4.)*int2d(Th)( ( 5*sol[nsol-2]-sol[nsol-3]-5*we1 +we2 )^2 )
+				 )*(dt/12.);
+	errProjectStateL2 = sqrt(errL2);
+	
+	cout << "errore project state L2  " << errProjectStateL2 << endl;
+	
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

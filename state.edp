@@ -61,6 +61,11 @@ Yh w, wold, wtest, g0old;
 //vettore della soluzioni w ad ogni passo temporale
 Yh[int] statesol(nsol);
 
+/* nel file funzioniErrore.edp le funzioni necessarie per il calcolo dell'errore del problema di stato
+ * e di quello di controllo 
+ */
+include "funzioniErrore.edp";
+
 /******************  02.PROBLEMA SPAZIALE ******************/
  
 /* Lo schema di integrazione temporale implementato è una variante di Crank-Nicolson
@@ -101,7 +106,7 @@ func real statet()
 	cout << "State " << endl;
 	
 	real[int] tmp(Yh.ndof);
-	real errL2=0.,normL2=0.;
+	real errL2=0.;
 	
 	//inizializzo le variabili iniziali ogni volta che chiamo la funzione
 	wold=w0;
@@ -137,8 +142,7 @@ func real statet()
 		//cout << "siamo al tempo   = " << t << endl;
 		
 		//Calcolo dell'errore
-		normL2 = int2d(Th)( (w-we)^2 );
-		errL2 += dt*normL2;
+		errL2 += dt*normL2state();
 		
 		// salvo la mia soluzione al passo precedente
 		statesol[i]=w;
@@ -166,35 +170,14 @@ func real statet()
 	//plot( w, value = 1, fill=1, wait = 0, cmm="w final" );
 	
 	//Calcolo dell'errore
-	normL2 = int2d(Th)( (w-we)^2 );
-	errL2 += dt*normL2;
+	errL2 += dt*normL2state();
 	errStateL2 = sqrt(errL2);
+	real tr = normL2statetry();
 	
 	cout << "errore state L2  " << errStateL2 << endl;
+	cout << "errore state L2 try  " << tr << endl;
 	
-	errL2 = 0.;
-	
-	errL2 = (   int2d(Th)( ( 1.5*statesol[0] - 0.5*statesol[1] - 1.5*we2 + 0.5*we1 )^2 )
-		      + int2d(Th)( ( (statesol[0]-we2)^2 ) )
-			  + (1./4.)*int2d(Th)( ( 5*statesol[0]-statesol[1]-5*we2 +we1 )^2 )
-			    )*(dt/12.);
-	
-	for( int i=1; i< nsol-3; i++)
-	{
-		errL2 += (   int2d(Th)( ( (statesol[i-1]-we2)^2 ) )
-					+ int2d(Th)( ( (statesol[i]-we1)^2 ) )
-					+ int2d(Th)( ( statesol[i]+statesol[i-1]-we2 -we1 )^2 ) 
-					  )*(dt/6.);
-		t1 += dt;
-		t2 += dt;
-	}
-	
-	errL2 += (   int2d(Th)( ( 1.5*statesol[nsol-2] - 0.5*statesol[nsol-3] - 1.5*we1 + 0.5*we2 )^2 )
-			   + int2d(Th)( ( (statesol[nsol-2]-we1)^2 ) )
-			   + (1./4.)*int2d(Th)( ( 5*statesol[nsol-2]-statesol[nsol-3]-5*we1 +we2 )^2 )
-				 )*(dt/12.);
-	
-	errProjectStateL2 = sqrt(errL2);
+	errProjectStateL2 = statetrap();
 	
 	cout << "errore project state L2  " << errProjectStateL2 << endl;
 	

@@ -4,22 +4,24 @@ verbosity=0;
 
 real N=80;
 
-real T=1.;
-real t=0.01;
+/* Parametri temporali */
+real T=0.1;
+real t=0.;
 
+/* NB: fissato un numero di soluzioni il numero di intervalli sarà nsol-1 poichè la soluzione è nota per i valori nodali. */
 real nsol = 10;
 real dt=T/(nsol-1);
 
 func f = 0.;
 func u = 0.;
 
-include "SolEsatte.edp";
+include "solEs.edp";
 
 /****** 01.MESH ******/
 mesh Th = square( N, N, [2*pi*x, 2*pi*y] );
 
 
 /****** 02.SOLVE ******/
-include "../state.edp";
+include "statetest.edp";
 
 statet();

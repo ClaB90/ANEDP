@@ -1,0 +1,116 @@
+/****************** Politecnico di Milano - ANEDP project ******************/
+/* 														 					*
+ *  	authors Edoardo Arbib 							 					*
+ *				Claudia Bonomi 							 					*
+ *											   			 					*
+ *  	Descrizione: definizioni delle funzioni per errore	  				*
+ *																			*
+ * 		Dipendenze:	funzioni.edp -> waT e a1						        *		
+ *				    soluzioniEsatte -> parametro alpha						*
+ * 					main -> nsol						 					*
+ * 					state -> statesol[]					 					*
+ * 														 					*
+ ****************************************************************************/
+
+/* Per il calcolo dell'errore di || pi*y -y_k ||L2 viene sommata ad ogni passo temporale la norma L2
+ * la funzione seguente verrà chiamata ad ogni passo temporale sommandone il risultato,
+ */
+func real normL2state()
+{
+	real tmp=0.;
+	
+	tmp = int2d(Th)( (w-we)^2 );
+	
+	return tmp;
+} 
+
+func real normL2statetry()
+{
+	real tmp1=0., tmp2=0.;
+	
+	for(int i =0; i<nsol; i++)
+	{
+		tmp1 = int2d(Th)( (statesol[i]-we)^2 );
+		tmp2 += dt*tmp1;
+	}
+	
+	tmp1 = sqrt(tmp2);
+	
+	return tmp1;
+} 
+
+/* Per il calcolo dell'errore di || yes -pi*y_k ||L2 viene implementato il metodo dei trapezi
+*/
+func real statetrap()
+{
+	real tmp=0.;
+	
+	//Inizializzo correttamente le variabili di supporto ogni volta che chiamo la funzione
+	t1=dt*3./2.;
+	t2=dt/2.;
+	
+	tmp = (   int2d(Th)( ( 1.5*statesol[0] - 0.5*statesol[1] - 1.5*wesx + 0.5*wedx )^2 )
+	       + int2d(Th)( ( (statesol[0]-wesx)^2 ) )
+	       + (1./4.)*int2d(Th)( ( 5*statesol[0]-statesol[1]-5*wesx +wedx )^2 )
+		    )*(dt/12.);
+	
+	for( int i=1; i< nsol-3; i++)
+	{
+		tmp += (   int2d(Th)( ( (statesol[i-1]-wesx)^2 ) )
+					+ int2d(Th)( ( (statesol[i]-wedx)^2 ) )
+					+ int2d(Th)( ( statesol[i]+statesol[i-1]-wesx -wedx )^2 ) 
+					  )*(dt/6.);
+		t1 += dt;
+		t2 += dt;
+	}
+	
+	tmp += (   int2d(Th)( ( 1.5*statesol[nsol-2] - 0.5*statesol[nsol-3] - 1.5*wedx + 0.5*wesx )^2 )
+	  	    + int2d(Th)( ( (statesol[nsol-2]-wedx)^2 ) )
+			+ (1./4.)*int2d(Th)( ( 5*statesol[nsol-2]-statesol[nsol-3]-5*wedx +wesx )^2 )
+			  )*(dt/12.);
+	
+	tmp = sqrt(tmp);
+	
+	return tmp;
+}
+
+/* Per il calcolo dell'errore di || ues -u_k ||L2 viene implementato il metodo dei trapezi
+*/
+func real controltrap(real[int]& controlsol)
+{
+	real tmp=0., med=0.;
+	
+	for( int i=0; i< nsol-1; i++)
+	{
+
+		tmp += (   int2d(Th)( ( (controlsol[i]-ue[i])^2 ) )
+				 + int2d(Th)( ( (controlsol[i+1]-ue[i+1])^2 ) )
+					  )*(dt/2.);
+		
+	}
+	
+	tmp = sqrt(tmp);
+	
+	return tmp;
+}
+
+func real controlCS(real[int]& controlsol)
+{
+	real tmp=0., med=0.;
+	
+	for( int i=0; i< nsol-1; i++)
+	{
+		med = (Bpk[i] + Bpk[i+1])/2.;
+		med = PUabScal(med);
+		
+		tmp += (   int2d(Th)( ( (controlsol[i]-ue[i])^2 ) )
+				 + int2d(Th)( ( (controlsol[i+1]-ue[i+1])^2 ) )
+				 + int2d(Th)( ( 4.*( uemed[i] - med )^2) )
+					  )*(dt/6.);
+		
+	}
+	
+	tmp = sqrt(tmp);
+	
+	return tmp;
+}

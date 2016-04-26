@@ -29,6 +29,7 @@ Ph p, pnext, ptest;
 
 /****** 02.Definizione matrici ******/ 
 
+/*
 varf adj(p,ptest) =   int2d(Th)( p*ptest/dt )			
 					+ int2d(Th)( 0.5*( dx(p)*dx(ptest) + dy(p)*dy(ptest) ) ) 
 				    + on(1,2,3,4, p=pb);
@@ -36,15 +37,15 @@ varf adj(p,ptest) =   int2d(Th)( p*ptest/dt )
 varf adjtn(p,ptest) = - int2d(Th)( pnext*ptest/dt )
     				  + int2d(Th)( 0.5*( dx(pnext)*dx(ptest) + dy(pnext)*dy(ptest) ) ) 
   					  - int2d(Th)( 0.5*( h*ptest ) ) 
-  					  - int2d(Th)( 0.5*( hnext*ptest ) );
+  					  - int2d(Th)( 0.5*( hnext*ptest ) ); */
 
-/* problem adjoint( p, ptest) = - int2d(Th)( pnext*ptest/dt )
+ problem adjoint( p, ptest) = - int2d(Th)( pnext*ptest/dt )
 							 + int2d(Th)( p*ptest/dt )			
 						     + int2d(Th)( 0.5*( dx(p)*dx(ptest) + dy(p)*dy(ptest) ) ) 
 						     + int2d(Th)( 0.5*( dx(pnext)*dx(ptest) + dy(pnext)*dy(ptest) ) ) 
 						     - int2d(Th)( 0.5*( h*ptest ) ) 
 						     - int2d(Th)( 0.5*( hnext*ptest ) ) 
-						     + on(1,2,3,4, p=pb);  */
+						     + on(1,2,3,4, p=pb);  
 
 /* NB - u non cambia al passo temporale della p quello che cambia è la h, se dipende dal tempo, 
  *   	 quindi bisogna tener traccia della hnext;
@@ -59,7 +60,7 @@ func real adjointt()
 {
 	cout << "Adjoint " << endl;
 	
-	real[int] tmpadj(Ph.ndof);
+	//real[int] tmpadj(Ph.ndof);
 	
 	//inizializzo le variabili iniziali ogni volta che chiamo la funzione
 	int j = nsol;
@@ -72,8 +73,8 @@ func real adjointt()
 	j--;
 	
 	//Calcolo S e bc
-	Adj=adj(Ph,Ph,solver=UMFPACK);
-	adjbc=adj(0,Ph);
+	//Adj=adj(Ph,Ph,solver=UMFPACK);
+	//adjbc=adj(0,Ph);
 
 	//Devi risolvere un passo in meno per l'aggiunta poichè beta_0 == 0
 	while( j > 0 )
@@ -83,11 +84,12 @@ func real adjointt()
 		hnext = h;
 		h = statesol[j] - wd;
 		
-		tmpadj = adjtn(0,Ph);
-		tmpadj += adjbc;
+		//tmpadj = adjtn(0,Ph);
+		//tmpadj += adjbc;
 		
 		//Risolvo
-		p[] = Adj^-1*tmpadj;
+		//p[] = Adj^-1*tmpadj;
+		adjoint;
 		
 		//plot( p, nbiso=40, value = 1, fill=1, wait = 0, cmm="p" );
 		pnext=p;
