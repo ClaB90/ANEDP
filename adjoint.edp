@@ -8,7 +8,7 @@
  *						- problema spaziale				 							  *
  *					    - funzione per la soluzione del problema temporale  		  *
  * 		Dipendenze: main -> nsol + paramtri temporali 							 	  * 
- * 					state -> sol(nsol) ed wd 										  * 
+ * 					state -> statesol(nsol) ed wd 										  * 
  * 									   necessarie per il calcolo dell'errore     	  *
  * 														 				 	 	 	  *
  **************************************************************************************/
@@ -27,7 +27,7 @@ Yh h, hnext;
 fespace Ph( Th, P1 );
 Ph p, pnext, ptest;
 
-/****** 02.PROBLEMA SPAZIALE ******/ 
+/****** 02.Definizione matrici ******/ 
 
 varf adj(p,ptest) =   int2d(Th)( p*ptest/dt )			
 					+ int2d(Th)( 0.5*( dx(p)*dx(ptest) + dy(p)*dy(ptest) ) ) 
@@ -67,7 +67,7 @@ func real adjointt()
 	Bpk[j-1] = pT;
 	pnext=pT;
 	t=T;
-	h = sol[j-1] - wd;
+	h = statesol[j-1] - wd;
 	
 	j--;
 	
@@ -81,7 +81,7 @@ func real adjointt()
 		//cout << "siamo al tempo   = " << t << endl;
 		
 		hnext = h;
-		h = sol[j] - wd;
+		h = statesol[j] - wd;
 		
 		tmpadj = adjtn(0,Ph);
 		tmpadj += adjbc;

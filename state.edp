@@ -59,7 +59,7 @@ fespace Yh( Th, P2 );
 Yh w, wold, wtest, g0old;
 
 //vettore della soluzioni w ad ogni passo temporale
-Yh[int] sol(nsol);
+Yh[int] statesol(nsol);
 
 /******************  02.PROBLEMA SPAZIALE ******************/
  
@@ -85,13 +85,13 @@ varf s(w,wtest) =   int2d(Th)( w*wtest/dt )
 	        	  + int2d(Th)( gamma*( dx(w)*dx(wtest) + dy(w)*dy(wtest) ) )
 				  + on(1,2,3,4, w=wb);
 
-varf c(w,wtest) =   int2d(Th)( wold*wtest/dt )
-				  - int2d(Th)( 0.5*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) )*(t>dt) )
-				  + int2d(Th)( 0.5*( (uold + g0old)*wtest )*(t>dt) ) 
-				  + int2d(Th)( gamma*( (ui + g0)*wtest ) );
+varf statetn(w,wtest) =   int2d(Th)( wold*wtest/dt )
+				  		- int2d(Th)( 0.5*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) )*(t>dt) )
+						+ int2d(Th)( 0.5*( (uold + g0old)*wtest )*(t>dt) ) 
+						+ int2d(Th)( gamma*( (ui + g0)*wtest ) );
 					  
 matrix S; 
-real[int] bc(Yh.ndof);
+real[int] statebc(Yh.ndof);
 
 
 /****** 03.FUNZIONE PER SOLUZIONE IN TEMPO ******/ 
@@ -111,7 +111,7 @@ func real statet()
 	gamma = 0.5;
 	//Calcolo S e bc
 	S=s(Yh,Yh,solver=UMFPACK);
-	bc=s(0,Yh);
+	statebc=s(0,Yh);
 
 	for( int i=0; i<nsol-1; i++ )
 	{
@@ -127,8 +127,8 @@ func real statet()
 		g0part= g0exp;
 		g0II = PUabScal(g0part);
 		
-		tmp = c(0,Yh);
-		tmp += bc;
+		tmp = statetn(0,Yh);
+		tmp += statebc;
 		
 		//Risolvo
 		w[] = S^-1*tmp;
@@ -141,7 +141,7 @@ func real statet()
 		errL2 += dt*normL2;
 		
 		// salvo la mia soluzione al passo precedente
-		sol[i]=w;
+		statesol[i]=w;
 		
 		//aggiorno wold, il tempo e g0old
 		wold=w;
@@ -155,12 +155,12 @@ func real statet()
 	
 	S=s(Yh,Yh);
 	
-	tmp = c(0,Yh);
-	tmp += bc;
+	tmp = statetn(0,Yh);
+	tmp += statebc;
 	
 	w[] = S^-1*tmp;
 	
-	sol[nsol-1]=w;
+	statesol[nsol-1]=w;
 	
 	//cout << "siamo al tempo = " << t << endl;
 	//plot( w, value = 1, fill=1, wait = 0, cmm="w final" );
@@ -174,24 +174,24 @@ func real statet()
 	
 	errL2 = 0.;
 	
-	errL2 = (   int2d(Th)( ( 1.5*sol[0] - 0.5*sol[1] - 1.5*we2 + 0.5*we1 )^2 )
-		      + int2d(Th)( ( (sol[0]-we2)^2 ) )
-			  + (1./4.)*int2d(Th)( ( 5*sol[0]-sol[1]-5*we2 +we1 )^2 )
+	errL2 = (   int2d(Th)( ( 1.5*statesol[0] - 0.5*statesol[1] - 1.5*we2 + 0.5*we1 )^2 )
+		      + int2d(Th)( ( (statesol[0]-we2)^2 ) )
+			  + (1./4.)*int2d(Th)( ( 5*statesol[0]-statesol[1]-5*we2 +we1 )^2 )
 			    )*(dt/12.);
 	
 	for( int i=1; i< nsol-3; i++)
 	{
-		errL2 += (   int2d(Th)( ( (sol[i-1]-we2)^2 ) )
-					+ int2d(Th)( ( (sol[i]-we1)^2 ) )
-					+ int2d(Th)( ( sol[i]+sol[i-1]-we2 -we1 )^2 ) 
+		errL2 += (   int2d(Th)( ( (statesol[i-1]-we2)^2 ) )
+					+ int2d(Th)( ( (statesol[i]-we1)^2 ) )
+					+ int2d(Th)( ( statesol[i]+statesol[i-1]-we2 -we1 )^2 ) 
 					  )*(dt/6.);
 		t1 += dt;
 		t2 += dt;
 	}
 	
-	errL2 += (   int2d(Th)( ( 1.5*sol[nsol-2] - 0.5*sol[nsol-3] - 1.5*we1 + 0.5*we2 )^2 )
-			   + int2d(Th)( ( (sol[nsol-2]-we1)^2 ) )
-			   + (1./4.)*int2d(Th)( ( 5*sol[nsol-2]-sol[nsol-3]-5*we1 +we2 )^2 )
+	errL2 += (   int2d(Th)( ( 1.5*statesol[nsol-2] - 0.5*statesol[nsol-3] - 1.5*we1 + 0.5*we2 )^2 )
+			   + int2d(Th)( ( (statesol[nsol-2]-we1)^2 ) )
+			   + (1./4.)*int2d(Th)( ( 5*statesol[nsol-2]-statesol[nsol-3]-5*we1 +we2 )^2 )
 				 )*(dt/12.);
 	
 	errProjectStateL2 = sqrt(errL2);
