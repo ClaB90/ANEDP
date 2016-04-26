@@ -93,9 +93,6 @@ varf c(w,wtest) =   int2d(Th)( wold*wtest/dt )
 matrix S; 
 real[int] bc(Yh.ndof);
 
-S=s(Yh,Yh,solver=UMFPACK);
-bc=s(0,Yh);
-
 
 /****** 03.FUNZIONE PER SOLUZIONE IN TEMPO ******/ 
 
@@ -109,6 +106,12 @@ func real statet()
 	//inizializzo le variabili iniziali ogni volta che chiamo la funzione
 	wold=w0;
 	t=dt;
+	
+	//Setto nuovamente gamma a 0.5 
+	gamma = 0.5;
+	//Calcolo S e bc
+	S=s(Yh,Yh,solver=UMFPACK);
+	bc=s(0,Yh);
 
 	for( int i=0; i<nsol-1; i++ )
 	{
