@@ -29,11 +29,7 @@ include "funzioni.edp";
 /* nel file UabSet.edp vengono definiti i limiti dell'insieme Uab e le funzioni di proiezione di 
  * uno scalare o di un vettore sullo spazio Uab
  */
-include "UabSet.edp";
-
-/* nel file soluzioniEsatte.edp sono contenute le funzioni per soluzioni esatte per w,p,u
- */
-include "soluzioniEsatte.edp"; 
+include "UabSet.edp"; 
 
 /* Parametri Per il problema di controllo:
  *	alpha = acceleration parameter
@@ -50,9 +46,13 @@ epsilon = 1e-5;
 Nmax = 300;        
 k = 0;  
 
-real[int] u(nsol);          
+real[int] u(nsol);   
 
-/****** 01.MESH ******/
+/* nel file soluzioniEsatte.edp sono contenute le funzioni per soluzioni esatte per w,p,u
+ */
+include "soluzioniEsatte.edp";       
+
+/****************************** 01.MESH ******************************/
 real N=10;
 mesh Th = square( N, N, flags=1 );
 
