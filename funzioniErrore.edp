@@ -15,7 +15,7 @@
 /* Per il calcolo dell'errore di || pi*y -y_k ||L2 viene sommata ad ogni passo temporale la norma L2
  * la funzione seguente verrà chiamata ad ogni passo temporale sommandone il risultato,
  */
-func real normL2state()
+func real normL2statet()
 {
 	real tmp=0.;
 	
@@ -24,19 +24,27 @@ func real normL2state()
 	return tmp;
 } 
 
-func real normL2statetry()
+/* Per il calcolo dell'errore di || pi*y -y_k ||L2 viene sommata ad ogni passo temporale la norma L2
+ * la funzione seguente sfrutta il vettore di soluzioni del problema di stato
+ */
+func real normL2state()
 {
-	real tmp1=0., tmp2=0.;
+	real tmp=0., savet=0.;
+	
+	savet = 0.;
+	t=dt;
 	
 	for(int i =0; i<nsol; i++)
 	{
-		tmp1 = int2d(Th)( (statesol[i]-we)^2 );
-		tmp2 += dt*tmp1;
+		tmp += dt*int2d(Th)( (statesol[i]-we)^2 );
+		t += dt;
 	}
 	
-	tmp1 = sqrt(tmp2);
+	tmp = sqrt(tmp);
 	
-	return tmp1;
+	t=savet;
+	
+	return tmp;
 } 
 
 /* Per il calcolo dell'errore di || yes -pi*y_k ||L2 viene implementato il metodo dei trapezi

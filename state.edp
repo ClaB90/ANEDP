@@ -106,7 +106,7 @@ func real statet()
 	cout << "State " << endl;
 	
 	real[int] tmp(Yh.ndof);
-	real errL2=0.;
+	//real errL2=0.;
 	
 	//inizializzo le variabili iniziali ogni volta che chiamo la funzione
 	wold=w0;
@@ -118,6 +118,7 @@ func real statet()
 	S=s(Yh,Yh,solver=UMFPACK);
 	statebc=s(0,Yh);
 
+	//devo fare (nsol-1) passi prima di ricalcolare la matrice S per l'ultimo passo di EA
 	for( int i=0; i<nsol-1; i++ )
 	{
 		//setto le variabili ui ed uold asicurandomi di non andare ad accedere la posizione u[-1]
@@ -142,7 +143,7 @@ func real statet()
 		//cout << "siamo al tempo   = " << t << endl;
 		
 		//Calcolo dell'errore
-		errL2 += dt*normL2state();
+		//errL2 += dt*normL2statet();
 		
 		// salvo la mia soluzione al passo precedente
 		statesol[i]=w;
@@ -170,9 +171,9 @@ func real statet()
 	//plot( w, value = 1, fill=1, wait = 0, cmm="w final" );
 	
 	//Calcolo dell'errore
-	errL2 += dt*normL2state();
-	errStateL2 = sqrt(errL2);
-	//real tr = normL2statetry();
+	//errL2 += dt*normL2statet();
+	//errStateL2 = sqrt(errL2);
+	errStateL2 = normL2state();
 	
 	cout << "errore state L2  " << errStateL2 << endl;
 	//cout << "errore state L2 try  " << tr << endl;
