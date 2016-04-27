@@ -19,7 +19,7 @@ real T=0.5;
 real t=0.;
 
 /* NB: fissato un numero di soluzioni il numero di intervalli sarà nsol-1 poichè la soluzione è nota per i valori nodali. */
-real nsol = 19;
+real nsol = 10;
 real dt=T/(nsol-1);
 
 /* Parametri Per il problema di controllo:
