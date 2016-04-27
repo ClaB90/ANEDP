@@ -21,23 +21,10 @@
 /****************** 00.PARAMETRI E FUNZIONI ******************/
 // w0 soluzione all'istante iniziale
 t=0.;
-func w0 = -1.*(pi^2*wa)/(2+a1);
+func w0 = g;
 
 // wb funzione al bordo di dirchlet 
 func wb = 0.;
-
-/*la forzante del problema ha la seguente forma
- *	g0(t,x,y) = -pi^(4)*wa - PUad(-(exp(a1*pi^2*t)+exp(a1*pi^2*T))/(4.*alpha))
- * per calcolare il secondo termine è necessario usare le variabili di ausilio g0part e g0II
- * poichè freefem non ci permette di aglomerare le funzioni in un unica riga faremo dunque:
- * 		g0part= g0exp;
- *		g0II = PUabScal(g0part);
- */
-func g0I = -pi^(4)*wa;
-func g0exp = -(exp(a1*pi^2*t)+exp(a1*pi^2*T))/(4.*alpha);
-real g0part, g0II;
-
-func g0 = g0I - g0II;
 
 /* Parametri per il calcolo dell'errore dello stato
  * errStateL2 = || pi*y -y_k ||L2
@@ -130,7 +117,7 @@ func real statet()
 		ui=u[i];
 		
 		//aggiorno g0II
-		g0part= g0exp;
+		g0part= g0nonproj;
 		g0II = PUabScal(g0part);
 		
 		tmp = statetn(0,Yh);

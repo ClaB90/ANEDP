@@ -1,0 +1,2 @@
+real N=10;
+mesh Th = square( N, N, flags=1 );
