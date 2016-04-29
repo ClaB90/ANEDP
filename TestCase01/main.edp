@@ -17,6 +17,8 @@ verbosity=0;
 //Max number of temporal refinement levels
 int nLevels = 5;
 
+int nsolold=6;
+
 /* Parametri temporali */
 real T=0.1;
 real t=0.;
@@ -35,7 +37,9 @@ real[int] errProjectStateL2vec(nLevels);
 for( int j=0; j<nLevels; j++)
 {
 	
-	int nsol = (2.^(j+1) +1.)^2;
+	//int nsol = (2.^(j+1) +1.)^2;
+	int nsol = 2*nsolold-1;
+	nsolold=nsol;
 	real dt=T/(nsol-1);
 
 	/* nel file funzioni.edp sono contenute le funzioni che caratterizzano l'operatore B ed yd

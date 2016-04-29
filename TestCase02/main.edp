@@ -10,7 +10,7 @@
  * 														 					*
  ****************************************************************************/
 
-verbosity=0;
+//verbosity=0;
 
 /****** 00.PARAMETRI ******/
 
@@ -26,6 +26,8 @@ real[int] errControlL2vec(nLevels),errControlLinfvec(nLevels);
 real[int] errStateL2vec(nLevels),errStateLinfvec(nLevels);
 real[int] errProjectStateL2vec(nLevels); 
 
+int nsolold=6;
+
 /* NB: fissato un numero di soluzioni il numero di intervalli sarà nsol-1 poichè la soluzione è nota per i valori nodali. 
  * Per conformità con il paper di riferimento
  * Nk = ( 2^l + 1 )^2 dove l è il numero di livello considerato
@@ -34,7 +36,7 @@ real[int] errProjectStateL2vec(nLevels);
  */
 for( int j=0; j<nLevels; j++)
 {
-	int nsol = (2^j +1)^2;
+	int nsol = 2*nsolold-2;
 	real dt=T/(nsol-1);
 
 	/* Parametri Per il problema di controllo:
