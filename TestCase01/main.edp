@@ -19,7 +19,7 @@ real T=0.1;
 real t=0.;
 
 /* NB: fissato un numero di soluzioni il numero di intervalli sarà nsol-1 poichè la soluzione è nota per i valori nodali. */
-real nsol = 10;
+real nsol = 73;
 real dt=T/(nsol-1);
 
 /* nel file funzioni.edp sono contenute le funzioni che caratterizzano l'operatore B ed yd
@@ -126,10 +126,12 @@ while ( toll > epsilon  && k <= Nmax)
 cout << "==========================" << endl;
 cout << "Number of  iterations = " << k << endl;
 
-real errProjectControlL2 = 0.; 
+real errControlL2 = 0.,errControlLinf = 0.; 
 
-errProjectControlL2 = controltrap(u);
-cout << "Errore errProjectControlL2 = " << errProjectControlL2 << endl;
+errControlL2 = controltrap(u);
+errControlLinf = normLinfcontrol(u);
+cout << "Errore errControlL2 = " << errControlL2 << endl;
+cout << "Errore errControlLinf = " << errControlLinf << endl;
 cout << "Errore errProjectStateL2 = " << errProjectStateL2 << endl;
 cout << "Errore errStateLinf =  " << errStateLinf << endl;
 

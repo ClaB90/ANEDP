@@ -149,3 +149,20 @@ func real controlCS(real[int]& controlsol)
 	
 	return tmp;
 }
+
+/* Per il calcolo dell'errore di || ues -u_k ||Linf
+*/
+func real normLinfcontrol(real[int]& controlsol)
+{
+	real[int] LinfSpazio(nsol);
+	real norm;
+	
+	for(int i=0; i<nsol; i++)
+	{
+		LinfSpazio[i] = controlsol[i] -ue[i];
+	}
+	
+	norm = LinfSpazio.linfty;
+	
+	return norm;
+}
