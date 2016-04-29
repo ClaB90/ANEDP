@@ -35,7 +35,7 @@ real[int] errProjectStateL2vec(nLevels);
 for( int j=0; j<nLevels; j++)
 {
 	
-	int nsol = (2^j +1)^2;
+	int nsol = (2.^(j+1) +1.)^2;
 	real dt=T/(nsol-1);
 
 	/* nel file funzioni.edp sono contenute le funzioni che caratterizzano l'operatore B ed yd
