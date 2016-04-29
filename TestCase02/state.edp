@@ -32,7 +32,8 @@ func wb = 0.;
  * errProjectStateL2 = || y -pi*y_k ||L2
  */
 real errStateL2=0.;
-real errProjectStateL2 = 0.; 
+real errProjectStateL2 = 0.;
+real errStateLinf = 0.;
 
 /****************** 01.SPAZI FUNZIONALI ******************/
 
@@ -156,6 +157,10 @@ func real statet()
 	errProjectStateL2 = stateprojtrap();
 	
 	cout << "errore project state L2  " << errProjectStateL2 << endl;
+	
+	errStateLinf = normLinfstate();
+	
+	cout << "errore state Linf  " << errStateLinf << endl;
 	
 	return 0;
 }

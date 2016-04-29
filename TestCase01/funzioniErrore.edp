@@ -82,7 +82,7 @@ func real stateprojtrap()
 	return tmp;
 }
 
-/* Per il calcolo dell'errore di || yes -pi*y_k ||Linf
+/* Per il calcolo dell'errore di || yes - y_k ||Linf
 */
 func real normLinfstate()
 {
@@ -93,7 +93,7 @@ func real normLinfstate()
 	
 	for(int i=0; i<nsol; i++)
 	{
-		diff = w -we;
+		diff = statesol[i] -we;
 		
 		LinfSpazio[i] = diff[].linfty;
 		
@@ -148,4 +148,29 @@ func real controlCS(real[int]& controlsol)
 	tmp = sqrt(tmp);
 	
 	return tmp;
+}
+
+/* Per il calcolo dell'errore di || ues -u_k ||Linf
+*/
+func real normLinfcontrol()
+{
+	Yh diff;
+	real[int] LinfSpazio(nsol);
+	real norm, tsave=t;
+	t=dt;
+	
+	for(int i=0; i<nsol; i++)
+	{
+		diff = statesol[i] -we;
+		
+		LinfSpazio[i] = diff[].linfty;
+		
+		t+=dt;
+	}
+	
+	norm = LinfSpazio.linfty;
+
+	t=tsave;
+	
+	return norm;
 }

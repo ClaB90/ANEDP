@@ -19,7 +19,7 @@ real T=0.1;
 real t=0.;
 
 /* NB: fissato un numero di soluzioni il numero di intervalli sarà nsol-1 poichè la soluzione è nota per i valori nodali. */
-real nsol = 19;
+real nsol = 10;
 real dt=T/(nsol-1);
 
 /* nel file funzioni.edp sono contenute le funzioni che caratterizzano l'operatore B ed yd

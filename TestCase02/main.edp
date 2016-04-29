@@ -19,7 +19,7 @@ real T=0.5;
 real t=0.;
 
 /* NB: fissato un numero di soluzioni il numero di intervalli sarà nsol-1 poichè la soluzione è nota per i valori nodali. */
-real nsol = 10;
+real nsol = 19;
 real dt=T/(nsol-1);
 
 /* Parametri Per il problema di controllo:
@@ -131,6 +131,7 @@ real errProjectControlL2 = 0.;
 errProjectControlL2 = controltrap(u);
 cout << "Errore errProjectControlL2 = " << errProjectControlL2 << endl;
 cout << "Errore errProjectStateL2 = " << errProjectStateL2 << endl;
+cout << "Errore errStateLinf =  " << errStateLinf << endl;
 
 
 /****** 05.VISUALIZATION ******/ 

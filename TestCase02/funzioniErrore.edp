@@ -82,6 +82,31 @@ func real stateprojtrap()
 	return tmp;
 }
 
+/* Per il calcolo dell'errore di || yes -y_k ||Linf
+*/
+func real normLinfstate()
+{
+	Yh diff;
+	real[int] LinfSpazio(nsol);
+	real norm, tsave=t;
+	t=dt;
+	
+	for(int i=0; i<nsol; i++)
+	{
+		diff = statesol[i] -we;
+		
+		LinfSpazio[i] = diff[].linfty;
+		
+		t+=dt;
+	}
+	
+	norm = LinfSpazio.linfty;
+
+	t=tsave;
+	
+	return norm;
+}
+
 /* Per il calcolo dell'errore di || ues -u_k ||L2 viene implementato il metodo dei trapezi
  */
 func real controltrap(real[int]& controlsol)
