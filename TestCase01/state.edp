@@ -164,16 +164,14 @@ func real statet()
 
 	//Calcolo dell'errore
 	errStateL2 = normL2state();
-	
-	cout << "errore state L2  " << errStateL2 << endl;
-	
+
 	errProjectStateL2 = stateprojtrap();
-	
-	cout << "errore project state L2  " << errProjectStateL2 << endl;
-	
+
 	errStateLinf = normLinfstate();
 	
-	cout << "errore state Linf  " << errStateLinf << endl;
+	//cout << "errore state L2  " << errStateL2 << endl;
+	//cout << "errore project state L2  " << errProjectStateL2 << endl;
+	//cout << "errore state Linf  " << errStateLinf << endl;
 	
 	return 0;
 }

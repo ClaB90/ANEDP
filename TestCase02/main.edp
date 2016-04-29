@@ -14,131 +14,159 @@ verbosity=0;
 
 /****** 00.PARAMETRI ******/
 
+//Max number of temporal refinement levels
+int nLevels = 5;
+
 /* Parametri temporali */
-real T=0.5;
+real T=0.1;
 real t=0.;
 
-/* NB: fissato un numero di soluzioni il numero di intervalli sarà nsol-1 poichè la soluzione è nota per i valori nodali. */
-real nsol = 37;
-real dt=T/(nsol-1);
+/* Parametri per il calcolo dell'errore */
+real[int] errControlL2vec(nLevels),errControlLinfvec(nLevels); 
+real[int] errStateL2vec(nLevels),errStateLinfvec(nLevels);
+real[int] errProjectStateL2vec(nLevels); 
 
-/* Parametri Per il problema di controllo:
- *	alpha = acceleration parameter
- *	toll = variabile per la tolleranza
- *	epsilon = valore limite per la tolleranza
- *  k = numero di iterazione del ciclo di controllo
- *  Nmax = numero massimo di iterazioni
- *  u[] = vettore soluzione di controllo
+/* NB: fissato un numero di soluzioni il numero di intervalli sarà nsol-1 poichè la soluzione è nota per i valori nodali. 
+ * Per conformità con il paper di riferimento
+ * Nk = ( 2^l + 1 )^2 dove l è il numero di livello considerato
+ * nsol può assumere i seguenti valori:
+ * 9, 25, 81, 289, 1089, 4225
  */
-real alpha, toll=0.,epsilon;
-int k, Nmax;
-alpha = 1.;    
-epsilon = 1e-5;    
-Nmax = 300;        
-k = 0;  
+for( int j=0; j<nLevels; j++)
+{
+	int nsol = (2^j +1)^2;
+	real dt=T/(nsol-1);
 
-real[int] u(nsol); 
+	/* Parametri Per il problema di controllo:
+	 *	alpha = acceleration parameter
+	 *	toll = variabile per la tolleranza
+	 *	epsilon = valore limite per la tolleranza
+	 *  k = numero di iterazione del ciclo di controllo
+	 *  Nmax = numero massimo di iterazioni
+	 *  u[] = vettore soluzione di controllo
+	 */
+	real alpha, toll=0.,epsilon=0.;
+	int k, Nmax;
+	alpha = 1.;    
+	epsilon = 1e-5;    
+	Nmax = 300;        
+	k = 0;  
 
-/* nel file funzioni.edp sono contenute le funzioni che caratterizzano l'operatore B ed yd
- */
-include "funzioni.edp";
+	real[int] u(nsol); 
 
-/* nel file UabSet.edp vengono definiti i limiti dell'insieme Uab e le funzioni di proiezione di 
- * uno scalare o di un vettore sullo spazio Uab
- */
-include "UabSet.edp";   
+	/* nel file funzioni.edp sono contenute le funzioni che caratterizzano l'operatore B ed yd
+	 */
+	include "funzioni.edp";
 
-/* nel file soluzioniEsatte.edp sono contenute le funzioni per soluzioni esatte per w,p,u
- */
-include "soluzioniEsatte.edp";       
+	/* nel file UabSet.edp vengono definiti i limiti dell'insieme Uab e le funzioni di proiezione di 
+	 * uno scalare o di un vettore sullo spazio Uab
+	 */
+	include "UabSet.edp";   
 
-/* nel file mesh.edp è contenuta la mesh
- */
-include "mesh.edp"; 
+	/* nel file soluzioniEsatte.edp sono contenute le funzioni per soluzioni esatte per w,p,u
+	 */
+	include "soluzioniEsatte.edp";       
 
-//Vado a salvare il pezzetto B'pk per ogni passo temporale
-real[int] Bpk(nsol), Bpkold(nsol);
+	/* nel file mesh.edp è contenuta la mesh
+	 */
+	include "mesh.edp"; 
 
-/* nel file state.edp sono contenuti i parametri e le funzioni necessari per il problema di stato 
- */
-include "state.edp";
+	//Vado a salvare il pezzetto B'pk per ogni passo temporale
+	real[int] Bpk(nsol), Bpkold(nsol);
 
-/* nel file adjoint.edp sono contenuti i parametri e le funzioni necessari per il problema aggiunto 
- */
-include "adjoint.edp";
+	/* nel file state.edp sono contenuti i parametri e le funzioni necessari per il problema di stato 
+	 */
+	include "state.edp";
 
-/* nel file funzioniErrore.edp le funzioni necessarie per il calcolo dell'errore del problema di stato
- * e di quello di controllo 
- */
-//include "funzioniErrore.edp";
+	/* nel file adjoint.edp sono contenuti i parametri e le funzioni necessari per il problema aggiunto 
+	 */
+	include "adjoint.edp";
 
-//Primo passo soluzione
-//La variabile di controllo al primo passo viene settatta uguale al limite inferiore di Uab
-u = a;          
+	/* nel file funzioniErrore.edp le funzioni necessarie per il calcolo dell'errore del problema di stato
+	 * e di quello di controllo 
+	 */
+	//include "funzioniErrore.edp";
 
-statet(); 
-//plot( w, nbiso = 40, fill=1, value = 1, wait = 0, cmm="initial y" );
+	//Primo passo soluzione
+	//La variabile di controllo al primo passo viene settatta uguale al limite inferiore di Uab
+	u = a;          
 
-adjointt();
-//plot( p, nbiso = 40, fill=1, value = 1, wait = 1, cmm="initial p");
+	statet(); 
+	//plot( w, nbiso = 40, fill=1, value = 1, wait = 0, cmm="initial y" );
 
-Bpkold = Bpk;
+	adjointt();
+	//plot( p, nbiso = 40, fill=1, value = 1, wait = 1, cmm="initial p");
 
-toll = 1;
+	Bpkold = Bpk;
 
-//Iterative algorithm
-while ( toll > epsilon  && k <= Nmax)
-{      
-      k = k + 1;
+	toll = 1;
+
+	//Iterative algorithm
+	while ( toll > epsilon  && k <= Nmax)
+	{      
+	      k = k + 1;
       
-      //Control Update
-	  u = PUab(Bpk);
+	      //Control Update
+		  u = PUab(Bpk);
 
-      statet();  
+	      statet();  
 
-      adjointt();
+	      adjointt();
       
-      cout << "k = " << k << endl;
+	      cout << "k = " << k << endl;
 	  
 	  
-	  for( int i = 0; i < nsol-1; i++)
-	  {
-		  if( i == 0 )
+		  for( int i = 0; i < nsol-1; i++)
 		  {
-		  	toll = abs(Bpk[i]-Bpkold[i]);
-		  }
-		  else
-		  {
-		  	toll = max( toll, abs(Bpk[i]-Bpkold[i]));
-		  }
+			  if( i == 0 )
+			  {
+			  	toll = abs(Bpk[i]-Bpkold[i]);
+			  }
+			  else
+			  {
+			  	toll = max( toll, abs(Bpk[i]-Bpkold[i]));
+			  }
 		  
-		  //cout << " i = " << i << endl;
-		  //cout << "Bpk[i] = " << Bpk[i] << "  Bpkold[i] = " <<  Bpkold[i] << endl;
-		  //cout << "toll = " << toll << endl;
-	  }
+			  //cout << " i = " << i << endl;
+			  //cout << "Bpk[i] = " << Bpk[i] << "  Bpkold[i] = " <<  Bpkold[i] << endl;
+			  //cout << "toll = " << toll << endl;
+		  }
 
-	  cout << "toll final = " << toll << endl;
+		  cout << "toll final = " << toll << endl;
 	  
-	  Bpkold = Bpk;
+		  Bpkold = Bpk;
 
-    };
+	    };
 
-cout << "==========================" << endl;
-cout << "Number of  iterations = " << k << endl;
+		cout << "==========================" << endl;
+		cout << "Number of  iterations = " << k << endl;
 
-real errControlL2 = 0.,errControlLinf = 0.; 
+		errControlL2vec[j] = controltrap(u);
+		errControlLinfvec[j] = normLinfcontrol(u);
+		errStateLinfvec[j] = errStateLinf;
+		errProjectStateL2vec[j] = errProjectStateL2;
 
-errControlL2 = controltrap(u);
-errControlLinf = normLinfcontrol(u);
-cout << "Errore errControlL2 = " << errControlL2 << endl;
-cout << "Errore errControlLinf = " << errControlLinf << endl;
-cout << "Errore errProjectStateL2 = " << errProjectStateL2 << endl;
-cout << "Errore errStateLinf =  " << errStateLinf << endl;
+		/*
+		cout << "Errore errControlL2 = " << errControlL2 << endl;
+		cout << "Errore errControlLinf = " << errControlLinf << endl;
+		cout << "Errore errProjectStateL2 = " << errProjectStateL2 << endl;
+		cout << "Errore errStateLinf =  " << errStateLinf << endl;
+		*/
 
+		/****** 05.VISUALIZATION ******/ 
+		// Difference between the final state and the desired observation 
+		//err = abs( w - wd );  
+		//plot( err, nbiso = 40, fill=1, value = 1, wait = 1, cmm="|w-w_d|" );
+		//plot( w, nbiso = 40, fill=1, value = 1, wait = 1, cmm="final w" );
+		//plot( p, nbiso = 40, fill=1, value = 1, wait = 1, cmm="final p" );
+	}
 
-/****** 05.VISUALIZATION ******/ 
-// Difference between the final state and the desired observation 
-//err = abs( w - wd );  
-//plot( err, nbiso = 40, fill=1, value = 1, wait = 1, cmm="|w-w_d|" );
-plot( w, nbiso = 40, fill=1, value = 1, wait = 1, cmm="final w" );
-plot( p, nbiso = 40, fill=1, value = 1, wait = 1, cmm="final p" );
+for(int j=0; j<nLevels-1; j++)
+{
+	cout << " j = " << j << endl;
+	cout << "EOC errControlL2 = " << errControlL2vec[j]/errControlL2vec[j+1] << " Vorrei fosse ~ 2" << endl;
+	cout << "EOC errControlLinf = " << errControlLinfvec[j]/errControlLinfvec[j+1] << " Vorrei fosse ~ 2" <<endl;
+	cout << "EOC errProjectStateL2 = " << errProjectStateL2vec[j]/errProjectStateL2vec[j+1] << " Vorrei fosse ~ 2" << endl;
+	cout << "EOC errStateLinf =  " << errStateLinfvec[j]/errStateLinfvec[j+1] << " Vorrei fosse ~ 1" << endl;
+
+}
