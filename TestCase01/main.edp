@@ -131,6 +131,7 @@ real errProjectControlL2 = 0.;
 errProjectControlL2 = controltrap(u);
 cout << "Errore errProjectControlL2 = " << errProjectControlL2 << endl;
 cout << "Errore errProjectStateL2 = " << errProjectStateL2 << endl;
+cout << "Errore errStateLinf =  " << errStateLinf << endl;
 
 
 /****** 05.VISUALIZATION ******/ 

@@ -46,6 +46,7 @@ func g0 = g0I - g0II;
  */
 real errStateL2=0.;
 real errProjectStateL2 = 0.; 
+real errStateLinf = 0.; 
 
 /****************** 01.SPAZI FUNZIONALI ******************/
 
@@ -112,7 +113,7 @@ func real statet()
 	wold=w0;
 	t=dt;
 	
-	//Setto nuovamente gamma a 0.5 
+	//Setto gamma a 0.5 ogni volta che chiamo la funzione
 	gamma = 0.5;
 	//Calcolo S e bc
 	S=s(Yh,Yh,solver=UMFPACK);
@@ -169,6 +170,10 @@ func real statet()
 	errProjectStateL2 = stateprojtrap();
 	
 	cout << "errore project state L2  " << errProjectStateL2 << endl;
+	
+	errStateLinf = normLinfstate();
+	
+	cout << "errore state Linf  " << errStateLinf << endl;
 	
 	return 0;
 }
