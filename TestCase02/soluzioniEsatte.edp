@@ -32,7 +32,7 @@ func pedx = cos((t2/T)*2.*pi*a1)*g -waT;
  * La costruzione della funzione esatta di u implica quindi l'utilizzo dell'operatore
  * di proiezione	
  */
-func uenonproject = g0nonproj;
+func uenonproject = g0nonprojdx;
 
 func real[int] ueproject()
 {

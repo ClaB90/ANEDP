@@ -44,7 +44,7 @@ fespace Yh( Th, P2 );
  * wtest funzione test
  * g0old forzante al passo temporale precedente
  */
-Yh w, wold, wtest, g0old;
+Yh w, wold, wtest;
 
 //vettore della soluzioni w ad ogni passo temporale
 Yh[int] statesol(nsol);
@@ -59,13 +59,17 @@ include "funzioniErrore.edp";
 /* Lo schema di integrazione temporale implementato è una variante di Crank-Nicolson
  * in particolare viene effettuato:
  *  un passo di EI con passo temporale dimezzato
+ *      gamma1=1./2.;
+ *  	gamma2=0.;
+ *  	gamma3=0.;
+ *  	gamma4=1./2.;
  *  nsol-2 passi di CN
  *  un passo di EA
  * Per questo motivo la matrice S rimane invariata dal primo al penultimo passo
  *  il parametro gamma verà settato a zero prima che la matrice S venga ricacolata 
  *  nel ultimo passo.
  */
-real gamma=0.5;
+real gamma1,gamma2,gamma3,gamma4;
 
 /* uold e ui contengono il valore della soluzione di controllo al tempo t e t-dt
  * Al passo di EI solo la componente u(0) deve essere considerata
@@ -75,51 +79,81 @@ real gamma=0.5;
 real uold=0., ui;
 
 varf s(w,wtest) =   int2d(Th)( w*wtest/dt )
-	        	  + int2d(Th)( gamma*( dx(w)*dx(wtest) + dy(w)*dy(wtest) ) )
+	        	  + int2d(Th)( gamma1*( dx(w)*dx(wtest) + dy(w)*dy(wtest) ) )
 				  + on(1,2,3,4, w=wb);
 
-varf statetn(w,wtest) =   int2d(Th)( wold*wtest/dt )
-				  		- int2d(Th)( 0.5*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) )*(t>dt) )
-						+ int2d(Th)( 0.5*( (uold + g0old)*wtest )*(t>dt) ) 
-						+ int2d(Th)( gamma*( (ui + g0)*wtest ) );
+varf statetn(w,wtest) =   int2d(Th)( wold*wtest/dt)
+				  		- int2d(Th)( gamma2*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) ) )
+							//contributo di u
+						+ int2d(Th)( gamma3*( ui*wtest ))
+				 		+ int2d(Th)( gamma4*( uold*wtest ))
+							//contributo di g0
+						+ int2d(Th)( gamma3*( g0*wtest ))
+				 		+ int2d(Th)( gamma4*( g0old*wtest ));
 					  
 matrix S; 
 real[int] statebc(Yh.ndof);
 
 
 /****** 03.FUNZIONE PER SOLUZIONE IN TEMPO ******/ 
-
 func real statet()
 {
 	cout << "State " << endl;
 	
 	real[int] tmp(Yh.ndof);
-	//real errL2=0.;
 	
 	//inizializzo le variabili iniziali ogni volta che chiamo la funzione
 	wold=w0;
 	t=dt;
 	
-	//Setto nuovamente gamma a 0.5 
-	gamma = 0.5;
-	//Calcolo S e bc
+	//Primo passo di EI con passo temporale dt/2
+    gamma1=1./2.;
+    gamma2=0.;
+    gamma3=0.;
+    gamma4=1./2.;
+	
+	//definisco i valori di uold
+    uold=u[0];
+    ui=0;
+	
+	/* Calcolo S e bc
+	 * devo fare (nsol-1) passi prima di ricalcolare la matrice S per l'ultimo passo di EA
+	 * mentre il vettore statebc rimane invariato ad ogni passo
+	 */
 	S=s(Yh,Yh,solver=UMFPACK);
 	statebc=s(0,Yh);
+	
+	//aggiorno g0IIsx il dx non compare quindi non lo calcolo
+	g0partsx = g0nonprojsx;
+	g0IIsx = PUabScal(g0partsx);
 
-	//devo fare (nsol-1) passi prima di ricalcolare la matrice S per l'ultimo passo di EA
-	for( int i=0; i<nsol-1; i++ )
+    tmp=statetn(0,Yh);
+    tmp=tmp+statebc;
+	
+	//Risolvo
+    w[]=(S^-1)*tmp;
+    
+	// salvo la mia soluzione al passo precedente
+	statesol[0]=w;
+	
+	//aggiorno wold, uold e il tempo
+	wold=w;
+	uold = ui;
+	t += dt;
+	
+    // Passi di CN
+    for(int i=1; i<nsol-1; i++)
 	{
-		//setto le variabili ui ed uold asicurandomi di non andare ad accedere la posizione u[-1]
-		if( i > 0 )
-		{
-			uold= u[i-1];
-		}
+		gamma1=1./2.;
+	    gamma2=1./2.;
+	    gamma3=0.;
+	    gamma4=1.;
 		
-		ui=u[i];
+		ui=u[i+1];
 		
-		//aggiorno g0II
-		g0part= g0nonproj;
-		g0II = PUabScal(g0part);
+		//aggiorno g0IIsx il dx non compare quindi non lo calcolo
+		g0partsx = g0nonprojsx;
+		g0IIsx = PUabScal(g0partsx);
 		
 		tmp = statetn(0,Yh);
 		tmp += statebc;
@@ -130,17 +164,28 @@ func real statet()
 		// salvo la mia soluzione al passo precedente
 		statesol[i]=w;
 		
-		//aggiorno wold, il tempo e g0old
+		//aggiorno wold, uold, il tempo e g0old
 		wold=w;
+		uold = ui;
 		t += dt;
-		g0old = g0;
 		
+		g0IIsx = g0IIdx;
+
 	}
 	
-	// passo di EA
-	gamma=0.;
+    //Passo di EA
+	gamma1=0.;
+    gamma2=1./2.;
+    gamma3=1./2.;
+    gamma4=0.;
 	
 	S=s(Yh,Yh);
+	
+	ui=u[nsol-1];
+	
+	//aggiorno g0IIdx il sx non compare quindi non lo calcolo
+	g0partdx = g0nonprojdx;
+	g0IIdx = PUabScal(g0partdx);
 	
 	tmp = statetn(0,Yh);
 	tmp += statebc;
@@ -148,19 +193,18 @@ func real statet()
 	w[] = S^-1*tmp;
 	
 	statesol[nsol-1]=w;
-
+    //plot(w,fill=1,value=1,wait=0,cmm=" Stato in t=T ");	
+	
 	//Calcolo dell'errore
 	errStateL2 = normL2state();
-	
-	cout << "errore state L2  " << errStateL2 << endl;
-	
+
 	errProjectStateL2 = stateprojtrap();
-	
-	cout << "errore project state L2  " << errProjectStateL2 << endl;
-	
+
 	errStateLinf = normLinfstate();
 	
-	cout << "errore state Linf  " << errStateLinf << endl;
+	//cout << "errore state L2  " << errStateL2 << endl;
+	//cout << "errore project state L2  " << errProjectStateL2 << endl;
+	//cout << "errore state Linf  " << errStateLinf << endl;
 	
 	return 0;
 }
