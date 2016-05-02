@@ -30,17 +30,20 @@ func wb = 0.;
  *	g0(t,x,y) = -pi^(4)*wa - PUad(-(exp(a1*pi^2*t)+exp(a1*pi^2*T))/(4.*alpha))
  * per calcolare il secondo termine è necessario usare le variabili di ausilio g0part e g0II
  * poichè freefem non ci permette di aglomerare le funzioni in un unica riga faremo dunque:
- * 		g0part= g0nonproj;
+ * 		g0part= g0exp;
  *		g0II = PUabScal(g0part);
  */
-func g0Idx = -pi^(4)*wa;
-func g0Isx=-(pi^4)*exp(a1*(pi^2)*(t-dt))*sin(x*pi)*sin(y*pi);
-func g0nonprojdx = -(exp(a1*(pi^2)*t)+exp(a1*(pi^2)*T))/(4.*alpha);
-func g0nonprojsx=(-(pi^4)/4.)*(exp(a1*(pi^2)*(t-dt))-exp(a1*(pi^2)*T));
-real g0partdx, g0IIdx, g0partsx, g0IIsx;
+func g01=-(pi^4)*wa;
+func g02=-(pi^4)*exp(a1*(pi^2)*(t-dt))*sin(x*pi)*sin(y*pi);
+func g03=(-(pi^4)/4.)*(exp(a1*(pi^2)*t)-exp(a1*(pi^2)*T));
+func g04=(-(pi^4)/4.)*(exp(a1*(pi^2)*(t-dt))-exp(a1*(pi^2)*T));
+real g05,g06;
 
-func g0 = g0Idx - g0IIdx;
-func g0old = g0Isx - g0IIsx;
+func g0I = -pi^(4)*wa;
+func g0exp = -(exp(a1*pi^2*t)+exp(a1*pi^2*T))/(4.*alpha);
+real g0part, g0II;
+
+func g0 = g0I - g0II;
 
 /* Parametri per il calcolo dell'errore dello stato
  * errStateL2 = || pi*y -y_k ||L2
@@ -60,7 +63,7 @@ fespace Yh( Th, P2 );
  * wtest funzione test
  * g0old forzante al passo temporale precedente
  */
-Yh w, wold, wtest;
+Yh w, wold, wtest, g0old;
 
 //vettore della soluzioni w ad ogni passo temporale
 //Yh[int] statesol(nsol);
@@ -95,125 +98,83 @@ real gamma1,gamma2,gamma3,gamma4;
  */
 real uold=0., ui;
 
-varf s(w,wtest) =   int2d(Th)( w*wtest/dt )
-	        	  + int2d(Th)( gamma1*( dx(w)*dx(wtest) + dy(w)*dy(wtest) ) )
+varf s(w,wtest) =   int2d(Th)(w*wtest/dt)
+	        	  + int2d(Th)(gamma1*(dx(w)*dx(wtest) + dy(w)*dy(wtest)))
 				  + on(1,2,3,4, w=wb);
 
-varf statetn(w,wtest) =   int2d(Th)( wold*wtest/dt)
-				  		- int2d(Th)( gamma2*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) ) )
-							//contributo di u
-						+ int2d(Th)( gamma3*( ui*wtest ))
-				 		+ int2d(Th)( gamma4*( uold*wtest ))
-							//contributo di g0
-						+ int2d(Th)( gamma3*( g0*wtest ))
-				 		+ int2d(Th)( gamma4*( g0old*wtest ));
+varf c(w,wtest) =   int2d(Th)(wold*wtest/dt)
+				  - int2d(Th)((dx(wold)*dx(wtest) + dy(wold)*dy(wtest))*gamma2)
+				  + int2d(Th)(((uold)*wtest)*gamma4) 
+				  + int2d(Th)(gamma3*((ui)*wtest));
+					  
+varf d(w,wtest)=c+int2d(Th)(gamma3*g01*wtest)+int2d(Th)(g02*wtest*gamma4)+int2d(Th)((-1)*g05*gamma3*wtest)+int2d(Th)((-1)*gamma4*g06*wtest);
 
-//nt2d(Th)(gamma3*g01*wtest)+int2d(Th)(g02*wtest*gamma4)+int2d(Th)((-1)*g05*gamma3*wtest)+int2d(Th)((-1)*gamma4*g06*wtest);
 
-matrix S; 
-//real[int] statebc(Yh.ndof);
-real[int] statebc(Yh.ndof);
 
-/****** 03.FUNZIONE PER SOLUZIONE IN TEMPO ******/ 
-
+real[int] bc(Yh.ndof);
+matrix S;
+bc=s(0,Yh);
 func real statet()
 {
-	cout << "State " << endl;
-	
 	real[int] tmp(Yh.ndof);
-	
-	//inizializzo le variabili iniziali ogni volta che chiamo la funzione
-	wold=w0;
-	t=dt;
-	
-	//Primo passo di EI con passo temporale dt/2
-    gamma1=1./2.;
-    gamma2=0.;
-    gamma3=0.;
-    gamma4=1./2.;
-	
-	//definisco i valori di uold
+    
+	real e1,e2;
+    gamma1=1/2.;
+    gamma2=0;
+    gamma3=0;
+    gamma4=1/2.;
+    t=dt;
+    S=s(Yh,Yh,solver=UMFPACK);
+    e1=g03;
+    e2=g04;
+    g05=PUabScal(e1);
+    g06=PUabScal(e2);
+    wold=w0;
     uold=u[0];
     ui=0;
-	
-	/* Calcolo S e bc
-	 * devo fare (nsol-1) passi prima di ricalcolare la matrice S per l'ultimo passo di EA
-	 * mentre il vettore statebc rimane invariato ad ogni passo
-	 */
-	S=s(Yh,Yh,solver=UMFPACK);
-	statebc=s(0,Yh);
-	
-	//aggiorno g0IIsx il dx non compare quindi non lo calcolo
-	g0partsx = g0nonprojsx;
-	g0IIsx = PUabScal(g0partsx);
-
-    tmp=statetn(0,Yh);
-    tmp=tmp+statebc;
-	
-	//Risolvo
+    tmp=d(0,Yh);
+    tmp=tmp+bc;
     w[]=(S^-1)*tmp;
+    statesol[0]=w;
     
-	// salvo la mia soluzione al passo precedente
-	statesol[0]=w;
-	
-	//aggiorno wold, uold e il tempo
-	wold=w;
-	uold = ui;
-	t += dt;
-	
-    // Passi di CN
+    
     for(int i=1; i<nsol-1; i++)
 	{
-		gamma1=1./2.;
-	    gamma2=1./2.;
-	    gamma3=0.;
-	    gamma4=1.;
-		
-		ui=u[i+1];
-		
-		//aggiorno g0IIsx il dx non compare quindi non lo calcolo
-		g0partsx = g0nonprojsx;
-		g0IIsx = PUabScal(g0partsx);
-		
-		tmp = statetn(0,Yh);
-		tmp += statebc;
-		
-		//Risolvo
-		w[] = S^-1*tmp;
-		
-		// salvo la mia soluzione al passo precedente
+		gamma1=1/2.;
+	    gamma2=1/2.;
+	    gamma3=0;
+	    gamma4=1;
+	    t=t+dt;
+	    wold=w;
+	    e1=g03;
+	    e2=g04;
+	    g05=PUabScal(e1);
+	    g06=PUabScal(e2);
+	    uold=u[i];
+	    ui=u[i+1];
+	    tmp=d(0,Yh);
+	    tmp=tmp+bc;
+	    w[]=(S^-1)*tmp;
 		statesol[i]=w;
-		
-		//aggiorno wold, uold, il tempo e g0old
-		wold=w;
-		uold = ui;
-		t += dt;
-		
-		g0IIsx = g0IIdx;
-
-	}
+		}
 	
-    //Passo di EA
-	gamma1=0.;
-    gamma2=1./2.;
-    gamma3=1./2.;
-    gamma4=0.;
-	
-	S=s(Yh,Yh);
-	
-	ui=u[nsol-1];
-	
-	//aggiorno g0IIdx il sx non compare quindi non lo calcolo
-	g0partdx = g0nonprojdx;
-	g0IIdx = PUabScal(g0partdx);
-	
-	tmp = statetn(0,Yh);
-	tmp += statebc;
-	
-	w[] = S^-1*tmp;
-	
-	statesol[nsol-1]=w;
-    //plot(w,fill=1,value=1,wait=0,cmm=" Stato in t=T ");	
+    gamma1=0;
+    gamma2=1/2.;
+    gamma3=1/2.;
+    gamma4=0;
+    S=s(Yh,Yh,solver=UMFPACK);
+    e1=g03;
+    e2=g04;
+    g05=PUabScal(e1);
+    g06=PUabScal(e2);
+    ui=u[nsol-1];
+    uold=u[nsol-2];
+    wold=w;
+    tmp=d(0,Yh);
+    tmp=tmp+bc;
+    w[]=(S^-1)*tmp;
+    statesol[nsol-1]=w;
+    plot(w,fill=1,value=1,wait=0,cmm=" Stato in t=T ");		
 	
 	//Calcolo dell'errore
 	errStateL2 = normL2state();

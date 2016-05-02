@@ -111,6 +111,7 @@ func real normLinfstate()
  */
 func real controltrap(real[int]& controlsol)
 {
+	/*
 	real tmp=0., med=0.;
 	
 	for( int i=0; i< nsol-1; i++)
@@ -125,6 +126,113 @@ func real controltrap(real[int]& controlsol)
 	tmp = sqrt(tmp);
 	
 	return tmp;
+	*/
+	
+    func ue=(-1/(4*alpha))*(exp(a1*(pi^2)*t)-exp(a1*(pi^2)*T));
+    func ue2=(-1/(4*alpha))*(exp(a1*(pi^2)*(t+dt))-exp(a1*(pi^2)*T));
+    func ue3= (-1/(4*alpha))*(exp(a1*(pi^2)*(t+dt*0.5))-exp(a1*(pi^2)*T));
+
+   real err=0;
+   t=0;
+   real l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13;
+   func ue4=(-1/(4*alpha))*(exp(a1*(pi^2)*l3)-exp(a1*(pi^2)*T));
+   func ue5=(-1/(4*alpha))*(exp(a1*(pi^2)*((l3+t)/2.))-exp(a1*(pi^2)*T));
+   func ue6=(-1/(4*alpha))*(exp(a1*(pi^2)*((l3+t+dt)/2.))-exp(a1*(pi^2)*T));
+   func ue7=(-1/(4*alpha))*(exp(a1*(pi^2)*l10)-exp(a1*(pi^2)*T));
+   func ue8=(-1/(4*alpha))*(exp(a1*(pi^2)*((l10+t)/2.))-exp(a1*(pi^2)*T));
+   func ue9=(-1/(4*alpha))*(exp(a1*(pi^2)*l11)-exp(a1*(pi^2)*T));
+   func ue10=(-1/(4*alpha))*(exp(a1*(pi^2)*((l11+t+dt)/2.))-exp(a1*(pi^2)*T));
+   func ue11=(-1/(4*alpha))*(exp(a1*(pi^2)*((l11+l10)/2.))-exp(a1*(pi^2)*T));
+
+   for(int i=0; i<nsol-1; i++)
+   {
+   	//m e q retta segmento Bpk
+   	l1=(Bpk[i+1]-Bpk[i])/(dt);
+   	l2=(Bpk[i]*(t+dt)-Bpk[i+1]*t)/(dt);
+	
+   	//valori di t in interszione del segmento definito retta precendete
+   	l3=(a-l2)/l1;
+   	l4=(b-l2)/l1;
+	
+   	//uesx e uedx
+   	l5=ue;
+   	l6=ue2;
+	
+	
+   	//caso di non intersezione uso CS xk need ordine di convergenza 2
+   	if((l3<t || l3>(t+dt)) && (l4<t || l4>(t+dt)))
+   	{
+		
+   		l7=ue3;
+   		real t1=(Bpk[i]+Bpk[i+1])/2.;
+   		err=err+(dt/6.)*((PUabScal(l5)-PUabScal(Bpk[i]))^2 + (PUabScal(l6)-PUabScal(Bpk[i+1]))^2 + 4*((PUabScal(l7)-PUabScal(t1)))^2);
+   	}
+	
+       else
+       {
+   		//interseco su retta y=a
+       	if(l3>=t && l3<=(t+dt) && (l4<t || l4>(t+dt)))
+       	{
+    		
+       		l7=ue4;
+       		l8=ue5;
+       		l9=ue6;
+       		real t2=(Bpk[i]+a)/2.;
+       		real t3=(Bpk[i+1]+a)/2.;
+       		err=err+((l3-t)/6.)*((PUabScal(l5)-PUabScal(Bpk[i]))^2 + (PUabScal(l7)-a)^2 + 4*((PUabScal(l8)-PUabScal(t2)))^2)
+			
+   			+((t+dt-l3)/6.)*((PUabScal(l7)-a)^2 + (PUabScal(l6)-PUabScal(Bpk[i+1]))^2 + 4*((PUabScal(l9)-PUabScal(t3)))^2);
+       	}
+       	else
+       	{
+       		//interseco su retta y=b
+   			if(l4>=t && l4<=(t+dt) && (l3<t || l3>(t+dt)))
+       		{
+    			
+   		        cout << " Eccomi " << endl;
+   		        l3=l4;
+   		        l7=ue4;
+       		    l8=ue5;
+       		    l9=ue6;
+       		    real t4=(Bpk[i]+b)/2.;
+       		    real t5=(Bpk[i+1]+b)/2.;
+       		    err=err+((l3-t)/6.)*((PUabScal(l5)-PUabScal(Bpk[i]))^2 + (PUabScal(l7)-b)^2 + 4*((PUabScal(l8)-PUabScal(t4)))^2)
+				
+   				+((t+dt-l3)/6.)*((PUabScal(l7)-b)^2 + (PUabScal(l6)-PUabScal(Bpk[i+1]))^2 + 4*((PUabScal(l9)-PUabScal(t5)))^2);
+       		}
+       		else
+       		{
+    			
+       			real c,d;
+       			if(l3<=l4){c=a;d=b;}
+       			else{c=b;d=a;}
+       			l10=min(l3,l4);
+       			l11=max(l3,l4);
+       			l7=ue7;
+       			l8=ue8;
+       			l9=ue9;
+       			l12=ue10;
+       			l13=ue11;
+    			
+       			real t6=(Bpk[i]+c)/2.;
+       			real t7=(Bpk[i+1]+d)/2.;
+       			real t8=(d+c)/2.;
+       			err=err+((l10-t)/6.)*((PUabScal(l5)-PUabScal(Bpk[i]))^2 + (PUabScal(l7)-c)^2 + 4*((PUabScal(l8)-PUabScal(t6)))^2)
+				
+   				+((t+dt-l11)/6.)*((PUabScal(l9)-d)^2 + (PUabScal(l6)-PUabScal(Bpk[i+1]))^2 + 4*((PUabScal(l12)-PUabScal(t7)))^2)
+				
+   				+((l11-l10)/6.)*((PUabScal(l7)-c)^2 + (PUabScal(l9)-d)^2 + 4*((PUabScal(l13)-PUabScal(t8)))^2); 
+       		}
+       	}
+       }   			
+       t=t+dt;
+       cout << " Errore " << err << endl;
+   }			
+
+   cout << " Errore controllo " << sqrt(err) << endl;		
+   
+   return err;
+	
 }
 
 /* Calcolo della || ues - u_k ||L2 con il metodo di cavalieri simpson
