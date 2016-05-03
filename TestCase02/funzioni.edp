@@ -24,19 +24,21 @@ func waT = cos(2.*pi*a1)*g;
 func wd = g*( cos((t/T)*2.*pi*a1)*(1.-2.*pi^2) - (2.*pi*a1/T)*sin((t/T)*2.*pi*a1) + 2.*pi^2*cos(2.*pi*a1) );
 
 /*la forzante del problema ha la seguente forma
- *	g0(t,x,y) = g*2.*pi*( -(a1/T)*sin((t/T)*2.*pi*a1) + pi*cos((t/T)*2.*pi*a1) ) - PUad(-(1./(4.*alpha))*cos((t/T)*2.*pi*a1) +(1./(4.*alpha)))
- * per calcolare il secondo termine è necessario usare le variabili di ausilio g0part e g0II
- * poichè freefem non ci permette di aglomerare le funzioni in un unica riga faremo dunque:
+ *	g0(t,x,y) = g*2.*pi*( -(a1/T)*sin((t/T)*2.*pi*a1) + pi*cos((t/T)*2.*pi*a1) ) 
+ *                - PUad(-(1./(4.*alpha))*cos((t/T)*2.*pi*a1) +(1./(4.*alpha)))
+ * per calcolare il secondo termine è necessario usare le variabili di ausilio g0part e g0II:
  * 		g0part= g0nonproj;
  *		g0II = PUabScal(g0part);
  */
 func g0Idx = g*2.*pi*( -(a1/T)*sin((t/T)*2.*pi*a1) + pi*cos((t/T)*2.*pi*a1) );
-func g0Isx=g*2.*pi*( -(a1/T)*sin(((t-dt)/T)*2.*pi*a1) + pi*cos(((t-dt)/T)*2.*pi*a1) );
+func g0Isx= g*2.*pi*( -(a1/T)*sin(((t-dt)/T)*2.*pi*a1) + pi*cos(((t-dt)/T)*2.*pi*a1) );
 func g0nonprojdx = ( -(1./(4.*alpha))*cos((t/T)*2.*pi*a1) +(1./(4.*alpha)) );
 func g0nonprojsx= ( -(1./(4.*alpha))*cos(((t-dt)/T)*2.*pi*a1) +(1./(4.*alpha)) );
 real g0partdx, g0IIdx, g0partsx, g0IIsx;
 
 func g0 = g0Idx - g0IIdx;
 func g0old = g0Isx - g0IIsx;
+
+
 
 	

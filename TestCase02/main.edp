@@ -15,7 +15,7 @@ verbosity=0;
 /****** 00.PARAMETRI ******/
 
 //Max number of temporal refinement levels
-int nLevels = 5;
+int nLevels = 3;
 
 /* Parametri temporali */
 real T=0.1;
@@ -39,6 +39,7 @@ for( int j=0; j<nLevels; j++)
 	int nsol = 2*nsolold-1;
 	nsolold=nsol;
 	real dt=T/(nsol-1);
+	cout << "======  dt = " << dt << " ======" << endl;
 
 	/* Parametri Per il problema di controllo:
 	 *	alpha = acceleration parameter
