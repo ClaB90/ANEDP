@@ -27,13 +27,30 @@ func wesx = -pi^2*exp(a1*pi^2*t2)*sin(x*pi)*sin(y*pi)/(2. + a1);
 func pesx = exp(a1*pi^2*t1)*sin(x*pi)*sin(y*pi) -waT;
 func pedx = exp(a1*pi^2*t2)*sin(x*pi)*sin(y*pi) -waT;
 
-
 /* ues = BPUab( -(exp(a1*pi^2*t))/(4*alpha) - (exp(a1*pi^2*T)) )
  * La costruzione della funzione esatta di u implica quindi l'utilizzo dell'operatore
  * di proiezione	
  */
-func uenonproject = -(exp(a1*pi^2*t))/(4*alpha) - (exp(a1*pi^2*T));
+func uenonproject = (-1./(4.*alpha))*(exp(a1*(pi^2)*t)-exp(a1*(pi^2)*T));
 
+/* La funzione uet(t) prende in ingresso un tempo e calcola il valore della u esatta 
+ * in quel istante temporale
+ */
+func real uet(real x)
+{
+	real tmp,savet=t;
+	
+	t=x;
+	tmp = uenonproject;
+	tmp = PUabScal(tmp);
+	
+	t=savet;
+	return tmp;
+	
+}
+
+/* La funzione ueproject() crea il vettore della soluzione di controllo esatta sulla griglia temporale standard
+ */
 func real[int] ueproject()
 {
 	real tmp=0;
@@ -53,9 +70,13 @@ func real[int] ueproject()
 	
 }
 
+/* Definisco e calcolo la soluzione di controllo esatta sulla griglia temporale standard
+ */
 real[int] ue(nsol);
 ue = ueproject();
 
+/* La funzione uepuntimedi() crea il vettore dei punti medi della soluzione di controllo esatta sulla griglia temporale standard
+ */
 func real[int] uepuntimedi()
 {
 	real tmp=0;
@@ -74,9 +95,6 @@ func real[int] uepuntimedi()
 	return control;
 	
 }
-
-real[int] uemed(nsol-1);
-uemed = uepuntimedi();
 
 
 
