@@ -8,7 +8,7 @@
  *						- problema spaziale				 							  *
  *					    - funzione per la soluzione del problema temporale  		  *
  * 		Dipendenze: main -> nsol + paramtri temporali 							 	  * 
- * 					state -> statesol(nsol) ed wd 										  * 
+ * 					state -> statesol(nsol) ed wd 									  * 
  * 									   necessarie per il calcolo dell'errore     	  *
  * 														 				 	 	 	  *
  **************************************************************************************/
@@ -26,6 +26,20 @@ Yh h, hnext;
 
 fespace Ph( Th, P1 );
 Ph p, pnext, ptest;
+
+//vettore della soluzioni p ad ogni passo temporale
+//m serve per il calcolo dell'errore.
+Ph[int] adjsol(nsol);
+adjsol[nsol-1] = pT;
+
+/* nel file funzioniErrore.edp le funzioni necessarie per il calcolo dell'errore del problema di stato
+ * e di quello di controllo 
+ */
+include "funzioniErroreAdj.edp";
+
+/* Parametri per il calcolo dell'errore del problema aggiunto
+ */
+real errAdjL2, errAdjLinf;
 
 /****** 02.Definizione matrici ******/ 
 
@@ -93,6 +107,7 @@ func real adjointt()
 		
 		//plot( p, nbiso=40, value = 1, fill=1, wait = 0, cmm="p" );
 		pnext=p;
+		adjsol[j-1] = p;
 		
 		//cout << " j " << j << endl;
 		Bpk[j-1]= (-1./alpha)*int2d(Th)( p * g );
@@ -101,6 +116,10 @@ func real adjointt()
 		t -= dt;
 		j--;
 	}
+	
+	//Calcolo errore
+	errAdjL2 = normL2adj();
+	//errAdjLinf = normLinfadj();
 	
 	return 0;
 }

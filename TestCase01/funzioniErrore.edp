@@ -4,6 +4,8 @@
  *				Claudia Bonomi 							 					*
  *											   			 					*
  *  	Descrizione: definizioni delle funzioni per errore	  				*
+ *						Problema di stato									*
+ *						Problema di controllo								*
  *																			*
  * 		Dipendenze:	funzioni.edp -> waT e a1						        *		
  *				    soluzioniEsatte -> definizioni funzioni esatte			*
@@ -12,7 +14,7 @@
  * 														 					*
  ****************************************************************************/
 
-/* Per il calcolo dell'errore di || pi*y -y_k ||L2 viene sommata ad ogni passo temporale la norma L2
+/* Per il calcolo dell'errore di || y -y_k ||L2 viene sommata ad ogni passo temporale la norma L2
  * la funzione seguente verrà chiamata ad ogni passo temporale sommandone il risultato,
  */
 func real normL2statet()
@@ -24,7 +26,7 @@ func real normL2statet()
 	return tmp;
 } 
 
-/* Per il calcolo dell'errore di || pi*y -y_k ||L2 viene sommata ad ogni passo temporale la norma L2
+/* Per il calcolo dell'errore di || y -y_k ||L2 viene sommata ad ogni passo temporale la norma L2
  * la funzione seguente sfrutta il vettore di soluzioni del problema di stato
  */
 func real normL2state()

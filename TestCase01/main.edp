@@ -26,7 +26,8 @@ real t=0.;
 /* Parametri per il calcolo dell'errore */
 real[int] errControlL2vec(nLevels),errControlLinfvec(nLevels); 
 real[int] errStateL2vec(nLevels),errStateLinfvec(nLevels);
-real[int] errProjectStateL2vec(nLevels); 
+real[int] errProjectStateL2vec(nLevels);
+real[int] errAdjL2vec(nLevels),errAdjLinfvec(nLevels); 
 
 /* NB: fissato un numero di soluzioni il numero di intervalli sarà nsol-1 poichè la soluzione è nota per i valori nodali. 
  * Per conformità con il paper di riferimento
@@ -148,6 +149,10 @@ for( int j=0; j<nLevels; j++)
 	errStateL2vec[j] = errStateL2;
 	errStateLinfvec[j] = errStateLinf;
 	errProjectStateL2vec[j] = errProjectStateL2;
+	errAdjL2vec[j] = errAdjL2;
+	//errAdjL2vec[j] = errAdjLinf;
+	
+	cout << "errAdjL2vec[j] = " << errAdjLinf << endl;
 
 	/*
 	cout << "Errore errControlL2 = " << errControlL2 << endl;
@@ -172,6 +177,8 @@ for(int j=0; j<nLevels-1; j++)
 	cout << "EOC errProjectStateL2 = " << errProjectStateL2vec[j]/errProjectStateL2vec[j+1] << " Vorrei fosse ~ 2" << endl;
 	cout << "EOC errStateL2 = " << errStateL2vec[j]/errStateL2vec[j+1] << " Vorrei fosse ~ 1" << endl;
 	cout << "EOC errStateLinf =  " << errStateLinfvec[j]/errStateLinfvec[j+1] << " Vorrei fosse ~ 1" << endl;
+	cout << "EOC errAdjL2 = " << errAdjL2vec[j]/errAdjL2vec[j+1] << " Vorrei fosse ~ 1" << endl;
+	//cout << "EOC errAdjLinf = " << errAdjLinfvec[j]/errAdjLinfvec[j+1] << " Vorrei fosse ~ 1" << endl;
 	
 }
 

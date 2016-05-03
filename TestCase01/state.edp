@@ -26,15 +26,6 @@ func w0 = -1.*(pi^2*wa)/(2+a1);
 // wb funzione al bordo di dirchlet 
 func wb = 0.;
 
-/* Parametri per il calcolo dell'errore dello stato
- * errStateL2 = || pi*y -y_k ||L2
- *
- * errProjectStateL2 = || y -pi*y_k ||L2
- */
-real errStateL2=0.;
-real errProjectStateL2 = 0.; 
-real errStateLinf = 0.; 
-
 /****************** 01.SPAZI FUNZIONALI ******************/
 
 fespace Yh( Th, P2 );
@@ -54,6 +45,12 @@ Yh[int] statesol(nsol);
  * e di quello di controllo 
  */
 include "funzioniErrore.edp";
+
+/* Parametri per il calcolo dell'errore dell problema di stato
+ */
+real errStateL2=0.;
+real errProjectStateL2 = 0.; 
+real errStateLinf = 0.; 
 
 /******************  02.PROBLEMA SPAZIALE ******************/
  
