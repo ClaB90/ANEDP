@@ -144,7 +144,7 @@ for( int j=0; j<nLevels; j++)
 		cout << "==========================" << endl;
 		cout << "Number of  iterations = " << k << endl;
 
-		errControlL2vec[j] = controltrap(u);
+		errControlL2vec[j] = controlErrL2(u);
 		errControlLinfvec[j] = normLinfcontrol(u);
 		errStateLinfvec[j] = errStateLinf;
 		errProjectStateL2vec[j] = errProjectStateL2;

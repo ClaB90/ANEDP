@@ -34,6 +34,24 @@ func pedx = cos((t2/T)*2.*pi*a1)*g -waT;
  */
 func uenonproject = g0nonprojdx;
 
+/* La funzione uet(t) prende in ingresso un tempo e calcola il valore della u esatta 
+ * in quel istante temporale
+ */
+func real uet(real x)
+{
+	real tmp,savet=t;
+	
+	t=x;
+	tmp = uenonproject;
+	tmp = PUabScal(tmp);
+	
+	t=savet;
+	return tmp;
+	
+}
+
+/* La funzione ueproject() crea il vettore della soluzione di controllo esatta sulla griglia temporale standard
+ */
 func real[int] ueproject()
 {
 	real tmp=0;
@@ -53,9 +71,13 @@ func real[int] ueproject()
 	
 }
 
+/* Definisco e calcolo la soluzione di controllo esatta sulla griglia temporale standard
+ */
 real[int] ue(nsol);
 ue = ueproject();
 
+/* La funzione uepuntimedi() crea il vettore dei punti medi della soluzione di controllo esatta sulla griglia temporale standard
+ */
 func real[int] uepuntimedi()
 {
 	real tmp=0;
