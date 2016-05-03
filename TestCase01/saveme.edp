@@ -18,7 +18,8 @@ func real saveControl()
 	uesk= "ControlSol/ControlSolEs"+j+".text";
 	ofstream ff(uk);
 	ofstream gg(uesk);
-	ff << "Soluzione Controllo a dt= " << dt <<endl;
+	ff << "Soluzione Controllo Approssimata a dt= " << dt <<endl;
+	gg << "Soluzione Esatta Controllo a dt= " << dt <<endl;
 	real k=0.;
 	for(int i=0; i<nsol; i++)
 	{
