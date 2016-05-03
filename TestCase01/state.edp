@@ -201,9 +201,7 @@ func real statet()
 	
 	//Calcolo dell'errore
 	errStateL2 = normL2state();
-
 	errProjectStateL2 = stateprojtrap();
-
 	errStateLinf = normLinfstate();
 	
 	//cout << "errore state L2  " << errStateL2 << endl;
