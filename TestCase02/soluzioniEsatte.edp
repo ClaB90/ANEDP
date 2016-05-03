@@ -24,10 +24,6 @@ real t2=dt/2.;
 func wedx = cos((t1/T)*2.*pi*a1)*g;
 func wesx = cos((t2/T)*2.*pi*a1)*g;
 
-func pesx = cos((t1/T)*2.*pi*a1)*g -waT;
-func pedx = cos((t2/T)*2.*pi*a1)*g -waT;
-
-
 /* ues = BPUab( -(exp(a1*pi^2*t))/(4*alpha) - (exp(a1*pi^2*T)) )
  * La costruzione della funzione esatta di u implica quindi l'utilizzo dell'operatore
  * di proiezione	

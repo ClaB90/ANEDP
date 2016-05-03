@@ -167,6 +167,11 @@ for( int j=0; j<nLevels; j++)
 	//plot( err, nbiso = 40, fill=1, value = 1, wait = 1, cmm="|w-w_d|" );
 	//plot( w, nbiso = 40, fill=1, value = 1, wait = 1, cmm="final w" );
 	//plot( p, nbiso = 40, fill=1, value = 1, wait = 1, cmm="final p" );
+	
+	/* nel file saveme.edp sono contenute le funzioni per salvare le variabili in file di testo
+	 */
+	include "saveme.edp";
+	saveControl();
 }
 
 for(int j=0; j<nLevels-1; j++)
