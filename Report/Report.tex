@@ -1,0 +1,168 @@
+\documentclass{book}
+
+\usepackage [utf8]{inputenc}
+\usepackage[babel]{csquotes}
+\usepackage [italian,english]{babel}					%Lingua e sillabazione
+%\usepackage [english]{babel}
+\usepackage {graphicx}									%Immagini
+\usepackage {caption}									%Didascalie
+\usepackage {wrapfig}									%Testo che avvolge un'oggetto
+\usepackage {amsfonts, amsmath, amssymb, esint, mathrsfs}	%Font e simboli matematici
+\usepackage {amsthm}										%Definizioni e teoremi
+\usepackage {mathtools}									%Comandi abs e norm	definiti sotto
+\usepackage {fancyhdr}									%Abstract in {book}
+\usepackage {hyperref}									%Collegamenti rossi e verdi
+
+% if you use this label name will show near by table and figure
+%\usepackage {showlabels}
+
+%should remove warning for textbraceleft
+\usepackage[T1]{fontenc}
+
+%Tabelle
+\usepackage {booktabs}									
+\usepackage {multirow}
+
+%Per il typesetting di formule chimiche - comando \ce{formula}
+%\usepackage {mhchem}	
+										
+%\usepackage {siunitx}
+
+%Bib
+\usepackage[citestyle=alphabetic,
+            bibstyle=alphabetic,
+            maxcitenames=1,
+            hyperref,
+            isbn=false,
+            url=false,
+            doi=false,
+            eprint=false,
+            firstinits=true,
+            backend=biber]{biblatex}
+
+
+% ti permette di usare \begin(comment) \end(comment)
+\usepackage{verbatim}
+
+%%%%%%%%%%%% Font Alternativi, a gruppi %%%%%%%%%%%%%%%%%%%
+% \usepackage{mathpazo}
+% \usepackage[scaled=.95]{helvet}
+% \usepackage{courier}
+
+% \usepackage{mathptmx}
+% \usepackage[scaled=.90]{helvet}
+% \usepackage{courier}
+
+%\usepackage{fourier}
+
+\newcommand{\mail}[1]{\href{mailto:#1}{\texttt{#1}}}
+
+\usepackage {listings}						%Per il codice
+	\lstset {
+		language=C++,
+%		inputencoding=utf8x,
+%		frame=single,
+		numbers=none,
+		extendedchars=\true,
+		showstringspaces=\false,
+		basicstyle=\small,
+		%Voglio i colori come li fa gedit!!
+		keywordstyle=\color{darkgreen}\bfseries,
+		commentstyle=\color{blue},
+		stringstyle=\color{fuxia},
+	}
+
+\usepackage {color}							%Definire colori
+	\ifx\color@rgb\@undefined\else
+		\definecolor{darkgreen}{rgb}{0,0.55,0}
+		\definecolor{fuxia}{rgb}{1,0,0.98}
+	\fi
+
+
+
+\makeatletter								%Gestione dei bookmark nel pdf
+\newcommand\deftoclevel[2][chapter]{%
+\expandafter\renewcommand\csname toclevel@#1\endcsname{#2}}
+\makeatother		%il comando \deftoclevel{-1} riporta il bookmark fuori di un livello
+
+% \usepackage {fancyhdr}						%Testatine ed Abstract in {book} come nella tesi liceo
+% \fancyhf{}
+% \fancyhead[RO,LE]{\thepage}
+% \fancyhead[LO]{\nouppercase{\slshape\rightmark}}
+% \fancyhead[RE]{\nouppercase{\slshape\leftmark}}
+% \pagestyle{fancy}
+
+\renewcommand{\epsilon}{\varepsilon}		%Definizione delle lettere greche per la tipografia italiana
+\renewcommand{\theta}{\vartheta}
+%\renewcommand{\rho}{\varrho}
+\renewcommand{\phi}{\varphi}
+
+\DeclareMathOperator{\NN}{\mathbb{N}}
+\DeclareMathOperator{\RR}{\mathbb{R}}
+\DeclareMathOperator\grad{grad}
+\DeclareMathOperator\rot{rot}	
+\DeclareMathOperator\curl{curl}	
+\DeclareMathOperator\sym{sym}	
+\DeclareMathOperator\tr{tr}	
+\DeclareMathOperator\divergence{div}
+\renewcommand{\div}{\divergence}
+
+\def\d{\,\,\textrm{d}}				%il differenziale in testo dritto
+
+
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+
+%\def\wto{\overset{w}{\to}}
+\def\wto{\rightharpoonup}
+\def\vec{\mathbf}
+
+\relpenalty=9999				%evita che le formule inline siano spezzate da fineriga QUASI sempre
+\binoppenalty=9999				%impostare a 10000 per evitare SEMPRE
+
+\newcommand{\<}{\langle}
+\renewcommand{\>}{\rangle}
+
+%Dichiarazione di teoremi e definizioni
+\theoremstyle{definition}					
+\newtheorem{definizione}{Definizione}
+
+\theoremstyle{plain}
+\newtheorem{teorema}{Teorema}
+\newtheorem*{teorema_bis} {Teorema}
+\newtheorem{proposizione}{Proposizione}
+
+%%Bibliography
+\bibliography{../src/library}
+%\addbibresource{src/library.bib}
+
+\usepackage{frontespizio}
+
+\begin{document}
+  
+  \frontmatter
+  \begin{titlepage}
+    \input{src/title}
+  \end{titlepage}
+%    \input{src/quotes}
+    \input{src/abstract}
+%   \input{src/acknowledgments}
+    \input{src/Nomenclature}
+    \input{src/Nomenclature_Greek}
+  \tableofcontents
+  \mainmatter
+    \input{src/01_Introduzione}
+    \input{src/02_Analisi_del_problema_continuo}
+    \input{src/03_Analisi_del_problema_discreto}
+    \input{src/04_Codice}
+ 	\input{src/05_Risultati}   
+ 	\input{src/06_Conclusioni}
+    
+  \backmatter
+  
+  \printbibliography[heading=bibintoc]    
+    
+  \listoffigures
+  \listoftables
+
+\end{document}
