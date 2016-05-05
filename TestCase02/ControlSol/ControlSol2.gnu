@@ -1,8 +1,8 @@
 set title 'l = 3'
 
 # Axes label
-set xlabel 'x'
-set ylabel 'y'
+set xlabel 't'
+set ylabel 'u'
 # Axes ranges
 set xrange [0:0.5]
 set yrange [0.2:0.4]

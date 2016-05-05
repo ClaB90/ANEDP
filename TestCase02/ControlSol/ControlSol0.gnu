@@ -2,7 +2,7 @@ set title 'l = 1'
 
 # Axes label
 set xlabel 't'
-set ylabel 'y'
+set ylabel 'u'
 # Axes ranges
 set xrange [0:0.5]
 set yrange [0.2:0.4]

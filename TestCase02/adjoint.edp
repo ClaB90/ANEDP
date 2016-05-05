@@ -8,8 +8,8 @@
  *						- problema spaziale				 							  *
  *					    - funzione per la soluzione del problema temporale  		  *
  * 		Dipendenze: main -> nsol + paramtri temporali 							 	  * 
- * 					state -> statesol(nsol) ed wd 										  * 
- * 									   necessarie per il calcolo dell'errore     	  *
+ * 					state -> statesol(nsol) ed wd 									  * 
+ * 								necessarie per il calcolo dell'errore     	  		  *
  * 														 				 	 	 	  *
  **************************************************************************************/
 
