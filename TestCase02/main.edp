@@ -18,7 +18,7 @@ verbosity=0;
 int nLevels = 3;
 
 /* Parametri temporali */
-real T=0.1;
+real T=0.5;
 real t=0.;
 
 /* Parametri per il calcolo dell'errore */

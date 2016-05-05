@@ -34,9 +34,9 @@ func real normL2state()
 	real tmp=0., savet=0.;
 	
 	savet = 0.;
-	t=dt;
+	t=dt/2;
 	
-	for(int i =0; i<nsol; i++)
+	for(int i =0; i<nsol-1; i++)
 	{
 		tmp += dt*int2d(Th)( (statesol[i]-we)^2 );
 		t += dt;

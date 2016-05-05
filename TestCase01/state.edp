@@ -21,7 +21,7 @@
 /****************** 00.PARAMETRI E FUNZIONI ******************/
 // w0 soluzione all'istante iniziale
 t=0.;
-func w0 = -1.*(pi^2*wa)/(2+a1);
+func w0 = -1.*(pi^2*g)/(2+a1);
 
 // wb funzione al bordo di dirchlet 
 func wb = 0.;
@@ -74,7 +74,7 @@ real gamma1,gamma2,gamma3,gamma4;
  * Per ogni passo i di CN le componenti u(i) ed u(i-1) devono essere considerati
  * Al passo di EA solo la componente u(nsol-1) deve essere considerata
  */
-real uold=0., ui;
+real uold, ui;
 
 varf s(w,wtest) =   int2d(Th)( w*wtest/dt )
 	        	  + int2d(Th)( gamma1*( dx(w)*dx(wtest) + dy(w)*dy(wtest) ) )
@@ -115,7 +115,7 @@ func real statet()
 	
 	//definisco i valori di uold
     uold=u[0];
-    ui=0;
+    ui=u[1];
 	
 	/* Calcolo S e bc
 	 * devo fare (nsol-1) passi prima di ricalcolare la matrice S per l'ultimo passo di EA
@@ -169,8 +169,6 @@ func real statet()
 		wold=w;
 		uold = ui;
 		t += dt;
-		
-		g0IIsx = g0IIdx;
 
 	}
 	
@@ -181,8 +179,6 @@ func real statet()
     gamma4=0.;
 	
 	S=s(Yh,Yh);
-	
-	ui=u[nsol-1];
 	
 	//aggiorno g0IIdx il sx non compare quindi non lo calcolo
 	g0partdx = g0nonprojdx;

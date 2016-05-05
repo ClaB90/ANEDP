@@ -31,3 +31,25 @@ func real saveControl()
 	
 	return 0;
 }
+
+func real saveAdj()
+{
+	string adjpro, adjvarf;
+
+	adjpro= "AdjSol/AdjProb"+j+".text";
+	adjvarf= "AdjSol/AdjVarf"+j+".text";
+	ofstream ff(adjpro);
+	ofstream gg(adjvarf);
+	ff << "Soluzione Adj Problem a dt= " << dt <<endl;
+	gg << "Soluzione Adj Varf a dt= " << dt <<endl;
+	real k=0.;
+	for(int i=0; i<nsol; i++)
+	{
+		ff << k << "	" << adjsol[i] << endl;
+		gg << k << "	" << adjsolvarf[i] << endl;
+		
+		k+=dt;
+	}
+	
+	return 0;
+}

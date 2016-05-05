@@ -17,6 +17,7 @@
 //Definiamo le funzioni 
 func we = cos((t/T)*2.*pi*a1)*g;
 func pe = wa -waT;
+func pe2=exp(a1*(pi^2)*(t-dt))*g-waT;
 
 real t1=dt*3./2.;
 real t2=dt/2.;

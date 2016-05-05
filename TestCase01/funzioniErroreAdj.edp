@@ -36,9 +36,9 @@ func real normL2adj()
 	savet = 0.;
 	t=dt;
 	
-	for(int i =0; i<nsol; i++)
+	for(int i =0; i<nsol-1; i++)
 	{
-		tmp += dt*int2d(Th)( (adjsol[i]-pe)^2 );
+		tmp += (dt/2.)*(int2d(Th)( (adjsol[i+1]-pe)^2 )+int2d(Th)((adjsol[i]-pe2)^2));
 		t += dt;
 	}
 	

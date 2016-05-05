@@ -17,6 +17,7 @@
 //Definiamo le funzioni 
 func we = -(pi^2)*exp(a1*pi^2*t)*sin(x*pi)*sin(y*pi)/(2. + a1);
 func pe = wa -waT;
+func pe2=exp(a1*pi^2*(t-dt))*sin(x*pi)*sin(y*pi)-exp(a1*pi^2*T)*sin(x*pi)*sin(y*pi);
 
 real t1=dt*3./2.;
 real t2=dt/2.;
