@@ -53,14 +53,15 @@ varf adjtn(p,ptest) =   int2d(Th)( pnext*ptest/dt )
     				  - int2d(Th)( 0.5*( dx(pnext)*dx(ptest) + dy(pnext)*dy(ptest) ) ) 
   					  + int2d(Th)( 0.5*( h*ptest ) ) 
   					  + int2d(Th)( 0.5*( hnext*ptest ) ); 
-
- problem adjoint( p, ptest) = - int2d(Th)( pnext*ptest/dt )
+/*
+problem adjoint( p, ptest) = - int2d(Th)( pnext*ptest/dt )
 							 + int2d(Th)( p*ptest/dt )			
 						     + int2d(Th)( 0.5*( dx(p)*dx(ptest) + dy(p)*dy(ptest) ) ) 
 						     + int2d(Th)( 0.5*( dx(pnext)*dx(ptest) + dy(pnext)*dy(ptest) ) ) 
 						     - int2d(Th)( 0.5*( h*ptest ) ) 
 						     - int2d(Th)( 0.5*( hnext*ptest ) ) 
-						     + on(1,2,3,4, p=pb);  
+						     + on(1,2,3,4, p=pb); 
+*/ 
 
 /* NB - u non cambia al passo temporale della p quello che cambia è la h, se dipende dal tempo, 
  *   	 quindi bisogna tener traccia della hnext;
@@ -89,7 +90,7 @@ func real adjointt()
 	t=t-dt;
 	
 	//Calcolo S e bc
-	Adj=adj(Ph,Ph,solver=UMFPACK);
+	Adj=adj(Ph,Ph,solver=GMRES);
 	adjbc=adj(0,Ph);
 
 	//Devi risolvere un passo in meno per l'aggiunta poichè beta_0 == 0
@@ -104,13 +105,13 @@ func real adjointt()
 		tmpadj += adjbc;
 		
 		//Risolvo
-		p2[] = Adj^-1*tmpadj;
-		adjoint;
+		p[] = Adj^-1*tmpadj;
+		//adjoint;
 		
 		//plot( p, nbiso=40, value = 1, fill=1, wait = 0, cmm="p" );
 		pnext=p;
 		adjsol[j-1] = p;
-		adjsolvarf[j-1] = p2;
+		//adjsolvarf[j-1] = p2;
 		
 		//cout << " j " << j << endl;
 		Bpk[j-1]= (-1./alpha)*int2d(Th)( p * g );
