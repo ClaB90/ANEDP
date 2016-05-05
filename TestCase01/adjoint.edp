@@ -49,10 +49,10 @@ varf adj(p,ptest) =   int2d(Th)( p*ptest/dt )
 					+ int2d(Th)( 0.5*( dx(p)*dx(ptest) + dy(p)*dy(ptest) ) ) 
 				    + on(1,2,3,4, p=pb);
 
-varf adjtn(p,ptest) = - int2d(Th)( pnext*ptest/dt )
-    				  + int2d(Th)( 0.5*( dx(pnext)*dx(ptest) + dy(pnext)*dy(ptest) ) ) 
-  					  - int2d(Th)( 0.5*( h*ptest ) ) 
-  					  - int2d(Th)( 0.5*( hnext*ptest ) ); 
+varf adjtn(p,ptest) =   int2d(Th)( pnext*ptest/dt )
+    				  - int2d(Th)( 0.5*( dx(pnext)*dx(ptest) + dy(pnext)*dy(ptest) ) ) 
+  					  + int2d(Th)( 0.5*( h*ptest ) ) 
+  					  + int2d(Th)( 0.5*( hnext*ptest ) ); 
 
  problem adjoint( p, ptest) = - int2d(Th)( pnext*ptest/dt )
 							 + int2d(Th)( p*ptest/dt )			
