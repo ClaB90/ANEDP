@@ -15,7 +15,7 @@ verbosity=0;
 /****** 00.PARAMETRI ******/
 
 //Max number of temporal refinement levels
-int nLevels = 3;
+int nLevels = 6;
 
 /* Parametri temporali */
 real T=0.5;
