@@ -1,3 +1,25 @@
 \chapter{Analisi del problema continuo}
 \label{chap:Continuos}
-$\mathbb{P}$
+
+Introdotto l'intervallo temporale $I = (0,T) \subset \mathbb{R}$, $T < \infty$ e una funzione scelta $y_d \in L^2(I,L^2)$ consideriamo dunque il seguente problema di controllo ottimo lineare quadratico:
+{\renewcommand\arraystretch{2}
+\begin{equation}
+\tag{$\mathbb{P}$}
+\begin{aligned}
+& \underset{y \in Y, u \in U_{ad}}{\text{min}}
+& & J(y,u) = \frac{1}{2}{||y-y_d||^{2}}_{L^2(I,L^2(\Omega))} + \frac{\alpha}{2}{||u||^{2}}_U \\
+& \text{s.t.} & &  y = S(Bu,y_0) \\
+\label{eq:200}
+\end{aligned}
+\end{equation}
+} %chiude \renewcommand\arraystretch{1.5}
+Lo spazio dello stato Y è definito come:
+\begin{equation}
+Y = W(I) =  \left\{ v \in L^2(I, {H^0}_1(\Omega)), {{\partial}_{t}}v \in L^2(I, H^{-1}(\Omega)) \right\}
+\label{eq:201}
+\end{equation}
+dove
+\begin{equation}
+Y \hookrightarrow C(\left[0,T\right], L^2(\Omega))
+\label{eq:202}
+\end{equation}
