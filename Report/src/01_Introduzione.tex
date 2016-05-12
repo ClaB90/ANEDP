@@ -1,4 +1,11 @@
 \chapter{Introduzione}
 
-
-ciao \cite{CY09}
+Il lavoro qui presentato tratta lo studio di un problema di controllo ottimo parabolico attraverso l'analisi proposta da \cite{MAIN}.
+\par\medskip
+Per l'equazione di stato in tempo viene utilizzato uno schema Petrov-Galerkin con un approccio costante a tratti per la funzione di stato ed uno lineare a tratti per la funzione test. Questa scelta degli spazi funzionali ha una ripercussione sullo schema di discretizzazione temporale sia del problema di stato che del problema aggiunto. Per entrambi, infatti, sarà utilizzata una variante dello schema di Crank-Nicolson consistente con la teoria di Rannacher descritta in \cite{Ran84}.
+In \cite{MAIN} viene provato analaticamente che questa scelta permette di raggiungere un ordine due di convergenza temporale sia per l'errore di controllo che per l'errore dello stato proiettato sulla griglia duale.
+Per la discretizazione spaziale si è fatto riferimento all'analisi proposta in \cite{MV11}.
+\par\medskip
+Attraverso l'utilizzo del software \textbf{FreeFem++} l'approccio teorico proposto precedentemente è stato implementato. I risultati numerici ottenuti confermano quelli teorici e sono consistenti con quelli presentati in \cite{MAIN}. Per il calcolo dell'errore di controllo è stato utilizzato inizialmente il metodo di Cavalieri-Simpson. In seguito è stato calcolato un secondo algoritmo meno soggetto agli errori di approssimazione, con esso si trova unordine di convergenza maggiore di 2 per l'errore di controllo.
+\par\medskip
+Il report è strutturato nel seguente modo. Nel Capitolo \ref{chap:Continuos} viene analizzata la soluzione teorica del problema di controllo ottimo. Nel Capitolo \ref{chap:Discontinuos} viene analizzata la regolità del problema discontinuo e introdotte la semi-discretizzazione temporale e la discretizzazione spaziale. Nel Capitolo \ref{chap:Code} sono contenute le informazioni riguardanti l'implementazione dell'algoritmo. Nel Capitolo \ref{chap:Results} sono raccolti i risultati numerici. Nel Capitolo \ref{chap:Conclusion} sono contenute le conclusioni e spunti per lavori futuri.
