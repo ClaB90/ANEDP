@@ -1,25 +1,142 @@
 \chapter{Analisi del problema continuo}
 \label{chap:Continuos}
 
-Introdotto l'intervallo temporale $I = (0,T) \subset \mathbb{R}$, $T < \infty$ e una funzione scelta $y_d \in L^2(I,L^2)$ consideriamo dunque il seguente problema di controllo ottimo lineare quadratico:
+In questo studio vengono considerati un dominio poligonale convesso $\Omega \in \mathbb{R}^n$ dove $n=2,3$, il cui bordo viene indicato con $\partial\Omega$, ed un intervallo temporale $I = (0,T) \subset \mathbb{R}$, $T < \infty$. 
+Per l'analisi seguente viene introdotta la terna hilbertiana (V,H,$V^*$) dove $V={H^0}_1(\Omega)$, $H=L^2(\Omega)$ e $V^*=H^{-1}(\Omega)$.
+Il problema di controllo ottimo lineare quadratico analizzato è defnito come:
 {\renewcommand\arraystretch{2}
 \begin{equation}
 \tag{$\mathbb{P}$}
 \begin{aligned}
 & \underset{y \in Y, u \in U_{ad}}{\text{min}}
-& & J(y,u) = \frac{1}{2}{||y-y_d||^{2}}_{L^2(I,L^2(\Omega))} + \frac{\alpha}{2}{||u||^{2}}_U \\
-& \text{s.t.} & &  y = S(Bu,y_0) \\
+& & J(y,u) = \frac{1}{2}{||y-y_d||^{2}}_{L^2(I,H)} + \frac{\alpha}{2}{||u||^{2}}_U \\
+& \text{s.t.} & & y = S(Bu,y_0) \\
 \label{eq:200}
 \end{aligned}
 \end{equation}
 } %chiude \renewcommand\arraystretch{1.5}
-Lo spazio dello stato Y è definito come:
+dove $y_d$ è una funzione scelta $\in L^2(I,H)$.
+
+\subsubsection{Problema di Stato}
+Il problema di stato è definito in forma forte e in forma debole rispettivamente in \ref{eq:201} e \ref{eq:202}.
 \begin{equation}
-Y = W(I) =  \left\{ v \in L^2(I, {H^0}_1(\Omega)), {{\partial}_{t}}v \in L^2(I, H^{-1}(\Omega)) \right\}
+\begin{array}{cc}
+ 	{\partial_{t}}y - {\bigtriangleup}y = f & \text{in I}\times\Omega \\
+	y=0 & \text{in I}\times\Omega \\
+	y(0) = \kappa & \text{in }\Omega \\
+\end{array}
 \label{eq:201}
 \end{equation}
-dove
+$\text{?} y \in W(I) \text{ con } y(0)=\kappa \text{ e } \text{con (f,}\kappa) \in L^2(I,V^*)\times H$ \\
+tale che:
+%{\renewcommand\arraystretch{1.4}
 \begin{equation}
-Y \hookrightarrow C(\left[0,T\right], L^2(\Omega))
+\begin{array}{c}
+	\int_{0}^{T} \left \langle {\partial_{t}}y(t),v(t) \right \rangle_{V^*V} \, dt +  	\int_{0}^{T} a(y(t),v(t)) \, dt  \\
+	 = \\
+	\int_{0}^{T} \left \langle f(t),v(t) \right \rangle_{V^*V} \, dt \ \ \forall v \in L^2(I,V) \\
+\end{array}
 \label{eq:202}
 \end{equation}
+%}
+dove $y(t) e v(T) \in V$ e la forma bilineare $a(y(t),v(t)): V{\times}V\rightarrow\mathbb{R}$ è definita come:
+\begin{equation}
+ a(y,v) = \int_{\Omega} {\bigtriangledown}y(x){\bigtriangledown}v(x) \, dx
+\label{eq:203}
+\end{equation}
+Lo spazio dello stato Y è definito come:
+\begin{equation}
+Y = W(I) =  \left\{ v \in L^2(I, V), {{\partial}_{t}}v \in L^2(I, V^*) \right\}
+\label{eq:204}
+\end{equation}
+ed in particolare vale che:
+\begin{equation}
+Y \hookrightarrow C(\left[0,T\right], H)
+\label{eq:205}
+\end{equation}
+l'operatore associato alla soluzione debole di \ref{eq:204} è $S : L^2(I,V^*) \times H \rightarrow Y$, $(f,\kappa) \longmapsto y = S(f,\kappa)$ 
+\par
+Applicando l'integrazione per parti sul \ref{eq:202} si ricava che:
+\begin{equation}
+A(y,v) = \int_{0}^{T} \left \langle f(t),v(t) \right \rangle_{V^*V} \, dt + ({\kappa},v(0))_H
+\label{eq:206}
+\end{equation}
+dove $y{\in}Y$ è la soluzione di \ref{eq:202}, $v{\in}Y$ è la funzione test e la forma bilineare $A(y,v): Y{\times}Y\rightarrow\mathbb{R}$ è definita come:
+\begin{equation}
+ A(y,v) = \int_{0}^{T} -\left \langle {\partial_{t}}v(t),y(t) \right \rangle_{V^*V} \, dt + \int_{0}^{T} a(y(t),v(t)) \, dt + (y(T),v(T))_H
+\label{eq:207}
+\end{equation}
+Per i risultati di stabilità, la consistenza e la convergenza di \ref{eq:201},noti in letteratura, si definisce y come soluzione unica di \ref{eq:206}. L'equazione \ref{eq:207} è necessaria per la definire  lo schema di approsimazione numerica per l'equazione di stato come descritto nel Capitolo \ref{chap:Discontinuos}.
+
+\subsubsection{Spazio del Controllo}
+Nello scenario descritto precedentemente la scelta per lo spazio di controllo non è unica. Seguendo le linee guida di \cite{MAIN} questo viene difinito come $U = L^2(I,\mathbb{R}^d), d \in \mathbb{N}$. Presi dunque $a_i, b_i \in \mathbb{R}$ t.c. $a_i<b_i {\forall}i=1:d$ la regione ammissibile, costituita da un insieme chiuso e convesso, è definita come:
+\begin{equation}
+U_{ad} = \left\{ u \in U | a_i \leq u_i(t) \geq b_i {\forall}i=1:d  \right\}
+\label{eq:208}
+\end{equation}
+in questo caso, introdotti i funzionali $g_i \in V^*$ l'operatore di controllo B, lineare e limitato, è definito da \ref{eq:209}.
+\begin{equation}
+B : U \rightarrow L^2(I,V^*), u\mapsto \left( t\mapsto\sum_{i=1}^d u_i(t)g_i \right)
+\label{eq:209}
+\end{equation}
+\MakeUppercase{è} quindi possibile introdurre l'operatore di proiezione ortogonale 
+\begin{equation}
+P_{U_{ad}} : L^2(I,\mathbb{R}^d)\rightarrow U_{ad}
+\label{eq:210}
+\end{equation}
+
+\subsubsection{Problema Aggiunto}
+Il problema \ref{eq:200} ammette un unica soluzione $(\overline{y},\overline{u}){\in}Y{\times}U$ dove $\overline{y}=S(B\overline{u},y_0)$.
+Intodotti ora la variabile aggiunta $(\overline{p},\overline{q}) \in L^2(I,V{\times}H)$, soluzione unica di \ref{eq:213}, e l'operatore aggiunto $B':L^2(I,V){\rightarrow}L^2(I,\mathbb{R}^d)$ definito da:
+\begin{equation}
+b'q(t) = ( \left \langle g_1,q(t) \right \rangle_{V*V}, . . . ,\left \langle g_d,q(t) \right \rangle_{V*V})^T
+\label{eq:211}
+\end{equation}
+Il controllo ottimo, utilizzando l'operatore di proiezione ortogonale \ref{eq:210}, è caratterizatto dalla seguente condizione necessaria e suffciente di prim ordine:
+\begin{equation}
+\overline{u}=P_{U_{ad}}\left( -\frac{1}{\alpha}B'\overline{p} \right)
+\label{eq:212}
+\end{equation}
+\begin{equation}
+\begin{array}{c}
+	\int_{0}^{T} \left \langle {\partial_{t}}\tilde{y}(t),\overline{p}(t) \right \rangle_{V^*V} \, dt +  	\int_{0}^{T} a(\tilde{y}(t),\overline{p}(t)) \, dt + (\tilde{y}(0),\overline{q})_H  \\
+	 = \\
+	\int_{0}^{T} \int_{\Omega} (\overline{y}(t,x)-y_d(t,x))\tilde{y}(t,x) \,dx \, dt  \ \ \forall \tilde{y} \in Y \\
+\end{array}
+\label{eq:213}
+\end{equation}
+Si nota che per $v \in L^2(I,\mathbb{R}^d)$ vale che:
+\begin{equation}
+P_{U_{ad}}(v)(t) = {(P_{[a_i,b_i]}(v_i(t)))_{i=1}}^d
+\label{eq:214}
+\end{equation}
+dove considerati $a,b,z \in \mathbb{R}$ $P_{[a,b]}(z) = max(a,min(z,b))$.
+Poichè $\overline{y} - y_d \in L^2(I,H)$ in \ref{eq:213}, si ha $\overline{p} \in Y$ ed integrando per parti con funzione di Y si trova che:
+{\renewcommand\arraystretch{2}
+\begin{equation}
+\begin{array}{c}
+	\int_{0}^{T} \left \langle -{\partial_{t}}\overline{p}(t),\tilde{y}(t) \right \rangle_{V^*V} \, dt +  	\int_{0}^{T} a(\tilde{y}(t),\overline{p}(t)) \, dt \\
+	+ (\tilde{y}(0),\overline{q})_H + (\tilde{y}(T),\overline{p}(T))_H - (\tilde{y}(0),\overline{p}(0))_H \\
+	 = \\
+	\int_{0}^{T} \int_{\Omega} (\overline{y}(t,x)-y_d(t,x))\tilde{y}(t,x) \,dx \, dt  \ \ \forall \tilde{y} \in Y \\
+\end{array}
+\label{eq:215}
+\end{equation}
+} %chiude arraystrech
+Il problema \ref{eq:215} può essere riscritto in forma forte come:
+\begin{equation}
+\begin{aligned}
+& {\partial_{t}}\overline{p} -\bigtriangleup\overline{p} = h & & in I{\times}\Omega \\
+& \overline{p}=0 & & in I{\times}\partial\Omega \\
+& \overline{p}(T) & & su \Omega \\
+\label{eq:216}
+\end{aligned}
+\end{equation}
+dove $ h= \overline{y} - y_d$ e $\overline{q}=\overline{p}(0)$.
+
+\subsubsection{Regolarità}
+Per lo studio della regolarità di \ref{eq:201} e \ref{eq:215} è importante assumere che:
+\begin{itemize}
+\item[i)] $y_d \in H^1(I,H) e y_d(T) \in V$ ed $g_i \in V {\forall}i=1:d$ e $y_0 \in V$ con ${\bigtriangleup}y_0 \in V$.
+\end{itemize} 
+Per le dimostrazioni dei risultati esposti in questa sezione si rimanda a \cite{MAIN} o \cite{MV11}
