@@ -79,23 +79,29 @@ in questo caso, introdotti i funzionali $g_i \in V^*$ l'operatore di controllo B
 B : U \rightarrow L^2(I,V^*), u\mapsto \left( t\mapsto\sum_{i=1}^d u_i(t)g_i \right)
 \label{eq:209}
 \end{equation}
+Si nota che l'operatore di controllo B può essere sostituito con l'operatore lineare affine $\tilde{B}$ definito come:
+\begin{equation}
+\tilde{B} : U \rightarrow L^2(I,V^*) \text{, } u\mapsto g_0 + Bu
+\label{eq:210}
+\end{equation}
+Affinchè non si perda la validità dei risultati che verranno esposti in seguito si suppone $g_0 \in L^2(I,H)$ ed $g_0(0) \in V$
 \MakeUppercase{è} quindi possibile introdurre l'operatore di proiezione ortogonale 
 \begin{equation}
 P_{U_{ad}} : L^2(I,\mathbb{R}^d)\rightarrow U_{ad}
-\label{eq:210}
+\label{eq:211}
 \end{equation}
 
 \subsubsection{Problema Aggiunto}
 Il problema \ref{eq:200} ammette un unica soluzione $(\overline{y},\overline{u}){\in}Y{\times}U$ dove $\overline{y}=S(B\overline{u},y_0)$.
-Intodotti ora la variabile aggiunta $(\overline{p},\overline{q}) \in L^2(I,V{\times}H)$, soluzione unica di \ref{eq:213}, e l'operatore aggiunto $B':L^2(I,V){\rightarrow}L^2(I,\mathbb{R}^d)$ definito da:
+Intodotti ora la variabile aggiunta $(\overline{p},\overline{q}) \in L^2(I,V{\times}H)$, soluzione unica di \ref{eq:214}, e l'operatore aggiunto $B':L^2(I,V){\rightarrow}L^2(I,\mathbb{R}^d)$ definito da:
 \begin{equation}
 b'q(t) = ( \left \langle g_1,q(t) \right \rangle_{V*V}, . . . ,\left \langle g_d,q(t) \right \rangle_{V*V})^T
-\label{eq:211}
+\label{eq:212}
 \end{equation}
-Il controllo ottimo, utilizzando l'operatore di proiezione ortogonale \ref{eq:210}, è caratterizatto dalla seguente condizione necessaria e suffciente di prim ordine:
+Il controllo ottimo, utilizzando l'operatore di proiezione ortogonale \ref{eq:211}, è caratterizatto dalla seguente condizione necessaria e suffciente di prim ordine:
 \begin{equation}
 \overline{u}=P_{U_{ad}}\left( -\frac{1}{\alpha}B'\overline{p} \right)
-\label{eq:212}
+\label{eq:213}
 \end{equation}
 \begin{equation}
 \begin{array}{c}
@@ -103,15 +109,15 @@ Il controllo ottimo, utilizzando l'operatore di proiezione ortogonale \ref{eq:21
 	 = \\
 	\int_{0}^{T} \int_{\Omega} (\overline{y}(t,x)-y_d(t,x))\tilde{y}(t,x) \,dx \, dt  \ \ \forall \tilde{y} \in Y \\
 \end{array}
-\label{eq:213}
+\label{eq:214}
 \end{equation}
 Si nota che per $v \in L^2(I,\mathbb{R}^d)$ vale che:
 \begin{equation}
 P_{U_{ad}}(v)(t) = {(P_{[a_i,b_i]}(v_i(t)))_{i=1}}^d
-\label{eq:214}
+\label{eq:215}
 \end{equation}
 dove considerati $a,b,z \in \mathbb{R}$ $P_{[a,b]}(z) = max(a,min(z,b))$.
-Poichè $\overline{y} - y_d \in L^2(I,H)$ in \ref{eq:213}, si ha $\overline{p} \in Y$ ed integrando per parti con funzione di Y si trova che:
+Poichè $\overline{y} - y_d \in L^2(I,H)$ in \ref{eq:214}, si ha $\overline{p} \in Y$ ed integrando per parti con funzione di Y si trova che:
 {\renewcommand\arraystretch{2}
 \begin{equation}
 \begin{array}{c}
@@ -120,16 +126,16 @@ Poichè $\overline{y} - y_d \in L^2(I,H)$ in \ref{eq:213}, si ha $\overline{p} \
 	 = \\
 	\int_{0}^{T} \int_{\Omega} (\overline{y}(t,x)-y_d(t,x))\tilde{y}(t,x) \,dx \, dt  \ \ \forall \tilde{y} \in Y \\
 \end{array}
-\label{eq:215}
+\label{eq:216}
 \end{equation}
 } %chiude arraystrech
-Il problema \ref{eq:215} può essere riscritto in forma forte come:
+Il problema \ref{eq:216} può essere riscritto in forma forte come:
 \begin{equation}
 \begin{aligned}
 & {\partial_{t}}\overline{p} -\bigtriangleup\overline{p} = h & & in I{\times}\Omega \\
 & \overline{p}=0 & & in I{\times}\partial\Omega \\
 & \overline{p}(T) & & su \Omega \\
-\label{eq:216}
+\label{eq:217}
 \end{aligned}
 \end{equation}
 dove $ h= \overline{y} - y_d$ e $\overline{q}=\overline{p}(0)$.
@@ -137,6 +143,6 @@ dove $ h= \overline{y} - y_d$ e $\overline{q}=\overline{p}(0)$.
 \subsubsection{Regolarità}
 Per lo studio della regolarità di \ref{eq:201} e \ref{eq:215} è importante assumere che:
 \begin{itemize}
-\item[i)] $y_d \in H^1(I,H) e y_d(T) \in V$ ed $g_i \in V {\forall}i=1:d$ e $y_0 \in V$ con ${\bigtriangleup}y_0 \in V$.
+\item[i)] $y_d \in H^1(I,H)$ e $y_d(T) \in V$ ed $g_i \in V {\forall}i=1:d$ e $y_0 \in V$ con ${\bigtriangleup}y_0 \in V$.
 \end{itemize} 
 Per le dimostrazioni dei risultati esposti in questa sezione si rimanda a \cite{MAIN} o \cite{MV11}
