@@ -1,4 +1,6 @@
-set title 'l = 1'
+#set title 'l = 1'
+
+set key font ",12"
 
 # Axes label
 set xlabel 't'

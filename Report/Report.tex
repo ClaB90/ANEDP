@@ -5,6 +5,7 @@
 \usepackage [italian,english]{babel}					%Lingua e sillabazione
 %\usepackage [english]{babel}
 \usepackage {graphicx}									%Immagini
+\usepackage {subfigure}
 \usepackage {caption}									%Didascalie
 \usepackage {wrapfig}									%Testo che avvolge un'oggetto
 \usepackage {amsfonts, amsmath, amssymb, esint, mathrsfs}	%Font e simboli matematici
@@ -12,6 +13,7 @@
 \usepackage {mathtools}									%Comandi abs e norm	definiti sotto
 \usepackage {fancyhdr}									%Abstract in {book}
 \usepackage {hyperref}									%Collegamenti rossi e verdi
+\usepackage{braket}										%generate bra and ket vectors
 
 % if you use this label name will show near by table and figure
 %\usepackage {showlabels}
@@ -107,11 +109,14 @@
 \DeclareMathOperator\divergence{div}
 \renewcommand{\div}{\divergence}
 
-\def\d{\,\,\textrm{d}}				%il differenziale in testo dritto
-
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}
 
 \DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
-\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\DeclarePairedDelimiter{\norma}{\lVert}{\rVert}
+
+\def\d{\,\,\textrm{d}}				%il differenziale in testo dritto
+
 
 %\def\wto{\overset{w}{\to}}
 \def\wto{\rightharpoonup}
@@ -122,6 +127,11 @@
 
 \newcommand{\<}{\langle}
 \renewcommand{\>}{\rangle}
+
+\newcommand{\numberset}{\mathbb}
+\newcommand{\N}{\numberset{N}}
+\newcommand{\R}{\numberset{R}}
+\newcommand{\Z}{\numberset{Z}}
 
 %Dichiarazione di teoremi e definizioni
 \theoremstyle{definition}					

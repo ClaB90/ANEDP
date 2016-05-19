@@ -1,6 +1,132 @@
 \chapter{Analisi del problema discreto}
 \label{chap:Discontinuos}
 
-\section{Semi-discretizzazione temporale}
+\section{Semidiscretizzazione temporale}
 
-\section{Discretizzazione spaziale-temporale}
+\subsection{Caratteristiche dello schema numerico}
+La sezione inizia introducendo la griglia e gli spazi funzionali utilizzati per la semidiscretizzazione temporale dei problemi di stato e aggiunto.
+
+Si partizioni l'intervallo $[0,T)$ in sottointervalli $I_m=[t_{m-1},t_m)$, dove $0=t_0<t_1<\dots<t_M=T$ sono punti appartenenti al segmento $[0,T)$. Inoltre si affianchi a tale griglia una seconda partizione dell'intervallo $[0,T)$, fondamentale per ottenere i risultati di convergenza dei problemi semidiscretizzati, detta \textit{griglia duale}; essa è composta dagli intervalli $I^*_m=[t^*_{m-1},t^*_m)$, con $0=t^*_0<t^*_1<\dots<t^*_M=T$ e $t^*_m=\frac{t_{m-1}+t_m}{2}\quad\text{per $m=1,\dots,M$}$. Riassumendo si può contare su due suddivisioni dell'intervallo $[0,T)$ tali che $[0,T)=\bigcup^{M+1}_{m=1} I_m$ e $[0,T)=\bigcup^{M+1}_{m=1} I^*_m$.
+
+Chiaramente la griglia primale avrà un parametro che ne descrive ``l'accuratezza'' che per noi sarà 
+\[
+k=\max_{1\le m\le M} k_m,\quad k_m=t_m-t_{m-1}\quad\text{per $m=1,\dots,M$}.
+\] 
+
+Per quanto riguarda l'ambientazione funzionale definiamo 
+\begin{gather*}
+P_k:=\Bigl\{v\in C([0,T],H^1_0(\Omega))\Bigl| v|_{I_{m}}\in \mathcal{P}_1(I_m,H^1_0(\Omega))\Bigr\}\hookrightarrow W(I),\\
+P^*_k:=\Bigl\{v\in C([0,T],H^1_0(\Omega))\Bigl| v|_{I^*_{m}}\in \mathcal{P}_1(I^*_m,H^1_0(\Omega))\Bigr\}\hookrightarrow W(I),\\  
+  Y_k:=\Bigl\{v:[0,T]\to H^1_0(\Omega)\Bigl| v|_{I_{m}}\in \mathcal{P}_0(I_m,H^1_0(\Omega))\Bigr\}\hookrightarrow W(I).
+\end{gather*}
+Qui, $\mathcal{P}_i(J,H^1_0(\Omega)), J\subset \overset{-}{I}, i\in\{0,1\}$, denota l'insieme dei polinomi in tempo al più di grado $i$ sull'intervallo $J$ a valori in $H^1_0(\Omega)$.
+
+
+Nei risultati che si menzioneranno in seguito si farà spesso uso dei seguenti operatori di interpolazione:
+\begin{enumerate}
+\item $\mathcal{P}_{Y_{k}}:L^2(I,H^1_0(\Omega))\to Y_k$
+\[
+\mathcal{P}_{Y_{k}} v|_{I_{m}}:=\frac{1}{k_{m}} \int^{t_{m}}_{t_{m-1}}vdt\quad \text{for $m=1,\dots,M$},\quad\text{e}\quad \mathcal{P}_{Y_{k}}v(T):=0
+\]
+\item $\Pi_{Y_{k}}:C([0,T],H^1_0(\Omega))\to Y_k$
+\[
+\Pi_{Y_{k}} v|_{I_{m}}:=v(t^*_m)\quad\text{per $m=1,\dots,M$},\quad \Pi_{Y_{k}} v(T):=v(T)
+\]
+\item $\pi_{P^*_k}:C([0,T],H^1_0(\Omega))\cup Y_k\to P^*_k$
+\begin{gather*}
+\pi_{P^*_k} v|_{I^*_1\cup I^*_2}:=v(t^*_1)+\frac{t-t^*_1}{t^*_2-t^*_1}(v(t^*_2)-v(t^*_1)),\\
+\pi_{P^*_k} v|_{I^*_m}:=v(t^*_{m-1})+\frac{t-t^*_{m-1}}{t^*_{m}-t^*_{m-1}}(v(t^*_m)-v(t^*_{m-1})),\quad\text{per $m=3,\dots,M-1$},\\
+\pi_{P^*_k} v|_{I^*_M\cup I^*_{M+1}}:=v(t^*_{M-1})+\frac{t-t^*_{M-1}}{t^*_M-t^*_{M-1}}(v(t^*_M)-v(t^*_{M-1})).
+\end{gather*}
+\end{enumerate} 
+
+
+\subsection{Semidiscretizzazione del problema di stato}
+Uno degli elementi di novità del lavoro DHV è dato proprio dallo schema adottato per la discretizzazione in tempo dell'equazione di stato, che è totalmente variazionale di tipo Petrov-Galerkin. Verranno infatti utilizzati uno spazio di funzioni costanti a tratti per la soluzione e continue lineari a tratti per le test. 
+
+Supponendo di estendere la forma bilineare $A$ di \cite{MAIN} in una mappa $A:W(I)\cup Y_k\times\to\R$, si tratta dunque di risolvere il seguente problema:
+
+dati $(f,\kappa)\in L^2(I,H^{-1}(\Omega))\times L^2(\Omega)$, trovare $y_k\in Y_k$ tale che 
+\begin{equation}
+\label{eqn:stato}
+A(y_k,v_k)=\int^{T}_{0} \Braket{f(t),v_k(t)}_{H^{-1}(\Omega)H^1_0(\Omega)}dt + (\kappa,v_k(0))_{L^2(\Omega)}\quad \forall v_k\in P_k.
+\end{equation}
+Data la scelta dello spazio $Y_k$ per la soluzione, essa può essere espressa come 
+\[
+y_k=\alpha_{M+1}\chi_{\{T\}} + \sum^M_{i=1} \alpha_i\chi_{I_i},\quad \alpha_i\in H^1_0(\Omega)\quad\text{per $i=1,\dots,M+1$},
+\]
+e attraverso facili calcoli si arriva alla formulazione del problema~\eqref{eqn:stato} in termini delle funzioni $\alpha_i$:
+\begin{enumerate}
+\item Trovare $\alpha_1$ tale che
+\begin{equation}
+\label{eqn:stato1}
+\frac{1}{t_1-t_0}(\alpha_1-\kappa,g)_{L^2(\Omega)} + \frac{1}{2}a(\alpha_1,g)=\frac{1}{2}(f(0),g)_{L^2(\Omega)}\quad \forall g\in H^1_0(\Omega),
+\end{equation}
+\item Trovare $\alpha_i,i=2,\dots,M$ tale che 
+\begin{equation}
+\label{eqn:stato2}
+ \frac{1}{t_i-t_{i-1}}(\alpha_i-\alpha_{i-1},g)_{L^2(\Omega)} + \frac{1}{2}a(\alpha_i+\alpha_{i+1},g)=\frac{1}{2}(f(t_{i-1}),g)_{L^2(\Omega)}\quad \forall g\in H^1_0(\Omega),
+ \end{equation}
+ \item Trovare $\alpha_{M+1}$ tale che 
+\begin{equation}
+\label{eqn:stato1}
+\frac{1}{t_{M}-t_{M-1}}(\alpha_{M+1}-\alpha_M,g)_{L^2(\Omega)} + \frac{1}{2}a(\alpha_M,g)=\frac{1}{2}(f(t_{M}),g)_{L^2(\Omega)}\quad \forall g\in H^1_0(\Omega),
+\end{equation}
+\end{enumerate}
+Alla luce di questa seconda formulazione si evince che lo schema di Petrov-Galerkin introdotto è equivalente ad una variante del metodo di Crank-Nicolson con primo e ultimo passo temporale di Rannacher, e sempre dalla seconda formulazione risulta chiaro che il problema semidiscretizzato ammette unica soluzione $y_k\in Y_k$.
+
+A questo punto vengono enunciati senza dimostrazione alcuni risultati tratti da \cite{MAIN} che garantiscono la stabilità e convergenza del metodo di Petrov-Galerkin. Per la stabilità:
+ \begin{lemma} 
+ \label{stab:stato}
+ Sia $y_k\in Y_k$ la soluzione di~\eqref{eqn:stato} con $f\in L^2(I,L^2(\Omega))$ e $\kappa\in L^2(\Omega)$ assegnati. Allora esiste una costante $C>0$ indipendente dal parametro di griglia $k$ tale che
+ \[
+ \norma{y_k}_I\le C(\norma{f}_I + \norma{\kappa}_{L^2(\Omega)})
+ \]
+\end{lemma}
+ Passando ora all'analisi di convergenza è normale aspettarsi un'approssimazione di ordine $\mathcal{O}(k)$, poiché la $y_k$ é costante a tratti in tempo; tuttavia la proiezione di $y_k$ tramite l'operatore $\pi_{P^*_k}$ permette di ottenere stime di ordine $\mathcal{O}(k^2)$. Infatti,
+ \begin{lemma} 
+ \label{conv:stato}
+ Siano $f\in H^1(I,L^2(\Omega)),f(0)\in H^1_0(\Omega)$ e $\kappa\in H^1_0(\Omega)$ con $\Delta\kappa\in H^1_0(\Omega)$ e siano $y,y_k$ le soluzioni dei problemi \ref{eq:201} e~\eqref{eqn:stato} con dati $(f,\kappa)$. Allora vale
+ \[
+ \norma{\pi_{P^*_k}y_k-y}_I\le Ck^2(\norma{\partial^2_t y}_I + \norma{\partial^2_t \Delta y}_I)
+ \]
+ \end{lemma}
+
+\subsection{Semidiscretizzazione del problema aggiunto}
+Anche il problema aggiunto viene affrontato con uno schema in tempo di tipo Petrov-Galerkin, dove però vengono scambiati gli spazi funzionali delle soluzioni e delle test. Poiché tale scelta conduce ad un metodo di Crank-Nicolson all'indietro, la sua analisi è standard. Si riportano qui di seguito la formulazione e risultati principali.
+
+Problema aggiunto semidiscretizzato in tempo:
+
+Dato $h\in L^2(I,H^{-1}(\Omega))$ trovare $p_k\in P_k$ tale che 
+\begin{equation}
+\label{eqn:agg}
+A(\tilde{y},p_k)=\int^T_0 \Braket{h(t),\tilde{y}(t)}_{H^{-1}(\Omega)H^1_0(\Omega)}dt\quad\forall\tilde{y}\in Y_k
+\end{equation}
+Se si scrive $p_k$ nella forma 
+\[
+p_k(t)=\sum^M_{i=0}\beta_i b_i(t)
+\]
+con coefficienti $\beta_i\in H^1_0(\Omega)$ e $b_i\in C([0,T]), b_i(t_j)=\delta_{ij}$ per $i,j=0,\dots,M$, l'equazione~\eqref{eqn:agg} diventa equivalente a
+\begin{enumerate}
+\item $\beta_M=0$,
+\item trovare $\beta_i,i=0,\dots,M-1$ tale che
+\begin{equation}
+\label{eqn:agg1}
+\frac{1}{t_{i+1}-t_i}(\beta_i-\beta_{i+1},g)_{L^2(\Omega)} + \frac{1}{2}a(\beta_i+\beta_{i+1},g)=\frac{1}{2}(h(t_i)+h(t_{i+1}),g)_{L^2(\Omega)}\quad\forall g\in H^1_0(\Omega)
+\end{equation}
+\end{enumerate}
+Stabilità e convergenza:
+\begin{lemma}
+\label{stab:agg}
+Sia $p_k\in P_k$ la soluzione di~\eqref{eqn:agg} con $h\in L^2(I,L^2(\Omega))$. Allora esiste ina costante $C>0$ indipendente da $k$ tale che
+\[
+\norma{p_k}_{H^1(I,L^2(\Omega))} + \norma{p_k(0)}_{H^1(\Omega)} \le C\norma{h}_I.
+\]
+\end{lemma}
+\begin{lemma}
+\label{conv:agg}
+Sian0 $p,p_k$ le soluzioni di \ref{eq:217} e di~\eqref{eqn:agg} rispettivamente, con $h\in L^2(I,L^2(\Omega))$. Allora vale
+\[
+\norma{p_k-p}_I\le Ck^2(\norma{\partial^2_t p}_I + \norma{\partial_t\Delta p}_I).
+\]
+\end{lemma}
