@@ -1,0 +1,48 @@
+int N=10;
+int nsol=10;
+
+/* Parametri temporali */
+real T=0.5;
+real t=0.;
+
+real dt=1./(nsol-1);
+mesh Th=square(N,N);
+
+fespace Yh(Th,P2);
+Yh w,wold,wtest;
+
+real gamma1,gamma2,gamma3,gamma4;
+real[int] statebc(Yh.ndof);
+
+// wb funzione al bordo di dirchlet 
+func wb = 0;
+
+func w0=sin(2*x)*sin(2*y);
+
+real[int,int] sh(nsol,Yh.ndof);
+for(int i=0;i<nsol;i++)
+{
+	for(int k=0;k<Yh.ndof;k++)
+	{
+		sh(i,k)=randint32();
+	}
+}
+
+real[int,int] WW(nsol,Yh.ndof);
+
+varf s(w,wtest) =   int2d(Th)( w*wtest/dt )
+	        	  + int2d(Th)( gamma1*( dx(w)*dx(wtest) + dy(w)*dy(wtest) ) )
+				  + on(1,2,3,4, w=wb);
+matrix S;
+
+include "funzioniCG.edp";
+
+WW=stateCG(sh);
+
+//PLOT
+Yh g;
+for (int h=0;h<nsol;h++)
+{
+	g[]=WW(h,:);
+	plot(g,wait=1,fill=1,cmm=h);
+}

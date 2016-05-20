@@ -51,21 +51,18 @@ func real[int,int] stateCG(real[int,int]& termnot)
 	 * devo fare (nsol-1) passi prima di ricalcolare la matrice S per l'ultimo passo di EA
 	 * mentre il vettore statebc rimane invariato ad ogni passo
 	 */
-	S=s(Yh,Yh,solver=UMFPACK);
+	S=s(Yh,Yh,solver=GMRES);
 	statebc=s(0,Yh);
-	
-	//aggiorno g0IIsx il dx non compare quindi non lo calcolo
-	g0partsx = g0nonprojsx;
-	g0IIsx = PUabScal(g0partsx);
 
     tmp=tnnew(0,Yh);
     tmp=tmp+statebc;
 	
 	//Risolvo
     w[]=(S^-1)*tmp;
+	plot(w,wait=1,fill=1,cmm="ciao 1");
     
 	// salvo la mia soluzione al passo precedente
-	stateSolCG(0,:)=w;
+	stateSolCG(0,:)=w[];
 	
 	//aggiorno wold, uold e il tempo
 	wold=w;
@@ -82,18 +79,18 @@ func real[int,int] stateCG(real[int,int]& termnot)
 		
 		listate[] = termnot(i+1,:);
 		
-		//aggiorno g0IIsx il dx non compare quindi non lo calcolo
-		g0partsx = g0nonprojsx;
-		g0IIsx = PUabScal(g0partsx);
-		
 		tmp = tnnew(0,Yh);
 		tmp += statebc;
 		
 		//Risolvo
 		w[] = S^-1*tmp;
+		//plot(w,wait=1,fill=1,cmm=i);
 		
 		// salvo la mia soluzione al passo precedente
-		stateSolCG(i,:)=w;
+		stateSolCG(i,:)=w[];
+		Yh tmp5;
+		tmp5[] = stateSolCG(i,:);
+		plot(tmp5,wait=1,fill=1,cmm=i);
 		
 		//aggiorno wold, uold, il tempo e g0old
 		wold=w;
@@ -110,27 +107,16 @@ func real[int,int] stateCG(real[int,int]& termnot)
 	
 	S=s(Yh,Yh);
 	
-	//aggiorno g0IIdx il sx non compare quindi non lo calcolo
-	g0partdx = g0nonprojdx;
-	g0IIdx = PUabScal(g0partdx);
-	
 	tmp = tnnew(0,Yh);
 	tmp += statebc;
 	
 	w[] = S^-1*tmp;
+	//plot(w,wait=1,fill=1,cmm="ciao fin");
 	
-	stateSolCG(nsol-1,:)=w;
-    //plot(w,fill=1,value=1,wait=0,cmm=" Stato in t=T ");	
-	
-	//Calcolo dell'errore
-	/*
-	errStateL2 = normL2state();
-	errProjectStateL2 = stateprojtrap();
-	errStateLinf = normLinfstate(); */
-	
-	//cout << "errore state L2  " << errStateL2 << endl;
-	//cout << "errore project state L2  " << errProjectStateL2 << endl;
-	//cout << "errore state Linf  " << errStateLinf << endl;
+	stateSolCG(nsol-1,:)=w[];
+	Yh tmp5;
+	tmp5[] = stateSolCG(nsol-1,:);
+	plot(tmp5,wait=1,fill=1,cmm="ciao fin");
 	
 	return stateSolCG;
 }
