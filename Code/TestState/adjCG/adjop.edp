@@ -1,0 +1,73 @@
+int n=10;
+int nsol=10;
+real dt=1./nsol;
+mesh Th=square(n,n);
+fespace Yh(Th,P2);
+real[int,int] sh(nsol,Yh.ndof);
+for(int i=0;i<nsol;i++)
+{
+	for(int k=0;k<Yh.ndof;k++)
+	{
+		sh(i,k)=randint32();
+	}
+}
+
+
+fespace Ph(Th,P1);
+real[int,int] RR(nsol,Ph.ndof);
+real[int,int] WW(nsol,Ph.ndof);
+
+
+func real[int,int] adjop(real[int,int] &xx)
+{
+
+func pT = 0.;
+func pb = 0.;	
+Ph p, pnext, ptest;
+Yh h, hnext;
+RR(nsol-1,:) = pT;
+
+varf adj(p,ptest) =   int2d(Th)( p*ptest/dt )			
+					+ int2d(Th)( 0.5*( dx(p)*dx(ptest) + dy(p)*dy(ptest) ) ) 
+				    + on(1,2,3,4, p=pb);
+
+varf adjtn(p,ptest) =   int2d(Th)( pnext*ptest/dt )
+    				  - int2d(Th)( 0.5*( dx(pnext)*dx(ptest) + dy(pnext)*dy(ptest) ) ) 
+  					  + int2d(Th)( 0.5*( h*ptest ) ) 
+  					  + int2d(Th)( 0.5*( hnext*ptest ) );
+
+real[int] tmpadj(Ph.ndof);
+matrix Adj=adj(Ph,Ph,solver=GMRES);; 
+real[int] adjbc(Ph.ndof);
+int j = nsol-1;
+pnext=pT;
+adjbc=adj(0,Ph);
+
+while( j > 0 )
+	{
+		h[]=xx(j,:);
+        hnext[]=xx(j+1,:);
+		
+		tmpadj = adjtn(0,Ph);
+		tmpadj += adjbc;
+		
+		RR(j-1,:)= Adj^-1*tmpadj;
+		pnext=p;
+		j--;
+	}
+	
+return RR;
+}
+
+WW=adjop(sh);
+Ph g;
+for (int h=0;h<nsol;h++)
+{
+	g[]=WW(h,:);
+	plot(g,wait=1,fill=1);
+}
+
+
+
+
+

@@ -1,0 +1,54 @@
+/* Parametri temporali */
+real T=0.5;
+real t=0.;
+
+int n=10;
+int nsol=10;
+real dt=1./(nsol-1);
+real alpha = 1.; 
+
+/* nel file funzioni.edp sono contenute le funzioni che caratterizzano l'operatore B ed yd
+ */
+include "funzioni.edp";
+
+/* nel file UabSet.edp vengono definiti i limiti dell'insieme Uab e le funzioni di proiezione di 
+ * uno scalare o di un vettore sullo spazio Uab
+ */
+include "UabSet.edp";   
+
+/* nel file soluzioniEsatte.edp sono contenute le funzioni per soluzioni esatte per w,p,u
+ */
+include "soluzioniEsatte.edp";       
+
+/* nel file mesh.edp è contenuta la mesh
+ */
+include "mesh.edp"; 
+
+/* nel file state.edp sono contenuti i parametri e le funzioni necessari per il problema di stato 
+ */
+include "state.edp";
+
+/* nel file funzioniCG.edp le funzioni necessarie per l'algoritmo del gradiente coniugato 
+ */
+include "funzioniCG.edp";
+
+real[int,int] sh(nsol,Yh.ndof);
+for(int i=0; i<nsol;i++)
+{
+	for(int k=0; k<Yh.ndof;k++)
+	{
+		sh(i,k) = randint32();
+	}
+}
+
+
+real[int,int] KK(nsol,Yh.ndof);
+
+KK=stateCG(sh);
+Yh tmp4;
+
+for(int i=0; i<nsol;i++)
+{
+	tmp4[]= KK(i,:);
+	plot(tmp4,wait=1,fill=1,cmm=i);
+}
