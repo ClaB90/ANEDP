@@ -14,21 +14,21 @@
  * 														 					*
  ****************************************************************************/
 
-/* Valori dei moltiplicatori di lagrange sullo spazio Yh
- */
-Yh listate,loldstate;
 
-/* il termine noto del problema di stato diventa
- */
-varf tnnew(w,wtest) =   int2d(Th)( wold*wtest/dt)
-				  	  - int2d(Th)( gamma2*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) ) );
-						//contributo di u
-			 		  + int2d(Th)( gamma3*( listate*wtest ))
-				 	  + int2d(Th)( gamma4*( loldstate*wtest ));
 
-func real[int,int] stateCG(real[int,int]& termnot)
+func real[int,int] stateCG(real[int,int]& xx)
 {	
-	cout << "State " << endl;
+	/* Valori dei moltiplicatori di lagrange sullo spazio Yh
+	 */
+	Yh listate,loldstate;
+
+	/* il termine noto del problema di stato diventa
+	 */
+	varf tnnew(w,wtest) =   int2d(Th)( wold*wtest/dt)
+					  	  - int2d(Th)( gamma2*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) ) );
+							//contributo di u
+				 		  + int2d(Th)( gamma3*( listate*wtest ))
+					 	  + int2d(Th)( gamma4*( loldstate*wtest ));
 	
 	real[int] tmp(Yh.ndof);
 	real[int,int] stateSolCG(nsol,Yh.ndof);
@@ -44,14 +44,14 @@ func real[int,int] stateCG(real[int,int]& termnot)
     gamma4=1./2.;
 	
 	//definisco i valori di uold
-    loldstate[] = termnot(0,:);
-    listate[] = termnot(1,:);
+    loldstate[] = xx(0,:);
+    listate[] = xx(1,:);
 	
 	/* Calcolo S e bc
 	 * devo fare (nsol-1) passi prima di ricalcolare la matrice S per l'ultimo passo di EA
 	 * mentre il vettore statebc rimane invariato ad ogni passo
 	 */
-	S=s(Yh,Yh,solver=UMFPACK);
+	S=s(Yh,Yh,solver=GMRES);
 	statebc=s(0,Yh);
 
     tmp=tnnew(0,Yh);
@@ -59,9 +59,9 @@ func real[int,int] stateCG(real[int,int]& termnot)
 	
 	//Risolvo
     w[]=(S^-1)*tmp;
-    
+	
 	// salvo la mia soluzione al passo precedente
-	stateSolCG(0,:)=w;
+	stateSolCG(0,:)=w[];
 	
 	//aggiorno wold, uold e il tempo
 	wold=w;
@@ -76,16 +76,17 @@ func real[int,int] stateCG(real[int,int]& termnot)
 	    gamma3=0.;
 	    gamma4=1.;
 		
-		listate[] = termnot(i+1,:);
+		listate[] = xx(i+1,:);
 		
 		tmp = tnnew(0,Yh);
 		tmp += statebc;
 		
 		//Risolvo
 		w[] = S^-1*tmp;
+		//plot(w,wait=1,fill=1,cmm=i);
 		
 		// salvo la mia soluzione al passo precedente
-		stateSolCG(i,:)=w;
+		stateSolCG(i,:)=w[];
 		
 		//aggiorno wold, uold, il tempo e g0old
 		wold=w;
@@ -106,9 +107,46 @@ func real[int,int] stateCG(real[int,int]& termnot)
 	tmp += statebc;
 	
 	w[] = S^-1*tmp;
+	//plot(w,wait=1,fill=1,cmm="ciao fin");
 	
-	stateSolCG(nsol-1,:)=w;
-	
+	stateSolCG(nsol-1,:)=w[];
 	
 	return stateSolCG;
+}
+
+
+func real[int,int] adjCG(real[int,int]& xx)
+{	
+	/* il termine noto del problema di adj rimarrà uguale ad h ed hnext verranno assegnati i valori
+	 * dei moltiplicatori di lagrange
+	 */
+	
+	/* vettori per le condizioni al bordo e per il termine noto
+	 */
+	real[int] tmpadj(Ph.ndof);
+	real[int] adjbc(Ph.ndof);
+	
+	real[int,int] stateAdjCG(nsol,Yh.ndof);
+	
+	matrix Adj=adj(Ph,Ph,solver=GMRES);
+	
+	int j = nsol-1;
+	pnext=pT;
+	
+	adjbc=adj(0,Ph);
+
+	while( j > 0 )
+		{
+			h[]=xx(j,:);
+	        hnext[]=xx(j+1,:);
+		
+			tmpadj = adjtn(0,Ph);
+			tmpadj += adjbc;
+		
+			stateAdjCG(j-1,:)= Adj^-1*tmpadj;
+			pnext=p;
+			j--;
+		}
+	
+	return stateAdjCG;
 }

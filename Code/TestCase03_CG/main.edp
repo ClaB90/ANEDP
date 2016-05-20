@@ -153,8 +153,7 @@ for( int j=0; j<nLevels; j++)
 		errAdjL2vec[j] = errAdjL2;
 		//errAdjL2vec[j] = errAdjLinf;
 	
-		cout << "errAdjL2vec[j] = " << errAdjLinf << endl;
-
+		//cout << "errAdjL2vec[j] = " << errAdjLinf << endl;
 		/*
 		cout << "Errore errControlL2 = " << errControlL2 << endl;
 		cout << "Errore errControlLinf = " << errControlLinf << endl;
