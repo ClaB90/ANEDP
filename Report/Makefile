@@ -26,13 +26,13 @@ copy:
 	cp $(OUTDIR)/$(FILE).pdf .
 
 clean:
-	cd $(OUTDIR); rm -f *.aux *.bbl *.bcf *.blg *.log *.nav *.out *.snm *.toc *.vrb *.xml
+	cd $(OUTDIR); rm -f *.aux *.bbl *.bcf *.blg *.log *.nav *.out *.snm *.toc *.vrb *.xml *.lof
 
 cleansrc:
 	cd $(SRC); rm -f *.aux *.bbl *.bcf *.blg *.log *.nav *.out *.snm *.toc *.vrb *.xml *.tex~ *.bib~
 
 cleanTexmaker:
-	rm -f *.aux *.bbl *.bcf *.blg *.log *.nav *.out *.snm *.toc *.vrb *.xml *.tex~
+	rm -f *.aux *.bbl *.bcf *.blg *.log *.nav *.out *.snm *.toc *.vrb *.xml *.tex~ *.lof
 
 cleanall:
 	make cleanTexmaker
