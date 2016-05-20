@@ -45,6 +45,7 @@ fespace Yh( Th, P2 );
  * g0old forzante al passo temporale precedente
  */
 Yh w, wold, wtest;
+int dofYh = Yh.ndof;
 
 //vettore della soluzioni w ad ogni passo temporale
 Yh[int] statesol(nsol);
