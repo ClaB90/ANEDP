@@ -1,0 +1,15 @@
+/****************** Politecnico di Milano - ANEDP project ******************/
+/* 														 					*
+ *  	authors Edoardo Arbib 							 					*
+ *				Claudia Bonomi 							 					*
+ *											   			 					*
+ *  	Descrizione: definizioni delle funzioni per CG		  				*
+ *						Problema di stato									*
+ *						Problema di controllo								*
+ *																			*
+ * 		Dipendenze:	funzioni.edp -> waT e a1						        *		
+ *				    soluzioniEsatte -> definizioni funzioni esatte			*
+ * 					main -> nsol						 					*
+ * 					state -> statesol[]					 					*
+ * 														 					*
+ ****************************************************************************/
