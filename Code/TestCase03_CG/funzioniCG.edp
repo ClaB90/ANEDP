@@ -159,14 +159,11 @@ func real[int,int] adjCG(real[int,int]& xx)
 	return AdjSolCG;
 }
 
-/* La funzione rightCG risolve il termine a destra dell'equazione
- *  ( I + (1/alpha)*ShI_(sh*)Sh*)dl = - (l+yd) + ShP[a,b](-(1/alpha)Sh*l)
- * necessaria per il primo passo dell'algortitmo Damped Newton
+/* La funzione projectAdjCG(real[int,int]& xx) proietta un vettore su Uab
  */
-func real[int,int] rightCG(real[int,int]& xx)
+func real[int,int] projectAdjCG(real[int,int]& xx)
 {
-	real[int,int] righthandCG(nsol,Yh.ndof);
-	real[int,int] tmp(nsol,Yh.ndof);
+	real[int,int] tmp(nsol,Ph.ndof);
 	
 	//calcolo Sh^*l
 	tmp = adjCG(xx);
@@ -174,6 +171,20 @@ func real[int,int] rightCG(real[int,int]& xx)
 	tmp = tmp*(-1./alpha);
 	//proietto su [a,b]
 	tmp = PUabMatrixPh(tmp,dofPh);
+	
+	return tmp;
+}
+
+/* La funzione rightCG risolve il termine a destra dell'equazione
+ *  ( I + (1/alpha)*ShI_(sh*)Sh*)dl = - (l+yd) + ShP[a,b](-(1/alpha)Sh*l)
+ * necessaria per il primo passo dell'algortitmo Damped Newton
+ */
+func real[int,int] rightCG(real[int,int]& xx)
+{
+	real[int,int] righthandCG(nsol,Yh.ndof);
+	real[int,int] tmp(nsol,Ph.ndof);
+	
+	tmp = projectAdjCG(xx);
 	//calcolo Shl
 	righthandCG = stateCG(tmp);
 	
@@ -190,3 +201,55 @@ func real[int,int] rightCG(real[int,int]& xx)
 	
 	return righthandCG;
 }
+
+func phi(real[int,int]& xx)
+{
+	real tmp,savet=t;
+	real[int,int] uw(nsol,Ph.ndof) = projectAdjCG(xx), tmp2;
+	
+	tmp2 = stateCG(uw);
+	
+	t=dt;
+	for( int i=0; i<Yh.ndof; i++)
+	{
+		tmp2(i,:) = yd - tmp2(i,:);
+		t+=dt;
+	}
+	t=savet;
+	
+	tmp = (normL2(xx))^2/2.;
+	tmp += (-alpha/2.)*(uw)^2;
+	tmp += prodottoL2(xx, tmp2);
+	
+	return tmp;
+}
+
+func real[int,int] CG(real[int,int]& xx)
+{
+	real lambdaCG = 1., betaCG = 0.8;
+	
+	real[int,int] uw(nsol,Ph.ndof) = projectAdjCG(xx);
+	real[int,int] deltal(nsol,Yh.ndof);
+	real[int,int] l(nsol,Yh.ndof) = xx;
+	
+	if( phi(l + deltal*lambaCG ) > phi(l) + (lambdaCG/3.)*prodottoL2(-rightCG(l), deltal) )
+	{
+		lambdaCG = lambdaCG*betaCG;
+	}
+	
+	l += lambdaCG*deltal;
+	
+	return l;
+}
+
+
+
+
+
+
+
+
+
+
+
+
