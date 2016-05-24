@@ -26,6 +26,7 @@ Yh h, hnext;
 
 fespace Ph( Th, P1 );
 Ph p, pnext, ptest;
+int dofPh = Ph.ndof;
 
 //vettore della soluzioni p ad ogni passo temporale
 //m serve per il calcolo dell'errore.

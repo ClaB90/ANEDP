@@ -22,7 +22,7 @@ func real[int,int] stateCG(real[int,int]& xx)
 {	
 	/* Valori dei moltiplicatori di lagrange sullo spazio Yh
 	 */
-	Yh listate,loldstate;
+	Ph listate,loldstate;
 
 	/* il termine noto del problema di stato diventa
 	 */
@@ -134,7 +134,7 @@ func real[int,int] adjCG(real[int,int]& xx)
 	real[int] tmpadj(Ph.ndof);
 	real[int] adjbc(Ph.ndof);
 	
-	real[int,int] AdjSolCG(nsol,Yh.ndof);
+	real[int,int] AdjSolCG(nsol,Ph.ndof);
 	
 	matrix Adj=adj(Ph,Ph,solver=GMRES);
 	
@@ -173,9 +173,9 @@ func real[int,int] rightCG(real[int,int]& xx)
 	//molitiplico per (-1./alpha)
 	tmp = tmp*(-1./alpha);
 	//proietto su [a,b]
-	tmp = PUabMatrixPh(tmp,dofYh);
+	tmp = PUabMatrixPh(tmp,dofPh);
 	//calcolo Shl
-	tmp = stateCG(tmp);
+	righthandCG = stateCG(tmp);
 	
 	real savet=t;
 	t=dt;
