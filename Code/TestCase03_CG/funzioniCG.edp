@@ -14,8 +14,10 @@
  * 														 					*
  ****************************************************************************/
 
-
-
+/* La funzione stateCG risolve il problema di stato ad ogni passo temporale dato un termine noto
+ * e crea il vettore delle soluzioni di questo ad ogni passo temporale
+ * l'operatore implementato in questa funzione è l'operatore Sh
+ */
 func real[int,int] stateCG(real[int,int]& xx)
 {	
 	/* Valori dei moltiplicatori di lagrange sullo spazio Yh
@@ -35,6 +37,7 @@ func real[int,int] stateCG(real[int,int]& xx)
 	
 	//inizializzo le variabili iniziali ogni volta che chiamo la funzione
 	wold=w0;
+	real savet =t;
 	t=dt;
 	
 	//Primo passo di EI con passo temporale dt/2
@@ -111,10 +114,15 @@ func real[int,int] stateCG(real[int,int]& xx)
 	
 	stateSolCG(nsol-1,:)=w[];
 	
+	t=savet;
+	
 	return stateSolCG;
 }
 
-
+/* La funzione adjCG risolve il problema aggiunto ad ogni passo temporale dato un termine noto
+ * e salva la soluzione in un opportuno vettore
+ * l'operatore implementato in questa funzione è l'operatore Sh^*
+ */
 func real[int,int] adjCG(real[int,int]& xx)
 {	
 	/* il termine noto del problema di adj rimarrà uguale ad h ed hnext verranno assegnati i valori
@@ -126,7 +134,7 @@ func real[int,int] adjCG(real[int,int]& xx)
 	real[int] tmpadj(Ph.ndof);
 	real[int] adjbc(Ph.ndof);
 	
-	real[int,int] stateAdjCG(nsol,Yh.ndof);
+	real[int,int] AdjSolCG(nsol,Yh.ndof);
 	
 	matrix Adj=adj(Ph,Ph,solver=GMRES);
 	
@@ -143,10 +151,42 @@ func real[int,int] adjCG(real[int,int]& xx)
 			tmpadj = adjtn(0,Ph);
 			tmpadj += adjbc;
 		
-			stateAdjCG(j-1,:)= Adj^-1*tmpadj;
+			AdjSolCG(j-1,:)= Adj^-1*tmpadj;
 			pnext=p;
 			j--;
 		}
 	
-	return stateAdjCG;
+	return AdjSolCG;
+}
+
+/* La funzione rightCG risolve il termine a destra dell'equazione
+ *  ( I + (1/alpha)*ShI_(sh*)Sh*)dl = - (l+yd) + ShP[a,b](-(1/alpha)Sh*l)
+ * necessaria per il primo passo dell'algortitmo Damped Newton
+ */
+func real[int,int] rightCG(real[int,int]& xx)
+{
+	real[int,int] righthandCG(nsol,Yh.ndof);
+	real[int,int] tmp(nsol,Yh.ndof);
+	
+	//calcolo Sh^*l
+	tmp = adjCG(xx);
+	//molitiplico per (-1./alpha)
+	tmp = tmp*(-1./alpha);
+	//proietto su [a,b]
+	tmp = PUabMatrixPh(tmp,dofYh);
+	//calcolo Shl
+	tmp = stateCG(tmp);
+	
+	real savet=t;
+	t=dt;
+	
+	for(int i=0; i<nsol; i++)
+	{
+		righthandCG(i,:) = -( xx(i,:) + wd ) + tmp(i,:);
+		t = t+dt;
+	}
+	
+	t=savet;
+	
+	return righthandCG;
 }
