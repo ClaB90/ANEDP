@@ -1,0 +1,85 @@
+/****************** Politecnico di Milano - ANEDP project ******************/
+/* 														 					*
+ *  	authors Edoardo Arbib 							 					*
+ *				Claudia Bonomi 							 					*
+ *											   			 					*
+ *  	Descrizione: per la gestione dell'insieme Uab definiamo 			*
+ *						- a = limite inferiore dell'insieme Uad      		*
+ *						- b = limite superiore dell'insieme Uad      		*
+ *					    - funzione per la proiezione di un valore su Uab    *
+ * 														 					*
+ * 		Dipendenze: conoscenza di nsol definito nel main  			 		* 
+ * 														 					*
+ ****************************************************************************/
+
+real a, b;
+
+a = 0.2;
+b = 0.4;
+
+/* La funzione PUabScal prende uno scalare e lo proietta nel insieme ammissibile U[a,b]
+ */
+func real PUabScal(real z)
+{
+	real tmp=0.;
+	
+	tmp = max( a, min( z, b ) );
+		
+	return tmp;
+}
+
+/* La funzione PUabScal prende uno scalare e lo proietta nel insieme ammissibile U[a,b]
+ */
+func real PUabScalnomaxmin(real& z)
+{
+	real tmp=0.;
+	
+	if( z <= a )
+	{
+		tmp = a;
+	}
+	else if (z >= b)
+	{
+		tmp=b;
+	}
+	else
+	{
+		tmp=z;
+	}
+	
+	//tmp = max( a, min( z, b ) );
+		
+	return tmp;
+}
+
+/* La funzione PUab prende un vettore e lo proietta nel insieme ammissibile U[a,b]
+ */
+func real[int] PUab(real[int]& z)
+{
+	real[int] tmp(nsol);
+	
+  	for(int i=0; i<nsol; i++)
+  	{
+	  tmp[i] = PUabScal(z[i]);
+	  //cout << "u[ " << i << "  ]" << u[i] << endl;
+  	}
+		
+	return tmp;
+}
+
+/* La funzione PUabMatrixPh prende un vettore di soluzioni di Ph e lo proietta nel insieme ammissibile U[a,b]
+ */
+func real[int] PUabMatrixPh(real[int,int]& z, int& ncol)
+{
+	real[int,int] tmp(nsol,ncol);
+	
+  	for(int i=0; i<nsol; i++)
+  	{
+	  for(int j=0; j<ncol; i++)
+	  {
+	  	  tmp(i,j) = PUabScal(z(i,j));
+	  }
+  	}
+		
+	return tmp;
+}

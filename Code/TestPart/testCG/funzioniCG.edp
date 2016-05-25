@@ -22,7 +22,7 @@ func real[int,int] stateCG(real[int,int]& xx)
 {	
 	/* Valori dei moltiplicatori di lagrange sullo spazio Yh
 	 */
-	Ph listate,loldstate;
+	Yh listate,loldstate;
 
 	/* il termine noto del problema di stato diventa
 	 */
@@ -129,7 +129,7 @@ func real[int,int] stateCG2(real[int,int]& xx)
 {	
 	/* Valori dei moltiplicatori di lagrange sullo spazio Yh
 	 */
-	Ph listate,loldstate;
+	Yh listate,loldstate;
 	real prova,prov2;
 
 	/* il termine noto del problema di stato diventa
@@ -239,24 +239,24 @@ func real[int,int] adjCG(real[int,int]& xx)
 	
 	/* vettori per le condizioni al bordo e per il termine noto
 	 */
-	real[int] tmpadj(Ph.ndof);
-	real[int] adjbc(Ph.ndof);
+	real[int] tmpadj(Yh.ndof);
+	real[int] adjbc(Yh.ndof);
 	
-	real[int,int] AdjSolCG(nsol,Ph.ndof);
+	real[int,int] AdjSolCG(nsol,Yh.ndof);
 	
-	matrix Adj=adj(Ph,Ph,solver=GMRES);
+	matrix Adj=adj(Yh,Yh,solver=GMRES);
 	
 	int j = nsol-1;
 	pnext=pT;
 	
-	adjbc=adj(0,Ph);
+	adjbc=adj(0,Yh);
 
 	while( j > 0 )
 		{
 			h[]=xx(j,:);
 	        hnext[]=xx(j+1,:);
 		
-			tmpadj = adjtn(0,Ph);
+			tmpadj = adjtn(0,Yh);
 			tmpadj += adjbc;
 		
 			AdjSolCG(j-1,:)= Adj^-1*tmpadj;
@@ -271,14 +271,14 @@ func real[int,int] adjCG(real[int,int]& xx)
  */
 func real[int,int] projectAdjCG(real[int,int]& xx)
 {
-	real[int,int] tmp(nsol,Ph.ndof);
+	real[int,int] tmp(nsol,Yh.ndof);
 	
 	//calcolo Sh^*l
 	tmp = adjCG(xx);
 	//molitiplico per (-1./alpha)
 	tmp = tmp*(-1./alpha);
 	//proietto su [a,b]
-	tmp = PUabMatrixPh(tmp,dofPh);
+	//tmp = PUabMatrixYh(tmp,dofYh);
 	
 	return tmp;
 }
@@ -290,7 +290,7 @@ func real[int,int] projectAdjCG(real[int,int]& xx)
 func real[int,int] rightCG(real[int,int]& xx)
 {
 	real[int,int] righthandCG(nsol,Yh.ndof);
-	real[int,int] tmp(nsol,Ph.ndof);
+	real[int,int] tmp(nsol,Yh.ndof);
 	
 	//calcolo Sh^*l
 	tmp = adjCG(xx);
@@ -316,7 +316,7 @@ func real[int,int] rightCG(real[int,int]& xx)
 
 func real[int,int] mat1(real[int,int] &xx, real[int,int] &ww) 
 {
-	Ph listate,loldstate;
+	Yh listate,loldstate;
     Yh indold,indnew;
 	varf tnnew(w,wtest) =  int2d(Th)( wold*wtest/dt) 
 		  				 - int2d(Th)( gamma2*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) ) ) 
@@ -397,30 +397,7 @@ func real[int,int] mat2(real[int,int] &ww, real[int,int] &xx)
 	res=res+xx;
 }
 
-func real phi(real[int,int]& xx)
-{
-	real tmp,savet=t;
-	real[int,int] uw(nsol,Ph.ndof), tmp2(nsol,Yh.ndof);
-	
-	uw = projectAdjCG(xx);
-	
-	tmp2 = stateCG(uw);
-	
-	t=dt;
-	for( int i=0; i<Yh.ndof; i++)
-	{
-		tmp2(i,:) = - tmp2(i,:);
-		tmp2(i,:) += wd;
-		t+=dt;
-	}
-	t=savet;
-	
-	tmp = (normL2(xx))^2/2.;
-	tmp += (-alpha/2.)*(normL2(uw))^2;
-	tmp += prodottoL2(xx, tmp2, Yh.ndof);
-	
-	return tmp;
-}
+
 
 func real prodottoL2Temp(real[int,int]& xx, real[int,int]& ww)
 {
@@ -480,38 +457,7 @@ func real[int,int] CG(real[int,int]& xx, real[int,int]& ww)
 	return xx;
 }
 
-func real[int,int] DampedNewton(real[int,int]& xx)
-{
-	real lambdaCG = 1., betaCG = 0.8;
-	
-	real[int,int] uw(nsol,Ph.ndof);
-	real[int,int] deltal(nsol,Yh.ndof);
-	real[int,int] l(nsol,Yh.ndof), tmp(nsol,Yh.ndof), tmp3(nsol,Ph.ndof) ;
-	
-	real tmp2;
-	
-	l = xx;
-	uw = projectAdjCG(xx);
-	
-	tmp = l;
-	tmp += deltal*lambdaCG;
-	
-	tmp3 = rightCG(l);
-	tmp3 *= -1.;
-	
-	tmp2 = prodottoL2( tmp3, deltal, Yh.ndof);
-	tmp2 *= lambdaCG/3.;
-	tmp2 += phi(l);
-	
-	if( phi(tmp) > tmp2 )
-	{
-		lambdaCG = lambdaCG*betaCG;
-	}
-	
-	l += lambdaCG*deltal;
-	
-	return l;
-}
+
 
 
 
