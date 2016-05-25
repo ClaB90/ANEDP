@@ -395,6 +395,8 @@ func real[int,int] mat2(real[int,int] &ww, real[int,int] &xx)
 	res=mat1(ww,pro);
 	res=(1./alpha)*res;
 	res=res+xx;
+	
+	return res;
 }
 
 func real phi(real[int,int]& xx)
