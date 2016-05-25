@@ -193,7 +193,8 @@ func real[int,int] rightCG(real[int,int]& xx)
 	
 	for(int i=0; i<nsol; i++)
 	{
-		righthandCG(i,:) = -( xx(i,:) + wd ) + tmp(i,:);
+		righthandCG(i,:) = (-1.)*xx(i,:)  + tmp(i,:);
+		righthandCG(i,:) = - wd;
 		t = t+dt;
 	}
 	
@@ -202,24 +203,27 @@ func real[int,int] rightCG(real[int,int]& xx)
 	return righthandCG;
 }
 
-func phi(real[int,int]& xx)
+func real phi(real[int,int]& xx)
 {
 	real tmp,savet=t;
-	real[int,int] uw(nsol,Ph.ndof) = projectAdjCG(xx), tmp2;
+	real[int,int] uw(nsol,Ph.ndof), tmp2(nsol,Yh.ndof);
+	
+	uw = projectAdjCG(xx);
 	
 	tmp2 = stateCG(uw);
 	
 	t=dt;
 	for( int i=0; i<Yh.ndof; i++)
 	{
-		tmp2(i,:) = yd - tmp2(i,:);
+		tmp2(i,:) = - tmp2(i,:);
+		tmp2(i,:) += wd;
 		t+=dt;
 	}
 	t=savet;
 	
 	tmp = (normL2(xx))^2/2.;
-	tmp += (-alpha/2.)*(uw)^2;
-	tmp += prodottoL2(xx, tmp2);
+	tmp += (-alpha/2.)*(normL2(uw))^2;
+	tmp += prodottoL2(xx, tmp2, Yh.ndof);
 	
 	return tmp;
 }
@@ -228,11 +232,26 @@ func real[int,int] CG(real[int,int]& xx)
 {
 	real lambdaCG = 1., betaCG = 0.8;
 	
-	real[int,int] uw(nsol,Ph.ndof) = projectAdjCG(xx);
+	real[int,int] uw(nsol,Ph.ndof);
 	real[int,int] deltal(nsol,Yh.ndof);
-	real[int,int] l(nsol,Yh.ndof) = xx;
+	real[int,int] l(nsol,Yh.ndof), tmp(nsol,Yh.ndof), tmp3(nsol,Ph.ndof) ;
 	
-	if( phi(l + deltal*lambaCG ) > phi(l) + (lambdaCG/3.)*prodottoL2(-rightCG(l), deltal) )
+	real tmp2;
+	
+	l = xx;
+	uw = projectAdjCG(xx);
+	
+	tmp = l;
+	tmp += deltal*lambdaCG;
+	
+	tmp3 = rightCG(l);
+	tmp3 *= -1.;
+	
+	tmp2 = prodottoL2( tmp3, deltal, Yh.ndof);
+	tmp2 *= lambdaCG/3.;
+	tmp2 += phi(l);
+	
+	if( phi(tmp) > tmp2 )
 	{
 		lambdaCG = lambdaCG*betaCG;
 	}
