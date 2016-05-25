@@ -19,11 +19,35 @@ b = 0.4;
 
 /* La funzione PUabScal prende uno scalare e lo proietta nel insieme ammissibile U[a,b]
  */
-func real PUabScal(real& z)
+func real PUabScal(real z)
 {
 	real tmp=0.;
 	
 	tmp = max( a, min( z, b ) );
+		
+	return tmp;
+}
+
+/* La funzione PUabScal prende uno scalare e lo proietta nel insieme ammissibile U[a,b]
+ */
+func real PUabScalnomaxmin(real& z)
+{
+	real tmp=0.;
+	
+	if( z <= a )
+	{
+		tmp = a;
+	}
+	else if (z >= b)
+	{
+		tmp=b;
+	}
+	else
+	{
+		tmp=z;
+	}
+	
+	//tmp = max( a, min( z, b ) );
 		
 	return tmp;
 }

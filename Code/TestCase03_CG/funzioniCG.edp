@@ -27,10 +27,118 @@ func real[int,int] stateCG(real[int,int]& xx)
 	/* il termine noto del problema di stato diventa
 	 */
 	varf tnnew(w,wtest) =   int2d(Th)( wold*wtest/dt)
-					  	  - int2d(Th)( gamma2*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) ) );
+					  	  - int2d(Th)( gamma2*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) ) )
 							//contributo di u
 				 		  + int2d(Th)( gamma3*( listate*wtest ))
 					 	  + int2d(Th)( gamma4*( loldstate*wtest ));
+	
+	real[int] tmp(Yh.ndof);
+	real[int,int] stateSolCG(nsol,Yh.ndof);
+	
+	//inizializzo le variabili iniziali ogni volta che chiamo la funzione
+	wold=w0;
+	real savet =t;
+	t=dt;
+	
+	//Primo passo di EI con passo temporale dt/2
+    gamma1=1./2.;
+    gamma2=0.;
+    gamma3=0.;
+    gamma4=1./2.;
+	
+	//definisco i valori di uold
+    loldstate[] = xx(0,:);
+    listate[] = xx(1,:);
+	
+	/* Calcolo S e bc
+	 * devo fare (nsol-1) passi prima di ricalcolare la matrice S per l'ultimo passo di EA
+	 * mentre il vettore statebc rimane invariato ad ogni passo
+	 */
+	S=s(Yh,Yh,solver=GMRES);
+	statebc=s(0,Yh);
+
+    tmp=tnnew(0,Yh);
+    tmp=tmp+statebc;
+	
+	//Risolvo
+    w[]=(S^-1)*tmp;
+	
+	// salvo la mia soluzione al passo precedente
+	stateSolCG(0,:)=w[];
+	
+	//aggiorno wold, uold e il tempo
+	wold=w;
+	loldstate = listate;
+	t += dt;
+	
+    // Passi di CN
+    for(int i=1; i<nsol-1; i++)
+	{
+		gamma1=1./2.;
+	    gamma2=1./2.;
+	    gamma3=0.;
+	    gamma4=1.;
+		
+		listate[] = xx(i+1,:);
+		
+		tmp = tnnew(0,Yh);
+		tmp += statebc;
+		
+		//Risolvo
+		w[] = S^-1*tmp;
+		//plot(w,wait=1,fill=1,cmm=i);
+		
+		// salvo la mia soluzione al passo precedente
+		stateSolCG(i,:)=w[];
+		
+		//aggiorno wold, uold, il tempo e g0old
+		wold=w;
+		loldstate = listate;
+		t += dt;
+
+	}
+	
+    //Passo di EA
+	gamma1=0.;
+    gamma2=1./2.;
+    gamma3=1./2.;
+    gamma4=0.;
+	
+	S=s(Yh,Yh);
+	
+	tmp = tnnew(0,Yh);
+	tmp += statebc;
+	
+	w[] = S^-1*tmp;
+	//plot(w,wait=1,fill=1,cmm="ciao fin");
+	
+	stateSolCG(nsol-1,:)=w[];
+	
+	t=savet;
+	
+	return stateSolCG;
+}
+
+/* La funzione stateCG risolve il problema di stato ad ogni passo temporale dato un termine noto
+ * e crea il vettore delle soluzioni di questo ad ogni passo temporale
+ * l'operatore implementato in questa funzione è l'operatore Sh
+
+ * ricordati che in xx devi passare già il valore moltplicato per (-1./alpha)
+ */
+func real[int,int] stateCG2(real[int,int]& xx)
+{	
+	/* Valori dei moltiplicatori di lagrange sullo spazio Yh
+	 */
+	Ph listate,loldstate;
+	real prova,prov2;
+
+	/* il termine noto del problema di stato diventa
+	 */
+	varf tnnew(w,wtest) =   int2d(Th)( wold*wtest/dt )
+					  	  - int2d(Th)( gamma2*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) ) )
+							//contributo di u
+						  + int2d(Th)(gamma3*(PUabScal(listate(x,y))*wtest))
+						  + int2d(Th)(gamma4*(PUabScal(loldstate(x,y))*wtest));
 	
 	real[int] tmp(Yh.ndof);
 	real[int,int] stateSolCG(nsol,Yh.ndof);
@@ -159,7 +267,7 @@ func real[int,int] adjCG(real[int,int]& xx)
 	return AdjSolCG;
 }
 
-/* La funzione projectAdjCG(real[int,int]& xx) proietta un vettore su Uab
+/* La funzione projectAdjCG(real[int,int]& xx) proietta un vettore soluzione su Uab
  */
 func real[int,int] projectAdjCG(real[int,int]& xx)
 {
@@ -184,9 +292,12 @@ func real[int,int] rightCG(real[int,int]& xx)
 	real[int,int] righthandCG(nsol,Yh.ndof);
 	real[int,int] tmp(nsol,Ph.ndof);
 	
-	tmp = projectAdjCG(xx);
+	//calcolo Sh^*l
+	tmp = adjCG(xx);
+	//molitiplico per (-1./alpha)
+	tmp = tmp*(-1./alpha);
 	//calcolo Shl
-	righthandCG = stateCG(tmp);
+	righthandCG = stateCG2(tmp);
 	
 	real savet=t;
 	t=dt;
@@ -201,6 +312,88 @@ func real[int,int] rightCG(real[int,int]& xx)
 	t=savet;
 	
 	return righthandCG;
+}
+
+func real[int,int] mat1(real[int,int] &xx, real[int,int] &ww) {
+	Ph listate,loldstate;
+    Yh indold,indnew;
+	varf tnnew(w,wtest) =  int2d(Th)( wold*wtest/dt) 
+		  				 - int2d(Th)( gamma2*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) ) ) 
+					     + int2d(Th)(gamma3*((indnew(x,y)<=b)*(indnew(x,y)>=a)*listate*wtest))
+						 + int2d(Th)(gamma4*((indold(x,y)<=b)*(indold(x,y)>=a)*loldstate*wtest));
+	
+	real[int] tmp(Yh.ndof);
+	real[int,int] stateSolCG(nsol,Yh.ndof);
+	
+	wold=w0;
+	gamma1=1./2.;
+    gamma2=0.;
+    gamma3=0.;
+    gamma4=1./2.;
+	
+	loldstate[]=xx(0,:);
+    listate[]=xx(1,:);
+	indold[]=ww(0,:);
+	indnew[]=ww(1,:);
+	
+	S=s(Yh,Yh,solver=GMRES);
+	statebc=s(0,Yh);
+
+    tmp=tnnew(0,Yh);
+    tmp=tmp+statebc;
+	
+	w[]=(S^-1)*tmp;
+	stateSolCG(0,:)=w[];
+	wold=w;
+	loldstate=listate;
+	indold=indnew;
+	
+	for(int i=1; i<nsol-1; i++)
+	{
+		gamma1=1./2.;
+	    gamma2=1./2.;
+	    gamma3=0.;
+	    gamma4=1.;
+		
+		listate[] = xx(i+1,:);
+		indnew[]=ww(i+1,:);
+	
+		tmp = tnnew(0,Yh);
+		tmp += statebc;
+		
+		w[] = S^-1*tmp;
+		stateSolCG(i,:)=w[];
+		
+		wold=w;
+		loldstate = listate;
+		indold=indnew;
+
+	}
+	
+	gamma1=0.;
+    gamma2=1./2.;
+    gamma3=1./2.;
+    gamma4=0.;
+	
+	S=s(Yh,Yh);
+	tmp = tnnew(0,Yh);
+	tmp += statebc;
+	w[] = S^-1*tmp;
+	
+	stateSolCG(nsol-1,:)=w[];
+	
+	return stateSolCG;
+}
+	
+	
+func real[int,int] mat2(real[int,int] &ww, real[int,int] &xx)
+{
+	real[int,int] res(nsol,Yh.ndof);
+	real[int,int] pro(nsol,Yh.ndof);
+	pro=adjCG(xx);
+	res=mat1(ww,pro);
+	res=(1./alpha)*res;
+	res=res+xx;
 }
 
 func real phi(real[int,int]& xx)
@@ -228,7 +421,7 @@ func real phi(real[int,int]& xx)
 	return tmp;
 }
 
-func real[int,int] CG(real[int,int]& xx)
+func real[int,int] DampedNewton(real[int,int]& xx)
 {
 	real lambdaCG = 1., betaCG = 0.8;
 	
