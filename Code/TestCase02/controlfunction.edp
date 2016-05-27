@@ -31,6 +31,7 @@ func real puntoFisso()
 	while ( toll > epsilon  && k <= Nmax)
 	{      
 	      k = k + 1;
+		  cout << "k = " << k << endl;
       
 	      //Control Update
 		  u = PUab(Bpk);
@@ -38,8 +39,6 @@ func real puntoFisso()
 		  //risolvo il problema di stato e l'aggiunto
 	      statet();  
 	      adjointt();
-      
-	      cout << "k = " << k << endl;
 	  
 	  	  //aggiorno valore toll per il criterio di arresto
 		  for( int i = 0; i < nsol-1; i++)
@@ -54,8 +53,6 @@ func real puntoFisso()
 			  }
 		  
 		  }
-
-		  cout << "toll final = " << toll << endl;
 	  	  
 		  //aggiorno Bpkold
 		  Bpkold = Bpk;
