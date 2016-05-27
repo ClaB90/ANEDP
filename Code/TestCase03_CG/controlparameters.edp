@@ -1,18 +1,25 @@
-/*********************** Politecnico di Milano - ANEDP project ************************/
-/* 														 					          *
- *  	authors Edoardo Arbib 							 					          *
- *				Claudia Bonomi 							 					          *
- *											   			 					          *
- *  	Descrizione: Parametri Per il problema di controllo: 						  *
- *						alpha = acceleration parameter								  *
- *						toll = variabile per la tolleranza							  *
- *						epsilon = valore limite per la tolleranza					  *
- * 						k = numero di iterazione del ciclo di controllo				  *
- * 					 	Nmax = numero massimo di iterazioni						 	  *
- *  					u[] = vettore soluzione di controllo						  *
- * 														 				 	 	 	  *
- * 														 				 	 	 	  *
- **************************************************************************************/
+/**************************** Politecnico di Milano - ANEDP project *****************************/
+/* 														 					          			*
+ *  	authors Edoardo Arbib 							 					          			*
+ *				Claudia Bonomi 							 					          			*
+ *											   			 					          			*
+ *  	Descrizione: Parametri Per il problema di controllo: 						  			*
+ *						alpha = acceleration parameter								  			*
+ *						toll = variabile per la tolleranza							  			*
+ *						epsilon = valore limite per la tolleranza					  			*
+ * 						k = numero di iterazione del ciclo di controllo				  			*
+ * 					 	Nmax = numero massimo di iterazioni						 	  			*
+ *  					u[] = vettore soluzione di controllo						  			*
+ * 						Bpk = vettore che contiene la soluzione alla seguente equazione 		*	
+ * 								(B'z)(t) = int2d(Th)( z(t,x,y)*g(x,y))dxdy						*
+ * 									al passo k del ciclio di controllo			 	 	  		*
+ * 						Bpkold = vettore che contiene la soluzione alla seguente equazione 		*	
+ * 									(B'z)(t) = int2d(Th)( z(t,x,y)*g(x,y))dxdy					*
+ * 										al passo k-1 del ciclio di controllo			 	 	*
+ * 														 				 	 	 	  			*		
+ *		NB -  la definizione di g è presente nel file funzioni.edp								*	
+ * 														 				 	 	 	  			*
+ ************************************************************************************************/
 
 
 real alpha, toll=0.,epsilon=0.;
@@ -23,3 +30,5 @@ Nmax = 300;
 k = 0;  
 
 real[int] u(nsol); 
+
+real[int] Bpk(nsol), Bpkold(nsol);

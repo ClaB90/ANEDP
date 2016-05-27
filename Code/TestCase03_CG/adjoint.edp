@@ -107,11 +107,9 @@ func real adjointt()
 		p[] = Adj^-1*tmpadj;
 		//adjoint;
 		
-		//plot( p, nbiso=40, value = 1, fill=1, wait = 0, cmm="p" );
 		pnext=p;
 		adjsol[j-1] = p;
 		
-		//cout << " j " << j << endl;
 		Bpk[j-1]= (-1./alpha)*int2d(Th)( p * g );
 		
 		

@@ -63,9 +63,6 @@ for( int j=0; j<nLevels; j++)
 	 */
 	include "mesh.edp"; 
 
-	//Vado a salvare il pezzetto B'pk per ogni passo temporale
-	real[int] Bpk(nsol), Bpkold(nsol);
-
 	/* nel file state.edp sono contenuti i parametri e le funzioni necessari per il problema di stato 
 	 */
 	include "state.edp";
@@ -74,104 +71,55 @@ for( int j=0; j<nLevels; j++)
 	 */
 	include "adjoint.edp";
 
-	/* nel file funzioniErrore.edp le funzioni necessarie per il calcolo dell'errore del problema di stato
-	 * e di quello di controllo 
+	/* nel file controlparameters.edp sono contenute le funzione per la risoluzione per il problema di controllo
 	 */
-	//include "funzioniErrore.edp";
-
-	//Primo passo soluzione
-	//La variabile di controllo al primo passo viene settatta uguale al limite inferiore di Uab
-	u = a;          
-
-	statet(); 
-	//plot( w, nbiso = 40, fill=1, value = 1, wait = 0, cmm="initial y" );
-
-	adjointt();
-	//plot( p, nbiso = 40, fill=1, value = 1, wait = 1, cmm="initial p");
-
-	Bpkold = Bpk;
-
-	toll = 1;
-
-	//Iterative algorithm
-	while ( toll > epsilon  && k <= Nmax)
-	{      
-	      k = k + 1;
-      
-	      //Control Update
-		  u = PUab(Bpk);
-
-	      statet();  
-
-	      adjointt();
-      
-	      cout << "k = " << k << endl;
-	  
-	  
-		  for( int i = 0; i < nsol-1; i++)
-		  {
-			  if( i == 0 )
-			  {
-			  	toll = abs(Bpk[i]-Bpkold[i]);
-			  }
-			  else
-			  {
-			  	toll = max( toll, abs(Bpk[i]-Bpkold[i]));
-			  }
-		  
-			  //cout << " i = " << i << endl;
-			  //cout << "Bpk[i] = " << Bpk[i] << "  Bpkold[i] = " <<  Bpkold[i] << endl;
-			  //cout << "toll = " << toll << endl;
-		  }
-
-		  cout << "toll final = " << toll << endl;
-	  
-		  Bpkold = Bpk;
-
-	    };
-
-		cout << "==========================" << endl;
-		cout << "Number of  iterations = " << k << endl;
-
-		errControlL2vec[j] = controlErrL2(u);
-		errControlLinfvec[j] = normLinfcontrol(u);
-		errStateL2vec[j] = errStateL2;
-		errStateLinfvec[j] = errStateLinf;
-		errProjectStateL2vec[j] = errProjectStateL2;
-		errAdjL2vec[j] = errAdjL2;
-		//errAdjL2vec[j] = errAdjLinf;
+	include "controlfunction.edp";
 	
-		cout << "errAdjL2vec[j] = " << errAdjLinf << endl;
+	//risolvo il problema di controllo
+	puntoFisso();
 
-		/*
-		cout << "Errore errControlL2 = " << errControlL2 << endl;
-		cout << "Errore errControlLinf = " << errControlLinf << endl;
-		cout << "Errore errProjectStateL2 = " << errProjectStateL2 << endl;
-		cout << "Errore errStateLinf =  " << errStateLinf << endl;
-		*/
+	{cout << "==========================" << endl;
+	cout << "Number of  iterations = " << k << endl;
 
-		/****** 05.VISUALIZATION ******/ 
-		// Difference between the final state and the desired observation 
-		//err = abs( w - wd );  
-		//plot( err, nbiso = 40, fill=1, value = 1, wait = 1, cmm="|w-w_d|" );
-		//plot( w, nbiso = 40, fill=1, value = 1, wait = 1, cmm="final w" );
-		//plot( p, nbiso = 40, fill=1, value = 1, wait = 1, cmm="final p" );
-		
-		/* nel file saveme.edp sono contenute le funzioni per salvare le variabili in file di testo
-		 */
-		include "saveme.edp";
-		saveControl();
-	}
+	errControlL2vec[j] = controlErrL2(u);
+	errControlLinfvec[j] = normLinfcontrol(u);
+	errStateL2vec[j] = errStateL2;
+	errStateLinfvec[j] = errStateLinf;
+	errProjectStateL2vec[j] = errProjectStateL2;
+	errAdjL2vec[j] = errAdjL2;
+	//errAdjL2vec[j] = errAdjLinf;
 
-	for(int j=0; j<nLevels-1; j++)
-	{
-		cout << " j = " << j << endl;
-		cout << "EOC errControlL2 = " << errControlL2vec[j]/errControlL2vec[j+1] << " Vorrei fosse ~ 2" << endl;
-		cout << "EOC errControlLinf = " << errControlLinfvec[j]/errControlLinfvec[j+1] << " Vorrei fosse ~ 2" <<endl;
-		cout << "EOC errProjectStateL2 = " << errProjectStateL2vec[j]/errProjectStateL2vec[j+1] << " Vorrei fosse ~ 2" << endl;
-		cout << "EOC errStateL2 = " << errStateL2vec[j]/errStateL2vec[j+1] << " Vorrei fosse ~ 1" << endl;
-		cout << "EOC errStateLinf =  " << errStateLinfvec[j]/errStateLinfvec[j+1] << " Vorrei fosse ~ 1" << endl;
-		cout << "EOC errAdjL2 = " << errAdjL2vec[j]/errAdjL2vec[j+1] << " Vorrei fosse ~ 1" << endl;
-		//cout << "EOC errAdjLinf = " << errAdjLinfvec[j]/errAdjLinfvec[j+1] << " Vorrei fosse ~ 1" << endl;
+	cout << "errAdjL2vec[j] = " << errAdjLinf << endl;
+
+	/*
+	cout << "Errore errControlL2 = " << errControlL2 << endl;
+	cout << "Errore errControlLinf = " << errControlLinf << endl;
+	cout << "Errore errProjectStateL2 = " << errProjectStateL2 << endl;
+	cout << "Errore errStateLinf =  " << errStateLinf << endl;
+	*/
+
+	/****** 05.VISUALIZATION ******/ 
+	// Difference between the final state and the desired observation 
+	//err = abs( w - wd );  
+	//plot( err, nbiso = 40, fill=1, value = 1, wait = 1, cmm="|w-w_d|" );
+	//plot( w, nbiso = 40, fill=1, value = 1, wait = 1, cmm="final w" );
+	//plot( p, nbiso = 40, fill=1, value = 1, wait = 1, cmm="final p" );
 	
-	}
+	/* nel file saveme.edp sono contenute le funzioni per salvare le variabili in file di testo
+	 */
+	include "saveme.edp";
+	saveControl();}
+}
+
+for(int j=0; j<nLevels-1; j++)
+{
+	cout << " j = " << j << endl;
+	cout << "EOC errControlL2 = " << errControlL2vec[j]/errControlL2vec[j+1] << " Vorrei fosse ~ 2" << endl;
+	cout << "EOC errControlLinf = " << errControlLinfvec[j]/errControlLinfvec[j+1] << " Vorrei fosse ~ 2" <<endl;
+	cout << "EOC errProjectStateL2 = " << errProjectStateL2vec[j]/errProjectStateL2vec[j+1] << " Vorrei fosse ~ 2" << endl;
+	cout << "EOC errStateL2 = " << errStateL2vec[j]/errStateL2vec[j+1] << " Vorrei fosse ~ 1" << endl;
+	cout << "EOC errStateLinf =  " << errStateLinfvec[j]/errStateLinfvec[j+1] << " Vorrei fosse ~ 1" << endl;
+	cout << "EOC errAdjL2 = " << errAdjL2vec[j]/errAdjL2vec[j+1] << " Vorrei fosse ~ 1" << endl;
+	//cout << "EOC errAdjLinf = " << errAdjLinfvec[j]/errAdjLinfvec[j+1] << " Vorrei fosse ~ 1" << endl;
+
+}

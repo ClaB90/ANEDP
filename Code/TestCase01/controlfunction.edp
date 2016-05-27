@@ -1,0 +1,67 @@
+/*********************** Politecnico di Milano - ANEDP project ************************/
+/* 														 					          *
+ *  	authors Edoardo Arbib 							 					          *
+ *				Claudia Bonomi 							 					          *
+ *											   			 					          *
+ *  	Descrizione: Per il problema di controllo definiamo  					      *
+ *						- funzione puntoFisso										 *
+ * 														 				 	 	 	  *
+ * 		Dipendenze: state.edp -> statet()											  * 
+ * 					adjoit.edp -> adjoint()											  *
+ * 					UabSet.edp -> P(Uab)								 			  *
+ * 														 				 	 	 	  *
+ **************************************************************************************/
+
+func real puntoFisso()
+{
+	//Primo passo soluzione
+	//La variabile di controllo al primo passo viene settatta uguale al limite inferiore di Uab
+	u = a;          
+	
+	//risolvo il problema di stato e l'aggiunto
+	statet(); 
+	adjointt();
+
+	//Il valore di Bpk viene assegnato da adjointt()
+	Bpkold = Bpk;
+
+	toll = 1;
+
+	//Iterative algorithm
+	while ( toll > epsilon  && k <= Nmax)
+	{      
+	      k = k + 1;
+      
+	      //Control Update
+		  u = PUab(Bpk);
+
+		  //risolvo il problema di stato e l'aggiunto
+	      statet();  
+	      adjointt();
+      
+	      cout << "k = " << k << endl;
+	  
+	  	  //aggiorno valore toll per il criterio di arresto
+		  for( int i = 0; i < nsol-1; i++)
+		  {
+			  if( i == 0 )
+			  {
+			  	toll = abs(Bpk[i]-Bpkold[i]);
+			  }
+			  else
+			  {
+			  	toll = max( toll, abs(Bpk[i]-Bpkold[i]));
+			  }
+		  
+		  }
+
+		  cout << "toll final = " << toll << endl;
+	  	  
+		  //aggiorno Bpkold
+		  Bpkold = Bpk;
+
+	 };
+	 
+	 return 0;
+	
+}
