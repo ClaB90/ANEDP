@@ -62,10 +62,6 @@ for( int j=0; j<nLevels; j++)
 	/* nel file funzioni.edp sono contenute le funzioni che caratterizzano l'operatore B ed yd
 	 */
 	include "funzioni.edp";
-	
-	/* nel file funzioniaus.edp sono contenute le funzioni ausiliarie come le norme e i prodotti scalari
-	 */
-	include "funzioniaus.edp";
 
 	/* nel file UabSet.edp vengono definiti i limiti dell'insieme Uab e le funzioni di proiezione di 
 	 * uno scalare o di un vettore sullo spazio Uab
@@ -90,6 +86,10 @@ for( int j=0; j<nLevels; j++)
 	/* nel file adjoint.edp sono contenuti i parametri e le funzioni necessari per il problema aggiunto 
 	 */
 	include "adjoint.edp";
+	
+	/* nel file normeeprodotti.edp sono contenute le funzioni per il calcolo delle norme e del prodotto vettoriale
+	 */
+	include "normeeprodotti.edp";
 
 	/* nel file funzioniCG.edp le funzioni necessarie per l'algoritmo del gradiente coniugato 
 	 */

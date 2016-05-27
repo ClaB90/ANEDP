@@ -159,6 +159,7 @@ func real statet()
 	
 	//inizializzo le variabili iniziali ogni volta che chiamo la funzione
 	wold=w0;
+	real savet =t;
 	t=dt;
 	
 	//Primo passo di EI con passo temporale dt/2
@@ -209,8 +210,6 @@ func real statet()
     //Passo di EA
 	setscheme(2);
 	
-	S=s(Yh,Yh);
-	
 	//aggiorno g0IIdx il sx non compare quindi non lo calcolo
 	g0partdx = g0nonprojdx;
 	g0IIdx = PUabScal(g0partdx);
@@ -224,6 +223,8 @@ func real statet()
 	errStateL2 = normL2state();
 	errProjectStateL2 = stateprojtrap();
 	errStateLinf = normLinfstate();
+	
+	t = savet;
 	
 	return 0;
 }

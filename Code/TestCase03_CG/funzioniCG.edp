@@ -7,10 +7,14 @@
  *						Problema di stato									*
  *						Problema di controllo								*
  *																			*
- * 		Dipendenze:	funzioni.edp -> waT e a1						        *		
- *				    soluzioniEsatte -> definizioni funzioni esatte			*
- * 					main -> nsol						 					*
- * 					state -> statesol[]					 					*
+ * 		Dipendenze:	main -> nsol, alpha						 				*
+ * 					state -> Yh, w0 						 				*
+ * 					adjoint -> Ph 						 					*
+ * 														 					*
+ * 		KEEP IN MIND -	Sh == operatore che risolve l'equazione di stato    *
+ * 						Ad == operatore che risolve l'equazione aggiunta    *
+ * 						I == I_(Ad(w)) che è la funzione indicatrice		*
+ * 								della matrice aggiunta applicata a w		*
  * 														 					*
  ****************************************************************************/
 
@@ -41,27 +45,14 @@ func real[int,int] stateCG(real[int,int]& xx)
 	t=dt;
 	
 	//Primo passo di EI con passo temporale dt/2
-    gamma1=1./2.;
-    gamma2=0.;
-    gamma3=0.;
-    gamma4=1./2.;
+    setscheme(0);
 	
 	//definisco i valori di uold
     loldstate[] = xx(0,:);
     listate[] = xx(1,:);
 	
-	/* Calcolo S e bc
-	 * devo fare (nsol-1) passi prima di ricalcolare la matrice S per l'ultimo passo di EA
-	 * mentre il vettore statebc rimane invariato ad ogni passo
-	 */
-	S=s(Yh,Yh,solver=GMRES);
-	statebc=s(0,Yh);
-
-    tmp=tnnew(0,Yh);
-    tmp=tmp+statebc;
-	
 	//Risolvo
-    w[]=(S^-1)*tmp;
+	statexy(0);
 	
 	// salvo la mia soluzione al passo precedente
 	stateSolCG(0,:)=w[];
@@ -72,21 +63,14 @@ func real[int,int] stateCG(real[int,int]& xx)
 	t += dt;
 	
     // Passi di CN
+    setscheme(1);
     for(int i=1; i<nsol-1; i++)
 	{
-		gamma1=1./2.;
-	    gamma2=1./2.;
-	    gamma3=0.;
-	    gamma4=1.;
 		
 		listate[] = xx(i+1,:);
 		
-		tmp = tnnew(0,Yh);
-		tmp += statebc;
-		
 		//Risolvo
-		w[] = S^-1*tmp;
-		//plot(w,wait=1,fill=1,cmm=i);
+	    statexy(i);
 		
 		// salvo la mia soluzione al passo precedente
 		stateSolCG(i,:)=w[];
@@ -99,18 +83,9 @@ func real[int,int] stateCG(real[int,int]& xx)
 	}
 	
     //Passo di EA
-	gamma1=0.;
-    gamma2=1./2.;
-    gamma3=1./2.;
-    gamma4=0.;
-	
-	S=s(Yh,Yh);
-	
-	tmp = tnnew(0,Yh);
-	tmp += statebc;
-	
-	w[] = S^-1*tmp;
-	//plot(w,wait=1,fill=1,cmm="ciao fin");
+    setscheme(2);
+	//Risolvo
+    statexy(nsol-1);
 	
 	stateSolCG(nsol-1,:)=w[];
 	
@@ -121,10 +96,10 @@ func real[int,int] stateCG(real[int,int]& xx)
 
 /* La funzione stateCG2 risolve il problema di stato ad ogni passo temporale dato un termine noto
  * e crea il vettore delle soluzioni di questo ad ogni passo temporale
- * l'operatore implementato in questa funzione è l'operatore Sh 
+ * l'operatore implementato in questa funzione è l'operatore Sh applicato a PUad(xx) 
  * in particolare il termine noto che verrà proiettato correttamente sullo spazio Uad
  * quindi xx sarà della forma:
- * 		xx = (-1./alpha)*(Sh*)w
+ * 		xx = (-1./alpha)*Ad(w)
  */
 func real[int,int] stateCG2(real[int,int]& xx)
 {	
@@ -150,27 +125,14 @@ func real[int,int] stateCG2(real[int,int]& xx)
 	t=dt;
 	
 	//Primo passo di EI con passo temporale dt/2
-    gamma1=1./2.;
-    gamma2=0.;
-    gamma3=0.;
-    gamma4=1./2.;
+    setscheme(0);
 	
 	//definisco i valori di uold
     loldstate[] = xx(0,:);
     listate[] = xx(1,:);
 	
-	/* Calcolo S e bc
-	 * devo fare (nsol-1) passi prima di ricalcolare la matrice S per l'ultimo passo di EA
-	 * mentre il vettore statebc rimane invariato ad ogni passo
-	 */
-	S=s(Yh,Yh,solver=GMRES);
-	statebc=s(0,Yh);
-
-    tmp=tnnew(0,Yh);
-    tmp=tmp+statebc;
-	
 	//Risolvo
-    w[]=(S^-1)*tmp;
+	statexy(0);
 	
 	// salvo la mia soluzione al passo precedente
 	stateSolCG(0,:)=w[];
@@ -181,21 +143,13 @@ func real[int,int] stateCG2(real[int,int]& xx)
 	t += dt;
 	
     // Passi di CN
+	setscheme(1);
     for(int i=1; i<nsol-1; i++)
-	{
-		gamma1=1./2.;
-	    gamma2=1./2.;
-	    gamma3=0.;
-	    gamma4=1.;
-		
+	{	
 		listate[] = xx(i+1,:);
 		
-		tmp = tnnew(0,Yh);
-		tmp += statebc;
-		
 		//Risolvo
-		w[] = S^-1*tmp;
-		//plot(w,wait=1,fill=1,cmm=i);
+		statexy(i);
 		
 		// salvo la mia soluzione al passo precedente
 		stateSolCG(i,:)=w[];
@@ -208,18 +162,10 @@ func real[int,int] stateCG2(real[int,int]& xx)
 	}
 	
     //Passo di EA
-	gamma1=0.;
-    gamma2=1./2.;
-    gamma3=1./2.;
-    gamma4=0.;
+	setscheme(2);
 	
-	S=s(Yh,Yh);
-	
-	tmp = tnnew(0,Yh);
-	tmp += statebc;
-	
-	w[] = S^-1*tmp;
-	//plot(w,wait=1,fill=1,cmm="ciao fin");
+	//Risolvo
+	statexy(nsol-1);
 	
 	stateSolCG(nsol-1,:)=w[];
 	
@@ -230,12 +176,12 @@ func real[int,int] stateCG2(real[int,int]& xx)
 
 /* La funzione adjCG risolve il problema aggiunto ad ogni passo temporale dato un termine noto
  * e salva la soluzione in un opportuno vettore
- * l'operatore implementato in questa funzione è l'operatore Sh^*
+ * l'operatore implementato in questa funzione è l'operatore Ad
  */
 func real[int,int] adjCG(real[int,int]& xx)
 {	
-	/* il termine noto del problema di adj rimarrà uguale ad h ed hnext verranno assegnati i valori
-	 * dei moltiplicatori di lagrange
+	/* il termine noto del problema di adj rimarrà uguale ad h ed hnext definiti  in adjoint.edp
+	 * verranno assegnati i valori dei moltiplicatori di lagrange
 	 */
 	
 	/* vettori per le condizioni al bordo e per il termine noto
@@ -269,6 +215,9 @@ func real[int,int] adjCG(real[int,int]& xx)
 }
 
 /* La funzione projectAdjCG(real[int,int]& xx) proietta un vettore soluzione su Uab
+ * NB - se il risultato di questa funzione NON deve essere un in-put per StateCG
+ * 		l'operazione di proiezione deve essere fatta all'interno di StateCG, quando si crea la matrice,
+ * 		per minimizzare l'errore di approssimazione della soluzione 
  */
 func real[int,int] projectAdjCG(real[int,int]& xx)
 {
@@ -285,7 +234,7 @@ func real[int,int] projectAdjCG(real[int,int]& xx)
 }
 
 /* La funzione rightCG risolve il termine a destra dell'equazione
- *  ( I + (1/alpha)*ShI_(sh*)Sh*)dl = - (l+yd) + ShP[a,b](-(1/alpha)Sh*l)
+ *  ( I + (1/alpha)*ShIAd)dl = - (l+yd) + ShP[a,b](-(1/alpha)Ad(l))
  * necessaria per il primo passo dell'algortitmo Damped Newton
  */
 func real[int,int] rightCG(real[int,int]& xx)
@@ -293,16 +242,17 @@ func real[int,int] rightCG(real[int,int]& xx)
 	real[int,int] righthandCG(nsol,Yh.ndof);
 	real[int,int] tmp(nsol,Ph.ndof);
 	
-	//calcolo Sh^*l
+	//calcolo Ad(l)
 	tmp = adjCG(xx);
 	//molitiplico per (-1./alpha)
 	tmp = tmp*(-1./alpha);
-	//calcolo Shl
+	//calcolo Sh(tmp)
 	righthandCG = stateCG2(tmp);
 	
 	real savet=t;
 	t=dt;
 	
+	// Per calcolare correttamente wd devo iterare nel tempo
 	for(int i=0; i<nsol; i++)
 	{
 		righthandCG(i,:) = (-1.)*xx(i,:)  + tmp(i,:);
@@ -315,12 +265,21 @@ func real[int,int] rightCG(real[int,int]& xx)
 	return righthandCG;
 }
 
+/* La funzione mat1 risolve la prima parte del termine a sinsitra dell'equazione
+ *  ( I + (1/alpha)*Sh(I(Ad)))dl = - (l+yd) + ShP[a,b](-(1/alpha)Ad(l))
+ * necessaria per il primo passo dell'algortitmo Damped Newton
+ * in particolare viene risolto il passo Sh(I(xx))
+ */
 func real[int,int] mat1(real[int,int] &xx, real[int,int] &ww) 
 {
 	Ph listate,loldstate;
     Yh indold,indnew;
 	varf tnnew(w,wtest) =  int2d(Th)( wold*wtest/dt) 
 		  				 - int2d(Th)( gamma2*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) ) ) 
+							 /*introduco la funzione indicatrice nella varf
+							  * (indnew(x,y)<=b)*(indnew(x,y)>=a) == 1 se entrambe le condizioni sono rispettate 
+							  *									  == 0 altrimenti
+							  */	
 					     + int2d(Th)(gamma3*((indnew(x,y)<=b)*(indnew(x,y)>=a)*listate*wtest))
 						 + int2d(Th)(gamma4*((indold(x,y)<=b)*(indold(x,y)>=a)*loldstate*wtest));
 	
@@ -328,10 +287,9 @@ func real[int,int] mat1(real[int,int] &xx, real[int,int] &ww)
 	real[int,int] stateSolCG(nsol,Yh.ndof);
 	
 	wold=w0;
-	gamma1=1./2.;
-    gamma2=0.;
-    gamma3=0.;
-    gamma4=1./2.;
+	
+	//Primo passo di EI con passo temporale dt/2
+    setscheme(0);
 	
 	loldstate[]=xx(0,:);
     listate[]=xx(1,:);
@@ -350,13 +308,10 @@ func real[int,int] mat1(real[int,int] &xx, real[int,int] &ww)
 	loldstate=listate;
 	indold=indnew;
 	
+	//inizio coi passi di CN
+    setscheme(1);
 	for(int i=1; i<nsol-1; i++)
-	{
-		gamma1=1./2.;
-	    gamma2=1./2.;
-	    gamma3=0.;
-	    gamma4=1.;
-		
+	{	
 		listate[] = xx(i+1,:);
 		indnew[]=ww(i+1,:);
 	
@@ -372,10 +327,8 @@ func real[int,int] mat1(real[int,int] &xx, real[int,int] &ww)
 
 	}
 	
-	gamma1=0.;
-    gamma2=1./2.;
-    gamma3=1./2.;
-    gamma4=0.;
+	//Ultimo passo di EA con passo temporale dt/2
+    setscheme(2);
 	
 	S=s(Yh,Yh);
 	tmp = tnnew(0,Yh);
@@ -387,12 +340,17 @@ func real[int,int] mat1(real[int,int] &xx, real[int,int] &ww)
 	return stateSolCG;
 }
 	
-	
+/* La funzione mat1 risolve il termine a sinsitra dell'equazione
+ *  ( I + (1/alpha)*ShIAd)dl = - (l+yd) + ShP[a,b](-(1/alpha)Ad(l))
+ * necessaria per il primo passo dell'algortitmo Damped Newton
+ */	
 func real[int,int] mat2(real[int,int] &ww, real[int,int] &xx)
 {
 	real[int,int] res(nsol,Yh.ndof);
 	real[int,int] pro(nsol,Yh.ndof);
+	
 	pro=adjCG(xx);
+	
 	res=mat1(ww,pro);
 	res=(1./alpha)*res;
 	res=res+xx;
@@ -405,7 +363,8 @@ func real phi(real[int,int]& xx)
 	real tmp,savet=t, normu;
 	real[int,int] uw(nsol,Ph.ndof), tmp2(nsol,Yh.ndof);
 	
-	uw = (-1./alpha)*adjCG(xx);
+	uw = adjCG(xx);
+	uw *= (-1./alpha);
 	
 	tmp2 = stateCG2(xx);
 	
@@ -418,7 +377,7 @@ func real phi(real[int,int]& xx)
 	}
 	t=savet;
 	
-	tmp = (normL2(xx))^2/2.;
+	tmp = (normL2Yh(xx))^2/2.;
 	tmp += (-alpha/2.)*(normL2u(uw))^2;
 	tmp += prodottoL2(xx, tmp2);
 	
