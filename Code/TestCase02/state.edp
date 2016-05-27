@@ -56,6 +56,7 @@ include "funzioniErrore.edp";
 
 /******************  02.PROBLEMA SPAZIALE ******************/
  
+ 
 /* Lo schema di integrazione temporale implementato è una variante di Crank-Nicolson
  * in particolare viene effettuato:
  *  un passo di EI con passo temporale dimezzato
@@ -70,6 +71,35 @@ include "funzioniErrore.edp";
  *  nel ultimo passo.
  */
 real gamma1,gamma2,gamma3,gamma4;
+func int setscheme(int value)
+{
+	// EI => value == 0
+	if(value == 0)
+	{
+	    gamma1=1./2.;
+	    gamma2=0.;
+	    gamma3=0.;
+	    gamma4=1./2.;
+	}
+	// CN => value == 0
+	else if (value == 1)
+	{	
+		gamma1=1./2.;
+	    gamma2=1./2.;
+	    gamma3=0.;
+	    gamma4=1.;
+	}
+	// EA => value == 0
+	else if (value == 2)
+	{
+		gamma1=0.;
+	    gamma2=1./2.;
+	    gamma3=1./2.;
+	    gamma4=0.;
+	}
+	
+	return 0;
+}
 
 /* uold e ui contengono il valore della soluzione di controllo al tempo t e t-dt
  * Al passo di EI solo la componente u(0) deve essere considerata
@@ -95,45 +125,58 @@ matrix S;
 real[int] statebc(Yh.ndof);
 
 
+/****** 03.FUNZIONE PER SOLUZIONE IN SPAZIO ******/ 
+func real statexy(real k)
+{
+  	real[int] tmp(Yh.ndof);
+	
+	/* Calcolo S e bc
+  	 * devo fare (nsol-1) passi prima di ricalcolare la matrice S per l'ultimo passo di EA
+  	 * mentre il vettore statebc rimane invariato ad ogni passo
+  	 */
+	if( k == 0 || k == nsol-1 )
+	{
+	   	S=s(Yh,Yh,solver=GMRES);
+		if( k == 0)
+		{
+			statebc=s(0,Yh);
+		}
+	}
+	
+	//calcolo il termine noto
+	tmp = statetn(0,Yh);
+	tmp += statebc;
+	
+	//Risolvo
+	w[] = S^-1*tmp;
+	
+	return 0;
+}
+
 /****** 03.FUNZIONE PER SOLUZIONE IN TEMPO ******/ 
 func real statet()
 {
 	cout << "State " << endl;
-	
-	real[int] tmp(Yh.ndof);
 	
 	//inizializzo le variabili iniziali ogni volta che chiamo la funzione
 	wold=w0;
 	t=dt;
 	
 	//Primo passo di EI con passo temporale dt/2
-    gamma1=1./2.;
-    gamma2=0.;
-    gamma3=0.;
-    gamma4=1./2.;
+    setscheme(0);
 	
 	//definisco i valori di uold
     uold=u[0];
     ui=u[1];
 	
-	/* Calcolo S e bc
-	 * devo fare (nsol-1) passi prima di ricalcolare la matrice S per l'ultimo passo di EA
-	 * mentre il vettore statebc rimane invariato ad ogni passo
-	 */
-	S=s(Yh,Yh,solver=UMFPACK);
-	statebc=s(0,Yh);
-	
 	//aggiorno g0IIsx il dx non compare quindi non lo calcolo
 	g0partsx = g0nonprojsx;
 	g0IIsx = PUabScal(g0partsx);
-
-    tmp=statetn(0,Yh);
-    tmp=tmp+statebc;
 	
 	//Risolvo
-    w[]=(S^-1)*tmp;
+    statexy(0);
     
-	// salvo la mia soluzione al passo precedente
+	//salvo la mia soluzione al passo k
 	statesol[0]=w;
 	
 	//aggiorno wold, uold e il tempo
@@ -142,24 +185,17 @@ func real statet()
 	t += dt;
 	
     // Passi di CN
+	setscheme(1);
     for(int i=1; i<nsol-1; i++)
-	{
-		gamma1=1./2.;
-	    gamma2=1./2.;
-	    gamma3=0.;
-	    gamma4=1.;
-		
+	{	
 		ui=u[i+1];
 		
 		//aggiorno g0IIsx il dx non compare quindi non lo calcolo
 		g0partsx = g0nonprojsx;
 		g0IIsx = PUabScal(g0partsx);
 		
-		tmp = statetn(0,Yh);
-		tmp += statebc;
-		
 		//Risolvo
-		w[] = S^-1*tmp;
+	    statexy(i);
 		
 		// salvo la mia soluzione al passo precedente
 		statesol[i]=w;
@@ -172,10 +208,7 @@ func real statet()
 	}
 	
     //Passo di EA
-	gamma1=0.;
-    gamma2=1./2.;
-    gamma3=1./2.;
-    gamma4=0.;
+	setscheme(2);
 	
 	S=s(Yh,Yh);
 	
@@ -183,35 +216,18 @@ func real statet()
 	g0partdx = g0nonprojdx;
 	g0IIdx = PUabScal(g0partdx);
 	
-	tmp = statetn(0,Yh);
-	tmp += statebc;
-	
-	w[] = S^-1*tmp;
+	//Risolvo
+    statexy(nsol-1);
 	
 	statesol[nsol-1]=w;
-    //plot(w,fill=1,value=1,wait=0,cmm=" Stato in t=T ");	
 	
 	//Calcolo dell'errore
 	errStateL2 = normL2state();
-
 	errProjectStateL2 = stateprojtrap();
-
 	errStateLinf = normLinfstate();
-	
-	//cout << "errore state L2  " << errStateL2 << endl;
-	//cout << "errore project state L2  " << errProjectStateL2 << endl;
-	//cout << "errore state Linf  " << errStateLinf << endl;
 	
 	return 0;
 }
-
-
-
-
-
-
-
-
 
 
 
