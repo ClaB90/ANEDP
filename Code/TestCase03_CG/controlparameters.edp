@@ -1,0 +1,25 @@
+/*********************** Politecnico di Milano - ANEDP project ************************/
+/* 														 					          *
+ *  	authors Edoardo Arbib 							 					          *
+ *				Claudia Bonomi 							 					          *
+ *											   			 					          *
+ *  	Descrizione: Parametri Per il problema di controllo: 						  *
+ *						alpha = acceleration parameter								  *
+ *						toll = variabile per la tolleranza							  *
+ *						epsilon = valore limite per la tolleranza					  *
+ * 						k = numero di iterazione del ciclo di controllo				  *
+ * 					 	Nmax = numero massimo di iterazioni						 	  *
+ *  					u[] = vettore soluzione di controllo						  *
+ * 														 				 	 	 	  *
+ * 														 				 	 	 	  *
+ **************************************************************************************/
+
+
+real alpha, toll=0.,epsilon=0.;
+int k, Nmax;
+alpha = 1.;    
+epsilon = 1e-5;    
+Nmax = 300;        
+k = 0;  
+
+real[int] u(nsol); 

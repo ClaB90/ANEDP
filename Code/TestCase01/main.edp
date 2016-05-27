@@ -43,23 +43,10 @@ for( int j=0; j<nLevels; j++)
 	nsolold=nsol;
 	real dt=T/(nsol-1);
 	cout << "======  dt = " << dt << " ======" << endl;
-
-	/* Parametri Per il problema di controllo:
-	 *	alpha = acceleration parameter
-	 *	toll = variabile per la tolleranza
-	 *	epsilon = valore limite per la tolleranza
-	 *  k = numero di iterazione del ciclo di controllo
-	 *  Nmax = numero massimo di iterazioni
-	 *  u[] = vettore soluzione di controllo
+	
+	/* nel file controlparameters.edp sono contenuti i parametri necessari per il problema di controllo
 	 */
-	real alpha, toll=0.,epsilon;
-	int k, Nmax;
-	alpha = pi^(-4.);    
-	epsilon = 1e-5;    
-	Nmax = 300;        
-	k = 0;  
-
-	real[int] u(nsol); 
+	include "controlparameters.edp";
 
 	/* nel file UabSet.edp vengono definiti i limiti dell'insieme Uab e le funzioni di proiezione di 
 	 * uno scalare o di un vettore sullo spazio Uab
