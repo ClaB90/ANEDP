@@ -119,11 +119,12 @@ func real[int,int] stateCG(real[int,int]& xx)
 	return stateSolCG;
 }
 
-/* La funzione stateCG risolve il problema di stato ad ogni passo temporale dato un termine noto
+/* La funzione stateCG2 risolve il problema di stato ad ogni passo temporale dato un termine noto
  * e crea il vettore delle soluzioni di questo ad ogni passo temporale
- * l'operatore implementato in questa funzione è l'operatore Sh
-
- * ricordati che in xx devi passare già il valore moltplicato per (-1./alpha)
+ * l'operatore implementato in questa funzione è l'operatore Sh 
+ * in particolare il termine noto che verrà proiettato correttamente sullo spazio Uad
+ * quindi xx sarà della forma:
+ * 		xx = (-1./alpha)*(Sh*)w
  */
 func real[int,int] stateCG2(real[int,int]& xx)
 {	
@@ -468,7 +469,7 @@ func real[int,int] CG(real[int,int]& xx, real[int,int]& ww)
 
 func real[int,int] DampedNewton(real[int,int]& xx)
 {
-	real lambdaCG = 1., betaCG = 0.8;
+	real lambdaDN = 1., betaDN = 0.8;
 	
 	real[int,int] uw(nsol,Ph.ndof);
 	real[int,int] deltal(nsol,Yh.ndof);
@@ -476,25 +477,22 @@ func real[int,int] DampedNewton(real[int,int]& xx)
 	
 	real tmp2;
 	
-	l = xx;
-	uw = projectAdjCG(xx);
-	
 	tmp = l;
-	tmp += deltal*lambdaCG;
+	tmp += deltal*lambdaDN;
 	
 	tmp3 = rightCG(l);
 	tmp3 *= -1.;
 	
-	tmp2 = prodottoL2( tmp3, deltal, Yh.ndof);
-	tmp2 *= lambdaCG/3.;
+	tmp2 = prodottoL2( tmp3, deltal);
+	tmp2 *= lambdaDN/3.;
 	tmp2 += phi(l);
 	
 	if( phi(tmp) > tmp2 )
 	{
-		lambdaCG = lambdaCG*betaCG;
+		lambdaDN = lambdaDN*betaDN;
 	}
 	
-	l += lambdaCG*deltal;
+	l += lambdaDN*deltal;
 	
 	return l;
 }
