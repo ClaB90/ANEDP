@@ -270,8 +270,8 @@ func real[int,int] rightCG(real[int,int]& xx)
  * necessaria per il primo passo dell'algortitmo Damped Newton
  * in particolare viene risolto il passo Sh(I(xx))
  * in ingresso richede:
- *		xx 
- * 		ww 
+ *		xx è Ad(w)
+ * 		ww è Ad(w)
  */
 func real[int,int] mat1(real[int,int] &xx, real[int,int] &ww) 
 {
