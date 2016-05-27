@@ -4,14 +4,17 @@
  *				Claudia Bonomi 							 					          *
  *											   			 					          *
  *  	Descrizione: Per il problema di controllo definiamo  					      *
- *						- funzione puntoFisso										 *
+ *						- funzione puntoFisso										  *
  * 														 				 	 	 	  *
  * 		Dipendenze: state.edp -> statet()											  * 
  * 					adjoit.edp -> adjoint()											  *
  * 					UabSet.edp -> P(Uab)								 			  *
+ * 					funzioniCG.edp -> funzioni per dampedNewton			 	 	 	  *
  * 														 				 	 	 	  *
  **************************************************************************************/
 
+/* La funzione puntoFisso() risolve il problema di controllo adottando un approccio di punto fisso
+ */
 func real puntoFisso()
 {
 	//Primo passo soluzione
@@ -31,6 +34,7 @@ func real puntoFisso()
 	while ( toll > epsilon  && k <= Nmax)
 	{      
 	      k = k + 1;
+		  cout << "k = " << k << endl;
       
 	      //Control Update
 		  u = PUab(Bpk);
@@ -38,8 +42,6 @@ func real puntoFisso()
 		  //risolvo il problema di stato e l'aggiunto
 	      statet();  
 	      adjointt();
-      
-	      cout << "k = " << k << endl;
 	  
 	  	  //aggiorno valore toll per il criterio di arresto
 		  for( int i = 0; i < nsol-1; i++)
@@ -54,9 +56,7 @@ func real puntoFisso()
 			  }
 		  
 		  }
-
-		  cout << "toll final = " << toll << endl;
-	  	  
+		  
 		  //aggiorno Bpkold
 		  Bpkold = Bpk;
 
@@ -66,33 +66,54 @@ func real puntoFisso()
 	
 }
 
-/* La funzione DampedNewton(xx,ww) risolve l'algortimo di Damped Newton
+/* La funzione DampedNewton(xx,ww) risolve il problema di controllo adottando un approccio di Damped Newton
  */	
-func real[int,int] DampedNewton(real[int,int]& xx)
+func real DampedNewton()
 {
-	real lambdaDN = 1., betaDN = 0.8;
-	
 	real[int,int] uw(nsol,Ph.ndof);
 	real[int,int] deltal(nsol,Yh.ndof);
-	real[int,int] l(nsol,Yh.ndof), tmp(nsol,Yh.ndof), tmp3(nsol,Ph.ndof) ;
+	real[int,int] l(nsol,Yh.ndof), tmp(nsol,Yh.ndof), tmp3(nsol,Ph.ndof);
 	
+	real lambdaDN = 1., betaDN = 0.8;
 	real tmp2;
 	
-	tmp = l;
-	tmp += deltal*lambdaDN;
-	
-	tmp3 = rightCG(l);
-	tmp3 *= -1.;
-	
-	tmp2 = prodottoL2( tmp3, deltal);
-	tmp2 *= lambdaDN/3.;
-	
-	if( phi(tmp) > phi(l) + tmp2 )
+	while(toll > epsilon  && k <= Nmax)
 	{
-		lambdaDN = lambdaDN*betaDN;
+		/* PASSO 1
+		 * 	ricava dl dall'equazione
+		 *		( I + (1/alpha)*ShIAd)dl = - (l+yd) + ShP[a,b](-(1/alpha)Ad(l))
+		 * ripone lamdbaDN = 1;
+		 */
+		lambdaDN = 1.;
+		deltal = CG(l,l);
+
+		/* PASSO 2
+		 * 	if( phi( l+lamdbaDN*dl > phi(l) + < grad(phi(l)), dl >L2 ) )
+		 * dove è noto per teoria che:
+		 *	grad(phi(l)) = + (l+yd) - ShP[a,b](-(1/alpha)Ad(l)) = - rightCG()
+		 */
+		tmp = l;
+		tmp += deltal*lambdaDN;
+
+		tmp3 = rightCG(l);
+		tmp3 *= -1.;
+
+		tmp2 = prodottoL2( tmp3, deltal);
+		tmp2 *= lambdaDN/3.;
+
+		if( phi(tmp) > phi(l) + tmp2 )
+		{
+			lambdaDN = lambdaDN*betaDN;
+		}
+
+		/* PASSO 3
+		 * l = l + lambdaDN*deltal;
+		 * torna al passo 1;
+		 */
+		l += lambdaDN*deltal;
+		
+		//aggiorna tolleranza
 	}
 	
-	l += lambdaDN*deltal;
-	
-	return l;
+	return 0;
 }

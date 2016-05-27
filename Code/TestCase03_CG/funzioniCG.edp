@@ -265,10 +265,13 @@ func real[int,int] rightCG(real[int,int]& xx)
 	return righthandCG;
 }
 
-/* La funzione mat1 risolve la prima parte del termine a sinsitra dell'equazione
+/* La funzione mat1 risolve la prima parte del termine a sinistra dell'equazione
  *  ( I + (1/alpha)*Sh(I(Ad)))dl = - (l+yd) + ShP[a,b](-(1/alpha)Ad(l))
  * necessaria per il primo passo dell'algortitmo Damped Newton
  * in particolare viene risolto il passo Sh(I(xx))
+ * in ingresso richede:
+ *		xx 
+ * 		ww 
  */
 func real[int,int] mat1(real[int,int] &xx, real[int,int] &ww) 
 {
