@@ -435,37 +435,6 @@ func real[int,int] CG(real[int,int]& xx, real[int,int]& ww)
 	return xx;
 }
 
-/* La funzione DampedNewton(xx,ww) risolve l'algortimo di Damped Newton
- */	
-func real[int,int] DampedNewton(real[int,int]& xx)
-{
-	real lambdaDN = 1., betaDN = 0.8;
-	
-	real[int,int] uw(nsol,Ph.ndof);
-	real[int,int] deltal(nsol,Yh.ndof);
-	real[int,int] l(nsol,Yh.ndof), tmp(nsol,Yh.ndof), tmp3(nsol,Ph.ndof) ;
-	
-	real tmp2;
-	
-	tmp = l;
-	tmp += deltal*lambdaDN;
-	
-	tmp3 = rightCG(l);
-	tmp3 *= -1.;
-	
-	tmp2 = prodottoL2( tmp3, deltal);
-	tmp2 *= lambdaDN/3.;
-	
-	if( phi(tmp) > phi(l) + tmp2 )
-	{
-		lambdaDN = lambdaDN*betaDN;
-	}
-	
-	l += lambdaDN*deltal;
-	
-	return l;
-}
-
 
 
 
