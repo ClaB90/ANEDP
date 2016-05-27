@@ -17,7 +17,7 @@ real a, b;
 a = 0.2;
 b = 0.4;
 
-func real PUabScal(real& z)
+func real PUabScal(real z)
 {
 	real tmp=0.;
 	

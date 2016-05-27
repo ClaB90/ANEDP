@@ -296,14 +296,12 @@ func real[int,int] mat1(real[int,int] &xx, real[int,int] &ww)
 	indold[]=ww(0,:);
 	indnew[]=ww(1,:);
 	
-	S=s(Yh,Yh,solver=GMRES);
-	statebc=s(0,Yh);
-
-    tmp=tnnew(0,Yh);
-    tmp=tmp+statebc;
+	//Risolvo
+    statexy(0);
 	
-	w[]=(S^-1)*tmp;
 	stateSolCG(0,:)=w[];
+	
+	//aggiorno valori
 	wold=w;
 	loldstate=listate;
 	indold=indnew;
@@ -315,12 +313,12 @@ func real[int,int] mat1(real[int,int] &xx, real[int,int] &ww)
 		listate[] = xx(i+1,:);
 		indnew[]=ww(i+1,:);
 	
-		tmp = tnnew(0,Yh);
-		tmp += statebc;
+		//Risolvo
+	    statexy(i);
 		
-		w[] = S^-1*tmp;
 		stateSolCG(i,:)=w[];
 		
+		//aggiorno valori
 		wold=w;
 		loldstate = listate;
 		indold=indnew;
@@ -329,11 +327,8 @@ func real[int,int] mat1(real[int,int] &xx, real[int,int] &ww)
 	
 	//Ultimo passo di EA con passo temporale dt/2
     setscheme(2);
-	
-	S=s(Yh,Yh);
-	tmp = tnnew(0,Yh);
-	tmp += statebc;
-	w[] = S^-1*tmp;
+	//Risolvo
+    statexy(nsol-1);
 	
 	stateSolCG(nsol-1,:)=w[];
 	
