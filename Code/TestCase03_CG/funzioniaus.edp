@@ -12,25 +12,47 @@
  ****************************************************************************/
 
 
-func real normL2(real[int,int]& xx)
+func real normL2Yh(real[int,int]& xx)
 {
-	real tmp=0., savet=0.;
+	real tmp=0;
 	
-	savet = 0.;
-	t=dt/2;
+	Yh x1,x2;
 	
-	for(int i = 0; i<nsol-1; i++)
+	for(int i=0; i< nsol-1; i++)
 	{
-		tmp += dt*(xx(i,:).l2)^2;
+		x1[] = xx(i,:);
+		x2[] = xx(i+1,:);
+		
+		tmp += ( int2d(Th)(x1(x,y)^2) 
+			     + int2d(Th)(x2(x,y)^2))*(dt/2.); 
 	}
 	
 	tmp = sqrt(tmp);
 	
-	t=savet;
+	return tmp;
+}
+
+func real normL2Ph(real[int,int]& xx)
+{
+	real tmp=0;
+	
+	Ph x1,x2;
+	
+	for(int i=0; i< nsol-1; i++)
+	{
+		x1[] = xx(i,:);
+		x2[] = xx(i+1,:);
+		
+		tmp += ( int2d(Th)(x1(x,y)^2) 
+			     + int2d(Th)(x2(x,y)^2))*(dt/2.); 
+	}
+	
+	tmp = sqrt(tmp);
 	
 	return tmp;
 }
 
+/*
 func real prodottoL2(real[int,int]& xx,real[int,int]& yy, int ncol)
 {
 	real tmp=0., savet=0.;
@@ -50,6 +72,46 @@ func real prodottoL2(real[int,int]& xx,real[int,int]& yy, int ncol)
 	//tmp = sqrt(tmp);
 	
 	t=savet;
+	
+	return tmp;
+} */
+
+func real prodottoL2(real[int,int]& xx, real[int,int]& ww)
+{
+	real tmp=0;
+	
+	Yh x1,x2,x3,x4;
+	
+	for(int i=0; i< nsol-1; i++)
+	{
+		x1[] = xx(i,:);
+		x2[] = ww(i,:);
+		x3[] = xx(i+1,:);
+		x4[] = ww(i+1,:);
+		
+		tmp += ( int2d(Th)(x1*x2) 
+			     + int2d(Th)(x3*x4))*(dt/2.); 
+	}
+	
+	return tmp;
+}
+
+func real normL2u(real[int,int]& xx)
+{
+	real tmp=0;
+	
+	Yh x1,x2;
+	
+	for(int i=0; i< nsol-1; i++)
+	{
+		x1[] = xx(i,:);
+		x2[] = xx(i+1,:);
+		
+		tmp += ( int2d(Th)((PUabScal(x1(x,y)))^2) 
+			     + int2d(Th)((PUabScal(x2(x,y)))^2))*(dt/2.); 
+	}
+	
+	tmp = sqrt(tmp);
 	
 	return tmp;
 }

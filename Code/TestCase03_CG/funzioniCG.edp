@@ -401,45 +401,29 @@ func real[int,int] mat2(real[int,int] &ww, real[int,int] &xx)
 
 func real phi(real[int,int]& xx)
 {
-	real tmp,savet=t;
+	real tmp,savet=t, normu;
 	real[int,int] uw(nsol,Ph.ndof), tmp2(nsol,Yh.ndof);
 	
-	uw = projectAdjCG(xx);
+	uw = (-1./alpha)*adjCG(xx);
 	
-	tmp2 = stateCG(uw);
+	tmp2 = stateCG2(xx);
 	
 	t=dt;
 	for( int i=0; i<Yh.ndof; i++)
 	{
-		tmp2(i,:) = - tmp2(i,:);
+		tmp2(i,:) = (-1.)*tmp2(i,:);
 		tmp2(i,:) += wd;
 		t+=dt;
 	}
 	t=savet;
 	
 	tmp = (normL2(xx))^2/2.;
-	tmp += (-alpha/2.)*(normL2(uw))^2;
-	tmp += prodottoL2(xx, tmp2, Yh.ndof);
+	tmp += (-alpha/2.)*(normL2u(uw))^2;
+	tmp += prodottoL2(xx, tmp2);
 	
 	return tmp;
 }
 
-func real prodottoL2Temp(real[int,int]& xx, real[int,int]& ww)
-{
-	real tmp=0;
-	
-	Yh x1,x2;
-	x1[] = xx;
-	x2[] = ww;
-	
-	for(int i=0; i< nsol-1; i++)
-	{
-		tmp += ( int2d(Th)(x1*x2) 
-			     + int2d(Th)(x1*x2))*(dt/2.); 
-	}
-	
-	return tmp;
-}
 
 func real[int,int] CG(real[int,int]& xx, real[int,int]& ww)
 {
@@ -457,11 +441,11 @@ func real[int,int] CG(real[int,int]& xx, real[int,int]& ww)
 	
 	pkold = r;
 	
-	while( prodottoL2Temp(r,r) < eps )
+	while( prodottoL2(r,r) < eps )
 	{
 		if( k!= 0)
 		{
-			betaCG = prodottoL2Temp(r,r)/prodottoL2Temp(rold,rold);
+			betaCG = prodottoL2(r,r)/prodottoL2(rold,rold);
 		}
 	
 		pk = pkold ;
@@ -470,7 +454,7 @@ func real[int,int] CG(real[int,int]& xx, real[int,int]& ww)
 	
 		Apk = mat2(pk,ww);
 	
-		alphaCG = prodottoL2Temp(r,r)/prodottoL2Temp(pk,Apk);
+		alphaCG = prodottoL2(r,r)/prodottoL2(pk,Apk);
 	
 		xx += alphaCG*pk;
 	
