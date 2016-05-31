@@ -69,7 +69,7 @@ func real[int] PUab(real[int]& z)
 
 /* La funzione PUabMatrixPh prende un vettore di soluzioni di Ph e lo proietta nel insieme ammissibile U[a,b]
  */
-func real[int] PUabMatrixPh(real[int,int]& z, int& ncol)
+func real[int,int] PUabMatrixPh(real[int,int]& z, int& ncol)
 {
 	real[int,int] tmp(nsol,ncol);
 	

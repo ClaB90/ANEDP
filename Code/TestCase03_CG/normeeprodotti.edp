@@ -23,8 +23,8 @@ func real normL2Yh(real[int,int]& xx)
 		x1[] = xx(i,:);
 		x2[] = xx(i+1,:);
 		
-		tmp += ( int2d(Th)(x1(x,y)^2) 
-			     + int2d(Th)(x2(x,y)^2))*(dt/2.); 
+		tmp += ( int2d(Th)(x1^2) 
+			     + int2d(Th)(x2^2))*(dt/2.); 
 	}
 	
 	tmp = sqrt(tmp);
@@ -43,8 +43,8 @@ func real normL2Ph(real[int,int]& xx)
 		x1[] = xx(i,:);
 		x2[] = xx(i+1,:);
 		
-		tmp += ( int2d(Th)(x1(x,y)^2) 
-			     + int2d(Th)(x2(x,y)^2))*(dt/2.); 
+		tmp += ( int2d(Th)(x1^2) 
+			     + int2d(Th)(x2^2))*(dt/2.); 
 	}
 	
 	tmp = sqrt(tmp);
