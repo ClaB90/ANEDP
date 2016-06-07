@@ -15,22 +15,22 @@
  ****************************************************************************/
 
 //Definiamo le funzioni 
-func we = cos((t/T)*2.*pi*a1)*g;
+func we = -(pi^2)+exp(a1*(pi^2)*t)*g/(2.+a1);
 func pe = wa -waT;
-func pe2=exp(a1*(pi^2)*(t-dt))*g-waT;
+func pe2=exp(a1*(pi^2)*(t-dt))*g-g*exp(a1*(pi^2)*T);
 
 real t1=dt*3./2.;
 real t2=dt/2.;
 
-func wedx = cos((t1/T)*2.*pi*a1)*g;
-func wesx = cos((t2/T)*2.*pi*a1)*g;
+func wedx = (-pi^2)*exp(a1*(pi^2)*t1)*g/(2.+a1);
+func wesx = (-pi^2)*exp(a1*(pi^2)*t2)*g/(2.+a1);
 
 /* ues = BPUab( -(exp(a1*pi^2*t))/(4*alpha) - (exp(a1*pi^2*T)) )
  * La costruzione della funzione esatta di u implica quindi l'utilizzo dell'operatore
  * di proiezione	
  */
-func uenonproject = g0nonprojdx;
-
+func uenonproject = (-1./(4.*alpha))*(exp(a1*(pi^2)*t)-exp(a1*(pi^2)*T));
+func uenonproject2 = (-1./(4.*alpha))*(exp(a1*(pi^2)*(t+dt))-exp(a1*(pi^2)*T));
 /* La funzione uet(t) prende in ingresso un tempo e calcola il valore della u esatta 
  * in quel istante temporale
  */

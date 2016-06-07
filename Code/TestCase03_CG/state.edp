@@ -21,7 +21,7 @@
 /****************** 00.PARAMETRI E FUNZIONI ******************/
 // w0 soluzione all'istante iniziale
 t=0.;
-func w0 = g;
+func w0 = (-1*(pi^2)*g)/(2.+a1);
 
 // wb funzione al bordo di dirchlet 
 func wb = 0.;
