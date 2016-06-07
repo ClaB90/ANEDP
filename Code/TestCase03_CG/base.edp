@@ -1,0 +1,141 @@
+real T=0.1;
+real t=0.;
+int nsol = 10;
+real dt=T/(nsol-1);
+
+include "controlparameters.edp";
+
+include "funzioni.edp";
+
+include "UabSet.edp";   
+
+include "soluzioniEsatte.edp";       
+
+include "mesh.edp"; 
+
+include "state.edp";
+
+include "adjoint.edp";
+	
+include "normeeprodotti.edp";
+
+include "funzioniCG.edp";
+	
+real[int,int] l(nsol,Yh.ndof);
+include "controlfunction.edp";
+
+l=-1.;
+real[int,int] l1(nsol,Yh.ndof);
+real[int,int] l2(nsol,Yh.ndof);
+real[int,int] l3(nsol,Yh.ndof);
+real[int,int] l4(nsol,Yh.ndof);
+real[int,int] l5(nsol,Yh.ndof);
+real[int,int] l6(nsol,Yh.ndof);
+real[int,int] l7(nsol,Yh.ndof);
+real[int,int] l8(nsol,Yh.ndof);
+real f1,f2,f3;
+real[int] l1vec(nsol);
+//l1=0.;
+//l2=mat2(l1,l);
+//l3=rightCG(l);
+//l3=l3-l2;
+//l4=mat2(l3,l);
+
+
+DampedNewton();
+
+cout << " superato " << endl;
+/*for(int i=0;i<nsol;i++)
+{
+Yh ex;
+ex[]=l(i,:);
+plot(ex,fill=1,value=1,wait=1);
+}
+*/
+l1=adjCG(l);
+for(int i=0; i<nsol; ++i)
+{
+	Yh born;
+	born[]=l1(i,:);
+	Bpk[i]=(-1./alpha)*int2d(Th)(born*g);
+    l1vec[i]=PUabScal(Bpk[i]);
+}
+//l1=l1*(-1./alpha);
+real error=0.;
+error=controlErrL2(l1vec);
+cout << " error " << error << endl;
+
+/*t=0;
+for(int i=0; i<nsol-2; ++i)
+{
+	Yh cor1,cor2;
+	cor1[]=l1(i,:);
+	cor2[]=l1(i+1,:);
+	real fi1,fi2;
+	fi1=PUabScal(uenonproject);
+	fi2=PUabScal(uenonproject2);
+    error=error+(dt/2.)*(int2d(Th)((fi1-PUabScal(cor1(x,y)))^2)+int2d(Th)((fi2-PUabScal(cor2(x,y)))^2));
+	t=t+dt;
+	
+	}
+error=controlCS(l1);
+cout << " error " << sqrt(error) << endl;	
+
+Yh u1,u2;
+real[int] tamp(Yh.ndof);
+//Yh[int] dev(nsol);
+varf tnnewnew(w,wtest) =   int2d(Th)( wold*wtest/dt)
+				  		- int2d(Th)( gamma2*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) ) )
+							//contributo di u
+						+ int2d(Th)( gamma3*(PUabScal(u1(x,y))*wtest ))
+				 		+ int2d(Th)( gamma4*(PUabScal(u2(x,y))*wtest ))
+							//contributo di g0
+						+ int2d(Th)( gamma3*( g0*wtest ))
+				 		+ int2d(Th)( gamma4*( g0old*wtest ));
+	
+wold=w0;
+t=dt;
+setscheme(0);
+
+u2[]=l1(0,:);
+u1[]=l1(1,:);
+g0partsx = g0nonprojsx;
+g0IIsx = PUabScal(g0partsx);
+S=s(Yh,Yh,solver=GMRES);
+statebc=s(0,Yh);
+tamp=tnnewnew(0,Yh);
+tamp=tamp+statebc;
+(dev[0])[]=(S^-1)*tamp;
+
+wold=dev[0];
+u2 = u1;
+t += dt;
+setscheme(1);
+    for(int i=1; i<nsol-1; i++)
+	{
+		u1[]=l1(i+1,:);
+		g0partsx = g0nonprojsx;
+		g0IIsx = PUabScal(g0partsx);	
+	    tamp=tnnewnew(0,Yh);
+	    tamp=tamp+statebc;
+	    (dev[i])[]=(S^-1)*tamp;
+	    wold=dev[i];
+		u2 = u1;
+		t += dt;	
+	
+	}
+	
+	setscheme(2);
+    g0partdx = g0nonprojdx;
+	g0IIdx = PUabScal(g0partdx);
+	S=s(Yh,Yh,solver=GMRES);
+	tamp=tnnewnew(0,Yh);
+	tamp=tamp+statebc;
+	(dev[nsol-1])[]=(S^-1)*tamp;
+	
+	error=stateprojtrap();
+	cout << " error " << error << endl;*/
+	
+	
+	
+	
