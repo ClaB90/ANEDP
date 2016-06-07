@@ -101,20 +101,23 @@ func real[int,int] stateCG(real[int,int]& xx)
  * quindi xx sarà della forma:
  * 		xx = (-1./alpha)*Ad(w)
  */
-func real[int,int] stateCG2(real[int,int]& xx)
+func real[int,int] stateCG2(real[int] &xx)
 {	
 	/* Valori dei moltiplicatori di lagrange sullo spazio Yh
 	 */
-	Ph listate,loldstate;
+	real listate,loldstate;
 	real prova,prov2;
-
+   	real[int] tomp(Yh.ndof);	
+	
 	/* il termine noto del problema di stato diventa
 	 */
 	varf tnnew(w,wtest) =   int2d(Th)( wold*wtest/dt )
 					  	  - int2d(Th)( gamma2*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) ) )
 							//contributo di u
-						  + int2d(Th)(gamma3*(PUabScal(listate(x,y))*wtest))
-						  + int2d(Th)(gamma4*(PUabScal(loldstate(x,y))*wtest));
+						  + int2d(Th)(gamma3*(PUabScal(listate)*wtest))
+						  + int2d(Th)(gamma4*(PUabScal(loldstate)*wtest))  
+						  + int2d(Th)( gamma3*( g0*wtest ))
+				 		  + int2d(Th)( gamma4*( g0old*wtest ));
 	
 	real[int] tmp(Yh.ndof);
 	real[int,int] stateSolCG(nsol,Yh.ndof);
@@ -128,14 +131,20 @@ func real[int,int] stateCG2(real[int,int]& xx)
     setscheme(0);
 	
 	//definisco i valori di uold
-    loldstate[] = xx(0,:);
-    listate[] = xx(1,:);
+    loldstate = xx[0];
+    listate = xx[1];
+	g0partsx = g0nonprojsx;
+	g0IIsx = PUabScal(g0partsx);
 	
 	//Risolvo
-	statexy(0);
+	//statexy(0);
+	S=s(Yh,Yh,solver=GMRES);
+	statebc=s(0,Yh);	
+	tomp = tnnew(0,Yh);
+	tomp += statebc;	
 	
 	// salvo la mia soluzione al passo precedente
-	stateSolCG(0,:)=w[];
+	stateSolCG(0,:)=(S^-1)*tomp;
 	
 	//aggiorno wold, uold e il tempo
 	wold=w;
@@ -146,13 +155,17 @@ func real[int,int] stateCG2(real[int,int]& xx)
 	setscheme(1);
     for(int i=1; i<nsol-1; i++)
 	{	
-		listate[] = xx(i+1,:);
-		
+		listate = xx[i+1];
+		g0partsx = g0nonprojsx;
+		g0IIsx = PUabScal(g0partsx);	
+	
 		//Risolvo
-		statexy(i);
+		//statexy(i);
+		tomp = tnnew(0,Yh);
+	    	tomp += statebc;		
 		
 		// salvo la mia soluzione al passo precedente
-		stateSolCG(i,:)=w[];
+		stateSolCG(i,:)=(S^-1)*tomp;
 		
 		//aggiorno wold, uold, il tempo e g0old
 		wold=w;
@@ -164,10 +177,16 @@ func real[int,int] stateCG2(real[int,int]& xx)
     //Passo di EA
 	setscheme(2);
 	
+	g0partdx = g0nonprojdx;
+	g0IIdx = PUabScal(g0partdx);	
 	//Risolvo
-	statexy(nsol-1);
+	//statexy(nsol-1);
+	S=s(Yh,Yh,solver=GMRES);
+	tomp=tnnew(0,Yh);
+	tomp += statebc;
+		
 	
-	stateSolCG(nsol-1,:)=w[];
+	stateSolCG(nsol-1,:)=(S^-1)*tomp;
 	
 	t=savet;
 	
@@ -196,12 +215,15 @@ func real[int,int] adjCG(real[int,int]& xx)
 	int j = nsol-1;
 	pnext=pT;
 	
+	//Conosco il valore della soluzione dell'aggiunto al tempo T
+	AdjSolCG(j,:)=pT;
 	adjbc=adj(0,Ph);
+	h[]=xx(j,:);
 
 	while( j > 0 )
 		{
-			h[]=xx(j,:);
-	        hnext[]=xx(j+1,:);
+			hnext[] = h[];
+	        	h[]=xx(j-1,:);
 		
 			tmpadj = adjtn(0,Ph);
 			tmpadj += adjbc;
@@ -212,6 +234,29 @@ func real[int,int] adjCG(real[int,int]& xx)
 		}
 	
 	return AdjSolCG;
+}
+
+/* La funzione adjCG2 risolve il problema aggiunto ad ogni passo temporale dato un termine noto
+ * inoltre moltiplica il risultato per l'operatore B'
+ * e salva la soluzione in un opportuno vettore
+ * l'operatore implementato in questa funzione è l'operatore B'(Ad)
+ */
+func real[int] adjCG2(real[int,int]& xx)
+{	
+
+	real[int] Bp(nsol);
+	real[int,int] AdjSolCG(nsol,Ph.ndof);
+	Ph tmp;
+	
+	AdjSolCG = adjCG(xx);
+
+	for(int i=0; i<nsol; ++i)
+		{
+			tmp[]=AdjSolCG(i,:);
+			Bp[i]=(-1./alpha)*int2d(Th)(g*tmp3f);
+		}
+	
+	return Bp;
 }
 
 /* La funzione projectAdjCG(real[int,int]& xx) proietta un vettore soluzione su Uab
@@ -240,14 +285,14 @@ func real[int,int] projectAdjCG(real[int,int]& xx)
 func real[int,int] rightCG(real[int,int]& xx)
 {
 	real[int,int] righthandCG(nsol,Yh.ndof);
-	real[int,int] tmp(nsol,Ph.ndof);
+	real[int] tmp(nsol, Yh.ndof);
+	real[int] tmp(nsol);
 	
 	//calcolo Ad(l)
-	tmp = adjCG(xx);
-	//molitiplico per (-1./alpha)
-	tmp = tmp*(-1./alpha);
+	tmp = adjCG2(xx);
+	
 	//calcolo Sh(tmp)
-	tmp = stateCG2(tmp);
+	tmp2 = stateCG2(tmp);
 	
 	real savet=t;
 	t=dt;
@@ -255,7 +300,7 @@ func real[int,int] rightCG(real[int,int]& xx)
 	// Per calcolare correttamente wd devo iterare nel tempo
 	for(int i=0; i<nsol; i++)
 	{
-		righthandCG(i,:) = (-1.)*xx(i,:)  + tmp(i,:);
+		righthandCG(i,:) = (-1.)*xx(i,:)  + tmp2(i,:);
 		righthandCG(i,:) = - wd;
 		t = t+dt;
 	}
@@ -273,67 +318,72 @@ func real[int,int] rightCG(real[int,int]& xx)
  *		xx è vettore di ingresso del CG
  * 		ww è Ad(w)
  */
-func real[int,int] mat1(real[int,int] &xx, real[int,int] &ww) 
+func real[int,int] mat1(real[int] &xx, real[int] &ww) 
 {
-	Ph listate,loldstate;
-    Yh indold,indnew;
+	real listate,loldstate;
+    	real indold,indnew;
 	varf tnnew(w,wtest) =  int2d(Th)( wold*wtest/dt) 
 		  				 - int2d(Th)( gamma2*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) ) ) 
 							 /*introduco la funzione indicatrice nella varf
 							  * (indnew(x,y)<=b)*(indnew(x,y)>=a) == 1 se entrambe le condizioni sono rispettate 
 							  *									  == 0 altrimenti
 							  */	
-					     + int2d(Th)(gamma3*((indnew(x,y)<=b)*(indnew(x,y)>=a)*listate*wtest))
-						 + int2d(Th)(gamma4*((indold(x,y)<=b)*(indold(x,y)>=a)*loldstate*wtest));
+					     	 + int2d(Th)(gamma3*((indnew<=b)*(indnew>=a)*listate*wtest))
+						 + int2d(Th)(gamma4*((indold<=b)*(indold>=a)*loldstate*wtest));
+   
 	
 	real[int] tmp(Yh.ndof);
 	real[int,int] stateSolCG(nsol,Yh.ndof);
 	
-	wold=w0;
+	wold=0;
 	
 	//Primo passo di EI con passo temporale dt/2
     setscheme(0);
-	
-	loldstate[]=xx(0,:);
-    listate[]=xx(1,:);
-	indold[]=ww(0,:);
-	indnew[]=ww(1,:);
-	
+	t=dt;
+	loldstate=xx[0];
+    	listate=xx[1];
+	indold=ww[0];
+	indnew=ww[1];
+
 	//Risolvo
-    statexy(0);
-	
-	stateSolCG(0,:)=w[];
+	S=s(Yh,Yh,solver=GMRES);	
+	statebc=s(0,Yh);
+	tmp = tnnew(0,Yh);
+	tmp += statebc;
+	stateSolCG(0,:)=(S^-1)*tmp;
 	
 	//aggiorno valori
 	wold=w;
 	loldstate=listate;
 	indold=indnew;
-	
+	t+=dt;
 	//inizio coi passi di CN
     setscheme(1);
 	for(int i=1; i<nsol-1; i++)
 	{	
-		listate[] = xx(i+1,:);
-		indnew[]=ww(i+1,:);
-	
+		listate = xx[i+1];
+		indnew=ww[i+1];
+	  		
 		//Risolvo
-	    statexy(i);
-		
-		stateSolCG(i,:)=w[];
+		tmp=tnnew(0,Yh);
+		tmp+=statebc;
+		stateSolCG(i,:)=(S^-1)*tmp;
 		
 		//aggiorno valori
 		wold=w;
 		loldstate = listate;
 		indold=indnew;
-
+        t+=dt;
 	}
 	
 	//Ultimo passo di EA con passo temporale dt/2
     setscheme(2);
 	//Risolvo
-    statexy(nsol-1);
-	
-	stateSolCG(nsol-1,:)=w[];
+  
+    S=s(Yh,Yh,solver=GMRES);
+    tmp=tnnew(0,Yh);
+    tmp+=statebc;
+	stateSolCG(nsol-1,:)=(S^-1)*tmp;
 	
 	return stateSolCG;
 }
@@ -347,11 +397,12 @@ func real[int,int] mat1(real[int,int] &xx, real[int,int] &ww)
 func real[int,int] mat2(real[int,int] &ww, real[int,int] &xx)
 {
 	real[int,int] res(nsol,Yh.ndof);
-	real[int,int] pro(nsol,Yh.ndof);
+	real[int,int] tmpxx(nsol), tmpww(nsol);
 	
-	pro=adjCG(xx);
+	tmpxx=adjCG2(xx);
+	tmpww=adjCG2(ww);
 	
-	res=mat1(ww,pro);
+	res=mat1(tmpww,tmpxx);
 	res=(1./alpha)*res;
 	res=res+ww;
 	
@@ -366,32 +417,21 @@ func real[int,int] mat2(real[int,int] &ww, real[int,int] &xx)
 func real phi(real[int,int]& xx)
 {
 	real tmp,savet=t, normu;
-	real[int,int] uw(nsol,Ph.ndof), tmp2(nsol,Yh.ndof);
+	real[int] uw(nsol);
+	real[int,int] tmp(nsol,Yh.ndof);
 	
-	uw = adjCG(xx);
-	uw *= (-1./alpha);
+	uw = adjCG2(xx);
 	
-	tmp2 = stateCG2(xx);
+	tmp = stateCG2(ww);
 	
-	t=dt;
-	
-	/* per calcolare wd - Sh(u(w)) dobbiamo considerare wd al corretto istante temporale 
- 	 * a differenza della componente di tmp2(:,:) 
-	 */
-	for( int i=0; i<Yh.ndof; i++)
-	{
-		tmp2(i,:) = (-1.)*tmp2(i,:);
-		tmp2(i,:) += wd;
-		t+=dt;
-	}
-	t=savet;
+	t=0.;
 	
 	//calcolo normaL2 di xx
 	tmp = (normL2Yh(xx))^2/2.;
 	//calcolo normaL2 di uw
 	tmp += (-alpha/2.)*(normL2u(uw))^2;
 	//calcolo il prodotto vettoriale < w, wd - Sh(u(w))>L2
-	tmp += prodottoL2(xx, tmp2);
+	tmp += prodottoL2CS(xx, tmp);
 	
 	return tmp;
 }
@@ -410,7 +450,7 @@ func real[int,int] CG(real[int,int]& xx, real[int,int]& ww)
 	
 	real[int,int] tmp(nsol,Yh.ndof);
 	
-	real alphaCG, eps=1e02;
+	real alphaCG, eps=1e-10;
 	// alla prima itearazione betaCG è fissato a zero
 	real betaCG=0.;
 	int k=0;
@@ -418,7 +458,9 @@ func real[int,int] CG(real[int,int]& xx, real[int,int]& ww)
 	//la mia soluzione parte da xx;
 	tmp = xx;
 	
-	while( prodottoL2(r,r) < eps )
+	//Per entrare nel ciclio
+	r=10.;	
+	while( prodottoL2(r,r)>eps )
 	{
 		if( k != 0)
 		{
@@ -443,7 +485,7 @@ func real[int,int] CG(real[int,int]& xx, real[int,int]& ww)
 		alphaCG = prodottoL2(r,r)/prodottoL2(pk,Apk);
 	
 		rold = r;
-		r -= alphaCG*pk;
+		r -= alphaCG*Apk;
 		k++;  
 		
 		//salvo la mia soluzione a questo passo
