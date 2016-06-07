@@ -152,6 +152,33 @@ func real controlCS(real[int]& controlsol)
 	return tmp;
 }
 
+/* Calcolo della || ues - u_k ||L2 con il metodo di cavalieri simpson
+ * con u real[int,int]
+ */
+func real controlCS2(real[int,int]& controlsol)
+{
+	real tmp=0.;
+	Yh med,med1,med2;
+	for( int i=0; i< nsol-1; i++)
+	{
+		med[] = (controlsol(i,:) + controlsol(i+1,:));
+		med=med/2.;
+		med1[]=controlsol(i,:);
+		med2[]=controlsol(i+1,:);
+		
+		
+		tmp += (   int2d(Th)( ( (PUabScal(med1(x,y))-ue[i])^2 ) )
+				 + int2d(Th)( ( (PUabScal(med2(x,y))-ue[i+1])^2 ) )
+				 +int2d(Th)(((PUabScal(med(x,y))-uemed[i] )^2) )
+					  )*(dt/6.);
+		
+	}
+	
+	tmp = sqrt(tmp);
+	
+	return tmp;
+}
+
 /* Per il calcolo dell'errore di || ues -u_k ||L2 viene implementato il metodo di CS
  * poichè la funzione u_k a causa della proiezione non è sempre lineare a tratti ma su una griglia temporale
  * differente da quella standard t+dt è necessario trovare la nuova griglia temporale
