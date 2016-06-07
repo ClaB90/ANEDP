@@ -11,7 +11,8 @@
  * 														 					*
  ****************************************************************************/
 
-
+/* norma L2 che utilizza il metodo dei trapezi sullo spazio Yh
+ */
 func real normL2Yh(real[int,int]& xx)
 {
 	real tmp=0;
@@ -32,6 +33,27 @@ func real normL2Yh(real[int,int]& xx)
 	return tmp;
 }
 
+/* norma L2 che utilizza il metodo di Cavalieri Simpson sullo spazio Yh
+*/
+func real normL2YhCS(real[int,int] &xx)
+{
+	real tmp=0.;
+	Yh x1,x2,x3;
+	t=0;
+	for(int i=0; i<nsol-1; ++i)
+	{
+		x1[]=xx(i,:);
+		x2[]=xx(i+1,:);
+		x3=(x1+x2)/2.;
+		tmp += (dt/6.)*(int2d(Th)((x1-wd)^2)+int2d(Th)((x2-wdpp)^2)+4*int2d(Th)((x3-wdp)^2));
+		t=t+dt;
+	}
+	tmp=sqrt(tmp);
+	return tmp;
+}
+
+/* norma L2 che utilizza il metodo dei trapezi sullo spazio Ph
+ */
 func real normL2Ph(real[int,int]& xx)
 {
 	real tmp=0;
@@ -52,30 +74,9 @@ func real normL2Ph(real[int,int]& xx)
 	return tmp;
 }
 
-/*
-func real prodottoL2(real[int,int]& xx,real[int,int]& yy, int ncol)
-{
-	real tmp=0., savet=0.;
-	
-	savet = 0.;
-	t=dt/2;
-	
-	for(int i = 0; i<nsol; i++)
-	{
-		for(int j=0; j<ncol; j++)
-		{
-			tmp += dt*(xx(i,j)*yy(i,j));
-		}
-		
-	}
-	
-	//tmp = sqrt(tmp);
-	
-	t=savet;
-	
-	return tmp;
-} */
-
+/* La funzione prodottoL2 ricava il prodotto vettoriale temporale tra due vettori di soluzioni
+ * dello stesso spazio funzionale 
+ */
 func real prodottoL2(real[int,int]& xx, real[int,int]& ww)
 {
 	real tmp=0;
@@ -96,19 +97,42 @@ func real prodottoL2(real[int,int]& xx, real[int,int]& ww)
 	return tmp;
 }
 
-func real normL2u(real[int,int]& xx)
+func real prodottoL2CS(real[int,int] &xx, real[int,int] &ww)
+{
+	real tmp=0.;
+	Yh x1,x2,x3,x4,x5,x6;
+	t=0;
+	for(int i=0; i<nsol-1; ++i)
+	{
+		x1[] = xx(i,:);
+		x2[] = ww(i,:);
+		x3[] = xx(i+1,:);
+		x4[] = ww(i+1,:);
+		x5=(x1+x3)/2.;
+		x6=(x2+x4)/2.;
+		tmp+= (dt/6.)*(int2d(Th)(x1*(wd-x2))+int2d(Th)(x3*(wdpp-x4))+4*int2d(Th)(x5*(wdp-x6)));
+		t=t+dt;
+	}
+	return tmp;
+}
+
+
+/* norma L2 che utilizza il metodo dei trapezi per la soluzione di controllo
+ * la proiezione sullo spazio di controllo avviene durante il calcolo della norma
+ */
+func real normL2u(real[int] &xx)
 {
 	real tmp=0;
 	
-	Yh x1,x2;
+	real x1,x2;
 	
 	for(int i=0; i< nsol-1; i++)
 	{
-		x1[] = xx(i,:);
-		x2[] = xx(i+1,:);
+		x1 = xx[i];
+		x2 = xx[i+1];
 		
-		tmp += ( int2d(Th)((PUabScal(x1(x,y)))^2) 
-			     + int2d(Th)((PUabScal(x2(x,y)))^2))*(dt/2.); 
+		tmp += ( int2d(Th)((PUabScal(x1))^2) 
+			     + int2d(Th)((PUabScal(x2))^2))*(dt/2.); 
 	}
 	
 	tmp = sqrt(tmp);
