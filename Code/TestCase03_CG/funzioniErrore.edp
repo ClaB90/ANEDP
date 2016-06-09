@@ -23,6 +23,8 @@ func real normL2statet()
 	
 	tmp = int2d(Th)( (w-we)^2 );
 	
+	tmp = sqrt(tmp);
+	
 	return tmp;
 } 
 
@@ -187,7 +189,6 @@ func real controlCS2(real[int,int]& controlsol)
  */
 func real controlErrL2(real[int]& controlsol)
 {
-
 	/* Vettore dei punti medi	
 	 */
 	real[int] uemed(nsol-1);

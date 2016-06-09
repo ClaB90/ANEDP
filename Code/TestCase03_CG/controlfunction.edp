@@ -70,9 +70,9 @@ func real puntoFisso()
  */	
 func real DampedNewton()
 {
-	real[int,int] uw(nsol,Ph.ndof);
 	real[int,int] deltal(nsol,Yh.ndof);
-	real[int,int] l(nsol,Yh.ndof), tmp(nsol,Yh.ndof);
+	real[int,int] ll(nsol,Yh.ndof);
+	real[int,int] l(nsol,Yh.ndof), tmp(nsol,Yh.ndof), tmp4(nsol,Yh.ndof);
 	real[int] tmp3(nsol);
 	
 	real lambdaDN = 1., betaDN = 0.8;
@@ -99,8 +99,9 @@ func real DampedNewton()
 		tmp += deltal*lambdaDN;
 
 		tmp3 = adjCG2(l);
+		tmp4 = stateCG2(tmp3);
 
-		tmp2 = prodottoL2CS(deltal, tmp3);
+		tmp2 = prodottoL2CS(deltal, tmp4);
 		tmp2 *= lambdaDN/3.;
 
 		if( phi(tmp) > phi(l) + tmp2 )
@@ -109,7 +110,7 @@ func real DampedNewton()
 			tmp = l;
 		   	tmp += deltal*lambdaDN;
 		
-			}
+		}
 
 		/* PASSO 3
 		 * l = l + lambdaDN*deltal;

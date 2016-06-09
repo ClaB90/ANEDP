@@ -84,7 +84,7 @@ for( int j=0; j<nLevels; j++)
 	include "controlfunction.edp";
 
 	//risolvo il problema di controllo
-	puntoFisso();
+	DampedNewton();
 
 	cout << "==========================" << endl;
 	cout << "Number of  iterations = " << k << endl;

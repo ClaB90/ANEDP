@@ -253,7 +253,7 @@ func real[int] adjCG2(real[int,int]& xx)
 	for(int i=0; i<nsol; ++i)
 		{
 			tmp[]=AdjSolCG(i,:);
-			Bp[i]=(-1./alpha)*int2d(Th)(g*tmp3f);
+			Bp[i]=(-1./alpha)*int2d(Th)(g*tmp);
 		}
 	
 	return Bp;
@@ -285,7 +285,7 @@ func real[int,int] projectAdjCG(real[int,int]& xx)
 func real[int,int] rightCG(real[int,int]& xx)
 {
 	real[int,int] righthandCG(nsol,Yh.ndof);
-	real[int] tmp(nsol, Yh.ndof);
+	real[int,int] tmp2(nsol, Yh.ndof);
 	real[int] tmp(nsol);
 	
 	//calcolo Ad(l)
@@ -397,7 +397,7 @@ func real[int,int] mat1(real[int] &xx, real[int] &ww)
 func real[int,int] mat2(real[int,int] &ww, real[int,int] &xx)
 {
 	real[int,int] res(nsol,Yh.ndof);
-	real[int,int] tmpxx(nsol), tmpww(nsol);
+	real[int] tmpxx(nsol), tmpww(nsol);
 	
 	tmpxx=adjCG2(xx);
 	tmpww=adjCG2(ww);
@@ -417,21 +417,33 @@ func real[int,int] mat2(real[int,int] &ww, real[int,int] &xx)
 func real phi(real[int,int]& xx)
 {
 	real tmp,savet=t, normu;
-	real[int] uw(nsol);
-	real[int,int] tmp(nsol,Yh.ndof);
+	real[int] uw(nsol), uwproj(nsol);
+	real[int,int] tmpuw(nsol,Yh.ndof);
 	
 	uw = adjCG2(xx);
 	
-	tmp = stateCG2(ww);
+	tmpuw = stateCG2(uw);
 	
 	t=0.;
+	Bpk=uw;
+	uwproj=PUab(uw);
+	for( int i=0; i<nsol; i++)
+	{
+		
+		tmpuw(i,:) = (-1.)*tmpuw(i,:);
+		tmpuw(i,:) += wd;
+		t+=dt;
+	    
+	}
+	t=savet;
 	
 	//calcolo normaL2 di xx
 	tmp = (normL2Yh(xx))^2/2.;
 	//calcolo normaL2 di uw
-	tmp += (-alpha/2.)*(normL2u(uw))^2;
+	tmp += (-alpha/2.)*(normL2Pr(uwproj))^2;
 	//calcolo il prodotto vettoriale < w, wd - Sh(u(w))>L2
-	tmp += prodottoL2CS(xx, tmp);
+	tmp += prodottoL2CS(xx, tmpuw);
+
 	
 	return tmp;
 }
