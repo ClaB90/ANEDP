@@ -298,7 +298,9 @@ func real controlErrL2(real[int]& controlsol)
 		   }   
 		   			
 		   t=t+dt;
-		}					
+		}	
+	
+	err = sqrt(err);				
 
 	return err;
 }
