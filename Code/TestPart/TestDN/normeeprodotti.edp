@@ -53,9 +53,6 @@ func real normL2YhCS(real[int,int] &xx)
 }
 
 
-
-
-
 /*func real normL2Ph(real[int,int]& xx)
 {
 	real tmp=0;

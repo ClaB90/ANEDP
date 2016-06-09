@@ -452,15 +452,6 @@ func real phi(real[int,int]& xx)
 	t=0.;
 	Bpk=uw;
 	uwproj=PUab(uw);
-	for( int i=0; i<nsol; i++)
-	{
-		helpme = wd;
-		tmpuw(i,:) = (-1.)*tmpuw(i,:);
-		tmpuw(i,:) += helpme[];
-		t+=dt;
-	    
-	}
-	t=savet;
 	
 	//calcolo normaL2 di xx
 	tmp = (normL2Yh(xx))^2/2.;
@@ -487,7 +478,7 @@ func real[int,int] CG(real[int,int]& xx, real[int,int]& ww)
 	
 	real[int,int] tmp(nsol,Yh.ndof);
 	
-	real alphaCG, eps=1e-10;
+	real alphaCG, eps=1e-30;
 	// alla prima itearazione betaCG è fissato a zero
 	real betaCG=0.;
 	int k=0;
@@ -519,16 +510,21 @@ func real[int,int] CG(real[int,int]& xx, real[int,int]& ww)
 		}
 		
 		Apk = mat2(pk,ww);
-	
 		alphaCG = prodottoL2(r,r)/prodottoL2(pk,Apk);
-	
-		rold = r;
-		r -= alphaCG*Apk;
+		
+	    tmp += alphaCG*pk;	   
+	    
+	    rold = r;
+		A=mat2(tmp,ww);
+		r = rightCG(ww);
+		r-=A;
 		cout << " iterazione CG " << k << endl;
 		k++;  
 		
 		//salvo la mia soluzione a questo passo
-		tmp += alphaCG*pk;
+		cout << " residuo1 " << normL2Yh(r)-eps << endl;
+		
+		
 	}
 	
 	return tmp;

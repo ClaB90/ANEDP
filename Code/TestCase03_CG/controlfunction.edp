@@ -101,6 +101,7 @@ func real DampedNewton()
 
 		tmp3 = adjCG2(l);
 		tmp4 = stateCG2(tmp3);
+		tmp4 -= l;
 
 		tmp2 = prodottoL2CS(deltal, tmp4);
 		tmp2 *= lambdaDN/3.;

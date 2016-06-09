@@ -120,8 +120,7 @@ func real DampedNewton()
 			lambdaDN = lambdaDN*betaDN;
 			tmp = l;
 		    tmp += deltal*lambdaDN;
-
-		    
+			 
 		    tmp5 = (lambdaDN/3.)*tmp2;
 			cout << " QUASI " << endl;
 			cout << lambdaDN << endl;		
