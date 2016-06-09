@@ -26,7 +26,7 @@ real alpha, toll=0.,epsilon=0.;
 int k, Nmax;
 alpha =pi^(-4.);    
 epsilon = 1e-5;    
-Nmax = 300;        
+Nmax = 10;        
 k = 0;  
 
 real[int] u(nsol); 

@@ -259,6 +259,29 @@ func real[int] adjCG2(real[int,int]& xx)
 	return Bp;
 }
 
+/* La funzione adjCG3 risolve il problema aggiunto ad ogni passo temporale dato un termine noto
+ * inoltre moltiplica il risultato per l'operatore B' ma non moltiplica per -(1/alpha)
+ * e salva la soluzione in un opportuno vettore
+ * l'operatore implementato in questa funzione è l'operatore B'(Ad)
+ */
+func real[int] adjCG3(real[int,int]& xx)
+{	
+
+	real[int] Bp(nsol);
+	real[int,int] AdjSolCG(nsol,Ph.ndof);
+	Ph tmp;
+	
+	AdjSolCG = adjCG(xx);
+
+	for(int i=0; i<nsol; ++i)
+		{
+			tmp[]=AdjSolCG(i,:);
+			Bp[i]=int2d(Th)(g*tmp);
+		}
+	
+	return Bp;
+}
+
 /* La funzione projectAdjCG(real[int,int]& xx) proietta un vettore soluzione su Uab
  * NB - se il risultato di questa funzione NON deve essere un in-put per StateCG
  * 		l'operazione di proiezione deve essere fatta all'interno di StateCG, quando si crea la matrice,
@@ -401,7 +424,7 @@ func real[int,int] mat2(real[int,int] &ww, real[int,int] &xx)
 	real[int] tmpxx(nsol), tmpww(nsol);
 	
 	tmpxx=adjCG2(xx);
-	tmpww=adjCG2(ww);
+	tmpww=adjCG3(ww);
 	
 	res=mat1(tmpww,tmpxx);
 	res=(1./alpha)*res;
@@ -420,6 +443,7 @@ func real phi(real[int,int]& xx)
 	real tmp,savet=t, normu;
 	real[int] uw(nsol), uwproj(nsol);
 	real[int,int] tmpuw(nsol,Yh.ndof);
+	Yh helpme;
 	
 	uw = adjCG2(xx);
 	
@@ -430,9 +454,9 @@ func real phi(real[int,int]& xx)
 	uwproj=PUab(uw);
 	for( int i=0; i<nsol; i++)
 	{
-		
+		helpme = wd;
 		tmpuw(i,:) = (-1.)*tmpuw(i,:);
-		tmpuw(i,:) += wd;
+		tmpuw(i,:) += helpme[];
 		t+=dt;
 	    
 	}
@@ -500,6 +524,7 @@ func real[int,int] CG(real[int,int]& xx, real[int,int]& ww)
 	
 		rold = r;
 		r -= alphaCG*Apk;
+		cout << " iterazione CG " << k << endl;
 		k++;  
 		
 		//salvo la mia soluzione a questo passo

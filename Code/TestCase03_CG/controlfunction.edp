@@ -80,7 +80,7 @@ func real DampedNewton()
 	int k1=0;
 	
 	toll = epsilon+1;
-	while(toll > epsilon  && k <= Nmax)
+	while(toll > epsilon  && k1 <= Nmax)
 	{
 		/* PASSO 1
 		 * 	ricava dl dall'equazione
