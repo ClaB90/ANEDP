@@ -79,6 +79,7 @@ func real DampedNewton()
 	real tmp2;
 	int k1=0;
 	
+	toll = epsilon+1;
 	while(toll > epsilon  && k <= Nmax)
 	{
 		/* PASSO 1

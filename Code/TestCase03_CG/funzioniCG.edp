@@ -287,6 +287,7 @@ func real[int,int] rightCG(real[int,int]& xx)
 	real[int,int] righthandCG(nsol,Yh.ndof);
 	real[int,int] tmp2(nsol, Yh.ndof);
 	real[int] tmp(nsol);
+	Yh store;
 	
 	//calcolo Ad(l)
 	tmp = adjCG2(xx);
@@ -295,13 +296,13 @@ func real[int,int] rightCG(real[int,int]& xx)
 	tmp2 = stateCG2(tmp);
 	
 	real savet=t;
-	t=dt;
-	
+	t=0;
 	// Per calcolare correttamente wd devo iterare nel tempo
 	for(int i=0; i<nsol; i++)
 	{
+		store=wd;
 		righthandCG(i,:) = (-1.)*xx(i,:)  + tmp2(i,:);
-		righthandCG(i,:) = - wd;
+		righthandCG(i,:) = -store[];
 		t = t+dt;
 	}
 	
@@ -471,7 +472,8 @@ func real[int,int] CG(real[int,int]& xx, real[int,int]& ww)
 	tmp = xx;
 	
 	//Per entrare nel ciclio
-	r=10.;	
+	r=10.;
+	rold=10.;	
 	while( prodottoL2(r,r)>eps )
 	{
 		if( k != 0)
