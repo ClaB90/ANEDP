@@ -75,7 +75,7 @@ func real[int,int] PUabMatrixPh(real[int,int]& z, int& ncol)
 	
   	for(int i=0; i<nsol; i++)
   	{
-	  for(int j=0; j<ncol; i++)
+	  for(int j=0; j<ncol; j++)
 	  {
 	  	  tmp(i,j) = PUabScal(z(i,j));
 	  }

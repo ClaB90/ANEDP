@@ -111,8 +111,7 @@ func real adjointt()
 		adjsol[j-1] = p;
 		
 		Bpk[j-1]= (-1./alpha)*int2d(Th)( p * g );
-		
-		
+			
 		t -= dt;
 		j--;
 	}
