@@ -204,6 +204,7 @@ func real[int,int] adjCG(real[int,int] &xx)
 	 */
 	real[int] tmpadj2(Yh.ndof);
 	real[int] adjbc2(Yh.ndof);
+
 	Yh hs,hsnext;
 	real[int,int] AdjSolCG(nsol,Yh.ndof);
 	
@@ -217,8 +218,10 @@ func real[int,int] adjCG(real[int,int] &xx)
 	
 	int j = nsol-1;
 	pnext=pT;
+	
 	AdjSolCG(j,:)=0.;
 	adjbc2=adj(0,Yh);
+	
     hs[]=xx(j,:);
     
 	while( j > 0 )
@@ -475,7 +478,7 @@ func real[int,int] CG(real[int,int] &xx, real[int,int] &ww)
 	
 	real[int,int] tmp(nsol,Yh.ndof);
 	
-	real alphaCG, eps=10^(-30.);
+	real alphaCG, eps=10^(-3.);
 	// alla prima itearazione betaCG è fissato a zero
 	real betaCG=0.;
 	int k=0;

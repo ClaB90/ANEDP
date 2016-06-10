@@ -218,12 +218,13 @@ func real[int,int] adjCG(real[int,int]& xx)
 	//Conosco il valore della soluzione dell'aggiunto al tempo T
 	AdjSolCG(j,:)=pT;
 	adjbc=adj(0,Ph);
+	
 	h[]=xx(j,:);
 
 	while( j > 0 )
 		{
 			hnext[] = h[];
-	        	h[]=xx(j-1,:);
+	        h[]=xx(j-1,:);
 		
 			tmpadj = adjtn(0,Ph);
 			tmpadj += adjbc;
@@ -478,7 +479,7 @@ func real[int,int] CG(real[int,int]& xx, real[int,int]& ww)
 	
 	real[int,int] tmp(nsol,Yh.ndof);
 	
-	real alphaCG, eps=1e-30;
+	real alphaCG, eps=1e-6;
 	// alla prima itearazione betaCG è fissato a zero
 	real betaCG=0.;
 	int k=0;

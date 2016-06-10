@@ -10,7 +10,7 @@
  * 														 					*
  ****************************************************************************/
 
-func real saveControl()
+func real saveControl(int j)
 {
 	string uk, uesk;
 
