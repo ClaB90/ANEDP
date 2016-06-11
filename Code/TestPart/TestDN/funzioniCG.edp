@@ -9,7 +9,7 @@
  *																			*
  * 		Dipendenze:	main -> nsol, alpha						 				*
  * 					state -> Yh, w0 						 				*
- * 					adjoint -> Ph 						 					*
+ * 					adjoint -> varf problema aggiunto 						*
  * 														 					*
  * 		KEEP IN MIND -	Sh == operatore che risolve l'equazione di stato    *
  * 						Ad == operatore che risolve l'equazione aggiunta    *
@@ -57,6 +57,7 @@ func real[int,int] stateCG(real[int] &xx)
 	//definisco i valori di uold
     loldstate = xx[0];
     listate = xx[1];
+	
 	g0partsx = g0nonprojsx;
 	g0IIsx = PUabScal(g0partsx);	
 	//Risolvo
@@ -130,28 +131,32 @@ func real[int,int] adjCG(real[int,int] &xx)
 	real[int] tmpadj(Yh.ndof);
 	real[int] adjbc(Yh.ndof);
 	
+	//vettore delle solzioni ad ogni istante temporale
 	real[int,int] AdjSolCG(nsol,Yh.ndof);
 	
+	//valori iniziali al tempo T
 	int j = nsol-1;
 	pnext=pT;
-	
 	AdjSolCG(j,:)=pT;
+	h[]=xx(j,:);
+	
+	//Calcolo il valore della matrice Adj e delle condizioni al bordo
 	Adj=adj(Yh,Yh,solver=GMRES);
 	adjbc=adj(0,Yh);
-	
-    h[]=xx(j,:);
     
 	while( j > 0 )
 		{
 			hnext=h;
 		    h[]=xx(j-1,:);
-
+			
+			//calcolo il termine noto
 		    tmpadj = adjtn(0,Yh);
 			tmpadj += adjbc;
 		
+			//risolvo il problem aaggiunto
 			AdjSolCG(j-1,:)= ((Adj)^-1)*tmpadj;
+			
 			pnext[]=AdjSolCG(j-1,:);
-	
 			j--;
 		}
 	
@@ -170,10 +175,12 @@ func real[int] adjCG2(real[int,int]& xx)
 	real[int,int] AdjSolCG(nsol,Yh.ndof);
 	Yh tmp;
 	
+	//solvo il problema aggiunto
 	AdjSolCG = adjCG(xx);
 
 	for(int i=0; i<nsol; ++i)
 		{
+			//integro la soluzione al t=i*dt nello spazio
 			tmp[]=AdjSolCG(i,:);
 			Bp[i]=(-1./alpha)*int2d(Th)(g*tmp);
 		}
@@ -197,6 +204,7 @@ func real[int] adjCG3(real[int,int]& xx)
 
 	for(int i=0; i<nsol; ++i)
 		{
+			//integro la soluzione al t=i*dt nello spazio
 			tmp[]=AdjSolCG(i,:);
 			Bp[i]=int2d(Th)(g*tmp);
 		}
@@ -224,7 +232,7 @@ func real[int,int] projectAdjCG(real[int,int] &xx)
 }
 
 /* La funzione rightCG risolve il termine a destra dell'equazione
- *  ( I + (1/alpha)*ShIAd)dl = - (l+yd) + ShP[a,b](-(1/alpha)Ad(l))
+ *  ( I + (1/alpha)*ShIAd)dl = - (l+wd) + ShP[a,b](-(1/alpha)Ad(l))
  * necessaria per il primo passo dell'algortitmo Damped Newton
  */
 func real[int,int] rightCG(real[int,int] &xx)
@@ -234,9 +242,10 @@ func real[int,int] rightCG(real[int,int] &xx)
 	real[int] tmp(nsol);
 	
 	Yh store;
+	
 	//calcolo Ad(l)
 	tmp = adjCG2(xx);
-	//calcolo Sh(tmp)
+	//calcolo Sh(tmp) = P[a,b](-(1/alpha)(tmp))
 	tmp2 = stateCG(tmp);
 	
 	real savet=t;
@@ -285,6 +294,8 @@ func real[int,int] mat1(real[int] &xx, real[int] &ww)
 	
 	//Primo passo di EI con passo temporale dt/2
     setscheme(0);
+	
+	//valori inziali
 	t=dt;
 	loldstate=xx[0];
     listate=xx[1];
@@ -292,10 +303,13 @@ func real[int,int] mat1(real[int] &xx, real[int] &ww)
 	indnew=ww[1];
 	g0partsx = g0nonprojsx;
 	g0IIsx = PUabScal(g0partsx);
-	//Risolvo
-    //statexy(0);
+	
+	
+	//Calcolo la matice di stato e il vettore delle condizioni al bordo
 	S=s(Yh,Yh,solver=GMRES);	
 	statebc=s(0,Yh);
+	
+	//risolvo
 	temp = tnnew(0,Yh);
 	temp += statebc;
 	stateSolCG(0,:)=(S^-1)*temp;
@@ -305,16 +319,18 @@ func real[int,int] mat1(real[int] &xx, real[int] &ww)
 	loldstate=listate;
 	indold=indnew;
 	t+=dt;
+	
 	//inizio coi passi di CN
     setscheme(1);
 	for(int i=1; i<nsol-1; i++)
 	{	
+		//aggiorno valori
 		listate = xx[i+1];
 		indnew=ww[i+1];
 	    g0partsx = g0nonprojsx;
 		g0IIsx = PUabScal(g0partsx);		
+		
 		//Risolvo
-	    //statexy(i);
 		temp=tnnew(0,Yh);
 		temp+=statebc;
 		stateSolCG(i,:)=(S^-1)*temp;
@@ -328,11 +344,15 @@ func real[int,int] mat1(real[int] &xx, real[int] &ww)
 	
 	//Ultimo passo di EA con passo temporale dt/2
     setscheme(2);
+	
+	//aggiorno valori g0
 	g0partdx = g0nonprojdx;
 	g0IIdx = PUabScal(g0partdx);	
+	
+	//ricalcolo matrice
+	S=s(Yh,Yh,solver=GMRES);
+	
 	//Risolvo
-    //statexy(nsol-1);
-    S=s(Yh,Yh,solver=GMRES);
     temp=tnnew(0,Yh);
     temp+=statebc;
 	stateSolCG(nsol-1,:)=(S^-1)*temp;
@@ -340,7 +360,7 @@ func real[int,int] mat1(real[int] &xx, real[int] &ww)
 	return stateSolCG;
 }
 	
-/* La funzione mat1 risolve il termine a sinsitra dell'equazione
+/* La funzione mat2 risolve il termine a sinsitra dell'equazione
  *  ( I + (1/alpha)*ShIAd)dl = - (l+yd) + ShP[a,b](-(1/alpha)Ad(l))
  * necessaria per il primo passo dell'algortitmo Damped Newton
  * dove xx = l
@@ -351,12 +371,14 @@ func real[int,int] mat2(real[int,int] &ww, real[int,int] &xx)
 	real[int,int] res(nsol,Yh.ndof);
 	real[int] tmp(nsol), tmp2(nsol);
 	
+	//Calcolo 1/alpha)*ShIAd(l)
 	tmp = adjCG2(xx);
 	tmp2 = adjCG3(ww);
 	
 	res=mat1(tmp2,tmp);
 	res=(1./alpha)*res;
 	res=res+ww;
+	
 	return res;
 }
 
@@ -371,14 +393,10 @@ func real phi(real[int,int] &xx)
 	real[int,int] tmp2(nsol,Yh.ndof);
 	real[int] uw(nsol);
 	
-	Yh bro;
 	Bpk = adjCG2(xx);
 	tmp2 = stateCG(Bpk);
 
 	uw=PUab(Bpk);
-	/* per calcolare wd - Sh(u(w)) dobbiamo considerare wd al corretto istante temporale 
- 	 * a differenza della componente di tmp2(:,:) 
-	 */
 	
 	//calcolo normaL2 di xx
 	tmp = (normL2Yh(xx))^2/2.;
