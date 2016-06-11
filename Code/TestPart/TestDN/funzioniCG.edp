@@ -19,14 +19,14 @@
  ****************************************************************************/
 
 
-/* La funzione stateCG2 risolve il problema di stato ad ogni passo temporale dato un termine noto
+/* La funzione stateCG risolve il problema di stato ad ogni passo temporale dato un termine noto
  * e crea il vettore delle soluzioni di questo ad ogni passo temporale
  * l'operatore implementato in questa funzione è l'operatore Sh applicato a PUad(xx) 
  * in particolare il termine noto che verrà proiettato correttamente sullo spazio Uad
  * quindi xx sarà della forma:
  * 		xx = (-1./alpha)*Ad(w)
  */
-func real[int,int] stateCG2(real[int] &xx)
+func real[int,int] stateCG(real[int] &xx)
 {	
 	/* Valori dei moltiplicatori di lagrange sullo spazio Yh
 	 */
@@ -237,7 +237,7 @@ func real[int,int] rightCG(real[int,int] &xx)
 	//calcolo Ad(l)
 	tmp = adjCG2(xx);
 	//calcolo Sh(tmp)
-	tmp2 = stateCG2(tmp);
+	tmp2 = stateCG(tmp);
 	
 	real savet=t;
 	t=dt/2.;
@@ -373,7 +373,7 @@ func real phi(real[int,int] &xx)
 	
 	Yh bro;
 	Bpk = adjCG2(xx);
-	tmp2 = stateCG2(Bpk);
+	tmp2 = stateCG(Bpk);
 
 	uw=PUab(Bpk);
 	/* per calcolare wd - Sh(u(w)) dobbiamo considerare wd al corretto istante temporale 
