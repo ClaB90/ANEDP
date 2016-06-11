@@ -72,11 +72,11 @@ func real DampedNewton()
 {
 	real[int,int] uw(nsol,Yh.ndof);
 	real[int,int] deltal(nsol,Yh.ndof);
-	//real[int,int] l(nsol,Yh.ndof);
-	real[int,int] tmp(nsol,Yh.ndof), tmp3(nsol,Yh.ndof);
+	
+	real[int,int] tmp(nsol,Yh.ndof);
 	real[int,int] ll(nsol,Yh.ndof);
-	real[int] tmp3vec(nsol);
-	Yh tmp3f;
+	real[int] tmp3(nsol);
+	
 	real[int,int] tmp4(nsol,Yh.ndof);
 	real[int,int] arr(nsol,Yh.ndof);
 	
@@ -94,27 +94,17 @@ func real DampedNewton()
 		ll=0.;
 		deltal = CG(ll,l);
         cout << " incremento " << normL2Yh(deltal) << endl;	
-        /* PASSO 2
+        
+		/* PASSO 2
 		 * 	if( phi( l+lamdbaDN*dl > phi(l) + < grad(phi(l)), dl >L2 ) )
 		 * dove è noto per teoria che:
 		 *	grad(phi(l)) = + (l+yd) - ShP[a,b](-(1/alpha)Ad(l)) = - rightCG()
 		 */
 		tmp = l;
 		tmp += deltal*lambdaDN;
-
-		/*
-		tmp3 = adjCG(l);
-		for(int i=0; i<nsol; ++i)
-		{
-			tmp3f[]=tmp3(i,:);
-			tmp3vec[i]=(-1./alpha)*int2d(Th)(g*tmp3f);
-		}
 		
-		tmp4 = stateCG2(tmp3vec);
-        tmp4=tmp4-l; */
-		
-		tmp3vec = adjCG2(l);
-		tmp4 = stateCG2(tmp3vec);
+		tmp3 = adjCG2(l);
+		tmp4 = stateCG2(tmp3);
         tmp4=tmp4-l;
 		
 		tmp2 = prodottoL2CS(deltal, tmp4);

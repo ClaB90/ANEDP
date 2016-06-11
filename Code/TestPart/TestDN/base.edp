@@ -1,6 +1,6 @@
 real T=0.1;
 real t=0.;
-int nsol = 1089;
+int nsol = 10;
 real dt=T/(nsol-1);
 
 verbosity=0;

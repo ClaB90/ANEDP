@@ -381,38 +381,24 @@ func real[int,int] mat2(real[int,int] &ww, real[int,int] &xx)
 func real phi(real[int,int] &xx)
 {
 	real tmp,savet=t, normu;
-	real[int,int] uw(nsol,Yh.ndof), tmp2(nsol,Yh.ndof);
+	real[int,int] tmp2(nsol,Yh.ndof);
 	real[int] uw2(nsol);
 	real[int] uw3(nsol);
-	Yh bro;
-	uw = adjCG(xx);
+	real[int] uw(nsol);
 	
-	for(int i=0; i<nsol; i++)
-	{
-		bro[]=uw(i,:);
-		uw2[i]=(-1./alpha)*int2d(Th)(bro*g);
-	}
-	tmp2 = stateCG2(uw2);
-	t=0;
-	Bpk=uw2;
-	uw3=PUab(uw2);
+	Yh bro;
+	Bpk = adjCG2(xx);
+	tmp2 = stateCG2(Bpk);
+
+	uw=PUab(uw2);
 	/* per calcolare wd - Sh(u(w)) dobbiamo considerare wd al corretto istante temporale 
  	 * a differenza della componente di tmp2(:,:) 
 	 */
-	/*for( int i=0; i<nsol; i++)
-	{
-		bro=wd;
-		tmp2(i,:) = (-1.)*tmp2(i,:);
-		tmp2(i,:) += bro[];
-		t+=dt;
-	    
-		}
-	t=savet;*/
 	
 	//calcolo normaL2 di xx
 	tmp = (normL2Yh(xx))^2/2.;
 	//calcolo normaL2 di uw
-	tmp += (-alpha/2.)*(normL2Pr(uw3))^2;
+	tmp += (-alpha/2.)*(normL2Pr(uw))^2;
 	//calcolo il prodotto vettoriale < w, wd - Sh(u(w))>L2
 	tmp += prodottoL2CS(xx, tmp2);
 	
@@ -485,15 +471,3 @@ func real[int,int] CG(real[int,int] &xx, real[int,int] &ww)
 	
 	return tmp;
 }
-
-
-
-
-
-
-
-
-
-
-
-
