@@ -11,7 +11,9 @@ include "funzioni.edp";
 
 include "UabSet.edp";   
 
-include "soluzioniEsatte.edp";       
+include "soluzioniEsatte.edp";  
+
+include "saveme.edp";     
 
 include "mesh.edp"; 
 
@@ -26,8 +28,8 @@ include "funzioniCG.edp";
 real[int,int] l(nsol,Yh.ndof);
 include "controlfunction.edp";
 
-l=-1.;
-real[int] l1(nsol);
+real[int,int] l1(nsol,Yh.ndof);
+
 real[int] l1vec(nsol);
 //l1=0.;
 //l2=mat2(l1,l);
@@ -35,6 +37,21 @@ real[int] l1vec(nsol);
 //l3=l3-l2;
 //l4=mat2(l3,l);
 
+Yh help;
+real savet=t;
+/*
+t=0.;
+for(int i=0; i<nsol; i++)
+{
+	Yh help1, help2;
+	help1 = we;
+	help2 = wd;
+	l(i,:) = help1[] - help2[];
+	t=t+dt;
+}
+t=savet; */
+
+l=a;
 
 DampedNewton();
 
@@ -52,9 +69,7 @@ for(int i=0; i<nsol; ++i)
     l1vec[i]=PUabScal(l1[i]);
 }
 
-u = l1;
-
-include "saveme.edp";
+u = Bpk;
 saveControl(0);
 
 real error=0.;
