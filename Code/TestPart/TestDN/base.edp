@@ -1,6 +1,6 @@
 real T=0.1;
 real t=0.;
-int nsol = 10;
+int nsol = 1089;
 real dt=T/(nsol-1);
 
 verbosity=0;
@@ -79,7 +79,7 @@ for(int i=0; i<nsol; ++i)
 }
 //l1=l1*(-1./alpha);
 
-u = Bpk;
+u = l2vec;
 saveControl(0);
 
 real error=0.;

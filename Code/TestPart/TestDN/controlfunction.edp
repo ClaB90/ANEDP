@@ -102,14 +102,21 @@ func real DampedNewton()
 		tmp = l;
 		tmp += deltal*lambdaDN;
 
+		/*
 		tmp3 = adjCG(l);
 		for(int i=0; i<nsol; ++i)
 		{
 			tmp3f[]=tmp3(i,:);
 			tmp3vec[i]=(-1./alpha)*int2d(Th)(g*tmp3f);
 		}
+		
+		tmp4 = stateCG2(tmp3vec);
+        tmp4=tmp4-l; */
+		
+		tmp3vec = adjCG2(l);
 		tmp4 = stateCG2(tmp3vec);
         tmp4=tmp4-l;
+		
 		tmp2 = prodottoL2CS(deltal, tmp4);
 		cout << " discesa " << tmp2 << endl;
 		tmp5 = (lambdaDN/3.)*tmp2;

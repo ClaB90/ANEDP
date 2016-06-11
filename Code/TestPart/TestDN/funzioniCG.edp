@@ -238,23 +238,14 @@ func real[int,int] projectAdjCG(real[int,int] &xx)
 func real[int,int] rightCG(real[int,int] &xx)
 {
 	real[int,int] righthandCG(nsol,Yh.ndof);
-	real[int,int] timp(nsol,Yh.ndof);
-	real[int,int] timp2(nsol,Yh.ndof);
-	real[int] timp3(nsol);
+	real[int,int] tmp2(nsol,Yh.ndof);
+	real[int] tmp(nsol);
+	
 	Yh store;
 	//calcolo Ad(l)
-	timp = adjCG(xx);
-	//molitiplico per (-1./alpha)
-	for(int i=0; i<nsol; i++)
-	{
-		store[]=timp(i,:);
-		timp3[i]=(-1./alpha)*int2d(Th)(store*g);
-	}
-	
-	
-	//timp = timp*(-1./alpha);
+	tmp = adjCG2(xx);
 	//calcolo Sh(tmp)
-	timp2 = stateCG2(timp3);
+	tmp2 = stateCG2(tmp);
 	
 	real savet=t;
 	t=dt/2.;
@@ -263,7 +254,7 @@ func real[int,int] rightCG(real[int,int] &xx)
 	for(int i=0; i<nsol; i++)
 	{
 		store=wd;
-		righthandCG(i,:) = (-1.)*xx(i,:)  + timp2(i,:);
+		righthandCG(i,:) = (-1.)*xx(i,:)  + tmp2(i,:);
 		righthandCG(i,:) -=  store[];
 		t = t+dt;
 	}
@@ -370,21 +361,13 @@ func real[int,int] mat2(real[int,int] &ww, real[int,int] &xx)
 	real[int,int] pro2(nsol,Yh.ndof);
 	real[int] pro3(nsol);
 	real[int] pro5(nsol);
-	pro=adjCG(xx);
-	Yh pro4;
-	for (int i=0; i<nsol; i++)
-	{
-		pro4[]=pro(i,:);
-		pro3[i]=(-1./alpha)*int2d(Th)(pro4*g);
-	}
-	//pro=(-1./alpha)*pro;
-	pro2=adjCG(ww);
-	for(int j=0; j<nsol; j++)
-	{
-		pro4[]=pro2(j,:);
-		pro5[j]=int2d(Th)(pro4*g);
-	}
-	res=mat1(pro5,pro3);
+	
+	real[int] tmp(nsol), tmp2(nsol);
+	
+	tmp = adjCG2(xx);
+	tmp2 = adjCG3(ww);
+	
+	res=mat1(tmp2,tmp);
 	res=(1./alpha)*res;
 	res=res+ww;
 	return res;
