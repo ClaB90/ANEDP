@@ -23,14 +23,12 @@ func pb = 0.;
 Yh h, hnext;
 
 /****** 01.SPAZI FUNZIONALI ******/
-
-fespace Ph( Th, P1 );
-Ph p, pnext, ptest;
-int dofPh = Ph.ndof;
+Yh p, pnext, ptest;
+int dofPh = Yh.ndof;
 
 //vettore della soluzioni p ad ogni passo temporale
 //m serve per il calcolo dell'errore.
-Ph[int] adjsol(nsol);
+Yh[int] adjsol(nsol);
 adjsol[nsol-1] = pT;
 
 /* nel file funzioniErrore.edp le funzioni necessarie per il calcolo dell'errore del problema di stato
@@ -67,7 +65,7 @@ problem adjoint( p, ptest) = - int2d(Th)( pnext*ptest/dt )
  */
 
 matrix Adj; 
-real[int] adjbc(Ph.ndof);
+real[int] adjbc(Yh.ndof);
 
 /****** 03.FUNZIONE PER SOLUZIONE IN TEMPO ******/ 
 
@@ -75,7 +73,7 @@ func real adjointt()
 {
 	cout << "Adjoint " << endl;
 	
-	real[int] tmpadj(Ph.ndof);
+	real[int] tmpadj(Yh.ndof);
 	
 	//inizializzo le variabili iniziali ogni volta che chiamo la funzione
 	int j = nsol;
@@ -89,8 +87,8 @@ func real adjointt()
 	t=t-dt;
 	
 	//Calcolo S e bc
-	Adj=adj(Ph,Ph,solver=GMRES);
-	adjbc=adj(0,Ph);
+	Adj=adj(Yh,Yh,solver=GMRES);
+	adjbc=adj(0,Yh);
 
 	//Devi risolvere un passo in meno per l'aggiunta poichè beta_0 == 0
 	while( j > 0 )
@@ -100,7 +98,7 @@ func real adjointt()
 		hnext = h;
 		h = statesol[j-1] - wd;
 		
-		tmpadj = adjtn(0,Ph);
+		tmpadj = adjtn(0,Yh);
 		tmpadj += adjbc;
 		
 		//Risolvo

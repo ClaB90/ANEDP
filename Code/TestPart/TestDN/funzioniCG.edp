@@ -81,9 +81,10 @@ func real[int,int] stateCG(real[int] &xx)
 	{	
 		listate = xx[i+1];
 		g0partsx = g0nonprojsx;
-		g0IIsx = PUabScal(g0partsx);		
+		g0IIsx = PUabScal(g0partsx);
+		
 		//Risolvo
-		//statexy(i);
+
 		tmp = tnnew(0,Yh);
 	    tmp += statebc;		
 		
@@ -104,7 +105,7 @@ func real[int,int] stateCG(real[int] &xx)
 	g0IIdx = PUabScal(g0partdx);	
 	
 	//Risolvo
-	//statexy(nsol-1);
+
 	S=s(Yh,Yh,solver=GMRES);
 	tmp=tnnew(0,Yh);
 	tmp += statebc;
@@ -429,6 +430,8 @@ func real[int,int] CG(real[int,int] &xx, real[int,int] &ww)
 	
 	//la mia soluzione parte da xx;
 	tmp = xx;
+	
+	//Per entrare nel ciclio
 	r=10.;
 	
 	while(normL2Yh(r)>eps )
@@ -455,6 +458,7 @@ func real[int,int] CG(real[int,int] &xx, real[int,int] &ww)
 		
 		Apk = mat2(pk,ww);
 		alphaCG = prodottoL2(r,r)/prodottoL2(pk,Apk);
+		
 	    tmp += alphaCG*pk;	   
 	    
 	    rold = r;

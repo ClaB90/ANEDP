@@ -28,9 +28,9 @@ include "funzioniCG.edp";
 real[int,int] l(nsol,Yh.ndof);
 include "controlfunction.edp";
 
-real[int] l1(nsol);
+real[int,int] l1(nsol,Yh.ndof);
 
-real[int] l1vec(nsol);
+real[int] l1vec(nsol), l2(nsol), l2vec(nsol);
 //l1=0.;
 //l2=mat2(l1,l);
 //l3=rightCG(l);
@@ -63,13 +63,23 @@ ex[]=l(i,:);
 plot(ex,fill=1,value=1,wait=1);
 }
 */
-l1=adjCG2(l);
+l1=adjCG(l);
 for(int i=0; i<nsol; ++i)
 {
-    l1vec[i]=PUabScal(l1[i]);
+	Yh born;
+	born[]=l1(i,:);
+	Bpk[i]=(-1./alpha)*int2d(Th)(born*g);
+    l1vec[i]=PUabScal(Bpk[i]);
 }
 
-u = Bpk;
+l2=adjCG2(l);
+for(int i=0; i<nsol; ++i)
+{
+    l2vec[i]=PUabScal(l2[i]);
+}
+//l1=l1*(-1./alpha);
+
+u = l2vec;
 saveControl(0);
 
 real error=0.;

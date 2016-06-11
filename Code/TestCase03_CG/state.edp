@@ -37,7 +37,7 @@ real errStateLinf = 0.;
 
 /****************** 01.SPAZI FUNZIONALI ******************/
 
-fespace Yh( Th, P2 );
+fespace Yh( Th, P1 );
 
 /* w soluzione del problema di stato al passo temporale corrente
  * wold suluzione del problema di stato al passo temporale precedente
