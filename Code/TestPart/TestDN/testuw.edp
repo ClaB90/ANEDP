@@ -68,7 +68,8 @@ u = l1vec;
 saveControl(0);
 
 real error=0.;
-cout << " l1 " << l1vec << endl;
+cout << " l1 " << l1 << endl;
+cout << " l1vec" << l1vec << endl;
 cout << " ues " << ue << endl;
 cout << " rapporto " << l2vec << endl;
 error=controlErrL2(l1vec);

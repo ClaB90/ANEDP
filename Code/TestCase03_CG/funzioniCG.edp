@@ -58,7 +58,7 @@ func real[int,int] stateCG(real[int,int]& xx)
 	stateSolCG(0,:)=w[];
 	
 	//aggiorno wold, uold e il tempo
-	wold=w;
+	wold[]=stateSolCG(0,:);
 	loldstate = listate;
 	t += dt;
 	
@@ -76,7 +76,7 @@ func real[int,int] stateCG(real[int,int]& xx)
 		stateSolCG(i,:)=w[];
 		
 		//aggiorno wold, uold, il tempo e g0old
-		wold=w;
+		wold[]=stateSolCG(i,:);
 		loldstate = listate;
 		t += dt;
 
@@ -147,7 +147,7 @@ func real[int,int] stateCG2(real[int] &xx)
 	stateSolCG(0,:)=(S^-1)*tomp;
 	
 	//aggiorno wold, uold e il tempo
-	wold=w;
+	wold[]=stateSolCG(0,:);
 	loldstate = listate;
 	t += dt;
 	
@@ -168,7 +168,7 @@ func real[int,int] stateCG2(real[int] &xx)
 		stateSolCG(i,:)=(S^-1)*tomp;
 		
 		//aggiorno wold, uold, il tempo e g0old
-		wold=w;
+		wold[]=stateSolCG(i,:);
 		loldstate = listate;
 		t += dt;
 
@@ -230,7 +230,7 @@ func real[int,int] adjCG(real[int,int]& xx)
 			tmpadj += adjbc;
 		
 			AdjSolCG(j-1,:)= Adj^-1*tmpadj;
-			pnext=p;
+			pnext[]=AdjSolCG(j-1,:);
 			j--;
 		}
 	
@@ -378,7 +378,7 @@ func real[int,int] mat1(real[int] &xx, real[int] &ww)
 	stateSolCG(0,:)=(S^-1)*tmp;
 	
 	//aggiorno valori
-	wold=w;
+	wold[]=stateSolCG(0,:);
 	loldstate=listate;
 	indold=indnew;
 	t+=dt;
@@ -395,7 +395,7 @@ func real[int,int] mat1(real[int] &xx, real[int] &ww)
 		stateSolCG(i,:)=(S^-1)*tmp;
 		
 		//aggiorno valori
-		wold=w;
+		wold[]=stateSolCG(i,:);
 		loldstate = listate;
 		indold=indnew;
         t+=dt;
