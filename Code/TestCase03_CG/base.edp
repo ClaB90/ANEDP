@@ -84,6 +84,7 @@ saveControl(0);
 
 real error=0.;
 cout << " l1 " << l1vec << endl;
+cout << " l2 " << l2vec << endl;
 error=controlErrL2(l1vec);
 cout << " error " << error << endl;
 	

@@ -16,6 +16,7 @@
  * 						Bpkold = vettore che contiene la soluzione alla seguente equazione 		*	
  * 									(B'z)(t) = int2d(Th)( z(t,x,y)*g(x,y))dxdy					*
  * 										al passo k-1 del ciclio di controllo			 	 	*
+ * 														 				 	 	 	  			*
  * 														 				 	 	 	  			*		
  *		NB -  la definizione di g è presente nel file funzioni.edp								*	
  * 														 				 	 	 	  			*
