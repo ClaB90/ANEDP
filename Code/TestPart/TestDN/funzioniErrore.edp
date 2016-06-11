@@ -183,8 +183,6 @@ func real controlErrL2(real[int]& controlsol)
 	/* ta e tb sono i punti di intersezione della retta y=mt+q e le rette y=a ed y=b
 	 */
 	real ta,tb;
-	
-	real l7,l8,l9,m2,m3;
 
 	for(int i=0; i<nsol-1; i++)
 	{
