@@ -81,14 +81,20 @@ func real DampedNewton()
 	real[int,int] arr(nsol,Yh.ndof);
 	
 	real lambdaDN = 1., betaDN = 0.8;
-	real tmp2,tmp5;
+	real tmp2;
+	
+	//contatore iterazioni DN
 	int k1=0;
-	while(normL2YhCS(tmp4)>10^(-5.) && k1 < Nmax)
+	
+	//per entrare nel while
+	toll = 10;
+	while( toll > epsilon && k1 < Nmax)
 	{
 		/* PASSO 1
 		 * 	ricava dl dall'equazione
 		 *		( I + (1/alpha)*ShIAd)dl = - (l+yd) + ShP[a,b](-(1/alpha)Ad(l))
-		 * ripone lamdbaDN = 1;
+		 *  pone lamdbaDN = 1;
+		 * per il calcolo di dl viene usato il metodo del gradiente coniugato
 		 */
 		lambdaDN = 1.;
 		ll=0.;
@@ -96,32 +102,38 @@ func real DampedNewton()
         cout << " incremento " << normL2Yh(deltal) << endl;	
         
 		/* PASSO 2
-		 * 	if( phi( l+lamdbaDN*dl > phi(l) + < grad(phi(l)), dl >L2 ) )
+		 * 	if( phi( l+lamdbaDN*dl ) > phi(l) + < grad(phi(l)), dl >L2 ) )
 		 * dove è noto per teoria che:
 		 *	grad(phi(l)) = + (l+yd) - ShP[a,b](-(1/alpha)Ad(l)) = - rightCG()
 		 */
 		tmp = l;
 		tmp += deltal*lambdaDN;
 		
+		//calcolo -grad(phi)
 		tmp3 = adjCG2(l);
 		tmp4 = stateCG(tmp3);
-        tmp4=tmp4-l;
+        tmp4 = tmp4-l;
 		
+		/* calcolo  <dl,grad(phi)>L2
+		 * NB prodottoL2CS prende in ingresso -grad(phi)
+		 */
 		tmp2 = prodottoL2CS(deltal, tmp4);
 		cout << " discesa " << tmp2 << endl;
-		tmp5 = (lambdaDN/3.)*tmp2;
-        	
-		while( phi(tmp) > phi(l) + tmp5 )
+		tmp2 = (lambdaDN/3.)*tmp2;
+        
+		//inexact armijo linesearch	
+		while( phi(tmp) > phi(l) + tmp2 )
 		{
-						
+			//aggiorni lambda			
 			lambdaDN = lambdaDN*betaDN;
+			// aggiorni tmp
 			tmp = l;
 		    tmp += deltal*lambdaDN;
 			 
-		    tmp5 = (lambdaDN/3.)*tmp2;
+		    tmp2 = (lambdaDN/3.)*tmp2;
 			cout << " QUASI " << endl;
 			cout << lambdaDN << endl;		
-			}
+		}
 
 		/* PASSO 3
 		 * l = l + lambdaDN*deltal;
@@ -133,6 +145,7 @@ func real DampedNewton()
 		k1=k1+1;
 		cout << " arresto " << normL2YhCS(tmp4) << endl;
 		//aggiorna tolleranza
+		toll = normL2YhCS(tmp4);
 	}
 	
 	return 0;
