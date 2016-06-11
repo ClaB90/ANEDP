@@ -28,7 +28,7 @@ include "funzioniCG.edp";
 real[int,int] l(nsol,Yh.ndof);
 include "controlfunction.edp";
 
-real[int,int] l1(nsol,Yh.ndof);
+real[int] l1(nsol);
 
 real[int] l1vec(nsol);
 //l1=0.;

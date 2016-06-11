@@ -133,7 +133,7 @@ func real controltrap(real[int]& controlsol)
 
 /* Calcolo della || ues - u_k ||L2 con il metodo di cavalieri simpson
  */
-func real controlCS(real[int]& controlsol)
+func real controlCS2(real[int]& controlsol)
 {
 	real tmp=0., med=0.;
 	
@@ -157,7 +157,7 @@ func real controlCS(real[int]& controlsol)
 /* Calcolo della || ues - u_k ||L2 con il metodo di cavalieri simpson
  * con u real[int,int]
  */
-func real controlCS2(real[int,int]& controlsol)
+func real controlCS(real[int,int]& controlsol)
 {
 	real tmp=0.;
 	Yh med,med1,med2;
