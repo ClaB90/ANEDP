@@ -193,7 +193,9 @@ func real controlErrL2(real[int]& controlsol)
 		q = (Bpk[i]*(t+dt)-Bpk[i+1]*t)/(dt);
 		if( m == 0 )
 		{
-			err=err+dt*(PUabScal(Bpk[i])^2);
+			uesx = uet(t);
+		    uedx = uet(t+dt);
+			err=err+(dt/6.)*((PUabScal(Bpk[i])-uesx)^2 +(PUabScal(Bpk[i])-uedx)^2 +4*(PUabScal(Bpk[i])-uemed[i])^2);
 		}
 		else
 		{

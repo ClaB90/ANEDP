@@ -23,8 +23,8 @@ func real normL2Yh(real[int,int]& xx)
 		x1[] = xx(i,:);
 		x2[] = xx(i+1,:);
 		x3=(x1+x2)/2.;
-		tmp += ( int2d(Th)(x1^2) 
-			     + int2d(Th)(x2^2)+4*int2d(Th)(x3^2))*(dt/6.); 
+		tmp += dt*(int2d(Th)(x1^2)); 
+	    
 	}
 	
 	tmp = sqrt(tmp);
@@ -42,9 +42,9 @@ func real normL2YhCS(real[int,int] &xx)
 	for(int i=0; i<nsol-1; ++i)
 	{
 		x1[]=xx(i,:);
-		x2[]=xx(i+1,:);
+		x2=wdp;
 		x3=(x1+x2)/2.;
-		tmp += (dt/6.)*(int2d(Th)((x1-wd)^2)+int2d(Th)((x2-wdpp)^2)+4*int2d(Th)((x3-wdp)^2));
+		tmp += (dt)*(int2d(Th)((x1-x2)^2));
 		t=t+dt;
 	}
 	tmp=sqrt(tmp);
@@ -111,8 +111,7 @@ func real prodottoL2(real[int,int]& xx, real[int,int]& ww)
 		x5=(x1+x3)/2.;
 		x6=(x2+x4)/2.;
 		
-		tmp += ( int2d(Th)(x1*x2) 
-			     + int2d(Th)(x3*x4)+4*int2d(Th)(x5*x6))*(dt/6.); 
+		tmp += dt*(int2d(Th)(x1*x2)); 
 	}
 	
 	return tmp;
@@ -128,11 +127,11 @@ func real prodottoL2CS(real[int,int] &xx, real[int,int] &ww)
 	{
 		x1[] = xx(i,:);
 		x2[] = ww(i,:);
-		x3[] = xx(i+1,:);
+		x3 = wdp;
 		x4[] = ww(i+1,:);
 		x5=(x1+x3)/2.;
 		x6=(x2+x4)/2.;
-		tmp+= (dt/6.)*(int2d(Th)(x1*(wd-x2))+int2d(Th)(x3*(wdpp-x4))+4*int2d(Th)(x5*(wdp-x6)));
+		tmp+= (dt)*(int2d(Th)(x1*(x3-x2)));
 		t=t+dt;
 	}
 	t=savet;

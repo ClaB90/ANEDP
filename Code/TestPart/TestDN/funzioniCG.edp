@@ -148,7 +148,6 @@ func real[int,int] adjCG(real[int,int] &xx)
 	adjbc2=adj(0,Yh);
 	
     hs[]=xx(j,:);
-	cout << hs << endl;
     
 	while( j > 0 )
 		{
@@ -165,6 +164,52 @@ func real[int,int] adjCG(real[int,int] &xx)
 		}
 	
 	return AdjSolCG;
+}
+
+/* La funzione adjCG2 risolve il problema aggiunto ad ogni passo temporale dato un termine noto
+ * inoltre moltiplica il risultato per l'operatore B'
+ * e salva la soluzione in un opportuno vettore
+ * l'operatore implementato in questa funzione è l'operatore B'(Ad)
+ */
+func real[int] adjCG2(real[int,int]& xx)
+{	
+
+	real[int] Bp(nsol);
+	real[int,int] AdjSolCG(nsol,Yh.ndof);
+	Yh tmp;
+	
+	AdjSolCG = adjCG(xx);
+
+	for(int i=0; i<nsol; ++i)
+		{
+			tmp[]=AdjSolCG(i,:);
+			Bp[i]=(-1./alpha)*int2d(Th)(g*tmp);
+		}
+	
+	return Bp;
+}
+
+/* La funzione adjCG3 risolve il problema aggiunto ad ogni passo temporale dato un termine noto
+ * inoltre moltiplica il risultato per l'operatore B' ma non moltiplica per -(1/alpha)
+ * e salva la soluzione in un opportuno vettore
+ * l'operatore implementato in questa funzione è l'operatore B'(Ad)
+ */
+func real[int] adjCG3(real[int,int]& xx)
+{	
+
+	real[int] Bp(nsol);
+	real[int,int] AdjSolCG(nsol,Yh.ndof);
+	Yh tmp;
+	
+	AdjSolCG = adjCG(xx);
+
+	for(int i=0; i<nsol; ++i)
+		{
+			tmp[]=AdjSolCG(i,:);
+			Bp[i]=int2d(Th)(g*tmp);
+		}
+	
+	return Bp;
 }
 
 /* La funzione projectAdjCG(real[int,int]& xx) proietta un vettore soluzione su Uab
@@ -406,7 +451,7 @@ func real[int,int] CG(real[int,int] &xx, real[int,int] &ww)
 	
 	real[int,int] tmp(nsol,Yh.ndof);
 	
-	real alphaCG, eps=10^(-3.);
+	real alphaCG, eps=10^(-15.);
 	// alla prima itearazione betaCG è fissato a zero
 	real betaCG=0.;
 	int k=0;
