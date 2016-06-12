@@ -23,6 +23,8 @@ func real normL2statet()
 	
 	tmp = int2d(Th)( (w-we)^2 );
 	
+	tmp = sqrt(tmp);
+	
 	return tmp;
 } 
 

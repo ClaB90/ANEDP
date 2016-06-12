@@ -38,10 +38,11 @@ real[int] errAdjL2vec(nLevels),errAdjLinfvec(nLevels);
 for( int j=0; j<nLevels; j++)
 {
 	
-	//int nsol = (2.^(j+1) +1.)^2;
-	int nsol = 2*nsolold-1;
+	//int nsol = 2*nsolold-1;
+	int nsol = ( 2^(j+1) +1 )^2;
 	nsolold=nsol;
 	real dt=T/(nsol-1);
+	cout << "======  nsol = " << nsol << " ======" << endl;
 	cout << "======  dt = " << dt << " ======" << endl;
 	
 	/* nel file controlparameters.edp sono contenuti i parametri necessari per il problema di controllo

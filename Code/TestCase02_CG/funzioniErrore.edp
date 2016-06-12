@@ -1,0 +1,351 @@
+/****************** Politecnico di Milano - ANEDP project ******************/
+/* 														 					*
+ *  	authors Edoardo Arbib 							 					*
+ *				Claudia Bonomi 							 					*
+ *											   			 					*
+ *  	Descrizione: definizioni delle funzioni per errore	  				*
+ *						Problema di stato									*
+ *						Problema di controllo								*
+ *																			*
+ * 		Dipendenze:	funzioni.edp -> waT e a1						        *		
+ *				    soluzioniEsatte -> definizioni funzioni esatte			*
+ * 					main -> nsol						 					*
+ * 					state -> statesol[]					 					*
+ * 														 					*
+ ****************************************************************************/
+
+/* Per il calcolo dell'errore di || y -y_k ||L2 viene sommata ad ogni passo temporale la norma L2
+ * la funzione seguente verrà chiamata ad ogni passo temporale sommandone il risultato,
+ */
+func real normL2statet()
+{
+	real tmp=0.;
+	
+	tmp = int2d(Th)( (w-we)^2 );
+	
+	tmp = sqrt(tmp);
+	
+	return tmp;
+} 
+
+/* Per il calcolo dell'errore di || y -y_k ||L2 viene sommata ad ogni passo temporale la norma L2
+ * la funzione seguente sfrutta il vettore di soluzioni del problema di stato
+ */
+func real normL2state()
+{
+	real tmp=0., savet=0.;
+	
+	savet = 0.;
+	t=dt/2;
+	
+	for(int i =0; i<nsol-1; i++)
+	{
+		tmp += dt*int2d(Th)( (statesol[i]-we)^2 );
+		t += dt;
+	}
+	
+	tmp = sqrt(tmp);
+	
+	t=savet;
+	
+	return tmp;
+} 
+
+/* Per il calcolo dell'errore di || yes -pi*y_k ||L2 viene implementato il metodo dei trapezi
+*/
+func real stateprojtrap()
+{
+	real tmp=0.;
+	
+	//Inizializzo correttamente le variabili di supporto ogni volta che chiamo la funzione
+	t1=dt*3./2.;
+	t2=dt/2.;
+	
+	tmp = (   int2d(Th)( ( 1.5*statesol[0] - 0.5*statesol[1] - 1.5*wesx + 0.5*wedx )^2 )
+	       + int2d(Th)( ( (statesol[0]-wesx)^2 ) )
+	       + (1./4.)*int2d(Th)( ( 5*statesol[0]-statesol[1]-5*wesx +wedx )^2 )
+		    )*(dt/12.);
+	
+	for( int i=1; i< nsol-3; i++)
+	{
+		tmp += (   int2d(Th)( ( (statesol[i-1]-wesx)^2 ) )
+					+ int2d(Th)( ( (statesol[i]-wedx)^2 ) )
+					+ int2d(Th)( ( statesol[i]+statesol[i-1]-wesx -wedx )^2 ) 
+					  )*(dt/6.);
+		t1 += dt;
+		t2 += dt;
+	}
+	
+	tmp += (   int2d(Th)( ( 1.5*statesol[nsol-2] - 0.5*statesol[nsol-3] - 1.5*wedx + 0.5*wesx )^2 )
+	  	    + int2d(Th)( ( (statesol[nsol-2]-wedx)^2 ) )
+			+ (1./4.)*int2d(Th)( ( 5*statesol[nsol-2]-statesol[nsol-3]-5*wedx +wesx )^2 )
+			  )*(dt/12.);
+	
+	tmp = sqrt(tmp);
+	
+	return tmp;
+}
+
+/* Per il calcolo dell'errore di || yes -y_k ||Linf
+*/
+func real normLinfstate()
+{
+	Yh diff;
+	real[int] LinfSpazio(nsol);
+	real norm, tsave=t;
+	t=dt;
+	
+	for(int i=0; i<nsol; i++)
+	{
+		diff = statesol[i] -we;
+		
+		LinfSpazio[i] = diff[].linfty;
+		
+		t+=dt;
+	}
+	
+	norm = LinfSpazio.linfty;
+
+	t=tsave;
+	
+	return norm;
+}
+
+/* Per il calcolo dell'errore di || ues -u_k ||L2 viene implementato il metodo dei trapezi
+ */
+func real controltrap(real[int]& controlsol)
+{
+	real tmp=0., med=0.;
+	
+	for( int i=0; i< nsol-1; i++)
+	{
+
+		tmp += (   int2d(Th)( ( (controlsol[i]-ue[i])^2 ) )
+				 + int2d(Th)( ( (controlsol[i+1]-ue[i+1])^2 ) )
+					  )*(dt/2.);
+		
+	}
+	
+	tmp = sqrt(tmp);
+	
+	return tmp;
+}
+
+/* Calcolo della || ues - u_k ||L2 con il metodo di cavalieri simpson
+ */
+func real controlCS2(real[int]& controlsol)
+{
+	real tmp=0., med=0.;
+	
+	for( int i=0; i< nsol-1; i++)
+	{
+		med = (Bpk[i] + Bpk[i+1])/2.;
+		med = PUabScal(med);
+		
+		tmp += (   int2d(Th)( ( (controlsol[i]-ue[i])^2 ) )
+				 + int2d(Th)( ( (controlsol[i+1]-ue[i+1])^2 ) )
+				 + int2d(Th)( ( 4.*( uemed[i] - med )^2) )
+					  )*(dt/6.);
+		
+	}
+	
+	tmp = sqrt(tmp);
+	
+	return tmp;
+}
+
+/* Calcolo della || ues - u_k ||L2 con il metodo di cavalieri simpson
+ * con u real[int,int]
+ */
+func real controlCS(real[int,int]& controlsol)
+{
+	real tmp=0.;
+	Yh med,med1,med2;
+	for( int i=0; i< nsol-1; i++)
+	{
+		med[] = (controlsol(i,:) + controlsol(i+1,:));
+		med=med/2.;
+		med1[]=controlsol(i,:);
+		med2[]=controlsol(i+1,:);
+		
+		
+		tmp += (   int2d(Th)( ( (PUabScal(med1(x,y))-ue[i])^2 ) )
+				 + int2d(Th)( ( (PUabScal(med2(x,y))-ue[i+1])^2 ) )
+				 +int2d(Th)(((PUabScal(med(x,y))-uemed[i] )^2) )
+					  )*(dt/6.);
+		
+	}
+	
+	tmp = sqrt(tmp);
+	
+	return tmp;
+}
+
+/* Per il calcolo dell'errore di || ues -u_k ||L2 viene implementato il metodo di CS
+ * poichè la funzione u_k a causa della proiezione non è sempre lineare a tratti ma su una griglia temporale
+ * differente da quella standard t+dt è necessario trovare la nuova griglia temporale
+ * é stato scelto CS invece deò metodo dei trapezi poichè ci serve un metodo di interpolazione con
+ * ordine d convergenza almeno 2
+ */
+func real controlErrL2(real[int]& controlsol)
+{
+	/* Vettore dei punti medi	
+	 */
+	real[int] uemed(nsol-1);
+	uemed = uepuntimedi();
+
+	real err=0.;
+	t=0.;
+	
+	/* In queste variabili andrò a salvare il valore della u esatta negli estremi dell'intervallo (t,t+dt)
+	 */
+	real uedx,uesx;
+	
+	/* m e q della retta y=mt+q a cui appartiene il segmento che rappresenta la u non proettata nel intervallo (t,t+dt)
+	 */
+	real m,q;
+	
+	/* ta e tb sono i punti di intersezione della retta y=mt+q e le rette y=a ed y=b
+	 */
+	real ta,tb;
+
+	for(int i=0; i<nsol-1; i++)
+	{
+		
+		m = (Bpk[i+1]-Bpk[i])/(dt);
+		q = (Bpk[i]*(t+dt)-Bpk[i+1]*t)/(dt);
+		if( m == 0 )
+		{
+			uesx = uet(t);
+		    uedx = uet(t+dt);
+			err=err+(dt/6.)*((PUabScal(Bpk[i])-uesx)^2 +(PUabScal(Bpk[i])-uedx)^2 +4*(PUabScal(Bpk[i])-uemed[i])^2);
+		}
+		else
+		{
+			ta = (a-q)/m;
+			tb = (b-q)/m;
+
+			//uesx e uedx
+			uesx = uet(t);
+			uedx = uet(t+dt);
+
+			//caso di non intersezione
+			if((ta<t || ta>(t+dt)) && (tb<t || tb>(t+dt)))
+			{
+				//Trovo la coordinata y del punto medio del segmento di retta y=mt+q (t,t+dt)			
+				real Bpkmed=(Bpk[i]+Bpk[i+1])/2.;
+			
+				err =   err
+					  + (dt/6.)*((uedx-controlsol[i])^2
+					  + (uesx-controlsol[i+1])^2 
+					  + 4*(uemed[i]-PUabScal(Bpkmed))^2);
+			}
+			else
+			{
+				//interseco solo retta y=a => trovo due sottointervalli (t,ta) e (ta,t+dt)
+			   	if(ta>=t && ta<=(t+dt) && (tb<t || tb>(t+dt)))
+			   	{
+
+					real ueta=uet(ta);
+				
+					//Coordinate dei punti medi della soluzione esatta nei due sottointervalli
+			   		real uetamed1=uet((ta+t)/2.);
+			   		real uetamed2=uet((ta+t+dt)/2.);
+				
+					//Coordinate dei punti medi della soluzione approssimata nei due sottointervalli
+			   		real Bpkmed1=(Bpk[i]+a)/2.;
+			   		real Bpkmed2=(Bpk[i+1]+a)/2.;
+		   		
+					err =    err
+						  + ((ta-t)/6.)*( (uedx-controlsol[i])^2 + (ueta-a)^2 
+							               + 4*(uetamed1-PUabScal(Bpkmed1))^2 )
+						  + ((t+dt-ta)/6.)*( (ueta-a)^2 + (uesx-controlsol[i+1])^2 
+										   + 4*(uetamed2-PUabScal(Bpkmed2))^2 );
+		   
+			   	}
+			   	//interseco solo retta y=b => trovo due sottointervalli (t,tb) e (tb,t+dt)
+				else if(tb>=t && tb<=(t+dt) && (ta<t || ta>(t+dt)))
+			   	{	
+					real uetb=uet(tb);
+				
+					//Coordinate dei punti medi della soluzione esatta nei due sottointervalli
+			   		real uetbmed1=uet((tb+t)/2.);
+			   		real uetbmed2=uet((tb+t+dt)/2.);
+				
+					//Coordinate dei punti medi della soluzione approssimata nei due sottointervalli
+			   		real Bpkmed1=(Bpk[i]+b)/2.;
+			   		real Bpkmed2=(b+Bpk[i+1])/2.;
+		   		    
+					err=   err
+						 + ((tb-t)/6.)*( (uedx-controlsol[i])^2 + ( uetb-b )^2 
+										  + 4*( uetbmed1-PUabScal(Bpkmed1) )^2 )
+						 + ((t+dt-tb)/6.)*(  ( uetb-b)^2 + (uesx-controlsol[i+1])^2 
+										    + 4*( uetbmed2 -PUabScal(Bpkmed2) )^2);
+		   
+			   	}
+				//interseco sia y=b che y=a => trovo tre sottointervalli (t,tc) (tc,td) (td,t+dt)
+		   		else
+		   		{
+		   			real c,d,tc,td;
+				
+		   			if(ta<=tb)
+					{ 
+					  c=a;
+					  d=b;
+				    }
+		   			else
+					{
+					  c=b;
+					  d=a;
+				    }
+				
+		   			tc=min(ta,tb);
+		   			td=max(ta,tb);
+				
+					real uetc=uet(tc);
+					real uetd=uet(td);
+				
+					//Coordinate dei punti medi della soluzione esatta nei due sottointervalli
+			   		real uetcmed=uet((tc+t)/2.);
+			   		real uetctdmed=uet((tc+td)/2.);
+			   		real uetdmed=uet((td+t+dt)/2.);
+	
+		   			real Bpkmed1=(Bpk[i]+c)/2.;
+		   			real Bpkmed2=(d+c)/2.;
+					real Bpkmed3=(Bpk[i+1]+d)/2.;
+	   			
+					err =   err 
+						  +((tc-t)/6.)*( (uedx- controlsol[i])^2 + (uetc-c)^2 
+							  			   + 4*( uetcmed-Bpkmed1 )^2 )
+					      +((td-tc)/6.)*( (uetc-c)^2 + (uetd-d)^2 
+										   + 4*( uetctdmed-Bpkmed2 )^2 )
+						  +((t+dt-td)/6.)*(  (uetd-d)^2 + (uesx- controlsol[i+1])^2 
+										   + 4*( uetdmed-Bpkmed3 )^2 ); 
+		   		}
+			   }   
+		   	
+		   }
+		   t=t+dt;
+		}
+		
+	err = sqrt(err);					
+
+	return err;
+}
+
+/* Per il calcolo dell'errore di || ues -u_k ||Linf
+*/
+func real normLinfcontrol(real[int]& controlsol)
+{
+	real[int] LinfSpazio(nsol);
+	real norm;
+	
+	for(int i=0; i<nsol; i++)
+	{
+		LinfSpazio[i] = controlsol[i] -ue[i];
+	}
+	
+	norm = LinfSpazio.linfty;
+	
+	return norm;
+}

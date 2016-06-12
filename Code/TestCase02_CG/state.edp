@@ -1,0 +1,249 @@
+/*********************** Politecnico di Milano - ANEDP project ************************/
+/* 														 					          *
+ *  	authors Edoardo Arbib 							 					          *
+ *				Claudia Bonomi 							 					          *
+ *											   			 					          *
+ *  	Descrizione: Per il problema di stato definiamo  					          *
+ *						- spazi funzionali		         					          *
+ *						- problema spaziale				 					          *
+ *					    - funzione per la soluzione del problema temporale            * 
+ *    					- norme dell'errore e analisi di convergenza                  *
+ * 														 				 	 	 	  *
+ * 		Dipendenze: main -> nsol + paramtri temporali + u(=soluzione controllo)  	  * 
+ *						 -> alpha parametro del problema di controllo 				  *
+ * 					soluzioniEsatte -> soluzione esatta di y e parametri t1 e t2 	  * 
+ * 									   necessarie per il calcolo dell'errore     	  *
+ * 					funzioni -> wa ed a1								 			  *
+ * 														 				 	 	 	  *
+ **************************************************************************************/
+
+	
+/****************** 00.PARAMETRI E FUNZIONI ******************/
+// w0 soluzione all'istante iniziale
+t=0.;
+func w0 = g;
+
+// wb funzione al bordo di dirchlet 
+func wb = 0.;
+
+/* Parametri per il calcolo dell'errore dello stato
+ * errStateL2 = || pi*y -y_k ||L2
+ *
+ * errProjectStateL2 = || y -pi*y_k ||L2
+ */
+real errStateL2=0.;
+real errProjectStateL2 = 0.;
+real errStateLinf = 0.;
+
+/****************** 01.SPAZI FUNZIONALI ******************/
+
+fespace Yh( Th, P1 );
+
+/* w soluzione del problema di stato al passo temporale corrente
+ * wold suluzione del problema di stato al passo temporale precedente
+ * wtest funzione test
+ * g0old forzante al passo temporale precedente
+ */
+Yh w, wold, wtest;
+int dofYh = Yh.ndof;
+
+//vettore della soluzioni w ad ogni passo temporale
+Yh[int] statesol(nsol);
+
+/* nel file funzioniErrore.edp le funzioni necessarie per il calcolo dell'errore del problema di stato
+ * e di quello di controllo 
+ */
+include "funzioniErrore.edp";
+
+/******************  02.PROBLEMA SPAZIALE ******************/
+ 
+/* Lo schema di integrazione temporale implementato è una variante di Crank-Nicolson
+ * in particolare viene effettuato:
+ *  un passo di EI con passo temporale dimezzato
+ *      gamma1=1./2.;
+ *  	gamma2=0.;
+ *  	gamma3=0.;
+ *  	gamma4=1./2.;
+ *  nsol-2 passi di CN
+ *  un passo di EA
+ * Per questo motivo la matrice S rimane invariata dal primo al penultimo passo
+ *  il parametro gamma verà settato a zero prima che la matrice S venga ricacolata 
+ *  nel ultimo passo.
+ */
+real gamma1,gamma2,gamma3,gamma4;
+func int setscheme(int value)
+{
+	// EI => value == 0
+	if(value == 0)
+	{
+	    gamma1=1./2.;
+	    gamma2=0.;
+	    gamma3=0.;
+	    gamma4=1./2.;
+	}
+	// CN => value == 0
+	else if (value == 1)
+	{	
+		gamma1=1./2.;
+	    gamma2=1./2.;
+	    gamma3=0.;
+	    gamma4=1.;
+	}
+	// EA => value == 0
+	else if (value == 2)
+	{
+		gamma1=0.;
+	    gamma2=1./2.;
+	    gamma3=1./2.;
+	    gamma4=0.;
+	}
+	
+	return 0;
+}
+
+/* uold e ui contengono il valore della soluzione di controllo al tempo t e t-dt
+ * Al passo di EI solo la componente u(0) deve essere considerata
+ * Per ogni passo i di CN le componenti u(i) ed u(i-1) devono essere considerati
+ * Al passo di EA solo la componente u(nsol-1) deve essere considerata
+ */
+real uold, ui;
+
+varf s(w,wtest) =   int2d(Th)( w*wtest/dt )
+	        	  + int2d(Th)( gamma1*( dx(w)*dx(wtest) + dy(w)*dy(wtest) ) )
+				  + on(1,2,3,4, w=wb);
+
+varf statetn(w,wtest) =   int2d(Th)( wold*wtest/dt)
+				  		- int2d(Th)( gamma2*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) ) )
+							//contributo di u
+						+ int2d(Th)( gamma3*( ui*wtest ))
+				 		+ int2d(Th)( gamma4*( uold*wtest ))
+							//contributo di g0
+						+ int2d(Th)( gamma3*( g0*wtest ))
+				 		+ int2d(Th)( gamma4*( g0old*wtest ));
+					  
+matrix S; 
+real[int] statebc(Yh.ndof);
+
+/****** 03.FUNZIONE PER SOLUZIONE IN SPAZIO ******/ 
+func real statexy(real k)
+{
+  	real[int] tmp(Yh.ndof);
+	
+	/* Calcolo S e bc
+  	 * devo fare (nsol-1) passi prima di ricalcolare la matrice S per l'ultimo passo di EA
+  	 * mentre il vettore statebc rimane invariato ad ogni passo
+  	 */
+	if( k == 0 || k == nsol-1 )
+	{
+	   	S=s(Yh,Yh,solver=GMRES);
+		if( k == 0)
+		{
+			statebc=s(0,Yh);
+		}
+	}
+	
+	//calcolo il termine noto
+	tmp = statetn(0,Yh);
+	tmp += statebc;
+	
+	//Risolvo
+	w[] = S^-1*tmp;
+	
+	return 0;
+}
+
+/****** 03.FUNZIONE PER SOLUZIONE IN TEMPO ******/ 
+func real statet()
+{
+	cout << "State " << endl;
+	
+	//inizializzo le variabili iniziali ogni volta che chiamo la funzione
+	wold=w0;
+	real savet=t;
+	t=dt;
+	
+	//Primo passo di EI con passo temporale dt/2
+    setscheme(0);
+	
+	//definisco i valori di uold
+    uold=u[0];
+    ui=u[1];
+	
+	//aggiorno g0IIsx il dx non compare quindi non lo calcolo
+	g0partsx = g0nonprojsx;
+	g0IIsx = PUabScal(g0partsx);
+	
+	//Risolvo
+    statexy(0);
+    
+	//salvo la mia soluzione al passo k
+	statesol[0]=w;
+	
+	//aggiorno wold, uold e il tempo
+	wold=w;
+	uold = ui;
+	t += dt;
+	
+    // Passi di CN
+	setscheme(1);
+    for(int i=1; i<nsol-1; i++)
+	{	
+		ui=u[i+1];
+		
+		//aggiorno g0IIsx il dx non compare quindi non lo calcolo
+		g0partsx = g0nonprojsx;
+		g0IIsx = PUabScal(g0partsx);
+		
+		//Risolvo
+	    statexy(i);
+		
+		// salvo la mia soluzione al passo precedente
+		statesol[i]=w;
+		
+		//aggiorno wold, uold, il tempo e g0old
+		wold=w;
+		uold = ui;
+		t += dt;
+
+	}
+	
+    //Passo di EA
+	setscheme(2);
+	
+	//aggiorno g0IIdx il sx non compare quindi non lo calcolo
+	g0partdx = g0nonprojdx;
+	g0IIdx = PUabScal(g0partdx);
+	
+	//Risolvo
+    statexy(nsol-1);
+	
+	statesol[nsol-1]=w;
+	
+	//Calcolo dell'errore
+	errStateL2 = normL2state();
+	errProjectStateL2 = stateprojtrap();
+	errStateLinf = normLinfstate();
+	
+	t=savet;
+	
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

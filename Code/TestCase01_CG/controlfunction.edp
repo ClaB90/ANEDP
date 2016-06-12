@@ -1,0 +1,151 @@
+/*********************** Politecnico di Milano - ANEDP project ************************/
+/* 														 					          *
+ *  	authors Edoardo Arbib 							 					          *
+ *				Claudia Bonomi 							 					          *
+ *											   			 					          *
+ *  	Descrizione: Per il problema di controllo definiamo  					      *
+ *						- funzione puntoFisso										  *
+ * 														 				 	 	 	  *
+ * 		Dipendenze: state.edp -> statet()											  * 
+ * 					adjoit.edp -> adjoint()											  *
+ * 					UabSet.edp -> P(Uab)								 			  *
+ * 					funzioniCG.edp -> funzioni per dampedNewton			 	 	 	  *
+ * 														 				 	 	 	  *
+ **************************************************************************************/
+
+/* La funzione puntoFisso() risolve il problema di controllo adottando un approccio di punto fisso
+ */
+func real puntoFisso()
+{
+	//Primo passo soluzione
+	//La variabile di controllo al primo passo viene settatta uguale al limite inferiore di Uab
+	u = a;          
+	
+	//risolvo il problema di stato e l'aggiunto
+	statet(); 
+	adjointt();
+
+	//Il valore di Bpk viene assegnato da adjointt()
+	Bpkold = Bpk;
+
+	toll = 1;
+
+	//Iterative algorithm
+	while ( toll > epsilon  && k <= Nmax)
+	{      
+	      k = k + 1;
+		  cout << "k = " << k << endl;
+      
+	      //Control Update
+		  u = PUab(Bpk);
+
+		  //risolvo il problema di stato e l'aggiunto
+	      statet();  
+	      adjointt();
+	  
+	  	  //aggiorno valore toll per il criterio di arresto
+		  for( int i = 0; i < nsol-1; i++)
+		  {
+			  if( i == 0 )
+			  {
+			  	toll = abs(Bpk[i]-Bpkold[i]);
+			  }
+			  else
+			  {
+			  	toll = max( toll, abs(Bpk[i]-Bpkold[i]));
+			  }
+		  
+		  }
+		  
+		  //aggiorno Bpkold
+		  Bpkold = Bpk;
+
+	 };
+	 
+	 return 0;
+	
+}
+
+/* La funzione DampedNewton(xx,ww) risolve il problema di controllo adottando un approccio di Damped Newton
+ */	
+func real DampedNewton()
+{
+	real[int,int] uw(nsol,Yh.ndof);
+	real[int,int] deltal(nsol,Yh.ndof);
+	
+	real[int,int] tmp(nsol,Yh.ndof);
+	real[int,int] ll(nsol,Yh.ndof);
+	real[int] tmp3(nsol);
+	
+	real[int,int] tmp4(nsol,Yh.ndof);
+	real[int,int] arr(nsol,Yh.ndof);
+	
+	real lambdaDN = 1., betaDN = 0.8;
+	real tmp2;
+	
+	//contatore iterazioni DN
+	int k1=0;
+	
+	//per entrare nel while
+	toll = 10;
+	while( toll > epsilon && k1 < Nmax)
+	{
+		/* PASSO 1
+		 * 	ricava dl dall'equazione
+		 *		( I + (1/alpha)*ShIAd)dl = - (l+yd) + ShP[a,b](-(1/alpha)Ad(l))
+		 *  pone lamdbaDN = 1;
+		 * per il calcolo di dl viene usato il metodo del gradiente coniugato
+		 */
+		lambdaDN = 1.;
+		ll=0.;
+		deltal = CG(ll,l);
+        cout << " incremento " << normL2Yh(deltal) << endl;	
+        
+		/* PASSO 2
+		 * 	if( phi( l+lamdbaDN*dl ) > phi(l) + < grad(phi(l)), dl >L2 ) )
+		 * dove è noto per teoria che:
+		 *	grad(phi(l)) = + (l+yd) - ShP[a,b](-(1/alpha)Ad(l)) = - rightCG()
+		 */
+		tmp = l;
+		tmp += deltal*lambdaDN;
+		
+		//calcolo -grad(phi)
+		tmp3 = adjCG2(l);
+		tmp4 = stateCG(tmp3);
+        tmp4 = tmp4-l;
+		
+		/* calcolo  <dl,grad(phi)>L2
+		 * NB prodottoL2CS prende in ingresso -grad(phi)
+		 */
+		tmp2 = prodottoL2CS(deltal, tmp4);
+		cout << " discesa " << tmp2 << endl;
+		tmp2 = (lambdaDN/3.)*tmp2;
+        
+		//inexact armijo linesearch	
+		while( phi(tmp) > phi(l) + tmp2 )
+		{
+			//aggiorni lambda			
+			lambdaDN = lambdaDN*betaDN;
+			// aggiorni tmp
+			tmp = l;
+		    tmp += deltal*lambdaDN;
+			 
+		    tmp2 = (lambdaDN/3.)*tmp2;
+			cout << " lambdaDN = " << lambdaDN << endl;	
+		}
+
+		/* PASSO 3
+		 * l = l + lambdaDN*deltal;
+		 * torna al passo 1;
+		 */
+		k1=k1+1;
+		cout << " iterazione Newton " << k1 << endl;
+		l += lambdaDN*deltal;
+		
+		cout << " arresto " << normL2YhCS(tmp4) << endl;
+		//aggiorna tolleranza
+		toll = normL2YhCS(tmp4);
+	}
+	
+	return 0;
+}
