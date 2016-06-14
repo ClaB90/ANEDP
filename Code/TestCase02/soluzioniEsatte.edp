@@ -18,6 +18,7 @@
 func we = cos((t/T)*2.*pi*a1)*g;
 func pe = wa -waT;
 func pe2=exp(a1*(pi^2)*(t-dt))*g-waT;
+func pemed=exp(a1*(pi^2)*((t+t+dt)/2))*g-waT;
 
 real t1=dt*3./2.;
 real t2=dt/2.;
@@ -51,7 +52,7 @@ func real uet(real x)
  */
 func real[int] ueproject()
 {
-	real tmp=0;
+	real tmp=0, savet=t;
 	real[int] control(nsol);
 	
 	//inizializzo t che parte da 0
@@ -63,6 +64,8 @@ func real[int] ueproject()
 		control[i] = PUabScal(tmp);
 		t +=dt;
 	}
+	
+	t=savet;
 	
 	return control;
 	
@@ -79,6 +82,7 @@ func real[int] uepuntimedi()
 {
 	real tmp=0;
 	real[int] control(nsol-1);
+	real savet=t;
 	
 	//inizializzo t che parte da 0
 	t = dt/2.;
@@ -89,6 +93,8 @@ func real[int] uepuntimedi()
 		control[i] = PUabScal(tmp);
 		t +=dt;
 	}
+	
+	t=savet;
 	
 	return control;
 	

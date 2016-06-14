@@ -36,8 +36,8 @@ func g0nonprojdx = ( -(1./(4.*alpha))*cos((t/T)*2.*pi*a1) +(1./(4.*alpha)) );
 func g0nonprojsx= ( -(1./(4.*alpha))*cos(((t-dt)/T)*2.*pi*a1) +(1./(4.*alpha)) );
 real g0partdx, g0IIdx, g0partsx, g0IIsx;
 
-func g0 = g0Idx - g0IIdx;
-func g0old = g0Isx - g0IIsx;
+func g0 = g0Idx - g*g0IIdx;
+func g0old = g0Isx - g*g0IIsx;
 
 
 

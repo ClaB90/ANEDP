@@ -160,6 +160,12 @@ func real controlCS(real[int]& controlsol)
  * é stato scelto CS invece del metodo dei trapezi poichè ci serve un metodo di interpolazione con
  * ordine d convergenza almeno 2
  */
+/* Per il calcolo dell'errore di || ues -u_k ||L2 viene implementato il metodo di CS
+ * poichè la funzione u_k a causa della proiezione non è sempre lineare a tratti ma su una griglia temporale
+ * differente da quella standard t+dt è necessario trovare la nuova griglia temporale
+ * é stato scelto CS invece deò metodo dei trapezi poichè ci serve un metodo di interpolazione con
+ * ordine d convergenza almeno 2
+ */
 func real controlErrL2(real[int]& controlsol)
 {
 	/* Vettore dei punti medi	
@@ -167,7 +173,7 @@ func real controlErrL2(real[int]& controlsol)
 	real[int] uemed(nsol-1);
 	uemed = uepuntimedi();
 
-	real err=0.;
+	real err=0.,savet=t;
 	t=0.;
 	
 	/* In queste variabili andrò a salvare il valore della u esatta negli estremi dell'intervallo (t,t+dt)
@@ -181,19 +187,24 @@ func real controlErrL2(real[int]& controlsol)
 	/* ta e tb sono i punti di intersezione della retta y=mt+q e le rette y=a ed y=b
 	 */
 	real ta,tb;
+	
+	uesx = uet(t);
+    uedx = uet(t+dt);
 
 	for(int i=0; i<nsol-1; i++)
 	{
 		
 		m = (Bpk[i+1]-Bpk[i])/(dt);
 		q = (Bpk[i]*(t+dt)-Bpk[i+1]*t)/(dt);
+		
 		if( m == 0 )
 		{
 			uesx = uet(t);
 		    uedx = uet(t+dt);
-			err = err + (dt/6.)*((PUabScal(Bpk[i])-uesx)^2 
-				 	+ (PUabScal(Bpk[i])-uedx)^2
-					+ 4*(PUabScal(Bpk[i])-uemed[i])^2);
+			err =   err 
+				  + (dt/6.)*(   (PUabScal(Bpk[i])-uesx)^2 
+					  		  + (PUabScal(Bpk[i])-uedx)^2 
+							  + 4*(PUabScal(Bpk[i])-uemed[i])^2);
 		}
 		else
 		{
@@ -203,7 +214,7 @@ func real controlErrL2(real[int]& controlsol)
 			//uesx e uedx
 			uesx = uet(t);
 			uedx = uet(t+dt);
-
+			
 			//caso di non intersezione
 			if((ta<t || ta>(t+dt)) && (tb<t || tb>(t+dt)))
 			{
@@ -211,100 +222,82 @@ func real controlErrL2(real[int]& controlsol)
 				real Bpkmed=(Bpk[i]+Bpk[i+1])/2.;
 			
 				err =   err
-					  + (dt/6.)*((uedx-controlsol[i])^2
-					  + (uesx-controlsol[i+1])^2 
+					  + (dt/6.)*((uedx-controlsol[i+1])^2
+					  + (uesx-controlsol[i])^2 
 					  + 4*(uemed[i]-PUabScal(Bpkmed))^2);
-			}
+			} 
+			//interseco solo retta y=a => trovo due sottointervalli (t,ta) e (ta,t+dt)
+			else if(ta>=t && ta<=(t+dt) && (tb<t || tb>(t+dt)))
+		   	{
+
+				real ueta=uet(ta);
+			
+				//Coordinate dei punti medi della soluzione esatta nei due sottointervalli
+		   		real uetamed1=uet((ta+t)/2.);
+		   		real uetamed2=uet((ta+t+dt)/2.);
+			
+				//Coordinate dei punti medi della soluzione approssimata nei due sottointervalli
+		   		real Bpkmed1=(Bpk[i]+a)/2.;
+		   		real Bpkmed2=(Bpk[i+1]+a)/2.;
+	   		
+				err =    err
+					  + ((ta-t)/6.)*( (uesx-controlsol[i])^2 + (ueta-a)^2 
+						               + 4*(uetamed1-PUabScal(Bpkmed1))^2 )
+					  + ((t+dt-ta)/6.)*( (ueta-a)^2 + (uedx-controlsol[i+1])^2 
+									   + 4*(uetamed2-PUabScal(Bpkmed2))^2 );
+	   
+		   	}
+			//interseco sia y=b che y=a => trovo tre sottointervalli (t,tc) (tc,td) (td,t+dt)
 			else
 			{
-				//interseco solo retta y=a => trovo due sottointervalli (t,ta) e (ta,t+dt)
-			   	if(ta>=t && ta<=(t+dt) && (tb<t || tb>(t+dt)))
-			   	{
+	   			real c,d,tc,td;
+			
+	   			if(ta<=tb)
+				{ 
+				  c=a;
+				  d=b;
+			    }
+	   			else
+				{
+				  c=b;
+				  d=a;
+			    }
+			
+	   			tc=min(ta,tb);
+	   			td=max(ta,tb);
+			
+				real uetc=uet(tc);
+				real uetd=uet(td);
+			
+				//Coordinate dei punti medi della soluzione esatta nei due sottointervalli
+		   		real uetcmed=uet((tc+t)/2.);
+		   		real uetctdmed=uet((tc+td)/2.);
+		   		real uetdmed=uet((td+t+dt)/2.);
 
-					real ueta=uet(ta);
-				
-					//Coordinate dei punti medi della soluzione esatta nei due sottointervalli
-			   		real uetamed1=uet((ta+t)/2.);
-			   		real uetamed2=uet((ta+t+dt)/2.);
-				
-					//Coordinate dei punti medi della soluzione approssimata nei due sottointervalli
-			   		real Bpkmed1=(Bpk[i]+a)/2.;
-			   		real Bpkmed2=(Bpk[i+1]+a)/2.;
-		   		
-					err =    err
-						  + ((ta-t)/6.)*( (uedx-controlsol[i])^2 + (ueta-a)^2 
-							               + 4*(uetamed1-PUabScal(Bpkmed1))^2 )
-						  + ((t+dt-ta)/6.)*( (ueta-a)^2 + (uesx-controlsol[i+1])^2 
-										   + 4*(uetamed2-PUabScal(Bpkmed2))^2 );
-		   
-			   	}
-			   	//interseco solo retta y=b => trovo due sottointervalli (t,tb) e (tb,t+dt)
-				else if(tb>=t && tb<=(t+dt) && (ta<t || ta>(t+dt)))
-			   	{	
-					real uetb=uet(tb);
-				
-					//Coordinate dei punti medi della soluzione esatta nei due sottointervalli
-			   		real uetbmed1=uet((tb+t)/2.);
-			   		real uetbmed2=uet((tb+t+dt)/2.);
-				
-					//Coordinate dei punti medi della soluzione approssimata nei due sottointervalli
-			   		real Bpkmed1=(Bpk[i]+b)/2.;
-			   		real Bpkmed2=(b+Bpk[i+1])/2.;
-		   		    
-					err=   err
-						 + ((tb-t)/6.)*( (uedx-controlsol[i])^2 + ( uetb-b )^2 
-										  + 4*( uetbmed1-PUabScal(Bpkmed1) )^2 )
-						 + ((t+dt-tb)/6.)*(  ( uetb-b)^2 + (uesx-controlsol[i+1])^2 
-										    + 4*( uetbmed2 -PUabScal(Bpkmed2) )^2);
-		   
-			   	}
-				//interseco sia y=b che y=a => trovo tre sottointervalli (t,tc) (tc,td) (td,t+dt)
-		   		else
-		   		{
-		   			real c,d,tc,td;
-				
-		   			if(ta<=tb)
-					{ 
-					  c=a;
-					  d=b;
-				    }
-		   			else
-					{
-					  c=b;
-					  d=a;
-				    }
-				
-		   			tc=min(ta,tb);
-		   			td=max(ta,tb);
-				
-					real uetc=uet(tc);
-					real uetd=uet(td);
-				
-					//Coordinate dei punti medi della soluzione esatta nei due sottointervalli
-			   		real uetcmed=uet((tc+t)/2.);
-			   		real uetctdmed=uet((tc+td)/2.);
-			   		real uetdmed=uet((td+t+dt)/2.);
-	
-		   			real Bpkmed1=(Bpk[i]+c)/2.;
-		   			real Bpkmed2=(d+c)/2.;
-					real Bpkmed3=(Bpk[i+1]+d)/2.;
-	   			
-					err =   err 
-						  +((tc-t)/6.)*( (uedx- controlsol[i])^2 + (uetc-c)^2 
-							  			   + 4*( uetcmed-Bpkmed1 )^2 )
-					      +((td-tc)/6.)*( (uetc-c)^2 + (uetd-d)^2 
-										   + 4*( uetctdmed-Bpkmed2 )^2 )
-						  +((t+dt-td)/6.)*(  (uetd-d)^2 + (uesx- controlsol[i+1])^2 
-										   + 4*( uetdmed-Bpkmed3 )^2 ); 
-		   		}
-			   }   
-		   	
-		   }
-		   
-		   t=t+dt;
+	   			real Bpkmed1=(Bpk[i]+c)/2.;
+	   			real Bpkmed2=(d+c)/2.;
+				real Bpkmed3=(Bpk[i+1]+d)/2.;
+   			
+				err =   err 
+					  +((tc-t)/6.)*( (uesx- controlsol[i])^2 + (uetc-c)^2 
+						  			   + 4*( uetcmed-Bpkmed1 )^2 )
+				      +((td-tc)/6.)*( (uetc-c)^2 + (uetd-d)^2 
+									   + 4*( uetctdmed-Bpkmed2 )^2 )
+					  +((t+dt-td)/6.)*(  (uetd-d)^2 + (uedx- controlsol[i+1])^2 
+									   + 4*( uetdmed-Bpkmed3 )^2 );
+			
+			
+			}//ultimo caso
 		}
 		
-	err = sqrt(err);					
+		//passo avanti nel tempo
+		t=t+dt;
+		
+		}//chiude for
+		
+	err = sqrt(err);
+	
+	t=savet;					
 
 	return err;
 }
