@@ -59,6 +59,8 @@ func real puntoFisso()
 
 	 };
 	 
+	 statet();
+	 
 	 return 0;
 	
 }

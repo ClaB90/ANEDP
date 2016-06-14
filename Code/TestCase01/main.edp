@@ -17,8 +17,6 @@ verbosity=0;
 //Max number of temporal refinement levels
 int nLevels = 6;
 
-int nsolold=6;
-
 /* Parametri temporali */
 real T=0.1;
 real t=0.;
@@ -29,6 +27,8 @@ real[int] errStateL2vec(nLevels),errStateLinfvec(nLevels);
 real[int] errProjectStateL2vec(nLevels);
 real[int] errAdjL2vec(nLevels),errAdjLinfvec(nLevels); 
 
+real nsolold=5.5;
+
 /* NB: fissato un numero di soluzioni il numero di intervalli sarà nsol-1 poichè la soluzione è nota per i valori nodali. 
  * Per conformità con il paper di riferimento
  * Nk = ( 2^l + 1 )^2 dove l è il numero di livello considerato
@@ -37,9 +37,8 @@ real[int] errAdjL2vec(nLevels),errAdjLinfvec(nLevels);
  */
 for( int j=0; j<nLevels; j++)
 {
-	
-	//int nsol = 2*nsolold-1;
-	int nsol = ( 2^(j+1) +1 )^2;
+	int nsol = 2*nsolold-1;
+	//int nsol = ( 2^(j+1) +1 )^2;
 	nsolold=nsol;
 	real dt=T/(nsol-1);
 	cout << "======  nsol = " << nsol << " ======" << endl;

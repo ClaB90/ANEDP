@@ -27,7 +27,7 @@ real[int] errStateL2vec(nLevels),errStateLinfvec(nLevels);
 real[int] errProjectStateL2vec(nLevels);
 real[int] errAdjL2vec(nLevels),errAdjLinfvec(nLevels);  
 
-int nsolold=6;
+real nsolold=5.5;
 
 /* NB: fissato un numero di soluzioni il numero di intervalli sarà nsol-1 poichè la soluzione è nota per i valori nodali. 
  * Per conformità con il paper di riferimento
@@ -37,8 +37,8 @@ int nsolold=6;
  */
 for( int j=0; j<nLevels; j++)
 {
-	//int nsol = 2*nsolold-1;
-	int nsol = ( 2^(j+1) +1 )^2;
+	int nsol = 2*nsolold-1;
+	//int nsol = ( 2^(j+1) +1 )^2;
 	nsolold=nsol;
 	real dt=T/(nsol-1);
 	cout << "======  nsol = " << nsol << " ======" << endl;
@@ -110,7 +110,9 @@ for( int j=0; j<nLevels; j++)
 	/* nel file saveme.edp sono contenute le funzioni per salvare le variabili in file di testo
 	 */
 	include "saveme.edp";
-	saveControl();}
+	saveControl();
+
+	}
 }
 
 for(int j=0; j<nLevels-1; j++)
