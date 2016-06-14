@@ -23,7 +23,7 @@
 
 real alpha, toll=0.,epsilon;
 int k, Nmax;
-alpha = pi^(-4.);    
+alpha = pi^(-4);    
 epsilon = 1e-5;    
 Nmax = 300;        
 k = 0;  

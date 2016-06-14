@@ -72,6 +72,7 @@ func real stateprojtrap()
 					  )*(dt/6.);
 		t1 += dt;
 		t2 += dt;
+		
 	}
 	
 	tmp += (   int2d(Th)( ( 1.5*statesol[nsol-2] - 0.5*statesol[nsol-3] - 1.5*wedx + 0.5*wesx )^2 )

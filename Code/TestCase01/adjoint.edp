@@ -114,8 +114,7 @@ func real adjointt()
 		//adjsolvarf[j-1] = p2;
 		
 		//cout << " j " << j << endl;
-		Bpk[j-1]= (-1./alpha)*int2d(Th)( p * g );
-		
+		Bpk[j-1] = (-1./alpha)*int2d(Th)( p * g );
 		
 		t -= dt;
 		j--;
