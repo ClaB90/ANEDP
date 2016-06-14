@@ -187,12 +187,6 @@ func real controlCS(real[int,int]& controlsol)
  * é stato scelto CS invece deò metodo dei trapezi poichè ci serve un metodo di interpolazione con
  * ordine d convergenza almeno 2
  */
-/* Per il calcolo dell'errore di || ues -u_k ||L2 viene implementato il metodo di CS
- * poichè la funzione u_k a causa della proiezione non è sempre lineare a tratti ma su una griglia temporale
- * differente da quella standard t+dt è necessario trovare la nuova griglia temporale
- * é stato scelto CS invece deò metodo dei trapezi poichè ci serve un metodo di interpolazione con
- * ordine d convergenza almeno 2
- */
 func real controlErrL2(real[int]& controlsol)
 {
 	/* Vettore dei punti medi	
@@ -272,6 +266,26 @@ func real controlErrL2(real[int]& controlsol)
 						               + 4*(uetamed1-PUabScal(Bpkmed1))^2 )
 					  + ((t+dt-ta)/6.)*( (ueta-a)^2 + (uedx-controlsol[i+1])^2 
 									   + 4*(uetamed2-PUabScal(Bpkmed2))^2 );
+	   
+		   	}
+			//interseco solo retta y=b => trovo due sottointervalli (t,tb) e (tb,t+dt)
+			else if(tb>=t && tb<=(t+dt) && (ta<t || ta>(t+dt)))
+		   	{	
+				real uetb=uet(tb);
+			
+				//Coordinate dei punti medi della soluzione esatta nei due sottointervalli
+		   		real uetbmed1=uet((tb+t)/2.);
+		   		real uetbmed2=uet((tb+t+dt)/2.);
+			
+				//Coordinate dei punti medi della soluzione approssimata nei due sottointervalli
+		   		real Bpkmed1=(Bpk[i]+b)/2.;
+		   		real Bpkmed2=(b+Bpk[i+1])/2.;
+	   		    
+				err=   err
+					 + ((tb-t)/6.)*( (uedx-controlsol[i])^2 + ( uetb-b )^2 
+									  + 4*( uetbmed1-PUabScal(Bpkmed1) )^2 )
+					 + ((t+dt-tb)/6.)*(  ( uetb-b)^2 + (uesx-controlsol[i+1])^2 
+									    + 4*( uetbmed2 -PUabScal(Bpkmed2) )^2);
 	   
 		   	}
 			//interseco sia y=b che y=a => trovo tre sottointervalli (t,tc) (tc,td) (td,t+dt)

@@ -154,18 +154,6 @@ func real controlCS(real[int]& controlsol)
 	return tmp;
 }
 
-/* Per il calcolo dell'errore di || ues -u_k ||L2 viene implementato il metodo di CS
- * poichè la funzione u_k a causa della proiezione non è sempre lineare a tratti ma su una griglia temporale
- * differente da quella standard t+dt è necessario trovare la nuova griglia temporale
- * é stato scelto CS invece del metodo dei trapezi poichè ci serve un metodo di interpolazione con
- * ordine d convergenza almeno 2
- */
-/* Per il calcolo dell'errore di || ues -u_k ||L2 viene implementato il metodo di CS
- * poichè la funzione u_k a causa della proiezione non è sempre lineare a tratti ma su una griglia temporale
- * differente da quella standard t+dt è necessario trovare la nuova griglia temporale
- * é stato scelto CS invece deò metodo dei trapezi poichè ci serve un metodo di interpolazione con
- * ordine d convergenza almeno 2
- */
 func real controlErrL2(real[int]& controlsol)
 {
 	/* Vettore dei punti medi	
@@ -205,6 +193,7 @@ func real controlErrL2(real[int]& controlsol)
 				  + (dt/6.)*(   (PUabScal(Bpk[i])-uesx)^2 
 					  		  + (PUabScal(Bpk[i])-uedx)^2 
 							  + 4*(PUabScal(Bpk[i])-uemed[i])^2);
+			cout << "caso 1 tempo " << t << "err " << err << endl;
 		}
 		else
 		{
@@ -224,7 +213,9 @@ func real controlErrL2(real[int]& controlsol)
 				err =   err
 					  + (dt/6.)*((uedx-controlsol[i+1])^2
 					  + (uesx-controlsol[i])^2 
-					  + 4*(uemed[i]-PUabScal(Bpkmed))^2);
+					  + 4*(uemed[i]-PUabScal(Bpkmed))^2);			
+				cout << "caso 2 tempo " << t << "err " << err << endl;
+				
 			} 
 			//interseco solo retta y=a => trovo due sottointervalli (t,ta) e (ta,t+dt)
 			else if(ta>=t && ta<=(t+dt) && (tb<t || tb>(t+dt)))
@@ -245,6 +236,29 @@ func real controlErrL2(real[int]& controlsol)
 						               + 4*(uetamed1-PUabScal(Bpkmed1))^2 )
 					  + ((t+dt-ta)/6.)*( (ueta-a)^2 + (uedx-controlsol[i+1])^2 
 									   + 4*(uetamed2-PUabScal(Bpkmed2))^2 );
+			
+				cout << "caso 3 tempo " << t << "err " << err << endl;
+				cout << "ta " << ta << "t " << t << endl;
+	   
+		   	}
+			//interseco solo retta y=b => trovo due sottointervalli (t,tb) e (tb,t+dt)
+			else if(tb>=t && tb<=(t+dt) && (ta<t || ta>(t+dt)))
+		   	{	
+				real uetb=uet(tb);
+			
+				//Coordinate dei punti medi della soluzione esatta nei due sottointervalli
+		   		real uetbmed1=uet((tb+t)/2.);
+		   		real uetbmed2=uet((tb+t+dt)/2.);
+			
+				//Coordinate dei punti medi della soluzione approssimata nei due sottointervalli
+		   		real Bpkmed1=(Bpk[i]+b)/2.;
+		   		real Bpkmed2=(b+Bpk[i+1])/2.;
+	   		    
+				err=   err
+					 + ((tb-t)/6.)*( (uedx-controlsol[i])^2 + ( uetb-b )^2 
+									  + 4*( uetbmed1-PUabScal(Bpkmed1) )^2 )
+					 + ((t+dt-tb)/6.)*(  ( uetb-b)^2 + (uesx-controlsol[i+1])^2 
+									    + 4*( uetbmed2 -PUabScal(Bpkmed2) )^2);
 	   
 		   	}
 			//interseco sia y=b che y=a => trovo tre sottointervalli (t,tc) (tc,td) (td,t+dt)
@@ -285,6 +299,9 @@ func real controlErrL2(real[int]& controlsol)
 									   + 4*( uetctdmed-Bpkmed2 )^2 )
 					  +((t+dt-td)/6.)*(  (uetd-d)^2 + (uedx- controlsol[i+1])^2 
 									   + 4*( uetdmed-Bpkmed3 )^2 );
+
+			
+				cout << "caso 4 tempo " << t << "err " << err << endl;
 			
 			
 			}//ultimo caso
@@ -294,10 +311,14 @@ func real controlErrL2(real[int]& controlsol)
 		t=t+dt;
 		
 		}//chiude for
+	
+	cout << "err prima sqrt " << err << endl;		
 		
 	err = sqrt(err);
 	
-	t=savet;					
+	t=savet;	
+	
+	cout << "err " << err << endl;				
 
 	return err;
 }

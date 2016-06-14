@@ -246,6 +246,26 @@ func real controlErrL2(real[int]& controlsol)
 									   + 4*(uetamed2-PUabScal(Bpkmed2))^2 );
 	   
 		   	}
+			//interseco solo retta y=b => trovo due sottointervalli (t,tb) e (tb,t+dt)
+			else if(tb>=t && tb<=(t+dt) && (ta<t || ta>(t+dt)))
+		   	{	
+				real uetb=uet(tb);
+			
+				//Coordinate dei punti medi della soluzione esatta nei due sottointervalli
+		   		real uetbmed1=uet((tb+t)/2.);
+		   		real uetbmed2=uet((tb+t+dt)/2.);
+			
+				//Coordinate dei punti medi della soluzione approssimata nei due sottointervalli
+		   		real Bpkmed1=(Bpk[i]+b)/2.;
+		   		real Bpkmed2=(b+Bpk[i+1])/2.;
+	   		    
+				err=   err
+					 + ((tb-t)/6.)*( (uedx-controlsol[i])^2 + ( uetb-b )^2 
+									  + 4*( uetbmed1-PUabScal(Bpkmed1) )^2 )
+					 + ((t+dt-tb)/6.)*(  ( uetb-b)^2 + (uesx-controlsol[i+1])^2 
+									    + 4*( uetbmed2 -PUabScal(Bpkmed2) )^2);
+	   
+		   	}
 			//interseco sia y=b che y=a => trovo tre sottointervalli (t,tc) (tc,td) (td,t+dt)
 			else
 			{
