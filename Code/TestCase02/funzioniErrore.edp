@@ -193,7 +193,7 @@ func real controlErrL2(real[int]& controlsol)
 				  + (dt/6.)*(   (PUabScal(Bpk[i])-uesx)^2 
 					  		  + (PUabScal(Bpk[i])-uedx)^2 
 							  + 4*(PUabScal(Bpk[i])-uemed[i])^2);
-			cout << "caso 1 tempo " << t << "err " << err << endl;
+
 		}
 		else
 		{
@@ -214,7 +214,6 @@ func real controlErrL2(real[int]& controlsol)
 					  + (dt/6.)*((uedx-controlsol[i+1])^2
 					  + (uesx-controlsol[i])^2 
 					  + 4*(uemed[i]-PUabScal(Bpkmed))^2);			
-				cout << "caso 2 tempo " << t << "err " << err << endl;
 				
 			} 
 			//interseco solo retta y=a => trovo due sottointervalli (t,ta) e (ta,t+dt)
@@ -237,8 +236,6 @@ func real controlErrL2(real[int]& controlsol)
 					  + ((t+dt-ta)/6.)*( (ueta-a)^2 + (uedx-controlsol[i+1])^2 
 									   + 4*(uetamed2-PUabScal(Bpkmed2))^2 );
 			
-				cout << "caso 3 tempo " << t << "err " << err << endl;
-				cout << "ta " << ta << "t " << t << endl;
 	   
 		   	}
 			//interseco solo retta y=b => trovo due sottointervalli (t,tb) e (tb,t+dt)
@@ -299,10 +296,6 @@ func real controlErrL2(real[int]& controlsol)
 									   + 4*( uetctdmed-Bpkmed2 )^2 )
 					  +((t+dt-td)/6.)*(  (uetd-d)^2 + (uedx- controlsol[i+1])^2 
 									   + 4*( uetdmed-Bpkmed3 )^2 );
-
-			
-				cout << "caso 4 tempo " << t << "err " << err << endl;
-			
 			
 			}//ultimo caso
 		}
@@ -310,15 +303,11 @@ func real controlErrL2(real[int]& controlsol)
 		//passo avanti nel tempo
 		t=t+dt;
 		
-		}//chiude for
-	
-	cout << "err prima sqrt " << err << endl;		
+		}//chiude for	
 		
 	err = sqrt(err);
 	
-	t=savet;	
-	
-	cout << "err " << err << endl;				
+	t=savet;					
 
 	return err;
 }
