@@ -83,7 +83,7 @@ func int setscheme(int value)
 	{	
 		gamma1=1./2.;
 	    gamma2=1./2.;
-	    gamma3=0.;
+	    gamma3=0;
 	    gamma4=1.;
 	}
 	// EA => value == 0
@@ -188,11 +188,13 @@ func real statet()
 	setscheme(1);
     for(int i=1; i<nsol-1; i++)
 	{	
-		ui=u[i+1];
+		ui=u[i];
 		
 		//aggiorno g0IIsx il dx non compare quindi non lo calcolo
 		g0partsx = g0nonprojsx;
 		g0IIsx = PUabScal(g0partsx);
+		g0partdx = g0nonprojdx;
+		g0IIdx = PUabScal(g0partdx);
 		
 		//Risolvo
 	    statexy(i);
@@ -209,6 +211,7 @@ func real statet()
 	
     //Passo di EA
 	setscheme(2);
+	ui=u[nsol-1];
 	
 	//aggiorno g0IIdx il sx non compare quindi non lo calcolo
 	g0partdx = g0nonprojdx;
@@ -228,22 +231,3 @@ func real statet()
 	
 	return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -157,7 +157,7 @@ func real controlCS(real[int]& controlsol)
 /* Per il calcolo dell'errore di || ues -u_k ||L2 viene implementato il metodo di CS
  * poichè la funzione u_k a causa della proiezione non è sempre lineare a tratti ma su una griglia temporale
  * differente da quella standard t+dt è necessario trovare la nuova griglia temporale
- * é stato scelto CS invece deò metodo dei trapezi poichè ci serve un metodo di interpolazione con
+ * é stato scelto CS invece del metodo dei trapezi poichè ci serve un metodo di interpolazione con
  * ordine d convergenza almeno 2
  */
 func real controlErrL2(real[int]& controlsol)
@@ -191,7 +191,9 @@ func real controlErrL2(real[int]& controlsol)
 		{
 			uesx = uet(t);
 		    uedx = uet(t+dt);
-			err=err+(dt/6.)*((PUabScal(Bpk[i])-uesx)^2 +(PUabScal(Bpk[i])-uedx)^2 +4*(PUabScal(Bpk[i])-uemed[i])^2);
+			err = err + (dt/6.)*((PUabScal(Bpk[i])-uesx)^2 
+				 	+ (PUabScal(Bpk[i])-uedx)^2
+					+ 4*(PUabScal(Bpk[i])-uemed[i])^2);
 		}
 		else
 		{
@@ -298,6 +300,7 @@ func real controlErrL2(real[int]& controlsol)
 			   }   
 		   	
 		   }
+		   
 		   t=t+dt;
 		}
 		

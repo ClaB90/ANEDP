@@ -209,6 +209,7 @@ func real statet()
 	
     //Passo di EA
 	setscheme(2);
+	ui=u[nsol-1];
 	
 	//aggiorno g0IIdx il sx non compare quindi non lo calcolo
 	g0partdx = g0nonprojdx;
