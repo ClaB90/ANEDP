@@ -25,6 +25,38 @@ real t2=dt/2.;
 func wedx = (-pi^2)*exp(a1*(pi^2)*t1)*g/(2.+a1);
 func wesx = (-pi^2)*exp(a1*(pi^2)*t2)*g/(2.+a1);
 
+
+/* La funzione wet(t) prende in ingresso un tempo e calcola il valore della w esatta 
+ * in quel istante temporale
+ */
+func real wet(real x)
+{
+	real tmp,savet=t;
+	
+	t=x;
+	tmp = we;
+	
+	t=savet;
+	return tmp;
+	
+}
+
+/* La funzione pet(t) prende in ingresso un tempo e calcola il valore della p esatta 
+ * in quel istante temporale
+ */
+func real pet(real x)
+{
+	real tmp,savet=t;
+	
+	t=x;
+	tmp = pe;
+	
+	t=savet;
+	return tmp;
+	
+}
+
+
 /* ues = BPUab( -(exp(a1*pi^2*t))/(4*alpha) - (exp(a1*pi^2*T)) )
  * La costruzione della funzione esatta di u implica quindi l'utilizzo dell'operatore
  * di proiezione	

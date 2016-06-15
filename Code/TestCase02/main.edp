@@ -38,8 +38,8 @@ real[int] hk(nLevels);
  */
 for( int j=0; j<nLevels; j++)
 {
-	int nsol = 2*nsolold-1;
-	//int nsol = ( 2^(j+1) +1 )^2;
+	//int nsol = 2*nsolold-1;
+	int nsol = ( 2^(j+1) +1 );
 	nsolold=nsol;
 	hk[j]=nsol;
 	real dt=T/(nsol-1);

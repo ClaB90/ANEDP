@@ -10,7 +10,7 @@
  * 														 					*
  ****************************************************************************/
 
-func real saveControl()
+func real saveControl(int j)
 {
 	string uk, uesk;
 
@@ -32,21 +32,26 @@ func real saveControl()
 	return 0;
 }
 
-func real saveAdj()
+func real saveAdj(int j)
 {
-	string adjpro, adjvarf;
+	string adjk, adjes;
 
-	adjpro= "AdjSol/AdjProb"+j+".text";
-	adjvarf= "AdjSol/AdjVarf"+j+".text";
-	ofstream ff(adjpro);
-	ofstream gg(adjvarf);
+	adjk= "AdjSol/AdjSol"+j+".text";
+	adjes= "AdjSol/AdjSolEs"+j+".text";
+	ofstream ff(adjk);
+	ofstream gg(adjes);
 	ff << "Soluzione Adj Problem a dt= " << dt <<endl;
 	gg << "Soluzione Adj Varf a dt= " << dt <<endl;
 	real k=0.;
 	for(int i=0; i<nsol; i++)
-	{
-		ff << k << "	" << adjsol[i] << endl;
-		gg << k << "	" << adjsolvarf[i] << endl;
+	{	
+		real tmp;
+		Ph tmp2;
+		tmp2 = pe;
+		tmp = (-1./alpha)*int2d(Th)( pe*g );
+		
+		ff << k << "	" << Bpk[i] << endl;
+		gg << k << "	" << tmp << endl;
 		
 		k+=dt;
 	}

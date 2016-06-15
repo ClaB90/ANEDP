@@ -47,6 +47,7 @@ varf adj(p,ptest) =   int2d(Th)( p*ptest/dt )
 					+ int2d(Th)( 0.5*( dx(p)*dx(ptest) + dy(p)*dy(ptest) ) ) 
 				    + on(1,2,3,4, p=pb);
 
+
 varf adjtn(p,ptest) =   int2d(Th)( pnext*ptest/dt )
     				  - int2d(Th)( 0.5*( dx(pnext)*dx(ptest) + dy(pnext)*dy(ptest) ) ) 
   					  + int2d(Th)( 0.5*( h*ptest ) ) 
@@ -96,7 +97,7 @@ func real adjointt()
 	{
 		//cout << "siamo al tempo   = " << t << endl;
 		
-		hnext = h;
+		hnext = statesol[j-1] - wdnext;
 		h = statesol[j-1] - wd;
 		
 		tmpadj = adjtn(0,Ph);

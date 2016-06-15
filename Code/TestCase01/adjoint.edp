@@ -53,6 +53,7 @@ varf adjtn(p,ptest) =   int2d(Th)( pnext*ptest/dt )
     				  - int2d(Th)( 0.5*( dx(pnext)*dx(ptest) + dy(pnext)*dy(ptest) ) ) 
   					  + int2d(Th)( 0.5*( h*ptest ) ) 
   					  + int2d(Th)( 0.5*( hnext*ptest ) ); 
+
 /*
 problem adjoint( p, ptest) = - int2d(Th)( pnext*ptest/dt )
 							 + int2d(Th)( p*ptest/dt )			
@@ -97,9 +98,8 @@ func real adjointt()
 	while( j > 0 )
 	{
 		//cout << "siamo al tempo   = " << t << endl;
-		
-		hnext = h;
 		h = statesol[j-1] - wd;
+		hnext = statesol[j-1] - wdnext;
 		
 		tmpadj = adjtn(0,Ph);
 		tmpadj += adjbc;

@@ -15,7 +15,7 @@ verbosity=0;
 /****** 00.PARAMETRI ******/
 
 //Max number of temporal refinement levels
-int nLevels = 4;
+int nLevels = 6;
 
 /* Parametri temporali */
 real T=0.1;
@@ -38,8 +38,8 @@ real[int] hk(nLevels);
  */
 for( int j=0; j<nLevels; j++)
 {
-	int nsol = 2*nsolold-1;
-	//int nsol = ( 2^(j+1) +1 )^2;
+	//int nsol = 2*nsolold-1;
+	int nsol = ( 2^(j+1) +1 );
 	nsolold=nsol;
 	hk[j]=nsol;
 	real dt=T/(nsol-1);
@@ -99,8 +99,8 @@ for( int j=0; j<nLevels; j++)
 	/* nel file saveme.edp sono contenute le funzioni per salvare le variabili in file di testo
 	 */
 	include "saveme.edp";
-	saveControl();
-	saveAdj();
+	saveControl(j);
+	saveAdj(j);
 	
 	cout << "uh" << endl;
 	cout << u << endl;

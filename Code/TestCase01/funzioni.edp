@@ -22,6 +22,7 @@ func wa = exp(a1*pi^2*t)*sin(x*pi)*sin(y*pi);
 func waT = exp(a1*pi^2*T)*sin(x*pi)*sin(y*pi);
 
 func wd = (a1^2 - 5.)*pi^2*wa/(a1+2.) + 2.*pi^2*waT;
+func wdnext = (a1^2 - 5.)*pi^2*exp(a1*pi^2*(t+dt))*g/(a1+2.) + 2.*pi^2*waT;
 
 /*la forzante del problema ha la seguente forma
  *	g0(t,x,y) = -pi^(4)*wa - PUad(-(exp(a1*pi^2*t)+exp(a1*pi^2*T))/(4.*alpha))
