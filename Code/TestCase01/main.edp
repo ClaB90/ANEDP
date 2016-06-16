@@ -131,6 +131,34 @@ for(int j=0; j<nLevels-1; j++)
 	
 }
 
+cout << "EOC errControlL2 = "  << endl;
+for(int j=0; j<nLevels; j++)
+{
+	//cout << " j = " << j << endl;
+	cout << "EOC errControlL2 = " << errControlL2vec[j] << " a j " << j << endl;
+	//cout << "EOC errControlLinf = " << errControlLinfvec[j]/errControlLinfvec[j+1] << " Vorrei fosse ~ 2" <<endl;
+	//cout << "EOC errProjectStateL2 = " << errProjectStateL2vec[j] << " a j " << j << endl;
+	/*cout << "EOC errStateL2 = " << errStateL2vec[j]/errStateL2vec[j+1] << " Vorrei fosse ~ 1" << endl;
+	cout << "EOC errStateLinf =  " << errStateLinfvec[j]/errStateLinfvec[j+1] << " Vorrei fosse ~ 1" << endl;
+	cout << "EOC errAdjL2 = " << errAdjL2vec[j]/errAdjL2vec[j+1] << " Vorrei fosse ~ 1" << endl; */
+	//cout << "EOC errAdjLinf = " << errAdjLinfvec[j]/errAdjLinfvec[j+1] << " Vorrei fosse ~ 1" << endl;
+
+}
+
+cout << "EOC errProjectStateL2 = " << endl;
+for(int j=0; j<nLevels; j++)
+{
+	//cout << " j = " << j << endl;
+	//cout << "EOC errControlL2 = " << errControlL2vec[j] << " a j " << j << endl;
+	//cout << "EOC errControlLinf = " << errControlLinfvec[j]/errControlLinfvec[j+1] << " Vorrei fosse ~ 2" <<endl;
+	cout << "EOC errProjectStateL2 = " << errProjectStateL2vec[j] << " a j " << j << endl;
+	/*cout << "EOC errStateL2 = " << errStateL2vec[j]/errStateL2vec[j+1] << " Vorrei fosse ~ 1" << endl;
+	cout << "EOC errStateLinf =  " << errStateLinfvec[j]/errStateLinfvec[j+1] << " Vorrei fosse ~ 1" << endl;
+	cout << "EOC errAdjL2 = " << errAdjL2vec[j]/errAdjL2vec[j+1] << " Vorrei fosse ~ 1" << endl; */
+	//cout << "EOC errAdjLinf = " << errAdjLinfvec[j]/errAdjLinfvec[j+1] << " Vorrei fosse ~ 1" << endl;
+
+}
+
 
 
 

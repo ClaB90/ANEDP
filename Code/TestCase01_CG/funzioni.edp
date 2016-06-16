@@ -24,6 +24,9 @@ func waT = exp(a1*pi^2*T)*g;
 func wd = (a1^2-5.)*pi^2*wa/(a1+2.)+2.*pi^2*waT;
 func wdp=(a1^2-5.)*pi^2*exp(a1*pi^2*(t+dt/2.))*g/(a1+2.)+2.*pi^2*waT;
 func wdpp=(a1^2-5.)*pi^2*exp(a1*pi^2*(t+dt))*g/(a1+2.)+2.*pi^2*waT;
+
+func wdnext = (a1^2 - 5.)*pi^2*exp(a1*pi^2*(t+dt))*g/(a1+2.) + 2.*pi^2*waT;
+
 /*la forzante del problema ha la seguente forma
  *	g0(t,x,y) = g*2.*pi*( -(a1/T)*sin((t/T)*2.*pi*a1) + pi*cos((t/T)*2.*pi*a1) ) 
  *                - PUad(-(1./(4.*alpha))*cos((t/T)*2.*pi*a1) +(1./(4.*alpha)))
@@ -37,8 +40,8 @@ func g0nonprojdx = -(exp(a1*(pi^2)*t)+exp(a1*(pi^2)*T))/(4.*alpha);
 func g0nonprojsx=(-(pi^4.)/4.)*(exp(a1*(pi^2)*(t-dt))-exp(a1*(pi^2)*T)) ;
 real g0partdx, g0IIdx, g0partsx, g0IIsx;
 
-func g0 = g0Idx - g0IIdx;
-func g0old = g0Isx - g0IIsx;
+func g0 = g0Idx - g*g0IIdx;
+func g0old = g0Isx - g*g0IIsx;
 
 
 
