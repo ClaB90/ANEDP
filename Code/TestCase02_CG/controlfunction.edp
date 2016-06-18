@@ -83,9 +83,6 @@ func real DampedNewton()
 	real lambdaDN = 1., betaDN = 0.8;
 	real tmp2;
 	
-	//contatore iterazioni DN
-	int k=0;
-	
 	//per entrare nel while
 	toll = 10;
 	while( toll > epsilon && k < Nmax)
@@ -131,18 +128,17 @@ func real DampedNewton()
 		    tmp += deltal*lambdaDN;
 			 
 		    tmp2 = (lambdaDN/3.)*tmp2;
-			cout << " QUASI " << endl;
-			cout << lambdaDN << endl;		
+			cout << " lambdaDN = " << lambdaDN << endl;	
 		}
 
 		/* PASSO 3
 		 * l = l + lambdaDN*deltal;
 		 * torna al passo 1;
 		 */
+		k=k+1;
 		cout << " iterazione Newton " << k << endl;
 		l += lambdaDN*deltal;
 		
-		k=k+1;
 		cout << " arresto " << normL2YhCS(tmp4) << endl;
 		//aggiorna tolleranza
 		toll = normL2YhCS(tmp4);

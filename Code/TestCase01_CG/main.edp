@@ -15,7 +15,7 @@ verbosity=0;
 /****** 00.PARAMETRI ******/
 
 //Max number of temporal refinement levels
-int nLevels = 2;
+int nLevels = 6;
 
 /* Parametri temporali */
 real T=0.1;
@@ -130,11 +130,5 @@ for( int j=0; j<nLevels; j++)
 include "saveerr.edp";
 saveError(nLevels);
 coutError(nLevels);
-
-
-
-
-
-
 
 

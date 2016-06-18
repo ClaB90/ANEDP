@@ -20,6 +20,7 @@ int nLevels = 8;
 /* Parametri temporali */
 real T=0.5;
 real t=0.;
+real dt;
 
 /* Parametri per il calcolo dell'errore */
 real[int] errControlL2vec(nLevels),errControlLinfvec(nLevels); 
@@ -44,7 +45,7 @@ for( int j=0; j<nLevels; j++)
 	int nsol = ( 2^(j+1) +1 );
 	nsolold=nsol;
 	hk[j]=nsol;
-	real dt=T/(nsol-1);
+	dt=T/(nsol-1);
 	cout << "======  nsol = " << nsol << " ======" << endl;
 	cout << "======  dt = " << dt << " ======" << endl;
 
@@ -93,6 +94,7 @@ for( int j=0; j<nLevels; j++)
 	
 	//risolvo il problema di controllo
 	DampedNewton();
+	iterNewton[j]=k;
 	
 	real[int] l2(nsol);
 	l2=adjCG2(l);
@@ -101,7 +103,7 @@ for( int j=0; j<nLevels; j++)
 	    u[i]=PUabScal(l2[i]);
 	}
 	statet();
-	iterNewton[j]=k;
+	adjointt();
 
 	cout << "==========================" << endl;
 	cout << "Number of  iterations = " << k << endl;
@@ -122,7 +124,7 @@ for( int j=0; j<nLevels; j++)
 	
 }
 
-/* nel file saverr.edp sono contenute le funzioni per salvare gli errori e gli ordini di convergenza degli errori
+/* nel file saveerr.edp sono contenute le funzioni per salvare gli errori e gli ordini di convergenza degli errori
  * in file di testo e plottarli a video
  */
 include "saveerr.edp";

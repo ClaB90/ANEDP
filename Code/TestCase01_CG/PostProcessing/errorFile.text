@@ -18,5 +18,5 @@ EOC errStateL2 = 1.33424 Vorrei fosse ~ 1
 EOC errStateLinf =  1.47556 Vorrei fosse ~ 1
 EOC errAdjL2 = 2.74826 Vorrei fosse ~ 2
 iterNewton : 
- a j 1 iterNewton = 1
- a j 2 iterNewton = 1
+ a j 1 iterNewton = 4
+ a j 2 iterNewton = 4
