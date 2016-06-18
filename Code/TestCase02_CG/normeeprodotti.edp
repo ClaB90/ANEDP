@@ -38,14 +38,14 @@ func real normL2YhCS(real[int,int] &xx)
 {
 	real tmp=0.;
 	real savet=t;
-	Yh x1,x2,x3;
+	Yh x1,x2;
 	t=0;
 	
 	for(int i=0; i<nsol-1; ++i)
 	{
 		x1[]=xx(i,:);
 		x2=wdp;
-
+		
 		tmp += (dt)*(int2d(Th)((x1-x2)^2));
 		t=t+dt;
 	}
@@ -138,9 +138,7 @@ func real normL2Pr(real[int] &controlsol)
 		q = (Bpk[i]*(t+dt)-Bpk[i+1]*t)/(dt);
 		if( m == 0 )
 		{
-		err=err+dt*(PUabScal(Bpk[i])^2);	
-		
-		
+			err=err+dt*((controlsol[i])^2);	
 		}
 		else{
 		ta = (a-q)/m;
@@ -163,18 +161,18 @@ func real normL2Pr(real[int] &controlsol)
 		   	if(ta>=t && ta<=(t+dt) && (tb<t || tb>(t+dt)))
 		   	{
 
-		
-		
+				
+				
 		   //Coordinate dei punti medi della soluzione approssimata nei due sottointervalli
 		   		real Bpkmed1=(Bpk[i]+a)/2.;
 		   		real Bpkmed2=(Bpk[i+1]+a)/2.;
-   		
+		   		
 				err =    err
 					  + ((ta-t)/6.)*( (controlsol[i])^2 + (a)^2 
 						               + 4*(PUabScal(Bpkmed1))^2 )
 					  + ((t+dt-ta)/6.)*( (a)^2 + (controlsol[i+1])^2 
 									   + 4*(PUabScal(Bpkmed2))^2 );
-   
+		   
 		   	}
 		   	//interseco solo retta y=b => trovo due sottointervalli (t,tb) e (tb,t+dt)
 			else if(tb>=t && tb<=(t+dt) && (ta<t || ta>(t+dt)))
@@ -182,37 +180,37 @@ func real normL2Pr(real[int] &controlsol)
 				//Coordinate dei punti medi della soluzione approssimata nei due sottointervalli
 		   		real Bpkmed1=(Bpk[i]+b)/2.;
 		   		real Bpkmed2=(b+Bpk[i+1])/2.;
-   		    
+		   		    
 				err=   err
 					 + ((tb-t)/6.)*( (controlsol[i])^2 + ( b )^2 
 									  + 4*( PUabScal(Bpkmed1) )^2 )
 					 + ((t+dt-tb)/6.)*(  (b)^2 + (controlsol[i+1])^2 
 									    + 4*(PUabScal(Bpkmed2) )^2);
-   
+		   
 		   	}
 			//interseco sia y=b che y=a => trovo tre sottointervalli (t,tc) (tc,td) (td,t+dt)
-			else
-			{
-				real c,d,tc,td;
-		
-				if(ta<=tb)
+	   		else
+	   		{
+	   			real c,d,tc,td;
+				
+	   			if(ta<=tb)
 				{ 
 				  c=a;
 				  d=b;
 			    }
-				else
+	   			else
 				{
 				  c=b;
 				  d=a;
 			    }
-		
-				tc=min(ta,tb);
-				td=max(ta,tb);
-		
+				
+	   			tc=min(ta,tb);
+	   			td=max(ta,tb);
+				
 				real Bpkmed1=(Bpk[i]+c)/2.;
-				real Bpkmed2=(d+c)/2.;
+	   			real Bpkmed2=(d+c)/2.;
 				real Bpkmed3=(Bpk[i+1]+d)/2.;
-		
+	   			
 				err =   err 
 					  +((tc-t)/6.)*( ( controlsol[i])^2 + (c)^2 
 						  			   + 4*( Bpkmed1 )^2 )
@@ -220,11 +218,11 @@ func real normL2Pr(real[int] &controlsol)
 									   + 4*( Bpkmed2 )^2 )
 					  +((t+dt-td)/6.)*(  (d)^2 + ( controlsol[i+1])^2 
 									   + 4*( Bpkmed3 )^2 ); 
-			}
+	   		}
 		   }   
 		   			
 		   t=t+dt;
-				}
+		  }
 		}					
 
 	return sqrt(err);

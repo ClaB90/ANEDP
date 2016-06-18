@@ -72,7 +72,7 @@ func real adjointt()
 	Bpk[j-1] = pT;
 	pnext=pT;
 	t=T;
-	h = statesol[j-1] - wd;
+	//h = statesol[j-1] - wd;
 	
 	j--;
 	t=t-dt;
@@ -85,9 +85,8 @@ func real adjointt()
 	while( j > 0 )
 	{
 		//cout << "siamo al tempo   = " << t << endl;
-		
-		hnext = h;
 		h = statesol[j-1] - wd;
+		hnext = statesol[j-1] - wdnext;
 		
 		tmpadj = adjtn(0,Yh);
 		tmpadj += adjbc;
@@ -96,10 +95,11 @@ func real adjointt()
 		p[] = Adj^-1*tmpadj;
 		//adjoint;
 		
+		//plot( p, nbiso=40, value = 1, fill=1, wait = 0, cmm="p" );
 		pnext=p;
 		adjsol[j-1] = p;
 		
-		Bpk[j-1]= (-1./alpha)*int2d(Th)( p * g );
+		Bpk[j-1] = (-1./alpha)*int2d(Th)( p * g );
 		
 		
 		t -= dt;

@@ -58,8 +58,7 @@ func real[int,int] stateCG(real[int] &xx)
     loldstate = xx[0];
     listate = xx[1];
 	
-	g0partsx = g0nonprojsx;
-	g0IIsx = PUabScal(g0partsx);	
+	g0partsx = g0nonprojsx;	
 	//Risolvo
 	//statexy(0);
 	S=s(Yh,Yh,solver=GMRES);
@@ -81,7 +80,6 @@ func real[int,int] stateCG(real[int] &xx)
 	{	
 		listate = xx[i+1];
 		g0partsx = g0nonprojsx;
-		g0IIsx = PUabScal(g0partsx);
 		
 		//Risolvo
 
@@ -102,8 +100,7 @@ func real[int,int] stateCG(real[int] &xx)
 	setscheme(2);
 	listate = xx[nsol-1];
 	
-	g0partdx = g0nonprojdx;
-	g0IIdx = PUabScal(g0partdx);	
+	g0partdx = g0nonprojdx;	
 	
 	//Risolvo
 
@@ -148,8 +145,15 @@ func real[int,int] adjCG(real[int,int] &xx)
     
 	while( j > 0 )
 		{
-			hnext=h;
+			Yh help, help2;
+			
+			help2[] = wd;
+			help[] = wdnext;
+			
+			hnext[]=xx(j-1,:);
+			//hnext -= help;
 		    h[]=xx(j-1,:);
+			//h -= - help2;
 			
 			//calcolo il termine noto
 		    tmpadj = adjtn(0,Yh);
@@ -304,7 +308,6 @@ func real[int,int] mat1(real[int] &xx, real[int] &ww)
 	indold=ww[0];
 	indnew=ww[1];
 	g0partsx = g0nonprojsx;
-	g0IIsx = PUabScal(g0partsx);
 	
 	
 	//Calcolo la matice di stato e il vettore delle condizioni al bordo
@@ -329,8 +332,7 @@ func real[int,int] mat1(real[int] &xx, real[int] &ww)
 		//aggiorno valori
 		listate = xx[i+1];
 		indnew=ww[i+1];
-	    g0partsx = g0nonprojsx;
-		g0IIsx = PUabScal(g0partsx);		
+	    g0partsx = g0nonprojsx;		
 		
 		//Risolvo
 		temp=tnnew(0,Yh);
@@ -349,8 +351,7 @@ func real[int,int] mat1(real[int] &xx, real[int] &ww)
 	listate = xx[nsol-1];
 	
 	//aggiorno valori g0
-	g0partdx = g0nonprojdx;
-	g0IIdx = PUabScal(g0partdx);	
+	g0partdx = g0nonprojdx;	
 	
 	//ricalcolo matrice
 	S=s(Yh,Yh,solver=GMRES);
@@ -424,7 +425,7 @@ func real[int,int] CG(real[int,int] &xx, real[int,int] &ww)
 	real[int,int] A(nsol,Yh.ndof), Apk(nsol,Yh.ndof);
 	real[int,int] tmp(nsol,Yh.ndof);
 	
-	real alphaCG, eps=10^(-13.);
+	real alphaCG, eps=10^(-15.);
 	
 	// alla prima itearazione betaCG è fissato a zero
 	real betaCG=0.;
