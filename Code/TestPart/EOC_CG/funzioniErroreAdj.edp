@@ -1,0 +1,101 @@
+/****************** Politecnico di Milano - ANEDP project ******************/
+/* 														 					*
+ *  	authors Edoardo Arbib 							 					*
+ *				Claudia Bonomi 							 					*
+ *											   			 					*
+ *  	Descrizione: definizioni delle funzioni per errore 			 		*
+ *						Problema aggiunto									*
+ *																			*
+ * 		Dipendenze:	funzioni.edp -> waT e a1						        *		
+ *				    soluzioniEsatte -> definizioni funzioni esatte			*
+ * 					main -> nsol						 					*
+ * 					state -> statesol[]					 					*
+ * 														 					*
+ ****************************************************************************/
+
+
+/* Per il calcolo dell'errore di || p - p_k ||L2 viene sommata ad ogni passo temporale la norma L2
+ * la funzione seguente verrà chiamata ad ogni passo temporale sommandone il risultato,
+ */
+func real normL2adjt()
+{
+	real tmp=0.;
+	
+	tmp = int2d(Th)( (p-pe)^2 );
+	
+	return tmp;
+} 
+
+/* Per il calcolo dell'errore di || p - p_k ||L2 viene sommata ad ogni passo temporale la norma L2
+ * la funzione seguente sfrutta il vettore di soluzioni del problema aggiunto usando l'algoritmo dei trapezi
+ */
+func real normL2adjTrap()
+{
+	real tmp=0., savet=0.;
+	
+	savet = 0.;
+	t=dt;
+	
+	for(int i =0; i<nsol-1; i++)
+	{	
+		tmp += (dt/2.)*(   int2d(Th)( (adjsol[i+1]-pe)^2 )
+			   			 + int2d(Th)( (adjsol[i]-pe2)^2)		);
+		t += dt;
+	}
+	
+	tmp = sqrt(tmp);
+	
+	t=savet;
+	
+	return tmp;
+} 
+
+/* Per il calcolo dell'errore di || p - p_k ||L2 viene sommata ad ogni passo temporale la norma L2
+ * la funzione seguente sfrutta il vettore di soluzioni del problema di stato
+ */
+func real normL2adj()
+{
+	real tmp=0., savet=0.;
+	
+	savet = 0.;
+	t=0.;
+	
+	for(int i =0; i<nsol-1; i++)
+	{
+		tmp += (dt/6.)*(     int2d(Th)((adjsol[i]-pe)^2)
+						 +   int2d(Th)((adjsol[i+1]-pepp)^2)
+						 + 4*int2d(Th)((0.5*adjsol[i]+0.5*adjsol[i+1]-pep)^2)
+							 );
+		t += dt;
+	}
+	
+	tmp = sqrt(tmp);
+	
+	t=savet;
+	
+	return tmp;
+} 
+
+/* Per il calcolo dell'errore di || pes -p_k ||Linf
+*/
+func real normLinfadj()
+{
+	real[int] LinfSpazio(nsol);
+	real norm, savet=t;
+	
+	t=0.;
+	
+	for(int i=0; i<nsol; i++)
+	{
+		LinfSpazio[i] = adjsol[i] - pe;
+		LinfSpazio[i] = abs(LinfSpazio[i]);
+		
+		t+=dt;
+	}
+	
+	norm = LinfSpazio.linfty;
+	
+	t=savet;
+	
+	return norm;
+}

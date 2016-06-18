@@ -1,0 +1,60 @@
+/****************** Politecnico di Milano - ANEDP project ******************/
+/* 														 					*
+ *  	authors Edoardo Arbib 							 					*
+ *				Claudia Bonomi 							 					*
+ *											   			 					*
+ *  	Descrizione:  funzioni per salvare vettori in file di testo         *
+ *					   					   			 				        *
+ *		Dipendenze: main -> valore j	   			 				        *
+ *					    					   			 				    *
+ * 														 					*
+ ****************************************************************************/
+
+func real saveControl(int j)
+{
+	string uk, uesk;
+
+	uk= "ControlSol/ControlSol"+j+".text";
+	uesk= "ControlSol/ControlSolEs"+j+".text";
+	ofstream ff(uk);
+	ofstream gg(uesk);
+	ff << "Soluzione Controllo Approssimata a dt= " << dt <<endl;
+	gg << "Soluzione Esatta Controllo a dt= " << dt <<endl;
+	real k=0.;
+	for(int i=0; i<nsol; i++)
+	{
+		ff << k << "	" << u[i] << endl;
+		gg << k << "	" << ue[i] << endl;
+		
+		k+=dt;
+	}
+	
+	return 0;
+}
+
+func real saveAdj(int j)
+{
+	string adjk, adjes;
+
+	adjk= "AdjSol/AdjSol"+j+".text";
+	adjes= "AdjSol/AdjSolEs"+j+".text";
+	ofstream ff(adjk);
+	ofstream gg(adjes);
+	ff << "Soluzione Adj Problem a dt= " << dt <<endl;
+	gg << "Soluzione Adj Varf a dt= " << dt <<endl;
+	real k=0.;
+	for(int i=0; i<nsol; i++)
+	{	
+		real tmp;
+		Yh tmp2;
+		tmp2 = pe;
+		tmp = (-1./alpha)*int2d(Th)( pe*g );
+		
+		ff << k << "	" << Bpk[i] << endl;
+		gg << k << "	" << tmp << endl;
+		
+		k+=dt;
+	}
+	
+	return 0;
+}

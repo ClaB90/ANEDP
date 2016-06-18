@@ -1,0 +1,93 @@
+real T=0.1;
+real t=0.;
+int nsol = 10;
+real dt=T/(nsol-1);
+
+verbosity = 0.;
+
+include "controlparameters.edp";
+
+include "funzioni.edp";
+
+include "UabSet.edp";   
+
+include "soluzioniEsatte.edp";  
+
+include "saveme.edp";     
+
+include "mesh.edp"; 
+
+include "state.edp";
+
+include "adjoint.edp";
+	
+include "normeeprodotti.edp";
+
+include "funzioniCG.edp";
+	
+real[int,int] l(nsol,Yh.ndof);
+include "controlfunction.edp";
+
+real[int,int] l1(nsol,Yh.ndof);
+
+real[int] l1vec(nsol), l2(nsol), l2vec(nsol);
+//l1=0.;
+//l2=mat2(l1,l);
+//l3=rightCG(l);
+//l3=l3-l2;
+//l4=mat2(l3,l);
+
+Yh help;
+real savet=t;
+/*
+t=0.;
+for(int i=0; i<nsol; i++)
+{
+	Yh help1, help2;
+	help1 = we;
+	help2 = wd;
+	l(i,:) = help1[] - help2[];
+	t=t+dt;
+}
+t=savet; */
+
+l=a;
+
+DampedNewton();
+
+cout << " superato " << endl;
+/*for(int i=0;i<nsol;i++)
+{
+Yh ex;
+ex[]=l(i,:);
+plot(ex,fill=1,value=1,wait=1);
+}
+*/
+l1=adjCG(l);
+for(int i=0; i<nsol; ++i)
+{
+	Yh born;
+	born[]=l1(i,:);
+	Bpk[i]=(-1./alpha)*int2d(Th)(born*g);
+    l1vec[i]=PUabScal(Bpk[i]);
+}
+
+l2=adjCG2(l);
+for(int i=0; i<nsol; ++i)
+{
+    l2vec[i]=PUabScal(l2[i]);
+}
+//l1=l1*(-1./alpha);
+
+u = l2vec;
+saveControl(0);
+
+real error=0.;
+cout << " l1 " << l1vec << endl;
+cout << " l2 " << l2vec << endl;
+error=controlErrL2(l1vec);
+cout << " error " << error << endl;
+	
+	
+	
+	

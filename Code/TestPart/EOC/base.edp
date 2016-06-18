@@ -52,6 +52,11 @@ for(int i=0; i<nsol; i++)
 	cout << " Bpk " << i << " " << Bpk[i] << endl;
     	
 }
+
+cout << " errore " << controlErrL2(u) << endl;
+cout << " errore " << errStateL2 << endl;
+cout << " errore " << normL2adj() << endl;
+
 statet();
 adjointt();
 
