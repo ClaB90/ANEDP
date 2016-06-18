@@ -23,6 +23,7 @@ func waT = exp(a1*pi^2*T)*g;
 
 func wd = (a1^2-5.)*pi^2*wa/(a1+2.)+2.*pi^2*waT;
 func wdp=(a1^2-5.)*pi^2*exp(a1*pi^2*(t+dt/2.))*g/(a1+2.)+2.*pi^2*waT;
+
 func wdnext=(a1^2-5.)*pi^2*exp(a1*pi^2*(t+dt))*g/(a1+2.)+2.*pi^2*waT;
 
 /*la forzante del problema ha la seguente forma

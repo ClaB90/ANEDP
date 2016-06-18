@@ -12,6 +12,8 @@
  * 														 				 	 	 	  *
  **************************************************************************************/
 
+/* La funzione puntoFisso() risolve il problema di controllo adottando un approccio di punto fisso
+ */
 func real puntoFisso()
 {
 	//Primo passo soluzione

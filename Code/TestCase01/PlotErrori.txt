@@ -1,0 +1,72 @@
+Griglia Paper N=150
+
+ j = 0
+EOC errControlL2 = -2.60937 Vorrei fosse ~ 2
+EOC errControlLinf = -2.65444 Vorrei fosse ~ 2
+EOC errProjectStateL2 = -2.41965 Vorrei fosse ~ 2
+EOC errStateL2 = -1.33449 Vorrei fosse ~ 1
+EOC errStateLinf =  1.47439 Vorrei fosse ~ 1
+EOC errAdjL2 = -2.6216 Vorrei fosse ~ 2
+ j = 1
+EOC errControlL2 = -2.35165 Vorrei fosse ~ 2
+EOC errControlLinf = -2.32144 Vorrei fosse ~ 2
+EOC errProjectStateL2 = -2.29181 Vorrei fosse ~ 2
+EOC errStateL2 = -1.17464 Vorrei fosse ~ 1
+EOC errStateLinf =  1.71411 Vorrei fosse ~ 1
+EOC errAdjL2 = -2.35673 Vorrei fosse ~ 2
+ j = 2
+EOC errControlL2 = -2.25065 Vorrei fosse ~ 2
+EOC errControlLinf = -1.95834 Vorrei fosse ~ 2
+EOC errProjectStateL2 = -2.20164 Vorrei fosse ~ 2
+EOC errStateL2 = -1.08882 Vorrei fosse ~ 1
+EOC errStateLinf =  1.85153 Vorrei fosse ~ 1
+EOC errAdjL2 = -2.24982 Vorrei fosse ~ 2
+ j = 3
+EOC errControlL2 = -2.29624 Vorrei fosse ~ 2
+EOC errControlLinf = -1.39961 Vorrei fosse ~ 2
+EOC errProjectStateL2 = -2.2259 Vorrei fosse ~ 2
+EOC errStateL2 = -1.04473 Vorrei fosse ~ 1
+EOC errStateLinf =  1.92409 Vorrei fosse ~ 1
+EOC errAdjL2 = -2.28078 Vorrei fosse ~ 2
+ j = 4
+EOC errControlL2 = -1.15957 Vorrei fosse ~ 2
+EOC errControlLinf = -0.503847 Vorrei fosse ~ 2
+EOC errProjectStateL2 = -2.41203 Vorrei fosse ~ 2
+EOC errStateL2 = -1.02236 Vorrei fosse ~ 1
+EOC errStateLinf =  1.96074 Vorrei fosse ~ 1
+EOC errAdjL2 = -1.11429 Vorrei fosse ~ 2
+errControlL2 :
+ a j 0 errControlL2 = 0.31667
+ a j 1 errControlL2 = 0.0835064
+ a j 2 errControlL2 = 0.0209608
+ a j 3 errControlL2 = 0.00500916
+ a j 4 errControlL2 = 0.00109219
+ a j 5 errControlL2 = 0.000497644
+errProjectStateL2 : 
+ a j 0 errProjectStateL2 = 0.520894
+ a j 1 errProjectStateL2 = 0.15134
+ a j 2 errProjectStateL2 = 0.0393476
+ a j 3 errProjectStateL2 = 0.00970087
+ a j 4 errProjectStateL2 = 0.00221619
+ a j 5 errProjectStateL2 = 0.000432024
+errStateL2 : 
+ a j 0 errStateL2 = 0.981285
+ a j 1 errStateL2 = 0.496296
+ a j 2 errStateL2 = 0.248822
+ a j 3 errStateL2 = 0.124494
+ a j 4 errStateL2 = 0.0622586
+ a j 5 errStateL2 = 0.0311327
+errAdjL2vec : 
+ a j 0 errAdjL2vec = 0.00660747
+ a j 1 errAdjL2vec = 0.00173155
+ a j 2 errAdjL2vec = 0.00043334
+ a j 3 errAdjL2vec = 0.000103613
+ a j 4 errAdjL2vec = 2.28245e-05
+ a j 5 errAdjL2vec = 1.0724e-05
+iterNewton : 
+ a j 0 iterNewton = 6
+ a j 1 iterNewton = 6
+ a j 2 iterNewton = 5
+ a j 3 iterNewton = 5
+ a j 4 iterNewton = 5
+ a j 5 iterNewton = 5

@@ -110,10 +110,15 @@ for(int j=0; j<nLevels-1; j++)
 	
 	real EOCControlL2,EOCControlLinf, EOCStateL2, EOCStateProL2, EOCAdjL2;
 	EOCControlL2 = log10(errControlL2vec[j]/errControlL2vec[j+1])/log10(hk[j]/hk[j+1]);
+	EOCControlL2 = abs(EOCControlL2);
 	EOCControlLinf = log10(errControlLinfvec[j]/errControlLinfvec[j+1])/log10(hk[j]/hk[j+1]);
+	EOCControlLinf = abs(EOCControlLinf);
 	EOCStateL2 = log10(errStateL2vec[j]/errStateL2vec[j+1])/log10(hk[j]/hk[j+1]);
+	EOCStateL2 = abs(EOCStateL2);
 	EOCStateProL2 = log10(errProjectStateL2vec[j]/errProjectStateL2vec[j+1])/log10(hk[j]/hk[j+1]);
+	EOCStateProL2 = abs(EOCStateProL2);
 	EOCAdjL2 = log10(errAdjL2vec[j]/errAdjL2vec[j+1])/log10(hk[j]/hk[j+1]);
+	EOCAdjL2 = abs(EOCAdjL2);
 	
 	cout << "EOC errControlL2 = " << EOCControlL2  << " Vorrei fosse ~ 2" << endl;
 	cout << "EOC errControlLinf = " <<  EOCControlLinf << " Vorrei fosse ~ 2" <<endl;
