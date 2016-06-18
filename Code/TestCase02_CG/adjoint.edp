@@ -49,16 +49,7 @@ varf adj(p,ptest) =   int2d(Th)( p*ptest/dt )
 varf adjtn(p,ptest) =   int2d(Th)( pnext*ptest/dt )
     				  - int2d(Th)( 0.5*( dx(pnext)*dx(ptest) + dy(pnext)*dy(ptest) ) ) 
   					  + int2d(Th)( 0.5*( h*ptest ) ) 
-  					  + int2d(Th)( 0.5*( hnext*ptest ) );
-/*
-problem adjoint( p, ptest) = - int2d(Th)( pnext*ptest/dt )
-							 + int2d(Th)( p*ptest/dt )			
-						     + int2d(Th)( 0.5*( dx(p)*dx(ptest) + dy(p)*dy(ptest) ) ) 
-						     + int2d(Th)( 0.5*( dx(pnext)*dx(ptest) + dy(pnext)*dy(ptest) ) ) 
-						     - int2d(Th)( 0.5*( h*ptest ) ) 
-						     - int2d(Th)( 0.5*( hnext*ptest ) ) 
-						     + on(1,2,3,4, p=pb); 
-*/ 
+  					  + int2d(Th)( 0.5*( hnext*ptest ) ); 
 
 /* NB - u non cambia al passo temporale della p quello che cambia è la h, se dipende dal tempo, 
  *   	 quindi bisogna tener traccia della hnext;

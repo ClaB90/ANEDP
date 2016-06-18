@@ -73,6 +73,7 @@ func real adjointt()
 	Bpk[j-1] = pT;
 	pnext=pT;
 	t=T;
+	//h = statesol[j-1] - wd;
 	
 	j--;
 	t=t-dt;
