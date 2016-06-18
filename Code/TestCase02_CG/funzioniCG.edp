@@ -150,7 +150,7 @@ func real[int,int] adjCG(real[int,int] &xx)
 			help2[] = wd;
 			help[] = wdnext;
 			
-			hnext[]=xx(j,:);
+			hnext[]=xx(j-1,:);
 			//hnext -= help;
 		    h[]=xx(j-1,:);
 			//h -= - help2;

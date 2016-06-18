@@ -119,8 +119,11 @@ func real DampedNewton()
 		cout << " discesa " << tmp2 << endl;
 		tmp2 = (lambdaDN/3.)*tmp2;
         
+		real armijoToll = 1e-05;
+		real differ=0;
+		
 		//inexact armijo linesearch	
-		while( phi(tmp) > phi(l) + tmp2 )
+		while( phi(tmp) > phi(l) + tmp2 && armijoToll > differ )
 		{
 			//aggiorni lambda			
 			lambdaDN = lambdaDN*betaDN;
@@ -129,8 +132,11 @@ func real DampedNewton()
 		    tmp += deltal*lambdaDN;
 			 
 		    tmp2 = (lambdaDN/3.)*tmp2;
+			differ = phi(tmp)-(phi(l) + tmp2);
 			cout << " lambdaDN = " << lambdaDN << endl;	
 			cout << " phi(tmp) = " << phi(tmp) << endl;	
+			cout << " phi(l)  = " << phi(l) << endl;
+			cout << " tmp2 = " << tmp2 << endl;
 			cout << " phi(l) + tmp2 = " << phi(l) + tmp2 << endl;	
 		}
 
