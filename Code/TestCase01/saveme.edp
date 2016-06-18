@@ -14,8 +14,8 @@ func real saveControl(int j)
 {
 	string uk, uesk;
 
-	uk= "ControlSol/ControlSol"+j+".text";
-	uesk= "ControlSol/ControlSolEs"+j+".text";
+	uk= "PostProcessing/ControlSol/ControlSol"+j+".text";
+	uesk= "PostProcessing/ControlSol/ControlSolEs"+j+".text";
 	ofstream ff(uk);
 	ofstream gg(uesk);
 	ff << "Soluzione Controllo Approssimata a dt= " << dt <<endl;
@@ -36,8 +36,8 @@ func real saveAdj(int j)
 {
 	string adjk, adjes;
 
-	adjk= "AdjSol/AdjSol"+j+".text";
-	adjes= "AdjSol/AdjSolEs"+j+".text";
+	adjk= "PostProcessing/AdjSol/AdjSol"+j+".text";
+	adjes= "PostProcessing/AdjSol/AdjSolEs"+j+".text";
 	ofstream ff(adjk);
 	ofstream gg(adjes);
 	ff << "Soluzione Adj Problem a dt= " << dt <<endl;

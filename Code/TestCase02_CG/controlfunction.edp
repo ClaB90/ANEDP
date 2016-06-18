@@ -84,11 +84,11 @@ func real DampedNewton()
 	real tmp2;
 	
 	//contatore iterazioni DN
-	int k1=0;
+	int k=0;
 	
 	//per entrare nel while
 	toll = 10;
-	while( toll > epsilon && k1 < Nmax)
+	while( toll > epsilon && k < Nmax)
 	{
 		/* PASSO 1
 		 * 	ricava dl dall'equazione
@@ -139,10 +139,10 @@ func real DampedNewton()
 		 * l = l + lambdaDN*deltal;
 		 * torna al passo 1;
 		 */
-		cout << " iterazione Newton " << k1 << endl;
+		cout << " iterazione Newton " << k << endl;
 		l += lambdaDN*deltal;
 		
-		k1=k1+1;
+		k=k+1;
 		cout << " arresto " << normL2YhCS(tmp4) << endl;
 		//aggiorna tolleranza
 		toll = normL2YhCS(tmp4);
