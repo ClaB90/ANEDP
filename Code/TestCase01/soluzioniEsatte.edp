@@ -14,32 +14,29 @@
  * 														 					*
  ****************************************************************************/
 
-//Definiamo le funzioni 
+//Definiamo le funzioni esatte per w
 func we = -(pi^2)*exp(a1*(pi^2)*t)*g/(2.+a1);
-func pe = wa -waT;
-func pe2=exp(a1*(pi^2)*(t-dt))*g-g*exp(a1*(pi^2)*T);
-func pep=exp(a1*(pi^2)*(t+0.5*dt))*g-g*exp(a1*(pi^2)*T);
-func pepp=exp(a1*(pi^2)*(t+dt))*g-g*exp(a1*(pi^2)*T);
-
-
-real t1=dt*3./2.;
-real t2=dt/2.;
-
+//per il calcolo dell'errore è necessario definire la funzione esatta di w in diversi t
 func wep=-(pi^2)*exp(a1*(pi^2)*(t+dt/2.))*g/(2.+a1);
 func wepppp=-(pi^2)*exp(a1*(pi^2)*(t+0.75*dt))*g/(2.+a1);
 func wepp=-(pi^2)*exp(a1*(pi^2)*(t+dt))*g/(2.+a1);
 func weppp=-(pi^2)*exp(a1*(pi^2)*(t+1.5*dt))*g/(2.+a1);
 func weppppp=-(pi^2)*exp(a1*(pi^2)*(t+dt/4.))*g/(2.+a1);
-func wedx = (-pi^2)*exp(a1*(pi^2)*t1)*g/(2.+a1);
-func wesx = (-pi^2)*exp(a1*(pi^2)*t2)*g/(2.+a1);
+
+//Definiamo le funzioni esatte per p
+func pe = wa -waT;
+//per il calcolo dell'errore è necessario definire la funzione esatta di p in diversi t
+func pe2=exp(a1*(pi^2)*(t-dt))*g-g*exp(a1*(pi^2)*T);
+func pep=exp(a1*(pi^2)*(t+0.5*dt))*g-g*exp(a1*(pi^2)*T);
+func pepp=exp(a1*(pi^2)*(t+dt))*g-g*exp(a1*(pi^2)*T);
 
 /* ues = BPUab( -(exp(a1*pi^2*t))/(4*alpha) - (exp(a1*pi^2*T)) )
  * La costruzione della funzione esatta di u implica quindi l'utilizzo dell'operatore
  * di proiezione	
  */
 func uenonproject = (-1./(4.*alpha))*(exp(a1*(pi^2)*t)-exp(a1*(pi^2)*T));
-func uenonproject2 = (-1./(4.*alpha))*(exp(a1*(pi^2)*(t+dt))-exp(a1*(pi^2)*T));
-func uenonproject3 = (-1./(4.*alpha))*(exp(a1*(pi^2)*(t+dt/2.))-exp(a1*(pi^2)*T));/* La funzione uet(t) prende in ingresso un tempo e calcola il valore della u esatta 
+
+/* La funzione uet(t) prende in ingresso un tempo e calcola il valore della u esatta 
  * in quel istante temporale
  */
 func real uet(real x)

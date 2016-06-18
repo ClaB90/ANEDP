@@ -39,7 +39,6 @@ func g0nonprojdx = -(exp(a1*(pi^2)*t)+exp(a1*(pi^2)*T))/(4.*alpha);
 func g0nonprojsx=(-(pi^4.)/4.)*(exp(a1*(pi^2)*(t-dt))-exp(a1*(pi^2)*T)) ;
 
 real g0partdx, g0partsx;
-
 func g0IIdx=PUabScal(g0partdx); 
 func g0IIsx=PUabScal(g0partsx);
 
