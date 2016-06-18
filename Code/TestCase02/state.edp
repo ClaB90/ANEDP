@@ -26,18 +26,9 @@ func w0 = g;
 // wb funzione al bordo di dirchlet 
 func wb = 0.;
 
-/* Parametri per il calcolo dell'errore dello stato
- * errStateL2 = || pi*y -y_k ||L2
- *
- * errProjectStateL2 = || y -pi*y_k ||L2
- */
-real errStateL2=0.;
-real errProjectStateL2 = 0.;
-real errStateLinf = 0.;
-
 /****************** 01.SPAZI FUNZIONALI ******************/
 
-fespace Yh( Th, P2 );
+fespace Yh( Th, P1 );
 
 /* w soluzione del problema di stato al passo temporale corrente
  * wold suluzione del problema di stato al passo temporale precedente
@@ -54,8 +45,13 @@ Yh[int] statesol(nsol);
  */
 include "funzioniErrore.edp";
 
+/* Parametri per il calcolo dell'errore dell problema di stato
+ */
+real errStateL2=0.;
+real errProjectStateL2 = 0.; 
+real errStateLinf = 0.; 
+
 /******************  02.PROBLEMA SPAZIALE ******************/
- 
  
 /* Lo schema di integrazione temporale implementato è una variante di Crank-Nicolson
  * in particolare viene effettuato:
@@ -81,7 +77,7 @@ func int setscheme(int value)
 	    gamma3=0.;
 	    gamma4=1./2.;
 	}
-	// CN => value == 0
+	// CN => value == 1
 	else if (value == 1)
 	{	
 		gamma1=1./2.;
@@ -89,7 +85,7 @@ func int setscheme(int value)
 	    gamma3=0.;
 	    gamma4=1.;
 	}
-	// EA => value == 0
+	// EA => value == 2
 	else if (value == 2)
 	{
 		gamma1=0.;
@@ -115,15 +111,14 @@ varf s(w,wtest) =   int2d(Th)( w*wtest/dt )
 varf statetn(w,wtest) =   int2d(Th)( wold*wtest/dt)
 				  		- int2d(Th)( gamma2*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) ) )
 							//contributo di u
-						+ int2d(Th)( gamma3*( ui*g*wtest ))
-				 		+ int2d(Th)( gamma4*( uold*g*wtest ))
+						+ int2d(Th)( gamma3*( g*ui*wtest ))
+				 		+ int2d(Th)( gamma4*( g*uold*wtest ))
 							//contributo di g0
 						+ int2d(Th)( gamma3*( g0*wtest ))
 				 		+ int2d(Th)( gamma4*( g0old*wtest ));
 					  
 matrix S; 
 real[int] statebc(Yh.ndof);
-
 
 /****** 03.FUNZIONE PER SOLUZIONE IN SPAZIO ******/ 
 func real statexy(real k)
@@ -150,6 +145,9 @@ func real statexy(real k)
 	//Risolvo
 	w[] = S^-1*tmp;
 	
+	//salvo in statesol
+	statesol[k]=w;
+	
 	return 0;
 }
 
@@ -160,7 +158,7 @@ func real statet()
 	
 	//inizializzo le variabili iniziali ogni volta che chiamo la funzione
 	wold=w0;
-	real savet=t;
+	real savet =t;
 	t=dt;
 	
 	//Primo passo di EI con passo temporale dt/2
@@ -172,13 +170,9 @@ func real statet()
 	
 	//aggiorno g0IIsx il dx non compare quindi non lo calcolo
 	g0partsx = g0nonprojsx;
-	g0IIsx = PUabScal(g0partsx);
 	
 	//Risolvo
     statexy(0);
-    
-	//salvo la mia soluzione al passo k
-	statesol[0]=w;
 	
 	//aggiorno wold, uold e il tempo
 	wold=w;
@@ -193,13 +187,9 @@ func real statet()
 		
 		//aggiorno g0IIsx il dx non compare quindi non lo calcolo
 		g0partsx = g0nonprojsx;
-		g0IIsx = PUabScal(g0partsx);
 		
-		//Risolvo
+		//Risolvo e salvo
 	    statexy(i);
-		
-		// salvo la mia soluzione al passo precedente
-		statesol[i]=w;
 		
 		//aggiorno wold, uold, il tempo e g0old
 		wold=w;
@@ -214,30 +204,16 @@ func real statet()
 	
 	//aggiorno g0IIdx il sx non compare quindi non lo calcolo
 	g0partdx = g0nonprojdx;
-	g0IIdx = PUabScal(g0partdx);
 	
 	//Risolvo
     statexy(nsol-1);
-	
-	statesol[nsol-1]=w;
 	
 	//Calcolo dell'errore
 	errStateL2 = normL2state();
 	errProjectStateL2 = stateprojtrap();
 	errStateLinf = normLinfstate();
 	
-	t=savet;
+	t = savet;
 	
 	return 0;
 }
-
-
-
-
-
-
-
-
-
-
-

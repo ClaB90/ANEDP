@@ -28,6 +28,32 @@ func real PUabScal(real z)
 	return tmp;
 }
 
+/* La funzione PUabScal prende uno scalare e lo proietta nel insieme ammissibile U[a,b]
+ */
+func real PUabScalnomaxmin(real& z)
+{
+	real tmp=0.;
+	
+	if( z <= a )
+	{
+		tmp = a;
+	}
+	else if (z >= b)
+	{
+		tmp=b;
+	}
+	else
+	{
+		tmp=z;
+	}
+	
+	//tmp = max( a, min( z, b ) );
+		
+	return tmp;
+}
+
+/* La funzione PUab prende un vettore e lo proietta nel insieme ammissibile U[a,b]
+ */
 func real[int] PUab(real[int]& z)
 {
 	real[int] tmp(nsol);
@@ -36,6 +62,23 @@ func real[int] PUab(real[int]& z)
   	{
 	  tmp[i] = PUabScal(z[i]);
 	  //cout << "u[ " << i << "  ]" << u[i] << endl;
+  	}
+		
+	return tmp;
+}
+
+/* La funzione PUabMatrixPh prende un vettore di soluzioni di Ph e lo proietta nel insieme ammissibile U[a,b]
+ */
+func real[int,int] PUabMatrixPh(real[int,int]& z, int& ncol)
+{
+	real[int,int] tmp(nsol,ncol);
+	
+  	for(int i=0; i<nsol; i++)
+  	{
+	  for(int j=0; j<ncol; i++)
+	  {
+	  	  tmp(i,j) = PUabScal(z(i,j));
+	  }
   	}
 		
 	return tmp;

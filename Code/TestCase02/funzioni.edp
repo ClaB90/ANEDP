@@ -22,6 +22,7 @@ func wa = cos((t/T)*2.*pi*a1)*g;
 func waT = cos(2.*pi*a1)*g;
 
 func wd = g*( cos((t/T)*2.*pi*a1)*(1.-2.*pi^2) - (2.*pi*a1/T)*sin((t/T)*2.*pi*a1) + 2.*pi^2*cos(2.*pi*a1) );
+func wdp=(a1^2-5.)*pi^2*exp(a1*pi^2*(t+dt/2.))*g/(a1+2.)+2.*pi^2*waT;
 func wdnext = g*( cos(((t+dt)/T)*2.*pi*a1)*(1.-2.*pi^2) - (2.*pi*a1/T)*sin(((t+dt)/T)*2.*pi*a1) + 2.*pi^2*cos(2.*pi*a1) );
 
 /*la forzante del problema ha la seguente forma
@@ -33,9 +34,13 @@ func wdnext = g*( cos(((t+dt)/T)*2.*pi*a1)*(1.-2.*pi^2) - (2.*pi*a1/T)*sin(((t+d
  */
 func g0Idx = g*2.*pi*( -(a1/T)*sin((t/T)*2.*pi*a1) + pi*cos((t/T)*2.*pi*a1) );
 func g0Isx= g*2.*pi*( -(a1/T)*sin(((t-dt)/T)*2.*pi*a1) + pi*cos(((t-dt)/T)*2.*pi*a1) );
+
 func g0nonprojdx = ( -(1./(4.*alpha))*cos((t/T)*2.*pi*a1) +(1./(4.*alpha)) );
 func g0nonprojsx= ( -(1./(4.*alpha))*cos(((t-dt)/T)*2.*pi*a1) +(1./(4.*alpha)) );
-real g0partdx, g0IIdx, g0partsx, g0IIsx;
+
+real g0partdx, g0partsx;
+func g0IIdx=PUabScal(g0partdx); 
+func g0IIsx=PUabScal(g0partsx);
 
 func g0 = g0Idx - g*g0IIdx;
 func g0old = g0Isx - g*g0IIsx;
