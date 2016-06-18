@@ -27,6 +27,8 @@ real[int] errStateL2vec(nLevels),errStateLinfvec(nLevels);
 real[int] errProjectStateL2vec(nLevels);
 real[int] errAdjL2vec(nLevels),errAdjLinfvec(nLevels); 
 
+real[int] iterNewton(nLevels); 
+
 real nsolold=5.5;
 real[int] hk(nLevels);
 
@@ -45,7 +47,7 @@ for( int j=0; j<nLevels; j++)
 	real dt=T/(nsol-1);
 	cout << "======  nsol = " << nsol << " ======" << endl;
 	cout << "======  dt = " << dt << " ======" << endl;
-	
+
 	/* nel file controlparameters.edp sono contenuti i parametri necessari per il problema di controllo
 	 */
 	include "controlparameters.edp";
@@ -65,10 +67,7 @@ for( int j=0; j<nLevels; j++)
 
 	/* nel file mesh.edp è contenuta la mesh
 	 */
-	include "mesh.edp";
-
-	//Vado a salvare il pezzetto B'pk per ogni passo temporale
-	real[int] Bpk(nsol), Bpkold(nsol);
+	include "mesh.edp"; 
 
 	/* nel file state.edp sono contenuti i parametri e le funzioni necessari per il problema di stato 
 	 */
@@ -84,6 +83,7 @@ for( int j=0; j<nLevels; j++)
 	
 	//risolvo il problema di controllo
 	puntoFisso();
+	iterNewton[j]=k;
 
 	cout << "==========================" << endl;
 	cout << "Number of  iterations = " << k << endl;
@@ -159,6 +159,13 @@ for(int j=0; j<nLevels; j++)
 	cout << "EOC errStateLinf =  " << errStateLinfvec[j]/errStateLinfvec[j+1] << " Vorrei fosse ~ 1" << endl;
 	cout << "EOC errAdjL2 = " << errAdjL2vec[j]/errAdjL2vec[j+1] << " Vorrei fosse ~ 1" << endl; */
 	//cout << "EOC errAdjLinf = " << errAdjLinfvec[j]/errAdjLinfvec[j+1] << " Vorrei fosse ~ 1" << endl;
+
+}
+
+cout << "iterNewton : " << endl;
+for(int j=0; j<nLevels; j++)
+{
+	cout << " a j " << j << " iterNewton = " << iterNewton[j] <<  endl;
 
 }
 

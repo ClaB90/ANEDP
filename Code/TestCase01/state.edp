@@ -82,7 +82,7 @@ func int setscheme(int value)
 	{	
 		gamma1=1./2.;
 	    gamma2=1./2.;
-	    gamma3=0;
+	    gamma3=0.;
 	    gamma4=1.;
 	}
 	// EA => value == 2

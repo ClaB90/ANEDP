@@ -26,6 +26,8 @@ int k, Nmax;
 alpha = pi^(-4);    
 epsilon = 1e-5;    
 Nmax = 300;        
-k = 0;  
+k = 1;  
 
 real[int] u(nsol); 
+
+real[int] Bpk(nsol), Bpkold(nsol);
