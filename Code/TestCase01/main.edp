@@ -15,7 +15,7 @@ verbosity=0;
 /****** 00.PARAMETRI ******/
 
 //Max number of temporal refinement levels
-int nLevels = 6;
+int nLevels = 1;
 
 /* Parametri temporali */
 real T=0.1;
@@ -102,10 +102,9 @@ for( int j=0; j<nLevels; j++)
 	saveControl(j);
 	saveAdj(j);
 	
-	cout << "uh" << endl;
-	cout << u << endl;
-	cout << "ue" << endl;
-	cout << ue << endl;
+	cout << " errore " << controlErrL2(u) << endl;
+	cout << " errore " << errStateL2 << endl;
+	cout << " errore " << normL2adj() << endl;
 	
 }
 

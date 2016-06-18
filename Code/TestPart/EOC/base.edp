@@ -1,0 +1,62 @@
+real T=0.1;
+real t=0.;
+
+verbosity = 0.;
+
+int nsol = 3;
+real dt=T/(nsol-1);
+
+include "controlparameters.edp";
+
+include "UabSet.edp";   
+
+include "funzioni.edp";
+
+include "soluzioniEsatte.edp";       
+
+include "mesh.edp"; 
+
+include "state.edp";
+
+include "adjoint.edp";
+	
+include "normeeprodotti.edp";
+
+include "funzioniCG.edp";
+	
+real[int,int] l(nsol,Yh.ndof);
+include "controlfunction.edp";
+
+l=-1.;
+real[int,int] l1(nsol,Yh.ndof);
+real[int,int] l2(nsol,Yh.ndof);
+real[int,int] l3(nsol,Yh.ndof);
+real[int,int] l4(nsol,Yh.ndof);
+real[int,int] l5(nsol,Yh.ndof);
+real[int,int] l6(nsol,Yh.ndof);
+real[int,int] l7(nsol,Yh.ndof);
+real[int,int] l8(nsol,Yh.ndof);
+real f1,f2,f3;
+real[int] l1vec(nsol);
+//l1=0.;
+//l2=mat2(l1,l);
+//l3=rightCG(l);
+//l3=l3-l2;
+//l4=mat2(l3,l);
+
+
+puntoFisso();
+u=PUab(Bpk);
+for(int i=0; i<nsol; i++)
+{
+	cout << " Bpk " << i << " " << Bpk[i] << endl;
+    	
+}
+statet();
+adjointt();
+
+cout << " errore " << normL2adj() << endl;
+
+
+
+	

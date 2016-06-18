@@ -9,7 +9,7 @@
  *					    - funzione per la soluzione del problema temporale  		  *
  * 		Dipendenze: main -> nsol + paramtri temporali 							 	  * 
  * 					state -> statesol(nsol) ed wd 									  * 
- * 									   necessarie per il calcolo dell'errore     	  *
+ * 								necessarie per il calcolo dell'errore     	  		  *
  * 														 				 	 	 	  *
  **************************************************************************************/
 
@@ -24,12 +24,13 @@ Yh h, hnext;
 
 /****** 01.SPAZI FUNZIONALI ******/
 
-fespace Ph( Th, P1 );
-Ph p, pnext, ptest;
+//fespace Ph( Th, P1 );
+Yh p, pnext, ptest;
+int dofPh = Yh.ndof;
 
 //vettore della soluzioni p ad ogni passo temporale
 //m serve per il calcolo dell'errore.
-Ph[int] adjsol(nsol);
+Yh[int] adjsol(nsol);
 adjsol[nsol-1] = pT;
 
 /* nel file funzioniErrore.edp le funzioni necessarie per il calcolo dell'errore del problema di stato
@@ -51,7 +52,6 @@ varf adjtn(p,ptest) =   int2d(Th)( pnext*ptest/dt )
     				  - int2d(Th)( 0.5*( dx(pnext)*dx(ptest) + dy(pnext)*dy(ptest) ) ) 
   					  + int2d(Th)( 0.5*( h*ptest ) ) 
   					  + int2d(Th)( 0.5*( hnext*ptest ) );
-
 /*
 problem adjoint( p, ptest) = - int2d(Th)( pnext*ptest/dt )
 							 + int2d(Th)( p*ptest/dt )			
@@ -67,7 +67,7 @@ problem adjoint( p, ptest) = - int2d(Th)( pnext*ptest/dt )
  */
 
 matrix Adj; 
-real[int] adjbc(Ph.ndof);
+real[int] adjbc(Yh.ndof);
 
 /****** 03.FUNZIONE PER SOLUZIONE IN TEMPO ******/ 
 
@@ -75,8 +75,8 @@ func real adjointt()
 {
 	cout << "Adjoint " << endl;
 	
-	real[int] tmpadj(Ph.ndof);
-	
+	real[int] tmpadj(Yh.ndof);
+	Yh wdr;
 	//inizializzo le variabili iniziali ogni volta che chiamo la funzione
 	int j = nsol;
 	
@@ -84,33 +84,39 @@ func real adjointt()
 	pnext=pT;
 	t=T;
 	
+	//h = statesol[j-1] - wd;
+	
 	j--;
 	t=t-dt;
 	
 	//Calcolo S e bc
-	Adj=adj(Ph,Ph,solver=GMRES);
-	adjbc=adj(0,Ph);
+	Adj=adj(Yh,Yh,solver=CG);
+	adjbc=adj(0,Yh);
 
 	//Devi risolvere un passo in meno per l'aggiunta poichè beta_0 == 0
 	while( j > 0 )
 	{
 		//cout << "siamo al tempo   = " << t << endl;
-		h = statesol[j-1] - wd;
-		hnext = statesol[j-1] - wdnext;
 		
-		tmpadj = adjtn(0,Ph);
+		//hnext = h;
+		
+		//h = statesol[j-1] - wd;
+		hnext=statesol[j-1]-wdpp;
+		h=statesol[j-1]-wd;
+		
+		
+		tmpadj = adjtn(0,Yh);
 		tmpadj += adjbc;
 		
 		//Risolvo
 		p[] = Adj^-1*tmpadj;
 		//adjoint;
 		
-		//plot( p, nbiso=40, value = 1, fill=1, wait = 0, cmm="p" );
 		pnext=p;
 		adjsol[j-1] = p;
 		
 		
-		Bpk[j-1] = (-1./alpha)*int2d(Th)( p * g );
+		Bpk[j-1]= (-1./alpha)*int2d(Th)( p * g );
 		
 		
 		t -= dt;

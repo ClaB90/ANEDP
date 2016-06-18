@@ -59,7 +59,7 @@ func real uet(real x)
  */
 func real[int] ueproject()
 {
-	real tmp=0,savet=t;
+	real tmp=0;
 	real[int] control(nsol);
 	
 	//inizializzo t che parte da 0
@@ -71,8 +71,6 @@ func real[int] ueproject()
 		control[i] = PUabScal(tmp);
 		t +=dt;
 	}
-	
-	t=savet;
 	
 	return control;
 	
@@ -87,7 +85,7 @@ ue = ueproject();
  */
 func real[int] uepuntimedi()
 {
-	real tmp=0, savet=t;
+	real tmp=0;
 	real[int] control(nsol-1);
 	
 	//inizializzo t che parte da 0
@@ -99,8 +97,6 @@ func real[int] uepuntimedi()
 		control[i] = PUabScal(tmp);
 		t +=dt;
 	}
-	
-	t=savet;
 	
 	return control;
 	

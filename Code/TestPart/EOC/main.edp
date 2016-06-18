@@ -15,7 +15,7 @@ verbosity=0;
 /****** 00.PARAMETRI ******/
 
 //Max number of temporal refinement levels
-int nLevels = 2;
+int nLevels = 6;
 
 /* Parametri temporali */
 real T=0.5;
@@ -27,8 +27,7 @@ real[int] errStateL2vec(nLevels),errStateLinfvec(nLevels);
 real[int] errProjectStateL2vec(nLevels);
 real[int] errAdjL2vec(nLevels),errAdjLinfvec(nLevels);  
 
-real nsolold=5.5;
-real[int] hk(nLevels);
+int nsolold=6;
 
 /* NB: fissato un numero di soluzioni il numero di intervalli sarà nsol-1 poichè la soluzione è nota per i valori nodali. 
  * Per conformità con il paper di riferimento
@@ -38,17 +37,14 @@ real[int] hk(nLevels);
  */
 for( int j=0; j<nLevels; j++)
 {
-	//int nsol = 2*nsolold-1;
-	int nsol = ( 2^(j+1) +1 );
+	int nsol = 2*nsolold-1;
 	nsolold=nsol;
-	hk[j]=nsol;
 	real dt=T/(nsol-1);
-	cout << "======  nsol = " << nsol << " ======" << endl;
 	cout << "======  dt = " << dt << " ======" << endl;
 
 	/* nel file controlparameters.edp sono contenuti i parametri necessari per il problema di controllo
 	 */
-	include "controlparameters.edp"; 
+	include "controlparameters.edp";
 
 	/* nel file funzioni.edp sono contenute le funzioni che caratterizzano l'operatore B ed yd
 	 */
@@ -74,15 +70,23 @@ for( int j=0; j<nLevels; j++)
 	/* nel file adjoint.edp sono contenuti i parametri e le funzioni necessari per il problema aggiunto 
 	 */
 	include "adjoint.edp";
+	
+	/* nel file normeeprodotti.edp sono contenute le funzioni per il calcolo delle norme e del prodotto vettoriale
+	 */
+	include "normeeprodotti.edp";
 
+	/* nel file funzioniCG.edp le funzioni necessarie per l'algoritmo del gradiente coniugato 
+	 */
+	include "funzioniCG.edp";
+	
 	/* nel file controlparameters.edp sono contenute le funzione per la risoluzione per il problema di controllo
 	 */
 	include "controlfunction.edp";
-	
+
 	//risolvo il problema di controllo
 	puntoFisso();
 
-	{cout << "==========================" << endl;
+	cout << "==========================" << endl;
 	cout << "Number of  iterations = " << k << endl;
 
 	errControlL2vec[j] = controlErrL2(u);
@@ -94,7 +98,6 @@ for( int j=0; j<nLevels; j++)
 	//errAdjL2vec[j] = errAdjLinf;
 
 	//cout << "errAdjL2vec[j] = " << errAdjLinf << endl;
-
 	/*
 	cout << "Errore errControlL2 = " << errControlL2 << endl;
 	cout << "Errore errControlLinf = " << errControlLinf << endl;
@@ -114,28 +117,17 @@ for( int j=0; j<nLevels; j++)
 	include "saveme.edp";
 	saveControl();
 	
-	cout << Bpk << endl;
-
-	}
 }
-
 
 for(int j=0; j<nLevels-1; j++)
 {
 	cout << " j = " << j << endl;
-	
-	real EOCControlL2,EOCControlLinf, EOCStateL2, EOCStateProL2, EOCAdjL2;
-	EOCControlL2 = log10(errControlL2vec[j]/errControlL2vec[j+1])/log10(hk[j]/hk[j+1]);
-	EOCControlLinf = log10(errControlLinfvec[j]/errControlLinfvec[j+1])/log10(hk[j]/hk[j+1]);
-	EOCStateL2 = log10(errStateL2vec[j]/errStateL2vec[j+1])/log10(hk[j]/hk[j+1]);
-	EOCStateProL2 = log10(errProjectStateL2vec[j]/errProjectStateL2vec[j+1])/log10(hk[j]/hk[j+1]);
-	EOCAdjL2 = log10(errAdjL2vec[j]/errAdjL2vec[j+1])/log10(hk[j]/hk[j+1]);
-	
-	cout << "EOC errControlL2 = " << -EOCControlL2  << " Vorrei fosse ~ 2" << endl;
-	cout << "EOC errControlLinf = " <<  -EOCControlLinf << " Vorrei fosse ~ 2" <<endl;
-	cout << "EOC errProjectStateL2 = " << -EOCStateProL2 << " Vorrei fosse ~ 2" << endl;
-	cout << "EOC errStateL2 = " << -EOCStateL2 << " Vorrei fosse ~ 1" << endl;
+	cout << "EOC errControlL2 = " << errControlL2vec[j]/errControlL2vec[j+1] << " Vorrei fosse ~ 2" << endl;
+	cout << "EOC errControlLinf = " << errControlLinfvec[j]/errControlLinfvec[j+1] << " Vorrei fosse ~ 2" <<endl;
+	cout << "EOC errProjectStateL2 = " << errProjectStateL2vec[j]/errProjectStateL2vec[j+1] << " Vorrei fosse ~ 2" << endl;
+	cout << "EOC errStateL2 = " << errStateL2vec[j]/errStateL2vec[j+1] << " Vorrei fosse ~ 1" << endl;
 	cout << "EOC errStateLinf =  " << errStateLinfvec[j]/errStateLinfvec[j+1] << " Vorrei fosse ~ 1" << endl;
-	cout << "EOC errAdjL2 = " << -EOCAdjL2 << " Vorrei fosse ~ 2" << endl;
+	cout << "EOC errAdjL2 = " << errAdjL2vec[j]/errAdjL2vec[j+1] << " Vorrei fosse ~ 1" << endl;
+	//cout << "EOC errAdjLinf = " << errAdjLinfvec[j]/errAdjLinfvec[j+1] << " Vorrei fosse ~ 1" << endl;
 
 }

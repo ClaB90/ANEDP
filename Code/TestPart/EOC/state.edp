@@ -21,10 +21,19 @@
 /****************** 00.PARAMETRI E FUNZIONI ******************/
 // w0 soluzione all'istante iniziale
 t=0.;
-func w0 = -1.*(pi^2*g)/(2+a1);
+func w0 = (-1*(pi^2)*g)/(2.+a1);
 
 // wb funzione al bordo di dirchlet 
 func wb = 0.;
+
+/* Parametri per il calcolo dell'errore dello stato
+ * errStateL2 = || pi*y -y_k ||L2
+ *
+ * errProjectStateL2 = || y -pi*y_k ||L2
+ */
+real errStateL2=0.;
+real errProjectStateL2 = 0.;
+real errStateLinf = 0.;
 
 /****************** 01.SPAZI FUNZIONALI ******************/
 
@@ -36,6 +45,7 @@ fespace Yh( Th, P1 );
  * g0old forzante al passo temporale precedente
  */
 Yh w, wold, wtest;
+int dofYh = Yh.ndof;
 
 //vettore della soluzioni w ad ogni passo temporale
 Yh[int] statesol(nsol);
@@ -44,12 +54,6 @@ Yh[int] statesol(nsol);
  * e di quello di controllo 
  */
 include "funzioniErrore.edp";
-
-/* Parametri per il calcolo dell'errore dell problema di stato
- */
-real errStateL2=0.;
-real errProjectStateL2 = 0.; 
-real errStateLinf = 0.; 
 
 /******************  02.PROBLEMA SPAZIALE ******************/
  
@@ -77,15 +81,15 @@ func int setscheme(int value)
 	    gamma3=0.;
 	    gamma4=1./2.;
 	}
-	// CN => value == 1
+	// CN => value == 0
 	else if (value == 1)
 	{	
 		gamma1=1./2.;
 	    gamma2=1./2.;
-	    gamma3=0;
+	    gamma3=0.;
 	    gamma4=1.;
 	}
-	// EA => value == 2
+	// EA => value == 0
 	else if (value == 2)
 	{
 		gamma1=0.;
@@ -114,7 +118,7 @@ varf statetn(w,wtest) =   int2d(Th)( wold*wtest/dt)
 						+ int2d(Th)( gamma3*( g*ui*wtest ))
 				 		+ int2d(Th)( gamma4*( g*uold*wtest ))
 							//contributo di g0
-						+ int2d(Th)( gamma3*( g0*wtest ))
+					+ int2d(Th)( gamma3*( g0*wtest ))
 				 		+ int2d(Th)( gamma4*( g0old*wtest ));
 					  
 matrix S; 
@@ -145,9 +149,6 @@ func real statexy(real k)
 	//Risolvo
 	w[] = S^-1*tmp;
 	
-	//salvo in statesol
-	statesol[k]=w;
-	
 	return 0;
 }
 
@@ -158,7 +159,7 @@ func real statet()
 	
 	//inizializzo le variabili iniziali ogni volta che chiamo la funzione
 	wold=w0;
-	real savet =t;
+	real savet=t;
 	t=dt;
 	
 	//Primo passo di EI con passo temporale dt/2
@@ -170,9 +171,13 @@ func real statet()
 	
 	//aggiorno g0IIsx il dx non compare quindi non lo calcolo
 	g0partsx = g0nonprojsx;
+	//g0IIsx = g*PUabScal(g0partsx);
 	
 	//Risolvo
     statexy(0);
+    
+	//salvo la mia soluzione al passo k
+	statesol[0]=w;
 	
 	//aggiorno wold, uold e il tempo
 	wold=w;
@@ -187,9 +192,13 @@ func real statet()
 		
 		//aggiorno g0IIsx il dx non compare quindi non lo calcolo
 		g0partsx = g0nonprojsx;
+		//g0IIsx = g*PUabScal(g0partsx);
 		
-		//Risolvo e salvo
+		//Risolvo
 	    statexy(i);
+		
+		// salvo la mia soluzione al passo precedente
+		statesol[i]=w;
 		
 		//aggiorno wold, uold, il tempo e g0old
 		wold=w;
@@ -201,19 +210,42 @@ func real statet()
     //Passo di EA
 	setscheme(2);
 	ui=u[nsol-1];
-	
 	//aggiorno g0IIdx il sx non compare quindi non lo calcolo
+	t=T;
 	g0partdx = g0nonprojdx;
+	//g0IIdx = g*PUabScal(g0partdx);
+	
 	
 	//Risolvo
     statexy(nsol-1);
+	
+	statesol[nsol-1]=w;
 	
 	//Calcolo dell'errore
 	errStateL2 = normL2state();
 	errProjectStateL2 = stateprojtrap();
 	errStateLinf = normLinfstate();
 	
-	t = savet;
+	savet=t;
 	
 	return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
