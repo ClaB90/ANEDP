@@ -138,9 +138,7 @@ func real normL2Pr(real[int] &controlsol)
 		q = (Bpk[i]*(t+dt)-Bpk[i+1]*t)/(dt);
 		if( m == 0 )
 		{
-		err=err+dt*(PUabScal(Bpk[i])^2);	
-		
-		
+			err=err+dt*((controlsol[i])^2);	
 		}
 		else{
 		ta = (a-q)/m;

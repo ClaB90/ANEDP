@@ -15,7 +15,7 @@ verbosity=0;
 /****** 00.PARAMETRI ******/
 
 //Max number of temporal refinement levels
-int nLevels = 6;
+int nLevels = 2;
 
 /* Parametri temporali */
 real T=0.1;
@@ -25,9 +25,12 @@ real t=0.;
 real[int] errControlL2vec(nLevels),errControlLinfvec(nLevels); 
 real[int] errStateL2vec(nLevels),errStateLinfvec(nLevels);
 real[int] errProjectStateL2vec(nLevels);
-real[int] errAdjL2vec(nLevels),errAdjLinfvec(nLevels);  
+real[int] errAdjL2vec(nLevels),errAdjLinfvec(nLevels); 
+
+real[int] iterNewton(nLevels); 
 
 real nsolold=5.5;
+real[int] hk(nLevels);
 
 /* NB: fissato un numero di soluzioni il numero di intervalli sarà nsol-1 poichè la soluzione è nota per i valori nodali. 
  * Per conformità con il paper di riferimento
@@ -37,9 +40,10 @@ real nsolold=5.5;
  */
 for( int j=0; j<nLevels; j++)
 {
-	int nsol = 2*nsolold-1;
-	//int nsol = ( 2^(j+1) +1 )^2;
+	//int nsol = 2*nsolold-1;
+	int nsol = ( 2^(j+1) +1 );
 	nsolold=nsol;
+	hk[j]=nsol;
 	real dt=T/(nsol-1);
 	cout << "======  nsol = " << nsol << " ======" << endl;
 	cout << "======  dt = " << dt << " ======" << endl;
@@ -48,14 +52,14 @@ for( int j=0; j<nLevels; j++)
 	 */
 	include "controlparameters.edp";
 
-	/* nel file funzioni.edp sono contenute le funzioni che caratterizzano l'operatore B ed yd
-	 */
-	include "funzioni.edp";
-
 	/* nel file UabSet.edp vengono definiti i limiti dell'insieme Uab e le funzioni di proiezione di 
 	 * uno scalare o di un vettore sullo spazio Uab
 	 */
-	include "UabSet.edp";   
+	include "UabSet.edp";
+	
+	/* nel file funzioni.edp sono contenute le funzioni che caratterizzano l'operatore B ed yd
+	 */
+	include "funzioni.edp";   
 
 	/* nel file soluzioniEsatte.edp sono contenute le funzioni per soluzioni esatte per w,p,u
 	 */
@@ -86,75 +90,112 @@ for( int j=0; j<nLevels; j++)
 	/* nel file controlparameters.edp sono contenute le funzione per la risoluzione per il problema di controllo
 	 */
 	include "controlfunction.edp";
-
+	
 	//risolvo il problema di controllo
 	DampedNewton();
+	iterNewton[j]=k;
 	
-	real[int] l2(nsol);
+	/*real[int] l2(nsol);
 	l2=adjCG2(l);
 	for(int i=0; i<nsol; ++i)
 	{
 	    u[i]=PUabScal(l2[i]);
 	}
-	statet();
+	statet(); */
 
 	cout << "==========================" << endl;
 	cout << "Number of  iterations = " << k << endl;
 
 	errControlL2vec[j] = controlErrL2(u);
-	
-	cout << "======  errControl = " << errControlL2vec[j] << " ======" << endl;
-	//errControlLinfvec[j] = normLinfcontrol(u);
-	//errStateL2vec[j] = errStateL2;
-	//errStateLinfvec[j] = errStateLinf;
+	errControlLinfvec[j] = normLinfcontrol(u);
+	errStateL2vec[j] = errStateL2;
+	errStateLinfvec[j] = errStateLinf;
 	errProjectStateL2vec[j] = errProjectStateL2;
-	//errAdjL2vec[j] = errAdjL2; */
-	//errAdjL2vec[j] = errAdjLinf; 
+	errAdjL2vec[j] = errAdjL2;
+	//errAdjL2vec[j] = errAdjLinf;
 	
 	/* nel file saveme.edp sono contenute le funzioni per salvare le variabili in file di testo
 	 */
 	include "saveme.edp";
 	saveControl(j);
+	saveAdj(j);
 	
 }
 
 for(int j=0; j<nLevels-1; j++)
 {
 	cout << " j = " << j << endl;
-	cout << "EOC errControlL2 = " << errControlL2vec[j]/errControlL2vec[j+1] << " Vorrei fosse ~ 2" << endl;
-	//cout << "EOC errControlLinf = " << errControlLinfvec[j]/errControlLinfvec[j+1] << " Vorrei fosse ~ 2" <<endl;
-	cout << "EOC errProjectStateL2 = " << errProjectStateL2vec[j]/errProjectStateL2vec[j+1] << " Vorrei fosse ~ 2" << endl;
-	/*cout << "EOC errStateL2 = " << errStateL2vec[j]/errStateL2vec[j+1] << " Vorrei fosse ~ 1" << endl;
+	
+	real EOCControlL2,EOCControlLinf, EOCStateL2, EOCStateProL2, EOCAdjL2;
+	EOCControlL2 = log10(errControlL2vec[j]/errControlL2vec[j+1])/log10(hk[j]/hk[j+1]);
+	EOCControlL2 = abs(EOCControlL2);
+	EOCControlLinf = log10(errControlLinfvec[j]/errControlLinfvec[j+1])/log10(hk[j]/hk[j+1]);
+	EOCControlLinf = abs(EOCControlLinf);
+	EOCStateL2 = log10(errStateL2vec[j]/errStateL2vec[j+1])/log10(hk[j]/hk[j+1]);
+	EOCStateL2 = abs(EOCStateL2);
+	EOCStateProL2 = log10(errProjectStateL2vec[j]/errProjectStateL2vec[j+1])/log10(hk[j]/hk[j+1]);
+	EOCStateProL2 = abs(EOCStateProL2);
+	EOCAdjL2 = log10(errAdjL2vec[j]/errAdjL2vec[j+1])/log10(hk[j]/hk[j+1]);
+	EOCAdjL2 = abs(EOCAdjL2);
+	
+	cout << "EOC errControlL2 = " << EOCControlL2  << " Vorrei fosse ~ 2" << endl;
+	cout << "EOC errControlLinf = " <<  EOCControlLinf << " Vorrei fosse ~ 2" <<endl;
+	cout << "EOC errProjectStateL2 = " << EOCStateProL2 << " Vorrei fosse ~ 2" << endl;
+	cout << "EOC errStateL2 = " << EOCStateL2 << " Vorrei fosse ~ 1" << endl;
 	cout << "EOC errStateLinf =  " << errStateLinfvec[j]/errStateLinfvec[j+1] << " Vorrei fosse ~ 1" << endl;
-	cout << "EOC errAdjL2 = " << errAdjL2vec[j]/errAdjL2vec[j+1] << " Vorrei fosse ~ 1" << endl; */
+	cout << "EOC errAdjL2 = " << EOCAdjL2 << " Vorrei fosse ~ 2" << endl;
+	
 	//cout << "EOC errAdjLinf = " << errAdjLinfvec[j]/errAdjLinfvec[j+1] << " Vorrei fosse ~ 1" << endl;
-
+	
 }
 
-cout << "EOC errControlL2 = "  << endl;
+cout << "errControlL2 :"  << endl;
 for(int j=0; j<nLevels; j++)
 {
 	//cout << " j = " << j << endl;
-	cout << "EOC errControlL2 = " << errControlL2vec[j] << " a j " << j << endl;
-	//cout << "EOC errControlLinf = " << errControlLinfvec[j]/errControlLinfvec[j+1] << " Vorrei fosse ~ 2" <<endl;
-	cout << "EOC errProjectStateL2 = " << errProjectStateL2vec[j] << " a j " << j << endl;
-	/*cout << "EOC errStateL2 = " << errStateL2vec[j]/errStateL2vec[j+1] << " Vorrei fosse ~ 1" << endl;
-	cout << "EOC errStateLinf =  " << errStateLinfvec[j]/errStateLinfvec[j+1] << " Vorrei fosse ~ 1" << endl;
-	cout << "EOC errAdjL2 = " << errAdjL2vec[j]/errAdjL2vec[j+1] << " Vorrei fosse ~ 1" << endl; */
-	//cout << "EOC errAdjLinf = " << errAdjLinfvec[j]/errAdjLinfvec[j+1] << " Vorrei fosse ~ 1" << endl;
+	cout << " a j " << j << " errControlL2 = " << errControlL2vec[j] <<  endl;
 
 }
 
-cout << "EOC errProjectStateL2 = " << endl;
+cout << "errProjectStateL2 : " << endl;
 for(int j=0; j<nLevels; j++)
 {
-	//cout << " j = " << j << endl;
+	cout << " a j " << j << " errProjectStateL2 = " << errProjectStateL2vec[j] <<  endl;
+}
+
+cout << "errStateL2 : " << endl;
+for(int j=0; j<nLevels; j++)
+{
+	
+	cout << " a j " << j << " errStateL2 = " << errStateL2vec[j] <<  endl;
+
+}
+
+cout << "errAdjL2vec : " << endl;
+for(int j=0; j<nLevels; j++)
+{
+	cout << " a j " << j << " errAdjL2vec = " << errAdjL2vec[j] <<  endl;
 	//cout << "EOC errControlL2 = " << errControlL2vec[j] << " a j " << j << endl;
 	//cout << "EOC errControlLinf = " << errControlLinfvec[j]/errControlLinfvec[j+1] << " Vorrei fosse ~ 2" <<endl;
-	cout << "EOC errProjectStateL2 = " << errProjectStateL2vec[j] << " a j " << j << endl;
+	//cout << "EOC errStateL2 = " << errProjectStateL2vec[j] << " a j " << j << endl;
 	/*cout << "EOC errStateL2 = " << errStateL2vec[j]/errStateL2vec[j+1] << " Vorrei fosse ~ 1" << endl;
 	cout << "EOC errStateLinf =  " << errStateLinfvec[j]/errStateLinfvec[j+1] << " Vorrei fosse ~ 1" << endl;
 	cout << "EOC errAdjL2 = " << errAdjL2vec[j]/errAdjL2vec[j+1] << " Vorrei fosse ~ 1" << endl; */
 	//cout << "EOC errAdjLinf = " << errAdjLinfvec[j]/errAdjLinfvec[j+1] << " Vorrei fosse ~ 1" << endl;
 
 }
+
+cout << "iterNewton : " << endl;
+for(int j=0; j<nLevels; j++)
+{
+	cout << " a j " << j << " iterNewton = " << iterNewton[j] <<  endl;
+
+}
+
+
+
+
+
+
+
+

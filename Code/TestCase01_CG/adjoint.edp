@@ -49,16 +49,7 @@ varf adj(p,ptest) =   int2d(Th)( p*ptest/dt )
 varf adjtn(p,ptest) =   int2d(Th)( pnext*ptest/dt )
     				  - int2d(Th)( 0.5*( dx(pnext)*dx(ptest) + dy(pnext)*dy(ptest) ) ) 
   					  + int2d(Th)( 0.5*( h*ptest ) ) 
-  					  + int2d(Th)( 0.5*( hnext*ptest ) );
-/*
-problem adjoint( p, ptest) = - int2d(Th)( pnext*ptest/dt )
-							 + int2d(Th)( p*ptest/dt )			
-						     + int2d(Th)( 0.5*( dx(p)*dx(ptest) + dy(p)*dy(ptest) ) ) 
-						     + int2d(Th)( 0.5*( dx(pnext)*dx(ptest) + dy(pnext)*dy(ptest) ) ) 
-						     - int2d(Th)( 0.5*( h*ptest ) ) 
-						     - int2d(Th)( 0.5*( hnext*ptest ) ) 
-						     + on(1,2,3,4, p=pb); 
-*/ 
+  					  + int2d(Th)( 0.5*( hnext*ptest ) ); 
 
 /* NB - u non cambia al passo temporale della p quello che cambia è la h, se dipende dal tempo, 
  *   	 quindi bisogna tener traccia della hnext;
@@ -81,7 +72,6 @@ func real adjointt()
 	Bpk[j-1] = pT;
 	pnext=pT;
 	t=T;
-	h = statesol[j-1] - wd;
 	
 	j--;
 	t=t-dt;
@@ -94,9 +84,8 @@ func real adjointt()
 	while( j > 0 )
 	{
 		//cout << "siamo al tempo   = " << t << endl;
-		
-		hnext = h;
 		h = statesol[j-1] - wd;
+		hnext = statesol[j-1] - wdnext;
 		
 		tmpadj = adjtn(0,Yh);
 		tmpadj += adjbc;
@@ -108,7 +97,7 @@ func real adjointt()
 		pnext=p;
 		adjsol[j-1] = p;
 		
-		Bpk[j-1]= (-1./alpha)*int2d(Th)( p * g );
+		Bpk[j-1] = (-1./alpha)*int2d(Th)( p * g );
 		
 		
 		t -= dt;
