@@ -10,26 +10,26 @@
  * 		Dipendenze:	funzioni.edp -> waT e a1						        *		
  *				    main -> parametro alpha									*
  * 					UabSet -> PUabscal									 	*
- * 														 					*
+ * 					costante c1 = 2.*pi*a1/T definita in funzioni.edp		*
  * 														 					*
  ****************************************************************************/
 
 //Definiamo le funzioni 
-func we = cos((t/T)*2.*pi*a1)*g;
+func we = cos(c1*t)*g;
 //per il calcolo dell'errore è necessario definire la funzione esatta di w in diversi t
-func wep = cos(((t+dt/2.)/T)*2.*pi*a1)*g;
-func wepppp = cos(((t+0.75*dt)/T)*2.*pi*a1)*g;
-func wepp = cos(((t+dt)/T)*2.*pi*a1)*g;
-func weppp = cos(((t+1.5*dt)/T)*2.*pi*a1)*g;
-func weppppp = cos(((t+dt/4.)/T)*2.*pi*a1)*g;
+func wep = cos(c1*(t+dt/2.))*g;
+func wepppp = cos(c1*(t+0.75*dt))*g;
+func wepp = cos(c1*(t+dt))*g;
+func weppp = cos(c1*(t+1.5*dt))*g;
+func weppppp = cos(c1*(t+dt/4.))*g;
 
 //Definiamo le funzioni esatte per p
 func pe = wa -waT;
 //per il calcolo dell'errore è necessario definire la funzione esatta di p in diversi t
-func pe2 = cos(((t-dt)/T)*2.*pi*a1)*g - waT;
-func pep = cos(((t+0.5*dt)/T)*2.*pi*a1)*g - waT;
-func pepp = cos(((t+dt)/T)*2.*pi*a1)*g - waT;
-func pemed = cos(((t+dt/.2)/T)*2.*pi*a1)*g - waT;
+func pe2 = cos(c1*(t-dt))*g - waT;
+func pep = cos(c1*(t+dt/2.))*g - waT;
+func pepp = cos(c1*(t+dt))*g - waT;
+func pemed = cos(c1*(t+dt/2.))*g - waT;
 
 /* ues = BPUab( -(exp(a1*pi^2*t))/(4*alpha) - (exp(a1*pi^2*T)) )
  * La costruzione della funzione esatta di u implica quindi l'utilizzo dell'operatore

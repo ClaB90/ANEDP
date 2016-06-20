@@ -1,4 +1,4 @@
-real N=10;
+real N=30;
 mesh Th = square( N, N, flags=1 );
 
 /* Con N=130 abbiamo una mesh con:

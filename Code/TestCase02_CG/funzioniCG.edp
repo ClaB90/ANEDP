@@ -137,7 +137,8 @@ func real[int,int] adjCG(real[int,int] &xx)
 	int j = nsol-1;
 	pnext=pT;
 	AdjSolCG(j,:)=pT;
-	h[]=xx(j,:);
+	t=T;
+	//h[]=xx(j,:);
 	
 	//Calcolo il valore della matrice Adj e delle condizioni al bordo
 	Adj=adj(Yh,Yh,solver=GMRES);
@@ -145,9 +146,10 @@ func real[int,int] adjCG(real[int,int] &xx)
     
 	while( j > 0 )
 		{	
+			//PER EDO se le metto entrambe a j-1 non converge Newton
 			hnext[]=xx(j,:);
 			//hnext[]=xx(j-1,:);
-		    	h[]=xx(j-1,:);
+		    h[]=xx(j-1,:);
 			//h -= - help2;
 			
 			//calcolo il termine noto

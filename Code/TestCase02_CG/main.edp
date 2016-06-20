@@ -83,7 +83,7 @@ for( int j=0; j<nLevels; j++)
 	include "normeeprodotti.edp";
 
 	real[int,int] l(nsol,Yh.ndof);
-	l=b;
+	l=a;
 	/* nel file funzioniCG.edp le funzioni necessarie per l'algoritmo del gradiente coniugato 
 	 */
 	include "funzioniCG.edp";
