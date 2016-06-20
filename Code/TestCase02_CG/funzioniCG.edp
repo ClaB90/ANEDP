@@ -218,7 +218,7 @@ func real[int] adjCG3(real[int,int]& xx)
  * 		l'operazione di proiezione deve essere fatta all'interno di StateCG, quando si crea la matrice,
  * 		per minimizzare l'errore di approssimazione della soluzione 
  */
-func real[int,int] projectAdjCG(real[int,int] &xx)
+/*func real[int,int] projectAdjCG(real[int,int] &xx)
 {
 	real[int,int] tmp(nsol,Yh.ndof);
 	
@@ -227,10 +227,10 @@ func real[int,int] projectAdjCG(real[int,int] &xx)
 	//molitiplico per (-1./alpha)
 	tmp = tmp*(-1./alpha);
 	//proietto su [a,b]
-	tmp = PUabMatrixPh(tmp,dofYh);
+	tmp = PUabMatrixPh(tmp,Yh.ndof);
 	
 	return tmp;
-}
+}*/
 
 /* La funzione rightCG risolve il termine a destra dell'equazione
  *  ( I + (1/alpha)*ShIAd)dl = - (l+wd) + ShP[a,b](-(1/alpha)Ad(l))

@@ -4,8 +4,9 @@
  *				Claudia Bonomi 							 					          *
  *											   			 					          *
  *  	Descrizione: Per il problema di controllo definiamo  					      *
- *						- funzione puntoFisso										  *
- * 														 				 	 	 	  *
+ *						- funzione puntoFisso										 *
+ * 						- funzione DN						 				 	 	 	  *
+* 														 				 	 	 	  *
  * 		Dipendenze: state.edp -> statet()											  * 
  * 					adjoit.edp -> adjoint()											  *
  * 					UabSet.edp -> P(Uab)								 			  *

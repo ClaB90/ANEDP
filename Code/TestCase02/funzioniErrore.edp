@@ -148,6 +148,30 @@ func real controltrap(real[int]& controlsol)
 
 /* Calcolo della || ues - u_k ||L2 con il metodo di cavalieri simpson
  */
+func real controlCS2(real[int]& controlsol)
+{
+	real tmp=0., med=0.;
+	
+	for( int i=0; i< nsol-1; i++)
+	{
+		med = (Bpk[i] + Bpk[i+1])/2.;
+		med = PUabScal(med);
+		
+		tmp += (   int2d(Th)( ( (controlsol[i]-ue[i])^2 ) )
+				 + int2d(Th)( ( (controlsol[i+1]-ue[i+1])^2 ) )
+				 + int2d(Th)( ( 4.*( uemed[i] - med )^2) )
+					  )*(dt/6.);
+		
+	}
+	
+	tmp = sqrt(tmp);
+	
+	return tmp;
+}
+
+/* Calcolo della || ues - u_k ||L2 con il metodo di cavalieri simpson
+ * con u real[int,int]
+ */
 func real controlCS(real[int,int]& controlsol)
 {
 	real tmp=0.;

@@ -232,7 +232,7 @@ func real[int,int] projectAdjCG(real[int,int] &xx)
 	//molitiplico per (-1./alpha)
 	tmp = tmp*(-1./alpha);
 	//proietto su [a,b]
-	tmp = PUabMatrixPh(tmp,dofYh);
+	tmp = PUabMatrixPh(tmp,Yh.ndof);
 	
 	return tmp;
 }

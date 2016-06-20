@@ -26,7 +26,7 @@ func weppppp = cos(((t+dt/4.)/T)*2.*pi*a1)*g;
 //Definiamo le funzioni esatte per p
 func pe = wa -waT;
 //per il calcolo dell'errore è necessario definire la funzione esatta di p in diversi t
-func pe2 = cos((t/T)*2.*pi*a1)*g - waT;
+func pe2 = cos(((t-dt)/T)*2.*pi*a1)*g - waT;
 func pep = cos(((t+0.5*dt)/T)*2.*pi*a1)*g - waT;
 func pepp = cos(((t+dt)/T)*2.*pi*a1)*g - waT;
 func pemed = cos(((t+dt/.2)/T)*2.*pi*a1)*g - waT;

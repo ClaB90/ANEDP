@@ -80,6 +80,7 @@ func real[int] ueproject()
  */
 real[int] ue(nsol);
 ue = ueproject();
+cout << ue << endl;
 
 /* La funzione uepuntimedi() crea il vettore dei punti medi della soluzione di controllo esatta sulla griglia temporale standard
  */
