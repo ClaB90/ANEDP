@@ -20,6 +20,7 @@ int nLevels = 6;
 /* Parametri temporali */
 real T=0.1;
 real t=0.;
+real dt;
 
 /* Parametri per il calcolo dell'errore */
 real[int] errControlL2vec(nLevels),errControlLinfvec(nLevels); 
@@ -44,7 +45,7 @@ for( int j=0; j<nLevels; j++)
 	int nsol = ( 2^(j+1) +1 );
 	nsolold=nsol;
 	hk[j]=nsol;
-	real dt=T/(nsol-1);
+	dt=T/(nsol-1);
 	cout << "======  nsol = " << nsol << " ======" << endl;
 	cout << "======  dt = " << dt << " ======" << endl;
 
@@ -95,6 +96,12 @@ for( int j=0; j<nLevels; j++)
 	errProjectStateL2vec[j] = errProjectStateL2;
 	errAdjL2vec[j] = errAdjL2;
 	//errAdjL2vec[j] = errAdjLinf;
+	
+   /* nel file saveerr.edp sono contenute le funzioni per salvare gli errori e gli ordini di convergenza degli errori
+    * in file di testo e plottarli a video
+    */
+   	include "saveerr.edp";
+	saveErrorLevel(j);
 	
 	/* nel file saveme.edp sono contenute le funzioni per salvare le variabili in file di testo
 	 */

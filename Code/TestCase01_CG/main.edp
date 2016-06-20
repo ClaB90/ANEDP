@@ -116,6 +116,12 @@ for( int j=0; j<nLevels; j++)
 	errAdjL2vec[j] = errAdjL2;
 	//errAdjL2vec[j] = errAdjLinf;
 	
+   /* nel file saveerr.edp sono contenute le funzioni per salvare gli errori e gli ordini di convergenza degli errori
+    * in file di testo e plottarli a video
+    */
+   	include "saveerr.edp";
+	saveErrorLevel(j);
+	
 	/* nel file saveme.edp sono contenute le funzioni per salvare le variabili in file di testo
 	 */
 	include "saveme.edp";

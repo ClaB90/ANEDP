@@ -80,6 +80,43 @@ func real saveError(int nLevel)
 
 	}
 	
+	ff << "Dati della simulazione :"  << endl;
+	for(int j=0; j<nLevel; j++)
+	{
+		//cout << " j = " << j << endl;
+		ff << " a j " << j << " nsol = " << hk[nLevel] << " dt= " << dt <<endl;
+
+	}
+	
+	return 0;
+}
+
+
+func real saveErrorLevel(int Level)
+{
+	string errorFile;
+
+	errorFile= "PostProcessing/Error/errorFileLevel"+Level+".text";
+	
+	ofstream ff(errorFile);
+	
+	ff << "nsol = " << hk[Level] << " dt= " << dt <<endl;
+	
+	ff << "errControlL2 :"  << endl;
+	ff << " a j " << Level << " errControlL2 = " << errControlL2vec[Level] <<  endl;
+
+	ff << "errProjectStateL2 : " << endl;
+	ff << " a j " << Level << " errProjectStateL2 = " << errProjectStateL2vec[Level] <<  endl;
+
+	ff << "errStateL2 : " << endl;
+	ff << " a j " << Level << " errStateL2 = " << errStateL2vec[Level] <<  endl;
+
+	ff << "errAdjL2vec : " << endl;
+	ff << " a j " << Level << " errAdjL2vec = " << errAdjL2vec[Level] <<  endl;
+
+	ff << "iterPuntoFisso : " << endl;
+	ff << " a j " << Level << " iterPuntoFisso = " << iterPuntoFisso[Level] <<  endl;
+	
 	return 0;
 }
 

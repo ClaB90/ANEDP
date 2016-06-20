@@ -145,7 +145,7 @@ func real[int,int] adjCG(real[int,int] &xx)
     
 	while( j > 0 )
 		{	
-			hnext=h;
+			hnext[]=xx(j,:);
 			//hnext[]=xx(j-1,:);
 		    	h[]=xx(j-1,:);
 			//h -= - help2;
