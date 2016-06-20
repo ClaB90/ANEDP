@@ -35,7 +35,7 @@ func pemed = cos(((t+dt/.2)/T)*2.*pi*a1)*g - waT;
  * La costruzione della funzione esatta di u implica quindi l'utilizzo dell'operatore
  * di proiezione	
  */
-func uenonproject = g*g0nonprojdx;
+func uenonproject = g0nonprojdx;
 
 /* La funzione uet(t) prende in ingresso un tempo e calcola il valore della u esatta 
  * in quel istante temporale
