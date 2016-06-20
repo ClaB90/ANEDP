@@ -14,7 +14,7 @@
  * 														 					*
  ****************************************************************************/
 
-real a1 = 0.02;
+real a1 = 2.;
 
 func g = sin(pi*x)*sin(pi*y);
 
@@ -22,7 +22,7 @@ func wa = cos((t/T)*2.*pi*a1)*g;
 func waT = cos(2.*pi*a1)*g;
 
 func wd = g*( cos((t/T)*2.*pi*a1)*(1.-2.*pi^2) - (2.*pi*a1/T)*sin((t/T)*2.*pi*a1) + 2.*pi^2*cos(2.*pi*a1) );
-func wdp=(a1^2-5.)*pi^2*exp(a1*pi^2*(t+dt/2.))*g/(a1+2.)+2.*pi^2*waT;
+func wdp= g*( cos(((t+dt/2.)/T)*2.*pi*a1)*(1.-2.*pi^2) - (2.*pi*a1/T)*sin(((t+dt/2.)/T)*2.*pi*a1) + 2.*pi^2*cos(2.*pi*a1) );
 func wdnext = g*( cos(((t+dt)/T)*2.*pi*a1)*(1.-2.*pi^2) - (2.*pi*a1/T)*sin(((t+dt)/T)*2.*pi*a1) + 2.*pi^2*cos(2.*pi*a1) );
 
 /*la forzante del problema ha la seguente forma

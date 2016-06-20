@@ -38,8 +38,8 @@ func real[int,int] stateCG(real[int] &xx)
 	varf tnnew(w,wtest) =   int2d(Th)( wold*wtest/dt )
 					  	  - int2d(Th)( gamma2*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) ) )
 							//contributo di u
-						  + int2d(Th)(gamma3*g*(PUabScal(listate)*wtest))
-						  + int2d(Th)(gamma4*g*(PUabScal(loldstate)*wtest)) 
+						  + int2d(Th)(gamma3*(PUabScal(listate)*wtest))
+						  + int2d(Th)(gamma4*(PUabScal(loldstate)*wtest)) 
 							//contributo di go 
 						  + int2d(Th)( gamma3*( g0*wtest ))
 				 		  + int2d(Th)( gamma4*( g0old*wtest ));
@@ -144,15 +144,10 @@ func real[int,int] adjCG(real[int,int] &xx)
 	adjbc=adj(0,Yh);
     
 	while( j > 0 )
-		{
-			Yh help, help2;
-			
-			help2[] = wd;
-			help[] = wdnext;
-			
-			hnext[]=xx(j-1,:);
-			//hnext -= help;
-		    h[]=xx(j-1,:);
+		{	
+			hnext=h;
+			//hnext[]=xx(j-1,:);
+		    	h[]=xx(j-1,:);
 			//h -= - help2;
 			
 			//calcolo il termine noto
@@ -289,8 +284,8 @@ func real[int,int] mat1(real[int] &xx, real[int] &ww)
 							  * (indnew(x,y)<=b)*(indnew(x,y)>=a) == 1 se entrambe le condizioni sono rispettate 
 							  *									  == 0 altrimenti
 							  */	
-					     + int2d(Th)(gamma3*((indnew<=b)*(indnew>=a)*g*listate*wtest))
-						 + int2d(Th)(gamma4*((indold<=b)*(indold>=a)*g*loldstate*wtest));
+					     + int2d(Th)(gamma3*((indnew<=b)*(indnew>=a)*listate*wtest))
+						 + int2d(Th)(gamma4*((indold<=b)*(indold>=a)*loldstate*wtest));
    
 	
 	real[int] temp(Yh.ndof);

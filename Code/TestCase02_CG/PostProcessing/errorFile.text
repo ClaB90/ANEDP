@@ -1,0 +1,22 @@
+errControlL2 :
+ a j 1 errControlL2 = 0.0674921
+ a j 2 errControlL2 = 0.0299201
+errProjectStateL2 : 
+ a j 1 errProjectStateL2 = 0.403901
+ a j 2 errProjectStateL2 = 0.425221
+errStateL2 : 
+ a j 1 errStateL2 = 0.573774
+ a j 2 errStateL2 = 0.461935
+errAdjL2vec : 
+ a j 1 errAdjL2vec = 0.577406
+ a j 2 errAdjL2vec = 0.182591
+ j = 1
+EOC errControlL2 = 1.59248 Vorrei fosse ~ 2
+EOC errControlLinf = 1.71639 Vorrei fosse ~ 2
+EOC errProjectStateL2 = 0.100697 Vorrei fosse ~ 2
+EOC errStateL2 = 0.424436 Vorrei fosse ~ 1
+EOC errStateLinf =  0.00995964 Vorrei fosse ~ 1
+EOC errAdjL2 = 2.2538 Vorrei fosse ~ 2
+iterNewton : 
+ a j 1 iterNewton = 4
+ a j 2 iterNewton = 4
