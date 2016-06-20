@@ -56,7 +56,7 @@ func real puntoFisso()
 			  }
 		  
 		  }
-	  	  
+		  
 		  //aggiorno Bpkold
 		  Bpkold = Bpk;
 
@@ -114,6 +114,7 @@ func real DampedNewton()
 		
 		/* calcolo  <dl,grad(phi)>L2
 		 * NB prodottoL2CS prende in ingresso -grad(phi)
+		 *    e wd è gestita in prodottoL2CS
 		 */
 		tmp2 = prodottoL2CS(deltal, tmp4);
 		cout << " discesa " << tmp2 << endl;
@@ -123,7 +124,7 @@ func real DampedNewton()
 		real differ=0;
 		
 		//inexact armijo linesearch	
-		while( phi(tmp) > phi(l) + tmp2 && armijoToll > differ )
+		while( phi(tmp) > phi(l) + tmp2 /*&& armijoToll > differ*/ )
 		{
 			//aggiorni lambda			
 			lambdaDN = lambdaDN*betaDN;
@@ -134,10 +135,10 @@ func real DampedNewton()
 		    tmp2 = (lambdaDN/3.)*tmp2;
 			differ = phi(tmp)-(phi(l) + tmp2);
 			cout << " lambdaDN = " << lambdaDN << endl;	
-			cout << " phi(tmp) = " << phi(tmp) << endl;	
+			/*cout << " phi(tmp) = " << phi(tmp) << endl;	
 			cout << " phi(l)  = " << phi(l) << endl;
 			cout << " tmp2 = " << tmp2 << endl;
-			cout << " phi(l) + tmp2 = " << phi(l) + tmp2 << endl;	
+			cout << " phi(l) + tmp2 = " << phi(l) + tmp2 << endl;	 */
 		}
 
 		/* PASSO 3
@@ -148,9 +149,10 @@ func real DampedNewton()
 		cout << " iterazione Newton " << k << endl;
 		l += lambdaDN*deltal;
 		
-		cout << " arresto " << normL2YhCS(tmp4) << endl;
-		//aggiorna tolleranza
+		//aggiorna tolleranza normL2YhCS considera che tmp4 è grad(phi)+wd
 		toll = normL2YhCS(tmp4);
+		cout << " arresto " << toll << endl;
+		
 	}
 	
 	return 0;

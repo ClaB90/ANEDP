@@ -15,7 +15,7 @@ verbosity=0;
 /****** 00.PARAMETRI ******/
 
 //Max number of temporal refinement levels
-int nLevels = 8;
+int nLevels = 2;
 
 /* Parametri temporali */
 real T=0.5;
@@ -83,7 +83,7 @@ for( int j=0; j<nLevels; j++)
 	include "normeeprodotti.edp";
 
 	real[int,int] l(nsol,Yh.ndof);
-	l=a;
+	l=b;
 	/* nel file funzioniCG.edp le funzioni necessarie per l'algoritmo del gradiente coniugato 
 	 */
 	include "funzioniCG.edp";

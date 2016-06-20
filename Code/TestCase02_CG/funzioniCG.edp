@@ -38,8 +38,8 @@ func real[int,int] stateCG(real[int] &xx)
 	varf tnnew(w,wtest) =   int2d(Th)( wold*wtest/dt )
 					  	  - int2d(Th)( gamma2*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) ) )
 							//contributo di u
-						  + int2d(Th)(gamma3*(PUabScal(listate)*wtest))
-						  + int2d(Th)(gamma4*(PUabScal(loldstate)*wtest)) 
+						  + int2d(Th)(gamma3*g*(PUabScal(listate)*wtest))
+						  + int2d(Th)(gamma4*g*(PUabScal(loldstate)*wtest)) 
 							//contributo di go 
 						  + int2d(Th)( gamma3*( g0*wtest ))
 				 		  + int2d(Th)( gamma4*( g0old*wtest ));
@@ -289,8 +289,8 @@ func real[int,int] mat1(real[int] &xx, real[int] &ww)
 							  * (indnew(x,y)<=b)*(indnew(x,y)>=a) == 1 se entrambe le condizioni sono rispettate 
 							  *									  == 0 altrimenti
 							  */	
-					     + int2d(Th)(gamma3*((indnew<=b)*(indnew>=a)*listate*wtest))
-						 + int2d(Th)(gamma4*((indold<=b)*(indold>=a)*loldstate*wtest));
+					     + int2d(Th)(gamma3*((indnew<=b)*(indnew>=a)*g*listate*wtest))
+						 + int2d(Th)(gamma4*((indold<=b)*(indold>=a)*g*loldstate*wtest));
    
 	
 	real[int] temp(Yh.ndof);
@@ -437,7 +437,7 @@ func real[int,int] CG(real[int,int] &xx, real[int,int] &ww)
 	//Per entrare nel ciclio
 	r=10.;
 	
-	while(normL2Yh(r)>eps )
+	while( normL2Yh(r) > eps )
 	{
 		if( k != 0)
 		{
