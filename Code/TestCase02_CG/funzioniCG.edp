@@ -346,6 +346,7 @@ func real[int,int] mat1(real[int] &xx, real[int] &ww)
 	//Ultimo passo di EA con passo temporale dt/2
     setscheme(2);
 	listate = xx[nsol-1];
+	indnew=ww[nsol-1];
 	
 	//aggiorno valori g0
 	g0partdx = g0nonprojdx;	

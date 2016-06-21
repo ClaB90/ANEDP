@@ -1,6 +1,6 @@
 nsol = 9 dt= 0.0625
 errControlL2 :
- a j 2 errControlL2 = 0.0605005
+ a j 2 errControlL2 = 0.0602247
 errProjectStateL2 : 
  a j 2 errProjectStateL2 = 0.107963
 errStateL2 : 
