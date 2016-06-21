@@ -31,6 +31,7 @@ real[int] errAdjL2vec(nLevels),errAdjLinfvec(nLevels);
 real[int] iterPuntoFisso(nLevels); 
 
 real nsolold=5.5;
+real meshN=0.;
 real[int] hk(nLevels);
 
 /* NB: fissato un numero di soluzioni il numero di intervalli sarà nsol-1 poichè la soluzione è nota per i valori nodali. 
@@ -69,7 +70,8 @@ for( int j=0; j<nLevels; j++)
 	/* nel file mesh.edp è contenuta la mesh
 	 */
 	include "mesh.edp"; 
-
+	meshN = N;
+	
 	/* nel file state.edp sono contenuti i parametri e le funzioni necessari per il problema di stato 
 	 */
 	include "state.edp";

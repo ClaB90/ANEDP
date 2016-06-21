@@ -122,7 +122,7 @@ func real saveErrorFinal(int nLevel)
 		//cout << " j = " << j << endl;
 		real dtsol;
 		dtsol = T/(hk[j]-1);
-		ff << " a j " << j << " nsol = " << hk[j] << " dt= " << dtsol <<endl;
+		ff << " a j " << j << " nsol = " << hk[j] << " dt= " << dtsol <<" meshN =" << meshN << endl;
 
 	}
 	
@@ -241,7 +241,7 @@ func real saveErrorPartial(int nLevel)
 		//cout << " j = " << j << endl;
 		real dtsol;
 		dtsol = T/(hk[j]-1);
-		ff << " a j " << j << " nsol = " << hk[j] << " dt= " << dtsol <<endl;
+		ff << " a j " << j << " nsol = " << hk[j] << " dt= " << dtsol <<" meshN =" << meshN << endl;
 
 	}
 	
@@ -256,7 +256,7 @@ func real saveErrorLevel(int Level)
 	
 	ofstream ff(errorFile);
 	
-	ff << "nsol = " << hk[Level] << " dt= " << dt <<endl;
+	ff << "nsol = " << hk[Level] << " dt= " << dt <<" meshN =" << meshN << endl;
 	
 	ff << "errControlL2 :"  << endl;
 	ff << " a j " << Level << " errControlL2 = " << errControlL2vec[Level] <<  endl;
