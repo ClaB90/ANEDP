@@ -15,7 +15,7 @@ verbosity=0;
 /****** 00.PARAMETRI ******/
 
 //Max number of temporal refinement levels
-int nLevels = 5;
+int nLevels = 4;
 
 /* Parametri temporali */
 real T=0.1;
@@ -98,12 +98,18 @@ for( int j=0; j<nLevels; j++)
 	
 	real[int] l2(nsol);
 	l2=adjCG2(l);
+	cout << l2 << endl;
 	for(int i=0; i<nsol; ++i)
 	{
-	    u[i]=PUabScal(l2[i]);
+		u[i]=PUabScal(l2[i]);
 	}
 	statet();
 	adjointt();
+	//in adjointt assegno Bpk, poichè mi serve per il calcolo dell'errore lo riassegno
+	for(int i=0; i<nsol; ++i)
+	{
+	    Bpk[i]=l2[i];
+	}
 
 	cout << "==========================" << endl;
 	cout << "Number of  iterations = " << k << endl;
@@ -115,6 +121,12 @@ for( int j=0; j<nLevels; j++)
 	errProjectStateL2vec[j] = errProjectStateL2;
 	errAdjL2vec[j] = errAdjL2;
 	//errAdjL2vec[j] = errAdjLinf;
+	
+   /* nel file saveerr.edp sono contenute le funzioni per salvare gli errori e gli ordini di convergenza degli errori
+    * in file di testo e plottarli a video
+    */
+   	include "saveerr.edp";
+	saveErrorLevel(j);
 	
 	/* nel file saveme.edp sono contenute le funzioni per salvare le variabili in file di testo
 	 */

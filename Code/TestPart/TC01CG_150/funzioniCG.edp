@@ -38,8 +38,8 @@ func real[int,int] stateCG(real[int] &xx)
 	varf tnnew(w,wtest) =   int2d(Th)( wold*wtest/dt )
 					  	  - int2d(Th)( gamma2*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) ) )
 							//contributo di u
-						  + int2d(Th)(gamma3*(PUabScal(listate)*wtest))
-						  + int2d(Th)(gamma4*(PUabScal(loldstate)*wtest)) 
+						  + int2d(Th)(gamma3*g*(PUabScal(listate)*wtest))
+						  + int2d(Th)(gamma4*g*(PUabScal(loldstate)*wtest)) 
 							//contributo di go 
 						  + int2d(Th)( gamma3*( g0*wtest ))
 				 		  + int2d(Th)( gamma4*( g0old*wtest ));
@@ -222,7 +222,7 @@ func real[int] adjCG3(real[int,int]& xx)
  * NB - se il risultato di questa funzione NON deve essere un in-put per StateCG
  * 		l'operazione di proiezione deve essere fatta all'interno di StateCG, quando si crea la matrice,
  * 		per minimizzare l'errore di approssimazione della soluzione 
- */
+ *
 func real[int,int] projectAdjCG(real[int,int] &xx)
 {
 	real[int,int] tmp(nsol,Yh.ndof);
@@ -232,10 +232,10 @@ func real[int,int] projectAdjCG(real[int,int] &xx)
 	//molitiplico per (-1./alpha)
 	tmp = tmp*(-1./alpha);
 	//proietto su [a,b]
-	tmp = PUabMatrixPh(tmp,dofYh);
+	tmp = PUabMatrixPh(tmp,Yh.ndof);
 	
 	return tmp;
-}
+}*/
 
 /* La funzione rightCG risolve il termine a destra dell'equazione
  *  ( I + (1/alpha)*ShIAd)dl = - (l+wd) + ShP[a,b](-(1/alpha)Ad(l))
@@ -289,8 +289,8 @@ func real[int,int] mat1(real[int] &xx, real[int] &ww)
 							  * (indnew(x,y)<=b)*(indnew(x,y)>=a) == 1 se entrambe le condizioni sono rispettate 
 							  *									  == 0 altrimenti
 							  */	
-					     + int2d(Th)(gamma3*((indnew<=b)*(indnew>=a)*listate*wtest))
-						 + int2d(Th)(gamma4*((indold<=b)*(indold>=a)*loldstate*wtest));
+					     + int2d(Th)(gamma3*g*((indnew<=b)*(indnew>=a)*listate*wtest))
+						 + int2d(Th)(gamma4*g*((indold<=b)*(indold>=a)*loldstate*wtest));
    
 	
 	real[int] temp(Yh.ndof);
@@ -349,6 +349,7 @@ func real[int,int] mat1(real[int] &xx, real[int] &ww)
 	//Ultimo passo di EA con passo temporale dt/2
     setscheme(2);
 	listate = xx[nsol-1];
+	indnew=ww[nsol-1];
 	
 	//aggiorno valori g0
 	g0partdx = g0nonprojdx;	
@@ -416,9 +417,77 @@ func real phi(real[int,int] &xx)
  *	( I + (1/alpha)*ShIAd)dl = - (l+yd) + ShP[a,b](-(1/alpha)Ad(l))
  * e ricava dl utilizzando il metodo del gradiente coniugato
  * dove xx = vettore di ingresso del CG
- *      ww = l
+ *      ww = l = incognita al passo zero
  */	
 func real[int,int] CG(real[int,int] &xx, real[int,int] &ww)
+{
+	real[int,int] r(nsol,Yh.ndof), rold(nsol,Yh.ndof), b(nsol,Yh.ndof);
+	real[int,int] pk(nsol,Yh.ndof);
+	real[int,int] A(nsol,Yh.ndof), Apk(nsol,Yh.ndof);
+	real[int,int] xk(nsol,Yh.ndof);
+	
+	real alphaCG, eps=10^(-08.);
+	
+	//calcolo b
+	b = rightCG(ww);
+	
+	// alla prima itearazione betaCG è fissato a zero
+	real betaCG=0.;
+	int k=0;
+	
+	//la mia soluzione parte da xx;
+	xk = xx;
+	
+	//Per entrare nel ciclio
+	//Per la prima iterazione devo calcolare r0 = rightCG(l) - Ax0
+	A=mat2(xx,ww);
+	r = b;
+	r -= A;
+	cout << " residuo0 " << prodottoL2(r,r) << endl;
+
+	//per la prima iterazione pk sono uguali ad r
+	pk = r;
+	Apk = mat2(pk,ww);
+	k = k+1;
+	
+	while( normL2Yh(r) > eps )
+	{
+		//trovo alpha
+		Apk = mat2(pk,ww);
+		alphaCG = prodottoL2(pk,r)/prodottoL2(pk,Apk);
+		
+		//trovo xk
+		xk += alphaCG*pk;
+		
+		//salvo la rold e trovo rk
+		rold = r;
+		A=mat2(xk,ww);
+		r = b;
+		r -= A;
+		
+		betaCG = prodottoL2(Apk,r)/prodottoL2(Apk,pk);
+		//modifico pk
+		pk *= -betaCG;
+		pk += r;
+		
+		cout << " iterazione CG " << k << endl;
+		k++;  
+		
+		//salvo la mia soluzione a questo passo
+		cout << " residuo1 " << normL2Yh(r)-eps << endl;
+	
+	}
+	
+	return xk;
+}
+
+/* La funzione CG(xx,ww) risolve il sistema di equazioni
+ *	( I + (1/alpha)*ShIAd)dl = - (l+yd) + ShP[a,b](-(1/alpha)Ad(l))
+ * e ricava dl utilizzando il metodo del gradiente coniugato
+ * dove xx = vettore di ingresso del CG
+ *      ww = l
+ */	
+func real[int,int] CGold(real[int,int] &xx, real[int,int] &ww)
 {
 	real[int,int] r(nsol,Yh.ndof), rold(nsol,Yh.ndof);
 	real[int,int] pk(nsol,Yh.ndof);

@@ -4,8 +4,9 @@
  *				Claudia Bonomi 							 					          *
  *											   			 					          *
  *  	Descrizione: Per il problema di controllo definiamo  					      *
- *						- funzione puntoFisso										  *
- * 														 				 	 	 	  *
+ *						- funzione puntoFisso										 *
+ * 						- funzione DN						 				 	 	 	  *
+* 														 				 	 	 	  *
  * 		Dipendenze: state.edp -> statet()											  * 
  * 					adjoit.edp -> adjoint()											  *
  * 					UabSet.edp -> P(Uab)								 			  *
@@ -85,6 +86,7 @@ func real DampedNewton()
 	
 	//per entrare nel while
 	toll = 10;
+	
 	while( toll > epsilon && k < Nmax)
 	{
 		/* PASSO 1
@@ -113,6 +115,7 @@ func real DampedNewton()
 		
 		/* calcolo  <dl,grad(phi)>L2
 		 * NB prodottoL2CS prende in ingresso -grad(phi)
+		 *    e wd è gestita in prodottoL2CS
 		 */
 		tmp2 = prodottoL2CS(deltal, tmp4);
 		cout << " discesa " << tmp2 << endl;
@@ -139,9 +142,9 @@ func real DampedNewton()
 		cout << " iterazione Newton " << k << endl;
 		l += lambdaDN*deltal;
 		
-		cout << " arresto " << normL2YhCS(tmp4) << endl;
-		//aggiorna tolleranza
+		//aggiorna tolleranza normL2YhCS considera che tmp4 è grad(phi)+wd
 		toll = normL2YhCS(tmp4);
+		cout << " arresto " << normL2YhCS(tmp4) << endl;
 	}
 	
 	return 0;
