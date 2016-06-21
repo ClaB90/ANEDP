@@ -14,7 +14,7 @@ func real saveError(int nLevel)
 {
 	string errorFile;
 
-	errorFile= "PostProcessing/errorFile.text";
+	errorFile= "PostProcessing/Error/errorFile.text";
 	
 	ofstream ff(errorFile);
 	
@@ -84,7 +84,7 @@ func real saveError(int nLevel)
 	for(int j=0; j<nLevel; j++)
 	{
 		//cout << " j = " << j << endl;
-		ff << " a j " << j << " nsol = " << hk[nLevel] << " dt= " << dt <<endl;
+		ff << " a j " << j << " nsol = " << hk[j] << " dt= " << dt <<endl;
 
 	}
 	
@@ -104,7 +104,6 @@ func real saveErrorLevel(int Level)
 	
 	ff << "errControlL2 :"  << endl;
 	ff << " a j " << Level << " errControlL2 = " << errControlL2vec[Level] <<  endl;
-
 
 	ff << "errProjectStateL2 : " << endl;
 	ff << " a j " << Level << " errProjectStateL2 = " << errProjectStateL2vec[Level] <<  endl;
