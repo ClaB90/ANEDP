@@ -82,7 +82,7 @@ func real DampedNewton()
 	real[int,int] arr(nsol,Yh.ndof);
 	
 	real lambdaDN = 1., betaDN = 0.8;
-	real tmp2;
+	real tmp2, phil, tollold;
 	
 	//per entrare nel while
 	toll = 10;
@@ -123,7 +123,7 @@ func real DampedNewton()
 		tmp2 = (lambdaDN/3.)*tmp2;
         
 		//inexact armijo linesearch	
-		while( phi(tmp) > phi(l) + tmp2 )
+		while( phi(tmp) > phil + tmp2 )
 		{
 			//aggiorni lambda			
 			lambdaDN = lambdaDN*betaDN;
@@ -142,10 +142,14 @@ func real DampedNewton()
 		k=k+1;
 		cout << " iterazione Newton " << k << endl;
 		l += lambdaDN*deltal;
+		phil = phi(l);
 		
 		//aggiorna tolleranza normL2YhCS considera che tmp4 è grad(phi)+wd
+		tollold = toll;
 		toll = normL2YhCS(tmp4);
-		cout << " arresto " << normL2YhCS(tmp4) << endl;
+		cout << " norma " << toll << endl;
+		cout << " arresto " << toll-epsilon << endl;
+
 	}
 	
 	return 0;

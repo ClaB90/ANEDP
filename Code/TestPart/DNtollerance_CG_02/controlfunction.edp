@@ -78,11 +78,11 @@ func real DampedNewton()
 	real[int,int] ll(nsol,Yh.ndof);
 	real[int] tmp3(nsol);
 	
-	real[int,int] tmp4(nsol,Yh.ndof), tmpnorm(nsol,Yh.ndof);
+	real[int,int] tmp4(nsol,Yh.ndof);
 	real[int,int] arr(nsol,Yh.ndof);
 	
 	real lambdaDN = 1., betaDN = 0.8;
-	real tmp2, tollold;
+	real tmp2, phil, tollold;
 	
 	//per entrare nel while
 	toll = 10;
@@ -109,12 +109,10 @@ func real DampedNewton()
 		tmp = l;
 		tmp += deltal*lambdaDN;
 		
-		tmpnorm = tmp4;
 		//calcolo -grad(phi)
 		tmp3 = adjCG2(l);
 		tmp4 = stateCG(tmp3);
         tmp4 = tmp4-l;
-		tmpnorm -= tmp4;
 		
 		/* calcolo  <dl,grad(phi)>L2
 		 * NB prodottoL2CS prende in ingresso -grad(phi)
@@ -125,7 +123,7 @@ func real DampedNewton()
 		tmp2 = (lambdaDN/3.)*tmp2;
         
 		//inexact armijo linesearch	
-		while( phi(tmp) > phi(l) + tmp2 )
+		while( phi(tmp) > phil + tmp2 )
 		{
 			//aggiorni lambda			
 			lambdaDN = lambdaDN*betaDN;
@@ -144,14 +142,14 @@ func real DampedNewton()
 		k=k+1;
 		cout << " iterazione Newton " << k << endl;
 		l += lambdaDN*deltal;
+		phil = phi(l);
 		
 		//aggiorna tolleranza normL2YhCS considera che tmp4 è grad(phi)+wd
 		tollold = toll;
 		toll = normL2YhCS(tmp4);
 		cout << endl;
-		cout << " norma " << normL2YhCS(tmp4) << endl;
-		cout << " arresto " << normL2YhCS(tmp4)-epsilon << endl; 
-		cout << " norma diff " << normL2YhCS(tmpnorm) << endl;
+		cout << " norma " << toll << endl;
+		cout << " arresto " << toll-epsilon << endl;
 
 	}
 	
