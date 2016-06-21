@@ -37,9 +37,9 @@ func wdnext = g*( cos(c1*(t+dt))*c3 - c1*sin(c1*(t+dt)) + c2 );
 /*la forzante del problema ha la seguente forma
  *	g0(t,x,y) = g*2.*pi*( -c4*sin(c1*t) + pi*cos(c1*t) ) 
  *                - PUad( -c5*cos((c1*t)*2.*pi*a1) +c5)
- * per c1lcolare il secondo termine è necessario usare le variabili di ausilio g0part e g0II:
+ * per calcolare il secondo termine è necessario usare le variabili di ausilio g0part e g0II:
  * 		g0part= g0nonproj;
- *		g0II = PUabSc1l(g0part);
+ *		g0II = PUabScal(g0part);
  */
 func g0Idx = g*2.*pi*( -c4*sin(c1*t) + pi*cos(c1*t) );
 func g0Isx= g*2.*pi*( -c4*sin(c1*(t-dt)) + pi*cos(c1*(t-dt)) );

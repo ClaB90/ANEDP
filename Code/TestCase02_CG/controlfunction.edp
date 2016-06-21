@@ -86,7 +86,14 @@ func real DampedNewton()
 	
 	//per entrare nel while
 	toll = 10;
-	
+	if( j < 2 )
+	{
+		Nmax = 4;
+	}
+	else
+	{
+		Nmax = 300;
+	}
 	while( toll > epsilon && k < Nmax)
 	{
 		/* PASSO 1
