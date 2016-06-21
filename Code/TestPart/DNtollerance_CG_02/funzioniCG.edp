@@ -446,7 +446,8 @@ func real[int,int] CG(real[int,int] &xx, real[int,int] &ww)
 	Apk = mat2(pk,ww);
 	k = k+1;
 	
-	while( normL2Yh(r) > eps )
+	real normCG=normL2Yh(r);
+	while( normCG > eps )
 	{
 		//trovo alpha
 		Apk = mat2(pk,ww);
@@ -470,7 +471,8 @@ func real[int,int] CG(real[int,int] &xx, real[int,int] &ww)
 		k++;  
 		
 		//salvo la mia soluzione a questo passo
-		cout << " residuo1 " << normL2Yh(r)-eps << endl;
+		normCG = normL2Yh(r);
+		cout << " residuo1 " << normCG-eps << endl;
 	
 	}
 	
