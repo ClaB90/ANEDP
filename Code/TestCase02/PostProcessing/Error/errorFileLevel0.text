@@ -1,0 +1,11 @@
+nsol = 3 dt= 0.25
+errControlL2 :
+ a j 0 errControlL2 = 0.11547
+errProjectStateL2 : 
+ a j 0 errProjectStateL2 = 0.408219
+errStateL2 : 
+ a j 0 errStateL2 = 0.577323
+errAdjL2vec : 
+ a j 0 errAdjL2vec = 0.57735
+iterPuntoFisso : 
+ a j 0 iterPuntoFisso = 3
