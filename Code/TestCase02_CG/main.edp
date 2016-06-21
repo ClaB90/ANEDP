@@ -102,8 +102,10 @@ for( int j=0; j<nLevels; j++)
 	{
 		u[i]=PUabScal(l2[i]);
 	}
+
 	statet();
 	adjointt();
+
 	//in adjointt assegno Bpk, poichè mi serve per il calcolo dell'errore lo riassegno
 	for(int i=0; i<nsol; ++i)
 	{

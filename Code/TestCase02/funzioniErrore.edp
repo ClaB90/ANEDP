@@ -236,9 +236,9 @@ func real controlErrL2(real[int] &controlsol)
 		
 		if( m == 0 )
 		{
-			err += (dt/6.)*(    (controlsol[i]-uesx)^2 
-				            +   (controlsol[i]-uedx)^2 
-							+ 4*(controlsol[i]-uemed[i])^2
+			err += (dt/6.)*(     (controlsol[i]-uesx)^2 
+				             +   (controlsol[i]-uedx)^2 
+							 + 4*(controlsol[i]-uemed[i])^2
 								   );
 		}
 		else

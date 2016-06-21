@@ -20,7 +20,7 @@ func real puntoFisso()
 {
 	//Primo passo soluzione
 	//La variabile di controllo al primo passo viene settatta uguale al limite inferiore di Uab
-	u = a;          
+	u = b;         
 	
 	//risolvo il problema di stato e l'aggiunto
 	statet(); 
