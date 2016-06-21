@@ -137,8 +137,7 @@ func real[int,int] adjCG(real[int,int] &xx)
 	int j = nsol-1;
 	pnext=pT;
 	AdjSolCG(j,:)=pT;
-	t=T;
-	//h[]=xx(j,:);
+	h[]=xx(j,:);
 	
 	//Calcolo il valore della matrice Adj e delle condizioni al bordo
 	Adj=adj(Yh,Yh,solver=GMRES);
@@ -423,7 +422,7 @@ func real[int,int] CG(real[int,int] &xx, real[int,int] &ww)
 	real[int,int] A(nsol,Yh.ndof), Apk(nsol,Yh.ndof);
 	real[int,int] xk(nsol,Yh.ndof);
 	
-	real alphaCG, eps=10^(-12.);
+	real alphaCG, eps=10^(-08.);
 	
 	//calcolo b
 	b = rightCG(ww);
