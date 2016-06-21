@@ -106,7 +106,6 @@ func real saveErrorLevel(int Level)
 	ff << "errControlL2 :"  << endl;
 	ff << " a j " << Level << " errControlL2 = " << errControlL2vec[Level] <<  endl;
 
-
 	ff << "errProjectStateL2 : " << endl;
 	ff << " a j " << Level << " errProjectStateL2 = " << errProjectStateL2vec[Level] <<  endl;
 
@@ -121,7 +120,6 @@ func real saveErrorLevel(int Level)
 	
 	return 0;
 }
-
 
 func real coutError(int nLevel)
 {
