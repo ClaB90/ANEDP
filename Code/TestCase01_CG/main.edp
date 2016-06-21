@@ -127,6 +127,10 @@ for( int j=0; j<nLevels; j++)
     */
    	include "saveerr.edp";
 	saveErrorLevel(j);
+	if(j > 0)
+	{
+		saveErrorPartial(j);
+	}
 	
 	/* nel file saveme.edp sono contenute le funzioni per salvare le variabili in file di testo
 	 */
@@ -140,7 +144,7 @@ for( int j=0; j<nLevels; j++)
  * in file di testo e plottarli a video
  */
 include "saveerr.edp";
-saveError(nLevels);
+saveErrorFinal(nLevels);
 coutError(nLevels);
 
 

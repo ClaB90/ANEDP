@@ -102,6 +102,10 @@ for( int j=0; j<nLevels; j++)
     */
    	include "saveerr.edp";
 	saveErrorLevel(j);
+	if(j > 0)
+	{
+		saveErrorPartial(j);
+	}
 	
 	/* nel file saveme.edp sono contenute le funzioni per salvare le variabili in file di testo
 	 */
@@ -111,17 +115,11 @@ for( int j=0; j<nLevels; j++)
 	
 }
 
-/* nel file saverr.edp sono contenute le funzioni per salvare gli errori e gli ordini di convergenza degli errori
+/* nel file saveerr.edp sono contenute le funzioni per salvare gli errori e gli ordini di convergenza degli errori
  * in file di testo e plottarli a video
  */
 include "saveerr.edp";
-saveError(nLevels);
+saveErrorFinal(nLevels);
 coutError(nLevels);
-
-
-
-
-
-
 
 
