@@ -100,10 +100,15 @@ for( int j=0; j<nLevels; j++)
 	l2=adjCG2(l);
 	for(int i=0; i<nsol; ++i)
 	{
-	    u[i]=PUabScal(l2[i]);
+		u[i]=PUabScal(l2[i]);
 	}
 	statet();
 	adjointt();
+	//in adjointt assegno Bpk, poichè mi serve per il calcolo dell'errore lo riassegno
+	for(int i=0; i<nsol; ++i)
+	{
+	    Bpk[i]=l2[i];
+	}
 
 	cout << "==========================" << endl;
 	cout << "Number of  iterations = " << k << endl;

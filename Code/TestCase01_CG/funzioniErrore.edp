@@ -326,11 +326,11 @@ func real controlErrL2(real[int] &controlsol)
 	   			real Bpkmed2=(d+c)/2.;
 				real Bpkmed3=(Bpk[i+1]+d)/2.;
 		
-				err +=   ((tc-t)/6.) * ( (uedx- controlsol[i])^2 + (uetc-c)^2 
+				err +=   ((tc-t)/6.) * ( (uesx- controlsol[i])^2 + (uetc-c)^2 
 						  			   		+ 4*( uetcmed-Bpkmed1 )^2 )
 				       + ((td-tc)/6.) * ( (uetc-c)^2 + (uetd-d)^2 
 									   		+ 4*( uetctdmed-Bpkmed2 )^2 )
-					   + ((t+dt-td)/6.)*(  (uetd-d)^2 + (uesx- controlsol[i+1])^2 
+					   + ((t+dt-td)/6.)*(  (uetd-d)^2 + (uedx- controlsol[i+1])^2 
 									   		+ 4*( uetdmed-Bpkmed3 )^2 );
 			} 
 		
