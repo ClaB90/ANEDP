@@ -84,7 +84,9 @@ func real saveError(int nLevel)
 	for(int j=0; j<nLevel; j++)
 	{
 		//cout << " j = " << j << endl;
-		ff << " a j " << j << " nsol = " << hk[j] << " dt= " << dt <<endl;
+		real dtsol;
+		dtsol = T/(hk[j]-1);
+		ff << " a j " << j << " nsol = " << hk[j] << " dt= " << dtsol <<endl;
 
 	}
 	
