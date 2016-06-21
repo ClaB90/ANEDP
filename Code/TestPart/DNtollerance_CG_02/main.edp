@@ -1,0 +1,153 @@
+/****************** Politecnico di Milano - ANEDP project ******************/
+/* 														 					*
+ *  	authors Edoardo Arbib 							 					*
+ *				Claudia Bonomi 							 					*
+ *											   			 					*
+ *  	Descrizione:   					   			 				        *
+ *					   					   			 				        *
+ *					   					   			 				        *
+ *					    					   			 				    *
+ * 														 					*
+ ****************************************************************************/
+
+verbosity=0;
+
+/****** 00.PARAMETRI ******/
+
+//Max number of temporal refinement levels
+int nLevels = 8;
+
+/* Parametri temporali */
+real T=0.5;
+real t=0.;
+real dt;
+
+/* Parametri per il calcolo dell'errore */
+real[int] errControlL2vec(nLevels),errControlLinfvec(nLevels); 
+real[int] errStateL2vec(nLevels),errStateLinfvec(nLevels);
+real[int] errProjectStateL2vec(nLevels);
+real[int] errAdjL2vec(nLevels),errAdjLinfvec(nLevels); 
+
+real[int] iterNewton(nLevels); 
+
+real nsolold=5.5;
+real meshN=0.;
+real[int] hk(nLevels);
+
+/* NB: fissato un numero di soluzioni il numero di intervalli sarà nsol-1 poichè la soluzione è nota per i valori nodali. 
+ * Per conformità con il paper di riferimento
+ * Nk = ( 2^l + 1 )^2 dove l è il numero di livello considerato
+ * nsol può assumere i seguenti valori:
+ * 9, 25, 81, 289, 1089, 4225
+ */
+for( int j=0; j<nLevels; j++)
+{
+	//int nsol = 2*nsolold-1;
+	int nsol = ( 2^(j+1) +1 );
+	nsolold=nsol;
+	hk[j]=nsol;
+	dt=T/(nsol-1);
+	cout << "======  nsol = " << nsol << " ======" << endl;
+	cout << "======  dt = " << dt << " ======" << endl;
+
+	/* nel file controlparameters.edp sono contenuti i parametri necessari per il problema di controllo
+	 */
+	include "controlparameters.edp";
+
+	/* nel file UabSet.edp vengono definiti i limiti dell'insieme Uab e le funzioni di proiezione di 
+	 * uno scalare o di un vettore sullo spazio Uab
+	 */
+	include "UabSet.edp";
+	
+	/* nel file funzioni.edp sono contenute le funzioni che caratterizzano l'operatore B ed yd
+	 */
+	include "funzioni.edp";   
+
+	/* nel file soluzioniEsatte.edp sono contenute le funzioni per soluzioni esatte per w,p,u
+	 */
+	include "soluzioniEsatte.edp";       
+
+	/* nel file mesh.edp è contenuta la mesh
+	 */
+	include "mesh.edp";
+	meshN=N; 
+
+	/* nel file state.edp sono contenuti i parametri e le funzioni necessari per il problema di stato 
+	 */
+	include "state.edp";
+
+	/* nel file adjoint.edp sono contenuti i parametri e le funzioni necessari per il problema aggiunto 
+	 */
+	include "adjoint.edp";
+	
+	/* nel file normeeprodotti.edp sono contenute le funzioni per il calcolo delle norme e del prodotto vettoriale
+	 */
+	include "normeeprodotti.edp";
+
+	real[int,int] l(nsol,Yh.ndof);
+	l=a;
+	/* nel file funzioniCG.edp le funzioni necessarie per l'algoritmo del gradiente coniugato 
+	 */
+	include "funzioniCG.edp";
+	
+	/* nel file controlparameters.edp sono contenute le funzione per la risoluzione per il problema di controllo
+	 */
+	include "controlfunction.edp";
+	
+	//risolvo il problema di controllo
+	DampedNewton();
+	iterNewton[j]=k;
+	
+	real[int] l2(nsol);
+	l2=adjCG2(l);
+	for(int i=0; i<nsol; ++i)
+	{
+		u[i]=PUabScal(l2[i]);
+	}
+
+	statet();
+	adjointt();
+
+	//in adjointt assegno Bpk, poichè mi serve per il calcolo dell'errore lo riassegno
+	for(int i=0; i<nsol; ++i)
+	{
+	    Bpk[i]=l2[i];
+	}
+
+	cout << "==========================" << endl;
+	cout << "Number of  iterations = " << k << endl;
+
+	errControlL2vec[j] = controlErrL2(u);
+	errControlLinfvec[j] = normLinfcontrol(u);
+	errStateL2vec[j] = errStateL2;
+	errStateLinfvec[j] = errStateLinf;
+	errProjectStateL2vec[j] = errProjectStateL2;
+	errAdjL2vec[j] = errAdjL2;
+	//errAdjL2vec[j] = errAdjLinf;
+	
+   /* nel file saveerr.edp sono contenute le funzioni per salvare gli errori e gli ordini di convergenza degli errori
+    * in file di testo e plottarli a video
+    */
+   	include "saveerr.edp";
+	saveErrorLevel(j);
+	if(j > 0)
+	{
+		saveErrorPartial(j);
+	}
+	
+	/* nel file saveme.edp sono contenute le funzioni per salvare le variabili in file di testo
+	 */
+	include "saveme.edp";
+	saveControl(j);
+	saveAdj(j);
+	
+}
+
+/* nel file saveerr.edp sono contenute le funzioni per salvare gli errori e gli ordini di convergenza degli errori
+ * in file di testo e plottarli a video
+ */
+include "saveerr.edp";
+saveErrorFinal(nLevels);
+coutError(nLevels);
+
+

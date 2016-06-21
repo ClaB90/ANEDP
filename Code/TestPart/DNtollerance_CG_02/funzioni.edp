@@ -1,0 +1,59 @@
+/****************** Politecnico di Milano - ANEDP project ******************/
+/* 														 					*
+ *  	authors Edoardo Arbib 							 					*
+ *				Claudia Bonomi 							 					*
+ *											   			 					*
+ *  	Descrizione: definiamo le funzioni					 				*
+ *						- wa e waT								      		*
+ *						- g1  per B								      		*
+ *					    - yd 											    *
+ *					 definiamo il parametro	   							    *
+ *						- a1												*
+ *																			*
+ * 		Dipendenze:	main -> variabili t e T definite  						*
+ * 														 					*
+ ****************************************************************************/
+
+real a1 = 2.;
+
+func g = sin(pi*x)*sin(pi*y);
+
+//definisco delle costanti usate per w e g0
+real c1,c2,c3,c4,c5;
+c1 = 2.*pi*a1/T;
+c2 = 2.*pi^2*cos(2.*pi*a1);
+c3 = (1.-2.*pi^2);
+c4 = a1/T;
+c5 = 1./(4.*alpha);
+
+func wa = cos(c1*t)*g;
+func waT = cos(2.*pi*a1)*g;
+
+func wd = g*( cos(c1*t)*c3 - c1*sin(c1*t) + c2 );
+func wdp= g*( cos(c1*(t+dt/2.))*c3 - c1*sin(c1*(t+dt/2.)) + c2 );
+func wdpp = g*( cos(c1*(t+dt))*c3 - c1*sin(c1*(t+dt)) + c2 );
+func wdnext = g*( cos(c1*(t+dt))*c3 - c1*sin(c1*(t+dt)) + c2 );
+
+/*la forzante del problema ha la seguente forma
+ *	g0(t,x,y) = g*2.*pi*( -c4*sin(c1*t) + pi*cos(c1*t) ) 
+ *                - PUad( -c5*cos((c1*t)*2.*pi*a1) +c5)
+ * per calcolare il secondo termine è necessario usare le variabili di ausilio g0part e g0II:
+ * 		g0part= g0nonproj;
+ *		g0II = PUabScal(g0part);
+ */
+func g0Idx = g*2.*pi*( -c4*sin(c1*t) + pi*cos(c1*t) );
+func g0Isx= g*2.*pi*( -c4*sin(c1*(t-dt)) + pi*cos(c1*(t-dt)) );
+
+func g0nonprojdx = ( -c5*cos(c1*t) +c5 );
+func g0nonprojsx= ( -c5*cos(c1*(t-dt)) +c5 );
+
+real g0partdx, g0partsx;
+func g0IIdx = PUabScal(g0partdx); 
+func g0IIsx = PUabScal(g0partsx);
+
+func g0 = g0Idx - g*g0IIdx;
+func g0old = g0Isx - g*g0IIsx;
+
+
+
+	
