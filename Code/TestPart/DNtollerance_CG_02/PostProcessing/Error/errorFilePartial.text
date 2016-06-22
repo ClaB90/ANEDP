@@ -5,6 +5,7 @@ errControlL2 :
  a j 4 errControlL2 = 0.00222359
  a j 5 errControlL2 = 0.000541362
  a j 6 errControlL2 = 0.000138463
+ a j 7 errControlL2 = 3.49821e-05
 errProjectStateL2 : 
  a j 1 errProjectStateL2 = 0.410488
  a j 2 errProjectStateL2 = 0.427682
@@ -12,6 +13,7 @@ errProjectStateL2 :
  a j 4 errProjectStateL2 = 0.0223131
  a j 5 errProjectStateL2 = 0.00443687
  a j 6 errProjectStateL2 = 0.0009289
+ a j 7 errProjectStateL2 = 0.000203852
 errStateL2 : 
  a j 1 errStateL2 = 0.579976
  a j 2 errStateL2 = 0.462076
@@ -19,6 +21,7 @@ errStateL2 :
  a j 4 errStateL2 = 0.0594457
  a j 5 errStateL2 = 0.0286803
  a j 6 errStateL2 = 0.0142117
+ a j 7 errStateL2 = 0.0070899
 errAdjL2vec : 
  a j 1 errAdjL2vec = 0.57748
  a j 2 errAdjL2vec = 0.181205
@@ -26,6 +29,7 @@ errAdjL2vec :
  a j 4 errAdjL2vec = 0.0224907
  a j 5 errAdjL2vec = 0.00571824
  a j 6 errAdjL2vec = 0.00145285
+ a j 7 errAdjL2vec = 0.000385873
  j = 1
 EOC errControlL2 = 0.815213 Vorrei fosse ~ 2
 errControlLinfvec[1] e nullo
@@ -61,6 +65,13 @@ EOC errProjectStateL2 = 2.30675 Vorrei fosse ~ 2
 EOC errStateL2 = 1.03579 Vorrei fosse ~ 1
 EOC errAdjL2 = 2.02121 Vorrei fosse ~ 2
 EOC errStateLinf =  2.05303 Vorrei fosse ~ 1
+ j = 6
+EOC errControlL2 = 2.00717 Vorrei fosse ~ 2
+EOC errControlLinf = 2.16299 Vorrei fosse ~ 2
+EOC errProjectStateL2 = 2.21265 Vorrei fosse ~ 2
+EOC errStateL2 = 1.01455 Vorrei fosse ~ 1
+EOC errAdjL2 = 1.93423 Vorrei fosse ~ 2
+EOC errStateLinf =  2.02526 Vorrei fosse ~ 1
 iterNewton : 
  a j 1 iterNewton = 3
  a j 2 iterNewton = 3
@@ -68,6 +79,7 @@ iterNewton :
  a j 4 iterNewton = 3
  a j 5 iterNewton = 3
  a j 6 iterNewton = 3
+ a j 7 iterNewton = 3
 Dati della simulazione :
  a j 0 nsol = 3 dt= 0.25 meshN =150
  a j 1 nsol = 5 dt= 0.125 meshN =150
@@ -75,3 +87,4 @@ Dati della simulazione :
  a j 3 nsol = 17 dt= 0.03125 meshN =150
  a j 4 nsol = 33 dt= 0.015625 meshN =150
  a j 5 nsol = 65 dt= 0.0078125 meshN =150
+ a j 6 nsol = 129 dt= 0.00390625 meshN =150
