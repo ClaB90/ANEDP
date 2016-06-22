@@ -34,7 +34,7 @@ real nsolold=5.5;
 real meshN=0.;
 real[int] hk(nLevels);
 
-errControlL2vec[0] = 0.113739;
+/*errControlL2vec[0] = 0.113739;
 errStateL2vec[0] = 0.573775;
 errProjectStateL2vec[0] = 0.403902;
 errAdjL2vec[0] = 0.577406;
@@ -44,7 +44,7 @@ errProjectStateL2vec[1] = 0.424496;
 errAdjL2vec[1] = 0.182662;
 
 errControlLinfvec[0] = 0.1;
-errControlLinfvec[1] = 0.1;
+errControlLinfvec[1] = 0.1; */
 
 
 /* NB: fissato un numero di soluzioni il numero di intervalli sarà nsol-1 poichè la soluzione è nota per i valori nodali. 
@@ -53,7 +53,7 @@ errControlLinfvec[1] = 0.1;
  * nsol può assumere i seguenti valori:
  * 9, 25, 81, 289, 1089, 4225
  */
-for( int j=2; j<nLevels; j++)
+for( int j=0; j<nLevels; j++)
 {
 	//int nsol = 2*nsolold-1;
 	int nsol = ( 2^(j+1) +1 );

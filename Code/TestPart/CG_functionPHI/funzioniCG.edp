@@ -409,8 +409,11 @@ func real phi(real[int,int] &xx)
 	return tmp;
 }
 
-/* La funzione phi2(Bpk,w,state) = phi(w) ma prende in ingresso il vettore soluzione 
- * dell'aggiunto e il vettore soluzione dello stato
+/* La funzione phi2(Bpk,w,state) = phi(w) ma prende in ingresso 
+ * il vettore soluzione dell'aggiunto Bpk calcolato come 
+ *   Bpk = adjCG(w) 
+ * ed il vettore soluzione dello stato state calcolato come 
+ *   state = stateCG(Bpk)
  */	
 func real phi2(real[int] &Bpk, real[int,int] &xx, real[int,int] &state)
 {
