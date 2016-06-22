@@ -20,7 +20,7 @@ func real puntoFisso()
 {
 	//Primo passo soluzione
 	//La variabile di controllo al primo passo viene settatta uguale al limite inferiore di Uab
-	u = a;          
+	u = b;         
 	
 	//risolvo il problema di stato e l'aggiunto
 	statet(); 
@@ -78,16 +78,17 @@ func real DampedNewton()
 	real[int,int] ll(nsol,Yh.ndof);
 	real[int] tmp3(nsol);
 	
-	real[int,int] tmp4(nsol,Yh.ndof);
+	real[int,int] tmp4(nsol,Yh.ndof), state(nsol,Yh.ndof);
 	real[int,int] arr(nsol,Yh.ndof);
 	
 	real lambdaDN = 1., betaDN = 0.2;
-	real tmp2, phil, tollold;
+	real tmp2, phil, phitmp, tollold, primo=0;
 	
 	//per entrare nel while
 	toll = 10;
 	
-	while( toll > epsilon && k < Nmax)
+	//Nmax = 4;
+	while( toll > epsilon && k < Nmax && (toll-tollold) > epsilon )
 	{
 		/* PASSO 1
 		 * 	ricava dl dall'equazione
@@ -95,9 +96,8 @@ func real DampedNewton()
 		 *  pone lamdbaDN = 1;
 		 * per il calcolo di dl viene usato il metodo del gradiente coniugato
 		 */
-		cout << "DN passo 1" << endl;
-		cout << " iterazione Newton " << k << endl;
 		lambdaDN = 1.;
+		
 		ll=0.;
 		deltal = CG(ll,l);
         //cout << " incremento " << normL2Yh(deltal) << endl;	
@@ -107,14 +107,13 @@ func real DampedNewton()
 		 * dove è noto per teoria che:
 		 *	grad(phi(l)) = + (l+yd) - ShP[a,b](-(1/alpha)Ad(l)) = - rightCG()
 		 */
-		cout << "DN passo 2" << endl;
 		tmp = l;
 		tmp += deltal*lambdaDN;
 		
 		//calcolo -grad(phi)
 		tmp3 = adjCG2(l);
-		tmp4 = stateCG(tmp3);
-        tmp4 = tmp4-l;
+		state = stateCG(tmp3);
+        tmp4 = state-l;
 		
 		/* calcolo  <dl,grad(phi)>L2
 		 * NB prodottoL2CS prende in ingresso -grad(phi)
@@ -124,20 +123,35 @@ func real DampedNewton()
 		cout << " discesa " << tmp2 << endl;
 		tmp2 = (lambdaDN/3.)*tmp2;
         
-		//inexact armijo linesearch	
-		phil = phi(l);
+		/* Inexact Armijo Linesearch	
+		 * il calcolo di phi() e molto costoso computazionalmente, allora cerco di chiamare la funzione 
+		 * il meno possibile
+		 */
+		if( primo==0 )
+		{
+			phil = phi2(tmp3,l,state);
+			phitmp = phi(tmp);
+			primo=1;
+		}
+		else
+		{
+			phil = phitmp;
+			phitmp = phi(tmp);
+		}
+		
 		real lambdatoll = 2*10.^(-3.);
 		if(nsol == 5 && k==2)
 		{
 			lambdaDN = 0.00302231/betaDN;
 		}
-		while( lambdaDN > lambdatoll && phi(tmp) > phil + tmp2 )
+		while( lambdaDN > lambdatoll && phitmp > phil + tmp2 )
 		{
 			//aggiorni lambda			
 			lambdaDN = lambdaDN*betaDN;
 			// aggiorni tmp
 			tmp = l;
 		    tmp += deltal*lambdaDN;
+			phitmp = phi(tmp);
 			 
 		    tmp2 = (lambdaDN/3.)*tmp2;
 			cout << " lambdaDN = " << lambdaDN << endl;	
@@ -147,13 +161,14 @@ func real DampedNewton()
 		 * l = l + lambdaDN*deltal;
 		 * torna al passo 1;
 		 */
-		cout << "DN passo 3" << endl;
 		k=k+1;
+		cout << " iterazione Newton " << k << endl;
 		l += lambdaDN*deltal;
 		
 		//aggiorna tolleranza normL2YhCS considera che tmp4 è grad(phi)+wd
 		tollold = toll;
 		toll = normL2YhCS(tmp4);
+		cout << endl;
 		cout << " norma " << toll << endl;
 		cout << " arresto " << toll-epsilon << endl;
 

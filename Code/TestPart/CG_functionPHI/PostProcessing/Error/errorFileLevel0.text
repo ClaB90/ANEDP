@@ -1,0 +1,11 @@
+nsol = 3 dt= 0.25 meshN =10
+errControlL2 :
+ a j 0 errControlL2 = 0.113739
+errProjectStateL2 : 
+ a j 0 errProjectStateL2 = 0.403902
+errStateL2 : 
+ a j 0 errStateL2 = 0.573775
+errAdjL2vec : 
+ a j 0 errAdjL2vec = 0.577406
+iterNewton : 
+ a j 0 iterNewton = 3
