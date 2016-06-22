@@ -424,6 +424,8 @@ func real[int,int] CG(real[int,int] &xx, real[int,int] &ww)
 	
 	real alphaCG, eps=10^(-08.);
 	
+	cout << " CG " << endl;
+	cout << "  passso zero" << endl;
 	//calcolo b
 	b = rightCG(ww);
 	
@@ -439,7 +441,7 @@ func real[int,int] CG(real[int,int] &xx, real[int,int] &ww)
 	A=mat2(xx,ww);
 	r = b;
 	r -= A;
-	cout << " residuo0 " << prodottoL2(r,r) << endl;
+	//cout << " residuo0 " << prodottoL2(r,r) << endl;
 
 	//per la prima iterazione pk sono uguali ad r
 	pk = r;
@@ -449,6 +451,7 @@ func real[int,int] CG(real[int,int] &xx, real[int,int] &ww)
 	real normCG=normL2Yh(r);
 	while( normCG > eps )
 	{
+		cout << "  iterazione CG " << k << endl;
 		//trovo alpha
 		Apk = mat2(pk,ww);
 		alphaCG = prodottoL2(pk,r)/prodottoL2(pk,Apk);
@@ -467,7 +470,6 @@ func real[int,int] CG(real[int,int] &xx, real[int,int] &ww)
 		pk *= -betaCG;
 		pk += r;
 		
-		cout << " iterazione CG " << k << endl;
 		k++;  
 		
 		//salvo la mia soluzione a questo passo

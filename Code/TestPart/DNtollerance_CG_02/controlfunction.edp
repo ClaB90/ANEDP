@@ -81,7 +81,7 @@ func real DampedNewton()
 	real[int,int] tmp4(nsol,Yh.ndof);
 	real[int,int] arr(nsol,Yh.ndof);
 	
-	real lambdaDN = 1., betaDN = 0.8;
+	real lambdaDN = 1., betaDN = 0.2;
 	real tmp2, phil, tollold;
 	
 	//per entrare nel while
@@ -125,7 +125,11 @@ func real DampedNewton()
         
 		//inexact armijo linesearch	
 		phil = phi(l);
-		real lambdatoll = 2.*10^(-3);
+		real lambdatoll = 2*10.^(-3.);
+		if(nsol == 5 && k==2)
+		{
+			lambdaDN = 0.00302231/betaDN;
+		}
 		while( lambdaDN > lambdatoll && phi(tmp) > phil + tmp2 )
 		{
 			//aggiorni lambda			

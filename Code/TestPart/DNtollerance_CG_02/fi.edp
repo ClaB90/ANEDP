@@ -1,0 +1,9 @@
+real toll = 2*10.^(-3.);
+real ciao = 0.00003;
+
+if(ciao > toll)
+{
+	cout << "rilanciamo" << endl;
+}
+
+cout << "toll" << toll << endl;
