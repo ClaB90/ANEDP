@@ -95,16 +95,19 @@ func real DampedNewton()
 		 *  pone lamdbaDN = 1;
 		 * per il calcolo di dl viene usato il metodo del gradiente coniugato
 		 */
+		cout << "DN passo 1" << endl;
+		cout << " iterazione Newton " << k << endl;
 		lambdaDN = 1.;
 		ll=0.;
 		deltal = CG(ll,l);
-        cout << " incremento " << normL2Yh(deltal) << endl;	
+        //cout << " incremento " << normL2Yh(deltal) << endl;	
         
 		/* PASSO 2
 		 * 	if( phi( l+lamdbaDN*dl ) > phi(l) + < grad(phi(l)), dl >L2 ) )
 		 * dove è noto per teoria che:
 		 *	grad(phi(l)) = + (l+yd) - ShP[a,b](-(1/alpha)Ad(l)) = - rightCG()
 		 */
+		cout << "DN passo 2" << endl;
 		tmp = l;
 		tmp += deltal*lambdaDN;
 		
@@ -138,8 +141,8 @@ func real DampedNewton()
 		 * l = l + lambdaDN*deltal;
 		 * torna al passo 1;
 		 */
+		cout << "DN passo 3" << endl;
 		k=k+1;
-		cout << " iterazione Newton " << k << endl;
 		l += lambdaDN*deltal;
 		phil = phi(l);
 		
