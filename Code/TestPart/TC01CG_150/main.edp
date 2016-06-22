@@ -31,6 +31,7 @@ real[int] errAdjL2vec(nLevels),errAdjLinfvec(nLevels);
 real[int] iterNewton(nLevels); 
 
 real nsolold=5.5;
+real meshN=0.;
 real[int] hk(nLevels);
 
 /* NB: fissato un numero di soluzioni il numero di intervalli sarà nsol-1 poichè la soluzione è nota per i valori nodali. 
@@ -68,7 +69,8 @@ for( int j=0; j<nLevels; j++)
 
 	/* nel file mesh.edp è contenuta la mesh
 	 */
-	include "mesh.edp"; 
+	include "mesh.edp";
+	meshN=N; 
 
 	/* nel file state.edp sono contenuti i parametri e le funzioni necessari per il problema di stato 
 	 */
@@ -98,13 +100,14 @@ for( int j=0; j<nLevels; j++)
 	
 	real[int] l2(nsol);
 	l2=adjCG2(l);
-	cout << l2 << endl;
 	for(int i=0; i<nsol; ++i)
 	{
 		u[i]=PUabScal(l2[i]);
 	}
+
 	statet();
 	adjointt();
+
 	//in adjointt assegno Bpk, poichè mi serve per il calcolo dell'errore lo riassegno
 	for(int i=0; i<nsol; ++i)
 	{
@@ -127,6 +130,10 @@ for( int j=0; j<nLevels; j++)
     */
    	include "saveerr.edp";
 	saveErrorLevel(j);
+	if(j > 0)
+	{
+		saveErrorPartial(j);
+	}
 	
 	/* nel file saveme.edp sono contenute le funzioni per salvare le variabili in file di testo
 	 */
@@ -140,7 +147,7 @@ for( int j=0; j<nLevels; j++)
  * in file di testo e plottarli a video
  */
 include "saveerr.edp";
-saveError(nLevels);
+saveErrorFinal(nLevels);
 coutError(nLevels);
 
 

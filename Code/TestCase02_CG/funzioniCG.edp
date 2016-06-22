@@ -409,6 +409,26 @@ func real phi(real[int,int] &xx)
 	return tmp;
 }
 
+/* La funzione phi2(Bpk,w,state) = phi(w) ma prende in ingresso il vettore soluzione 
+ * dell'aggiunto e il vettore soluzione dello stato
+ */	
+func real phi2(real[int] &Bpk, real[int,int] &xx, real[int,int] &state)
+{
+	real tmp, savet=t, normu;
+	real[int] uw(nsol);
+	
+	uw=PUab(Bpk);
+	
+	//calcolo normaL2 di xx
+	tmp = (normL2Yh(xx))^2/2.;
+	//calcolo normaL2 di uw
+	tmp += (-alpha/2.)*(normL2Pr(uw))^2;
+	//calcolo il prodotto vettoriale < w, wd - Sh(u(w))>L2
+	tmp += prodottoL2CS(xx, state);
+	
+	return tmp;
+}
+
 /* La funzione CG(xx,ww) risolve il sistema di equazioni
  *	( I + (1/alpha)*ShIAd)dl = - (l+yd) + ShP[a,b](-(1/alpha)Ad(l))
  * e ricava dl utilizzando il metodo del gradiente coniugato

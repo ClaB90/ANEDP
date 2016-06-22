@@ -78,17 +78,17 @@ func real DampedNewton()
 	real[int,int] ll(nsol,Yh.ndof);
 	real[int] tmp3(nsol);
 	
-	real[int,int] tmp4(nsol,Yh.ndof);
+	real[int,int] tmp4(nsol,Yh.ndof), state(nsol,Yh.ndof);
 	real[int,int] arr(nsol,Yh.ndof);
 	
-	real lambdaDN = 1., betaDN = 0.8;
-	real tmp2, phil, tollold;
+	real lambdaDN = 1., betaDN = 0.2;
+	real tmp2, phil, phitmp, tollold, primo=0;
 	
 	//per entrare nel while
 	toll = 10;
 	
-	Nmax = 4;
-	while( toll > epsilon && k < Nmax)
+	//Nmax = 4;
+	while( toll > epsilon && k < Nmax && (toll-tollold) > epsilon )
 	{
 		/* PASSO 1
 		 * 	ricava dl dall'equazione
@@ -114,8 +114,8 @@ func real DampedNewton()
 		
 		//calcolo -grad(phi)
 		tmp3 = adjCG2(l);
-		tmp4 = stateCG(tmp3);
-        tmp4 = tmp4-l;
+		state = stateCG(tmp3);
+        tmp4 = state-l;
 		
 		/* calcolo  <dl,grad(phi)>L2
 		 * NB prodottoL2CS prende in ingresso -grad(phi)
@@ -125,15 +125,32 @@ func real DampedNewton()
 		cout << " discesa " << tmp2 << endl;
 		tmp2 = (lambdaDN/3.)*tmp2;
         
-		cout << " Armijo linearsearch" << endl;
-		//inexact armijo linesearch	
-		while( phi(tmp) > phil + tmp2 )
+		/* Inexact Armijo Linesearch	
+		 * il calcolo di phi() e molto costoso computazionalmente, allora cerco di chiamare la funzione 
+		 * il meno possibile
+		 */
+		if( primo==0 )
+		{
+			phil = phi2(tmp3,l,state);
+			phitmp = phi(tmp);
+			primo=1;
+		}
+		else
+		{
+			phil = phitmp;
+			phitmp = phi(tmp);
+		}
+		
+		real lambdatoll = 2*10.^(-3.);
+
+		while( lambdaDN > lambdatoll && phitmp > phil + tmp2 )
 		{
 			//aggiorni lambda			
 			lambdaDN = lambdaDN*betaDN;
 			// aggiorni tmp
 			tmp = l;
 		    tmp += deltal*lambdaDN;
+			phitmp = phi(tmp);
 			 
 		    tmp2 = (lambdaDN/3.)*tmp2;
 			cout << " lambdaDN = " << lambdaDN << endl;	
@@ -146,7 +163,6 @@ func real DampedNewton()
 		cout << "DN passo 3" << endl;
 		k=k+1;
 		l += lambdaDN*deltal;
-		phil = phi(l);
 		
 		//aggiorna tolleranza normL2YhCS considera che tmp4 è grad(phi)+wd
 		tollold = toll;

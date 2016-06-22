@@ -144,14 +144,10 @@ func real[int,int] adjCG(real[int,int] &xx)
 	adjbc=adj(0,Yh);
     
 	while( j > 0 )
-		{
-			Yh help, help2;
-			
-			help2[] = wd;
-			help[] = wdnext;
+		{	
 			
 			hnext[]=xx(j-1,:);
-			//hnext -= help;
+			
 		    h[]=xx(j-1,:);
 			//h -= - help2;
 			
@@ -222,8 +218,8 @@ func real[int] adjCG3(real[int,int]& xx)
  * NB - se il risultato di questa funzione NON deve essere un in-put per StateCG
  * 		l'operazione di proiezione deve essere fatta all'interno di StateCG, quando si crea la matrice,
  * 		per minimizzare l'errore di approssimazione della soluzione 
- *
-func real[int,int] projectAdjCG(real[int,int] &xx)
+ */
+/*func real[int,int] projectAdjCG(real[int,int] &xx)
 {
 	real[int,int] tmp(nsol,Yh.ndof);
 	
@@ -413,6 +409,26 @@ func real phi(real[int,int] &xx)
 	return tmp;
 }
 
+/* La funzione phi2(Bpk,w,state) = phi(w) ma prende in ingresso il vettore soluzione 
+ * dell'aggiunto e il vettore soluzione dello stato
+ */	
+func real phi2(real[int] &Bpk, real[int,int] &xx, real[int,int] &state)
+{
+	real tmp, savet=t, normu;
+	real[int] uw(nsol);
+	
+	uw=PUab(Bpk);
+	
+	//calcolo normaL2 di xx
+	tmp = (normL2Yh(xx))^2/2.;
+	//calcolo normaL2 di uw
+	tmp += (-alpha/2.)*(normL2Pr(uw))^2;
+	//calcolo il prodotto vettoriale < w, wd - Sh(u(w))>L2
+	tmp += prodottoL2CS(xx, state);
+	
+	return tmp;
+}
+
 /* La funzione CG(xx,ww) risolve il sistema di equazioni
  *	( I + (1/alpha)*ShIAd)dl = - (l+yd) + ShP[a,b](-(1/alpha)Ad(l))
  * e ricava dl utilizzando il metodo del gradiente coniugato
@@ -428,6 +444,8 @@ func real[int,int] CG(real[int,int] &xx, real[int,int] &ww)
 	
 	real alphaCG, eps=10^(-08.);
 	
+	cout << " CG " << endl;
+	cout << "  passso zero" << endl;
 	//calcolo b
 	b = rightCG(ww);
 	
@@ -443,15 +461,17 @@ func real[int,int] CG(real[int,int] &xx, real[int,int] &ww)
 	A=mat2(xx,ww);
 	r = b;
 	r -= A;
-	cout << " residuo0 " << prodottoL2(r,r) << endl;
+	//cout << " residuo0 " << prodottoL2(r,r) << endl;
 
 	//per la prima iterazione pk sono uguali ad r
 	pk = r;
 	Apk = mat2(pk,ww);
 	k = k+1;
 	
-	while( normL2Yh(r) > eps )
+	real normCG=normL2Yh(r);
+	while( normCG > eps )
 	{
+		cout << "  iterazione CG " << k << endl;
 		//trovo alpha
 		Apk = mat2(pk,ww);
 		alphaCG = prodottoL2(pk,r)/prodottoL2(pk,Apk);
@@ -470,18 +490,18 @@ func real[int,int] CG(real[int,int] &xx, real[int,int] &ww)
 		pk *= -betaCG;
 		pk += r;
 		
-		cout << " iterazione CG " << k << endl;
 		k++;  
 		
 		//salvo la mia soluzione a questo passo
-		cout << " residuo1 " << normL2Yh(r)-eps << endl;
+		normCG = normL2Yh(r);
+		cout << " residuo1 " << normCG-eps << endl;
 	
 	}
 	
 	return xk;
 }
 
-/* La funzione CG(xx,ww) risolve il sistema di equazioni
+/* La funzione CGold(xx,ww) risolve il sistema di equazioni
  *	( I + (1/alpha)*ShIAd)dl = - (l+yd) + ShP[a,b](-(1/alpha)Ad(l))
  * e ricava dl utilizzando il metodo del gradiente coniugato
  * dove xx = vettore di ingresso del CG
