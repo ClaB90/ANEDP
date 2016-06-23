@@ -33,6 +33,7 @@ real[int] iterNewton(nLevels);
 real nsolold=5.5;
 real meshN=0.;
 real[int] hk(nLevels);
+real[int] DNlamb(nLevels);
 
 /* NB: fissato un numero di soluzioni il numero di intervalli sarà nsol-1 poichè la soluzione è nota per i valori nodali. 
  * Per conformità con il paper di riferimento

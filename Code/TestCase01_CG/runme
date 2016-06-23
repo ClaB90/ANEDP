@@ -1,0 +1,4 @@
+#!/bin/bash
+if [ "find -f "runme1"" == runme ]; then
+ echo expression evaluated as true
+fi

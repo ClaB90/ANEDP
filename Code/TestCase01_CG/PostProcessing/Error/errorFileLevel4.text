@@ -1,4 +1,4 @@
-nsol = 33 dt= 0.003125
+nsol = 33 dt= 0.003125 meshN =150
 errControlL2 :
  a j 4 errControlL2 = 0.00109312
 errProjectStateL2 : 

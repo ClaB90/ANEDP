@@ -172,5 +172,7 @@ func real DampedNewton()
 
 	}
 	
+	DNlamb[j]=lambdaDN;
+	
 	return 0;
 }
