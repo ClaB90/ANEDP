@@ -84,14 +84,14 @@ EOC errStateL2 = 1.00643 Vorrei fosse ~ 1
 EOC errAdjL2 = 1.57714 Vorrei fosse ~ 2
 EOC errStateLinf =  2.01387 Vorrei fosse ~ 1
 iterNewton : 
- a j 1 iterNewton = 3
- a j 2 iterNewton = 3
- a j 3 iterNewton = 3
- a j 4 iterNewton = 3
- a j 5 iterNewton = 3
- a j 6 iterNewton = 3
- a j 7 iterNewton = 3
- a j 8 iterNewton = 3
+ a j 1 iterNewton = 2 Lambda min 1
+ a j 2 iterNewton = 2 Lambda min 0.000604462
+ a j 3 iterNewton = 2 Lambda min 1
+ a j 4 iterNewton = 2 Lambda min 1
+ a j 5 iterNewton = 2 Lambda min 1
+ a j 6 iterNewton = 2 Lambda min 1
+ a j 7 iterNewton = 2 Lambda min 1
+ a j 8 iterNewton = 2 Lambda min 1
 Dati della simulazione :
  a j 0 nsol = 3 dt= 0.25 meshN =150
  a j 1 nsol = 5 dt= 0.125 meshN =150

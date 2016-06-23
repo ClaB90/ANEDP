@@ -231,7 +231,7 @@ func real saveErrorPartial(int nLevel)
 	ff << "iterNewton : " << endl;
 	for(int j=0; j<=nLevel; j++)
 	{
-		ff << " a j " << j+1 << " iterNewton = " << iterNewton[j] <<  endl;
+		ff << " a j " << j+1 << " iterNewton = " << iterNewton[j] << " Lambda min " << DNlamb[j] << endl;
 
 	}
 	
@@ -374,7 +374,7 @@ func real coutError(int nLevel)
 	cout << "iterNewton : " << endl;
 	for(int j=0; j<nLevel; j++)
 	{
-		cout << " a j " << j << " iterNewton = " << iterNewton[j] <<  endl;
+		cout << " a j " << j << " iterNewton = " << iterNewton[j] << " Lambda min " << DNlamb[j] <<  endl;
 
 	}
 	
