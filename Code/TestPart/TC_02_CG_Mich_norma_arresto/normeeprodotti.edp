@@ -54,6 +54,28 @@ func real normL2YhCS(real[int,int] &xx)
 	return tmp;
 }
 
+/* norma L2 che utilizza il metodo di Cavalieri Simpson sullo spazio Yh
+*/
+func real normL2YhCSnowd(real[int,int] &xx, real[int,int] &ww)
+{
+	real tmp=0.;
+	real savet=t;
+	Yh x1,x2;
+	t=0;
+	
+	for(int i=0; i<nsol-1; ++i)
+	{
+		x1[]=xx(i,:);
+		x2[]=ww(i,:);
+		
+		tmp += (dt)*(int2d(Th)((x1-x2)^2));
+		t=t+dt;
+	}
+	tmp=sqrt(tmp);
+	t=savet;
+	return tmp;
+}
+
 /* La funzione prodottoL2 ricava il prodotto vettoriale temporale tra due vettori di soluzioni
  * dello stesso spazio funzionale 
  */

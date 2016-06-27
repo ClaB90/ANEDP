@@ -72,7 +72,7 @@ func real puntoFisso()
 func real DampedNewton()
 {
 	real[int,int] uw(nsol,Yh.ndof);
-	real[int,int] deltal(nsol,Yh.ndof);
+	real[int,int] deltal(nsol,Yh.ndof), deltalold(nsol,Yh.ndof);
 	
 	real[int,int] tmp(nsol,Yh.ndof);
 	real[int,int] ll(nsol,Yh.ndof);
@@ -87,6 +87,8 @@ func real DampedNewton()
 	//per entrare nel while
 	real ErrDN = 10;
 	
+	DNlamb[j] =2.;
+	
 	//Nmax = 4;
 	while( ErrDN > epsilon && k < Nmax && (ErrDN-ErrDNold) > epsilon )
 	{
@@ -100,6 +102,8 @@ func real DampedNewton()
 		cout << " iterazione Newton " << k << endl;
 		lambdaDN = 1.;
 		ll=0.;
+		
+		deltalold = deltal;
 		deltal = CG(ll,l);
         //cout << " incremento " << normL2Yh(deltal) << endl;	
         
@@ -166,13 +170,16 @@ func real DampedNewton()
 		
 		//aggiorna tolleranza normL2YhCS considera che tmp4 è grad(phi)+wd
 		ErrDNold = ErrDN;
+		//ErrDN = normL2YhCSnowd(deltal, deltalold);
 		ErrDN = normL2YhCS(tmp4);
 		cout << " norma " << ErrDN << endl;
 		cout << " arresto " << ErrDN-epsilon << endl;
+		
+		DNlamb[j] = min(lambdaDN, DNlamb[j]);
 
 	}
 	
-	DNlamb[j]=lambdaDN;
+	DNlambfin[j] = lambdaDN;
 	
 	return 0;
 }
