@@ -27,10 +27,10 @@ func real puntoFisso()
 	//Il valore di Bpk viene assegnato da adjointt()
 	Bpkold = Bpk;
 
-	toll = 1;
+	real ErrPF = 1;
 
 	//Iterative algorithm
-	while ( toll > epsilon  && k <= Nmax)
+	while ( ErrPF > epsilon  && k <= Nmax)
 	{      
 	      k = k + 1;
 		  cout << "k = " << k << endl;
@@ -47,11 +47,11 @@ func real puntoFisso()
 		  {
 			  if( i == 0 )
 			  {
-			  	toll = abs(Bpk[i]-Bpkold[i]);
+			  	ErrPF = abs(Bpk[i]-Bpkold[i]);
 			  }
 			  else
 			  {
-			  	toll = max( toll, abs(Bpk[i]-Bpkold[i]));
+			  	ErrPF = max( ErrPF, abs(Bpk[i]-Bpkold[i]));
 			  }
 		  
 		  }

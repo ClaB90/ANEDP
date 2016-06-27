@@ -5,7 +5,6 @@
  *											   			 					          			*
  *  	Descrizione: Parametri Per il problema di controllo: 						  			*
  *						alpha = acceleration parameter								  			*
- *						toll = variabile per la tolleranza							  			*
  *						epsilon = valore limite per la tolleranza					  			*
  * 						k = numero di iterazione del ciclo di controllo				  			*
  * 					 	Nmax = numero massimo di iterazioni						 	  			*
@@ -21,7 +20,7 @@
  * 														 				 	 	 	  			*
  ************************************************************************************************/
 
-real alpha, toll=0.,epsilon;
+real alpha,epsilon;
 int k, Nmax;
 alpha = 1.;    
 epsilon = 1e-5;    

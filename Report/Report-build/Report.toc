@@ -1,0 +1,57 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
+\select@language {english}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {1}Introduzione}{1}{chapter.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {2}Analisi del problema continuo}{3}{chapter.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Problema di Stato}{3}{section*.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Spazio del Controllo}{4}{section*.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Problema Aggiunto}{5}{section*.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Regolarit\IeC {\`a}}{5}{section*.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {3}Analisi del problema discreto}{7}{chapter.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.1}Semidiscretizzazione temporale}{7}{section.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1.1}Caratteristiche dello schema numerico}{7}{subsection.3.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1.2}Semidiscretizzazione del problema di stato}{8}{subsection.3.1.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1.3}Semidiscretizzazione del problema aggiunto}{9}{subsection.3.1.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.2}Discretizzazione variazionale}{10}{section.3.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.2.1}Il caso generale}{10}{subsection.3.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.2.2}Il caso in oggetto}{11}{subsection.3.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.3}Metodo di punto fisso}{12}{section.3.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {4}Descrizione Implementazione}{15}{chapter.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\texttt {FreeFem$++$}}{15}{section*.7}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\texttt {GitHub}}{15}{section*.8}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {5}Risultati numerici}{17}{chapter.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.1}Test Case 01}{17}{section.5.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Set-up}{17}{section*.9}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Risultati Numerici}{19}{section*.10}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.2}Test Case 02}{19}{section.5.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Set-up}{19}{section*.13}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Risultati Numerici}{19}{section*.14}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {6}Conclusioni}{21}{chapter.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{Bibliography}{23}{chapter*.17}

@@ -108,9 +108,16 @@
 \DeclareMathOperator\tr{tr}	
 \DeclareMathOperator\divergence{div}
 \renewcommand{\div}{\divergence}
+\DeclareMathOperator{\argmin}{arg\,min}
 
 \theoremstyle{plain}
 \newtheorem{lemma}{Lemma}
+\theoremstyle{remark}
+\newtheorem{osservazione}{Osservazione}
+\theoremstyle{plain}
+\newtheorem{teorema}{Teorema}
+\theoremstyle{definition}
+\newtheorem{algoritmo}{Algoritmo}
 
 \DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
 \DeclarePairedDelimiter{\norma}{\lVert}{\rVert}
@@ -138,7 +145,6 @@
 \newtheorem{definizione}{Definizione}
 
 \theoremstyle{plain}
-\newtheorem{teorema}{Teorema}
 \newtheorem*{teorema_bis} {Teorema}
 \newtheorem{proposizione}{Proposizione}
 
@@ -164,6 +170,7 @@
     \input{src/01_Introduzione}
     \input{src/02_Analisi_del_problema_continuo}
     \input{src/03_Analisi_del_problema_discreto}
+    \input{src/VarDisc}
     \input{src/04_Codice}
  	\input{src/05_Risultati}   
  	\input{src/06_Conclusioni}

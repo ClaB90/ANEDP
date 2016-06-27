@@ -29,10 +29,10 @@ func real puntoFisso()
 	//Il valore di Bpk viene assegnato da adjointt()
 	Bpkold = Bpk;
 
-	toll = 1;
+	real ErrPF = 1;
 
 	//Iterative algorithm
-	while ( toll > epsilon  && k <= Nmax)
+	while ( ErrPF > epsilon  && k <= Nmax)
 	{      
 	      k = k + 1;
 		  cout << "k = " << k << endl;
@@ -49,11 +49,11 @@ func real puntoFisso()
 		  {
 			  if( i == 0 )
 			  {
-			  	toll = abs(Bpk[i]-Bpkold[i]);
+			  	ErrPF = abs(Bpk[i]-Bpkold[i]);
 			  }
 			  else
 			  {
-			  	toll = max( toll, abs(Bpk[i]-Bpkold[i]));
+			  	ErrPF = max( ErrPF, abs(Bpk[i]-Bpkold[i]));
 			  }
 		  
 		  }
@@ -82,13 +82,13 @@ func real DampedNewton()
 	real[int,int] arr(nsol,Yh.ndof);
 	
 	real lambdaDN = 1., betaDN = 0.2;
-	real tmp2, phil, phitmp, tollold, primo=0;
+	real tmp2, phil, phitmp, ErrDNold, primo=0;
 	
 	//per entrare nel while
-	toll = 10;
+	real ErrDN = 10;
 	
 	//Nmax = 4;
-	while( toll > epsilon && k < Nmax /*&& (toll-tollold) > epsilon*/ )
+	while( ErrDN > epsilon && k < Nmax /*&& (ErrDN-ErrDNold) > epsilon */ )
 	{
 		/* PASSO 1
 		 * 	ricava dl dall'equazione
@@ -165,10 +165,10 @@ func real DampedNewton()
 		l += lambdaDN*deltal;
 		
 		//aggiorna tolleranza normL2YhCS considera che tmp4 è grad(phi)+wd
-		tollold = toll;
-		toll = normL2YhCS(tmp4);
-		cout << " norma " << toll << endl;
-		cout << " arresto " << toll-epsilon << endl;
+		ErrDNold = ErrDN;
+		ErrDN = normL2YhCS(tmp4);
+		cout << " norma " << ErrDN << endl;
+		cout << " arresto " << ErrDN-epsilon << endl;
 
 	}
 	

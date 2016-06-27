@@ -21,7 +21,7 @@
  * 														 				 	 	 	  			*
  ************************************************************************************************/
 
-real alpha, toll=0.,epsilon;
+real alpha, ErrDN=0.,epsilon;
 int k, Nmax;
 alpha = pi^(-4);    
 epsilon = 1e-5;    
