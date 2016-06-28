@@ -1,12 +1,13 @@
 \lstnewenvironment{Code}[1][]{\lstset{basicstyle=\small\ttfamily, columns=fullflexible,framexrightmargin=+.1\textwidth, keywordstyle=\color{red}\bfseries, commentstyle=\color{blue},language=C++, basicstyle=\small, numbers=left, numberstyle=\tiny, stepnumber=1, numbersep=5pt, frame=shadowbox, #1}}{}
 
-\chapter{Descrizione Implementazione}
+%\chapter{Descrizione Implementazione}
+\section{Descrizione Implementazione}
 \label{chap:Code}
 
 In questo capitolo verranno descritte la struttura di base e le funzioni principali del codice sviluppato.
 Per l'implementazione del codice si è utilizzato il solver \href{http://www.freefem.org/}\texttt{FreeFem$++$}\footnote{http://www.freefem.org/} ed il relativo linguaggio di programazzione.
 
-\section{Strumenti di sviluppo}
+\subsection{Strumenti di sviluppo}
 \subsubsection{\texttt{FreeFem$++$}}
 \href{http://www.freefem.org/}\texttt{FreeFem$++$} è un software per la risoluzione di equazioni alle derivate parziali che ha un proprio linguaggio di scripting basato sul C$++$. Gli script permettono di risolvere sistemi non lineari di più variabili in un dominio 2D o 3D.
 \texttt{FreeFem$++$} è un software libero, disponibile per i sistemi operativi \textit{Linux}, \textit{Solaris}, \textit{OS X} and \textit{MS Windows}.
@@ -19,7 +20,7 @@ Il codice del progetto è reperibile su \texttt{GitHub} ed è possibile scaricar
 \end{center}
 Nella cartella principale è contenuto anche un file \texttt{.gitignore}, in cui sono specificate le estensioni dei files e le sottocartelle che non devono essere visionati in una repository \texttt{GitHub}. In particolare non si è interessati ai files temporanei che vengono eventualmente generati dagli editor.
 
-\section{Implementazione}
+\subsection{Implementazione}
 In questo lavoro sia l'algortimo di punto fisso, \textbf{Algoritmo} \ref{PuntoFisso} , sia l'algortimo di Newton, \textbf{Algoritmo} [REFDN], sono stati implementati per la soluzione del problema parabolico di controllo ottimo \eqref{eq:200} descritto nei capitoli precedenti [REFCHAP].
 Il corpo del programma è costituito dal file \textbf{main.edp} che permette di risolve il problema \ref{Pk} con uno dei due algortimi su una o più griglie temporali. Il processo di raffinamento temporale considera griglie uniformi tali che il numero di nodi $N_k$ al livello l di infittimento sia:
 \begin{equation}
@@ -33,7 +34,7 @@ L'errore fra la soluzione esatta e la soluzione approssimata per i problemi di s
 Gli altri file principali sono i seguenti:
 \begin{itemize}
 \item[-] \texttt{controlparameters.edp}: contiene i parametri che definiscono il problema di controllo;
-\item[-] \texttt{controlfunction.edp}: contiene la funzione per il procedimento di punto fisso, \textbf{Algoritmo} \ref{PuntoFisso} ,e la funzione per l'algortimo di damped Newton, \textbf{Algoritmo} [RIFDN];
+\item[-] \texttt{controlfunction.edp}: contiene la funzione per il procedimento di punto fisso, \textbf{Algoritmo} \ref{PuntoFisso} ,e la funzione per l'algortimo di damped Newton, \textbf{Algoritmo} \ref{DN};
 \item[-] \texttt{UabSet.edp}: contiene i parametri limite dell'insieme Uab e le funzioni di proiezione per uno scalare e per un vettore sullo spazio Uab;
 \item[-] \texttt{funzioni.edp} contiene le funzioni che caratterizzano l'operatore B, la funzione yd e la forzante del problema di stato g0;
 \item[-] \texttt{soluzioniEsatte.edp}: definisce le funzioni per le soluzioni esatte del problema di stato y, del problema aggiunto p e per la variabile di controllo u;
@@ -48,7 +49,7 @@ Gli altri file principali sono i seguenti:
 Per il calcolo di ogni norma e prodotto scalare il metodo numerico di integrazione utilizzato è il metodo di Cavalieri Simpson. \MakeUppercase{è} stata fatta questa scelta poichè questo metodo ha un ordine due di convergenza dell'errore. In modo che l'ordine di convergenza degli errori di interesse per questo lavoro non sia influenzato negativamente dall'ordine del metodo di integrazione utilizzato.
 \par
 per i problemi parabolici di controllo ottimo è necessario salvare matrici molto grandi contenenti le soluzioni del problema di stato e del problema aggiunto ad ogni istante temporale considerato. Questa richesta può portare a problemi di insufficiente memoria RAM durante l'esecuzione del programma. Tuttavia in questo lavoro non sono stati riscontrati problemi di questo tipo, e per una maggiore velocità di calcolo le soluzioni sono state tenute in memoria.
-\subsection{Calcolo dell'errore}
+\subsubsection{Calcolo dell'errore}
 Per il calcolo dell'errore della soluzione approssimata $u_k$ del problema di contollo particolare attenzione è stata posta sulla griglia di integrazione. La soluzione del problema aggiunto $p_k$ è una funzione costanti a tratti nel tempo i cui punti di non derivabilità coincidono con la griglia di discretizazione temporale utilizzata. La soluzione $u_k$, equazione \eqref{cnott}, è ancora una funzione costante a tratti nel tempo, ma l'operazione di proiezione $P_{U_{ab}}$ non garantisce che i nodi della griglia temporale utilizzata corrispondano a i punti di non derivabilità della funzione stessa. Come mostrato in Figura \ref{fig:griglie}.
 \begin{figure}
 \centering
@@ -85,7 +86,7 @@ err_{p_k} = || pes - p_k ||_{L2}
 \label{eq:erradj}
 \end{equation}
 
-\subsection{Punto Fisso}
+\subsubsection{Punto Fisso}
 Il primo algoritmo implementato, detto di Punto Fisso segue l'\textbf{Algoritmo} \ref{PuntoFisso}.
 \par
 Lo schema di integrazione temporale implementato per il problema di stato è una variante dello schema di Crank-Nicolson(CN). In particolare viene effettuato un primo passo di eulero all'indietro(EI) con passo temporale dimezzato, poi lo schema di Crank-Nicolson viene applicato per ogni fino al penultimo ed infine un passo di Eulero in avanti(EA).
@@ -168,4 +169,4 @@ La funzione che calcola la soluzione $p_k$ ad ogni passo è la funzione \textbf{
 \par
 Infine la funzione \textbf{puntoFisso()} risolve l'\textbf{Algoritmo} \ref{PuntoFisso} rispettando il criterio di tolleranza \eqref{eq:PuntoFissotoll}.
 
-\subsection{Damped Newton}
+\subsubsection{Semi-Newton}

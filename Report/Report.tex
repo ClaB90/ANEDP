@@ -1,4 +1,4 @@
-\documentclass{book}
+\documentclass{article}
 
 \usepackage [utf8]{inputenc}
 \usepackage[babel]{csquotes}
@@ -16,6 +16,8 @@
 \usepackage{braket}										%generate bra and ket vectors
 \usepackage{bm}
 \usepackage{bbm}
+
+\usepackage[a4paper,left=3cm,right=3cm]{geometry}
 
 % if you use this label name will show near by table and figure
 %\usepackage {showlabels}
@@ -158,17 +160,18 @@
 
 \begin{document}
   
-  \frontmatter
+  %\frontmatter
   \begin{titlepage}
     \input{src/title}
   \end{titlepage}
 %    \input{src/quotes}
-    \input{src/abstract}
+%    \input{src/abstract}
 %   \input{src/acknowledgments}
 %    \input{src/Nomenclature}
 %    \input{src/Nomenclature_Greek}
   \tableofcontents
-  \mainmatter
+  \newpage
+  %\mainmatter
     \input{src/01_Introduzione}
     \input{src/02_Analisi_del_problema_continuo}
     \input{src/03_Analisi_del_problema_discreto}
@@ -177,12 +180,12 @@
  	\input{src/06_Risultati}   
  	\input{src/07_Conclusioni}
     
-  \backmatter
+  %\backmatter
   
   \nocite{QUART}
   \printbibliography[heading=bibintoc]    
     
-  \listoffigures
-  \listoftables
+  %\listoffigures
+  %\listoftables
 
 \end{document}

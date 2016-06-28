@@ -2,38 +2,24 @@
 \defcounter {refsection}{0}\relax 
 \select@language {english}
 \defcounter {refsection}{0}\relax 
-\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1}{\ignorespaces Esempio di differenza fra la griglia per la soluzione $u_k$ e la soluzione di $p_k$\relax }}{17}{figure.caption.3}
 \defcounter {refsection}{0}\relax 
-\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2}{\ignorespaces Test Case 01 $\overline {u}$ e $u_k$ risultati di \cite {MAIN}\relax }}{21}{figure.caption.4}
 \defcounter {refsection}{0}\relax 
-\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3}{\ignorespaces Test Case 01 $\overline {u}$ e $u_k$ risultati di questo studio\relax }}{21}{figure.caption.5}
 \defcounter {refsection}{0}\relax 
-\addvspace {10\p@ }
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {\url {l = 1}}}}{21}{figure.caption.5}
 \defcounter {refsection}{0}\relax 
-\addvspace {10\p@ }
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {\url {l = 2}}}}{21}{figure.caption.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Esempio di differenza fra la griglia per la soluzione $u_k$ e la soluzione di $p_k$\relax }}{20}{figure.caption.9}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {\url {l = 3}}}}{21}{figure.caption.5}
 \defcounter {refsection}{0}\relax 
-\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4}{\ignorespaces Test Case 02 $\overline {u}$ e $u_k$ risultati di \cite {MAIN}\relax }}{23}{figure.caption.6}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Test Case 01 $\overline {u}$ e $u_k$ risultati di \cite {MAIN}\relax }}{26}{figure.caption.12}
+\contentsline {figure}{\numberline {5}{\ignorespaces Test Case 02 $\overline {u}$ e $u_k$ risultati di questo studio\relax }}{23}{figure.caption.7}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {6.2}{\ignorespaces Test Case 01 $\overline {u}$ e $u_k$ risultati di questo studio\relax }}{26}{figure.caption.13}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {\url {l = 1}}}}{23}{figure.caption.7}
 \defcounter {refsection}{0}\relax 
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {\url {l = 1}}}}{26}{figure.caption.13}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {\url {l = 2}}}}{23}{figure.caption.7}
 \defcounter {refsection}{0}\relax 
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {\url {l = 2}}}}{26}{figure.caption.13}
-\defcounter {refsection}{0}\relax 
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {\url {l = 3}}}}{26}{figure.caption.13}
-\defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {6.3}{\ignorespaces Test Case 02 $\overline {u}$ e $u_k$ risultati di \cite {MAIN}\relax }}{28}{figure.caption.16}
-\defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {6.4}{\ignorespaces Test Case 02 $\overline {u}$ e $u_k$ risultati di questo studio\relax }}{28}{figure.caption.17}
-\defcounter {refsection}{0}\relax 
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {\url {l = 1}}}}{28}{figure.caption.17}
-\defcounter {refsection}{0}\relax 
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {\url {l = 2}}}}{28}{figure.caption.17}
-\defcounter {refsection}{0}\relax 
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {\url {l = 3}}}}{28}{figure.caption.17}
-\defcounter {refsection}{0}\relax 
-\addvspace {10\p@ }
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {\url {l = 3}}}}{23}{figure.caption.7}

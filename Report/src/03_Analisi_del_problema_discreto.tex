@@ -1,9 +1,9 @@
-\chapter{Analisi del problema discreto}
+%\chapter{Analisi del problema discreto}
+\section{Analisi del problema discreto}
 \label{chap:Discontinuos}
 
-\section{Semidiscretizzazione temporale}
-
-\subsection{Caratteristiche dello schema numerico}
+\subsection{Semidiscretizzazione temporale}
+%\subsubsection{Caratteristiche dello schema numerico}
 La sezione inizia introducendo la griglia e gli spazi funzionali utilizzati per la semidiscretizzazione temporale dei problemi di stato e aggiunto.
 
 Si partizioni l'intervallo $[0,T)$ in sottointervalli $I_m=[t_{m-1},t_m)$, dove $0=t_0<t_1<\dots<t_M=T$ sono punti appartenenti al segmento $[0,T)$. Inoltre si affianchi a tale griglia una seconda partizione dell'intervallo $[0,T)$, fondamentale per ottenere i risultati di convergenza dei problemi semidiscretizzati, detta \textit{griglia duale}; essa è composta dagli intervalli $I^*_m=[t^*_{m-1},t^*_m)$, con $0=t^*_0<t^*_1<\dots<t^*_M=T$ e $t^*_m=\frac{t_{m-1}+t_m}{2}\quad\text{per $m=1,\dots,M$}$. Riassumendo si può contare su due suddivisioni dell'intervallo $[0,T)$ tali che $[0,T)=\bigcup^{M+1}_{m=1} I_m$ e $[0,T)=\bigcup^{M+1}_{m=1} I^*_m$.

@@ -1,4 +1,5 @@
-\chapter{Discretizzazione variazionale}
+%\chapter{Discretizzazione variazionale}
+\section{Discretizzazione variazionale}
 \label{chap:DiscVar}
 Per approssimare il problema di controllo ottimo [P] viene applicato un metodo detto di discretizzazione variazionale, introdotto da M. Hinze in [Hin05]. Nella prossima sezione viene brevemente presentato questo metodo nel caso generale di problemi di controllo quadratici, dopodiché lo si vedrà in azione per  la risoluzione di \ref{eq:200}.   
 
@@ -230,6 +231,12 @@ Per brevità sarà indicato con $ A_w $ l'Hessiano generalizzato a primo membro 
           \item $k:=k+1$.
           \end{enumerate}
 \end{enumerate}
-Come criterio di arresto è stato scelto $ \norma{r^n}_{L^2(I,L^2(\Omega))}\le t_0 $, con $ t_0 $ tolleranza prescritta.
+Come criterio di arresto è stato scelto 
+\begin{equation}
+\norma{r^n}_{L^2(I,L^2(\Omega))}\le t_0 
+\label{eq:DNtoll}
+\end{equation}
+con $ t_0 $ tolleranza prescritta.
 E' superfluo specificare che qui l'indice $ n $ denota l'n-esima iterazione di CG, non di Newton.
+\label{DN}
 \end{algoritmo} 

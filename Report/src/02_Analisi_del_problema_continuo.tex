@@ -1,4 +1,5 @@
-\chapter{Analisi del problema continuo}
+%\chapter{Analisi del problema continuo}
+\section{Analisi del problema continuo}
 \label{chap:Continuos}
 
 In questo studio vengono considerati un dominio poligonale convesso $\Omega \in \mathbb{R}^n$ dove $n=2,3$, il cui bordo viene indicato con $\partial\Omega$, ed un intervallo temporale $I = (0,T) \subset \mathbb{R}$, $T < \infty$. 
@@ -17,7 +18,7 @@ Il problema di controllo ottimo lineare quadratico analizzato è defnito come:
 } %chiude \renewcommand\arraystretch{1.5}
 dove $y_d$ è una funzione scelta $\in L^2(I,{L^{2}(\Omega)})$.
 
-\subsubsection{Problema di Stato}
+\subsection{Problema di Stato}
 Il problema di stato è definito in forma forte e in forma debole rispettivamente in \ref{eq:201} e \ref{eq:202}.
 \begin{equation}
 \begin{array}{cc}
@@ -71,7 +72,7 @@ dove $y{\in}Y$ è la soluzione di \ref{eq:202}, $v{\in}Y$ è la funzione test e 
 \end{equation}
 Per i risultati di stabilità, la consistenza e la convergenza di \ref{eq:201},noti in letteratura, si definisce y come soluzione unica di \ref{eq:206}. L'equazione \ref{eq:207} è necessaria per la definire  lo schema di approsimazione numerica per l'equazione di stato come descritto nel Capitolo \ref{chap:Discontinuos}.
 
-\subsubsection{Spazio del Controllo}
+\subsection{Spazio del Controllo}
 Nello scenario descritto precedentemente la scelta per lo spazio di controllo non è unica. Seguendo le linee guida di \cite{MAIN} questo viene difinito come $U = L^2(I,\mathbb{R}^d), d \in \mathbb{N}$. Presi dunque $a_i, b_i \in \mathbb{R}$ t.c. $a_i<b_i {\forall}i=1:d$ la regione ammissibile, costituita da un insieme chiuso e convesso, è definita come:
 \begin{equation}
 U_{ad} = \left\{ u \in U | a_i \leq u_i(t) \geq b_i {\forall}i=1:d  \right\}
@@ -94,7 +95,7 @@ P_{U_{ad}} : L^2(I,\mathbb{R}^d)\rightarrow U_{ad}
 \label{eq:211}
 \end{equation}
 
-\subsubsection{Problema Aggiunto}
+\subsection{Problema Aggiunto}
 Il problema \ref{eq:200} ammette un unica soluzione $(\overline{y},\overline{u}){\in}Y{\times}U$ dove $\overline{y}=S(B\overline{u},y_0)$.
 Intodotti ora la variabile aggiunta $(\overline{p},\overline{q}) \in L^2(I,{H^{0}_{1}(\Omega)}{\times}{L^{2}(\Omega)})$, soluzione unica di \ref{eq:214}, e l'operatore aggiunto $B':L^2(I,{H^{0}_{1}(\Omega)}){\rightarrow}L^2(I,\mathbb{R}^d)$ definito da:
 \begin{equation}
@@ -143,7 +144,7 @@ Il problema \ref{eq:216} può essere riscritto in forma forte come:
 \end{equation}
 dove $ h= \overline{y} - y_d$ e $\overline{q}=\overline{p}(0)$.
 
-\subsubsection{Regolarità}
+\subsection{Regolarità}
 Per lo studio della regolarità di \ref{eq:201} e \ref{eq:215} è importante assumere che:
 \begin{itemize}
 \item[i)] $y_d \in H^1(I,{L^{2}(\Omega)})$ e $y_d(T) \in {H^{0}_{1}(\Omega)}$ ed $g_i \in {H^{0}_{1}(\Omega)} {\forall}i=1:d$ e $y_0 \in {H^{0}_{1}(\Omega)}$ con ${\bigtriangleup}y_0 \in {H^{0}_{1}(\Omega)}$.
