@@ -1,21 +1,23 @@
 \chapter{Discretizzazione variazionale}
-\label{DiscVar}
-Per approssimare il problema di controllo ottimo \eqref{eq:200} viene applicato un metodo detto di discretizzazione variazionale, introdotto da M. Hinze in [Hin05]. Nella prossima sezione viene brevemente presentato questo metodo nel caso generale di problemi di controllo quadratici, dopodiché lo si vedrà in azione per la risoluzione di \eqref{eq:200}.   
+\label{chap:DiscVar}
+Per approssimare il problema di controllo ottimo [P] viene applicato un metodo detto di discretizzazione variazionale, introdotto da M. Hinze in [Hin05]. Nella prossima sezione viene brevemente presentato questo metodo nel caso generale di problemi di controllo quadratici, dopodiché lo si vedrà in azione per  la risoluzione di \ref{eq:200}.   
+
 
 \subsection{Il caso generale}
-Si consideri il seguente problema di controllo ottimo quadratico:
+
+Si consideri il seguente problema di controllo ottimo quadratico
 \begin{equation}
 \label{controlpb}
 \min_{(y,u)\in Y\times U} J(y,u)   \ \text{s.t.} \ y=Su \  \text{and} \ u\in U_{ad},
 \end{equation}
-dove $ U=U^*$ denota lo spazio di Hilbert del controllo, $ Y $ lo spazio di Banach dello stato, $ S:U\to Y\subseteq U $ l'operatore lineare e limitato tra controllo e stato, e $ U_{ad}\subseteq U $ l'insieme chiuso e convesso dei controlli ammissibili. Inoltre per $ \alpha>0 $ sia il funzionale $ J $ dato da: 
+dove $ U=U^*$ denota lo spazio di Hilbert del controllo, $ Y $ lo spazio di Banach dello stato, $ S:U\to Y\subseteq U $ l'operatore lineare e limitato tra controllo e stato, e $ U_{ad}\subseteq U $ l'insieme chiuso e convesso dei controlli ammissibili. Inoltre per $ \alpha>0 $ sia il funzionale $ J $ dato da 
 \begin{equation}
 J(y,u)=\frac{1}{2}\norma{y-z}^2_Z + \frac{\alpha}{2}\norma{u}^2_U,
 \end{equation}
 dove $ Z=Z^* $ denota uno spazio di Hilbert, $ z\in Z $ e $ Y\hookrightarrow Z\hookrightarrow Y^* $.   
-\par
+
 La presente  discretizzazione di ~\eqref{controlpb} si basa sulla discretizzazione dei soli spazi di stato e aggiunto, utilizzando implicitamente le condizioni di ottimalità del primo ordine per la discretizzazione del controllo. Tra i vantaggi di tale approccio si consideri , nel caso si utilizzino schemi ad elementi finiti,  il disaccoppiamento dell'approssimazione dell'\textit{active set} dai nodi della griglia per gli EF. 
-\par
+
 Per definire il controllo discreto sia $ S_h:U\to Y_h\subset Y\subseteq U$ l'operatore lineare limitato tra il controllo e lo stato discretizzato, dove $ Y_h\subseteq Y $ è uno sottospazio finito-dimensionale equipaggiato con la norma di $ Y $.
 \begin{definizione}
 
@@ -39,19 +41,19 @@ Se esprimiamo la condizione di ottimalità ~\eqref{contrpbdisc} qualora $ U_{ad}
 u^*_h=\frac{-1}{\alpha}S^*_h(S_hu^*_h-z),
 \end{equation}
 Infatti, sebbene $ u^*_h $ sia in $ U $, esso è implicitamente un oggetto discreto per via dell'operatore aggiunto discreto.
-\par
+
 Ora si riporta senza dimostrazione il risultato principale legato alla discretizzazione variazionale, che poi sarà utile in seguito: 
 \begin{teorema}
 \label{teo:Hin}
 
-Se gli operatori $ S_h, S^*_h $ soddisfano le condizioni:
+Se gli operatori $ S_h, S^*_h $ soddisfano le condizioni
 \begin{itemize}
 
 \item $ \norma{(S^*-S^*_h)z}_U\le Ch^2\norma{z}_Z $
 \item $ \norma{(S^*S-S^*_hS_h)u^*}_U\le Ch^2\norma{u^*}_U $
 
 \end{itemize}
-allora per $ h>0 $ sufficientemente piccolo la disuguaglianza variazionale ~\eqref{contrpbdisc} ammette un'unica soluzione $ u^*_h\in U_{ad} $ che soddisfa: 
+allora per $ h>0 $ sufficientemente piccolo la disuguaglianza variazionale ~\eqref{contrpbdisc} ammette un'unica soluzione $ u^*_h\in U_{ad} $ che soddisfa 
 \begin{equation}
 \norma{u^*-u^*_h}_U\le Ch^2\{ \norma{u^*}_U + \norma{z}_Z\}.
 \end{equation}
@@ -63,14 +65,13 @@ Qui, $ u^*\in U_{ad} $ denota l'unica soluzione del problema ~\eqref{controlpb}.
 
 Ora si vuole applicare il metodo di discretizzazione variazionale al problema [RIF] nei confronti della variabile tempo, dove gli operatori $ S_h $ e $ S^*_h $ sono individuati dagli schemi di Petrov-Galerkin esposti nei capitoli precedenti.
 
-Dunque, il problema (semi)discretizzato da considerare è:
+Dunque, il problema (semi)discretizzato da considerare è
 \begin{gather}
 \label{Pk}
-\tag{$\mathbb{P}_k$}
 \min_{y_k\in Y_k, u\in U_{ad}} J(y_k,u)=\frac{1}{2}\norma{y_k-y_d}^2_{L^2(I,L^2(\Omega))} + \frac{\alpha}{2}\norma{u}^2_U, \\
 \text{s.t.} \ y_k=S_k(Bu,y_0),
 \end{gather}
-dove $ S_k $ è l'operatore delle soluzioni associato a [RIF]. Grazie ai risultati della precedente sezione questo problema ammette un'unica soluzione $ (\bar{y}_k, \bar{u}_k)\in Y_k\times U_{ad} $, con $ \bar{y}_k=S_k(B\bar{u}_k,y_0) $ e la condizione di ottimalità del primo ordine recita:
+dove $ S_k $ è l'operatore delle soluzioni associato a [RIF]. Grazie ai risultati della precedente sezione questo problema ammette un'unica soluzione $ (\bar{y}_k, \bar{u}_k)\in Y_k\times U_{ad} $, con $ \bar{y}_k=S_k(B\bar{u}_k,y_0) $ e la condizione di ottimalità del primo ordine recita
 \begin{equation}
 \label{cnott}
 \bar{u}_k=P_{U_{ad}}\big( -\frac{1}{\alpha}B'\bar{p}_k\big),
@@ -103,7 +104,7 @@ Siano $ \bar{u} $ e $ \bar{u}_k $ le soluzioni di [RIF] e~\eqref{Pk} rispettivam
 \section{Metodo di punto fisso}
 
 L'equazione ~\eqref{cnott} è incline ad essere risolta numericamente nonostante il controllo non sia discretizzato esplicitamente; nel presente lavoro vengono scelti schemi di punto fisso e Newton con damping (semi-Newton).
-\par
+
 Per quanto riguarda il metodo di punto fisso, se si indica con $ S^*_h $ l'operatore di soluzione dell'equazione [RIF], l'algoritmo è il seguente:
 \begin{algoritmo}
 
@@ -122,9 +123,10 @@ Per quanto riguarda il metodo di punto fisso, se si indica con $ S^*_h $ l'opera
 Come criterio di arresto è stato scelto   
 \begin{equation}
 \norma{B'\big(p^{n+1}_h-p^n_h\big)}_{L^{\infty}(\Omega\times I)}<\epsilon,
+\label{eq:PuntoFissotoll}
 \end{equation}
 con $ \epsilon $ tolleranza prefissata.
-
+\label{PuntoFisso}
 \end{algoritmo}
 
 Seguendo [RIF] il metodo di punto fisso per l'equazione ~\eqref{cnott} converge globalmente per $ \alpha>\norma{S_h}^2_{\mathcal{L}(L^2(\Omega),L^2(\Omega))} $, motivo per cui è stato implementato anche lo schema semi-Newton, che ha invece la pretesa di convergere globalmente per qualsiasi valore di $ \alpha $.

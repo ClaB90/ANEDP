@@ -7,7 +7,7 @@ set key right bottom
 set xlabel 't'
 # set ylabel 'u'
 # Axes ranges
-set xrange [0:0.1]
+set xrange [0:0.5]
 # set yrange [0.2:0.4]
 
 pl "ControlSolEsnp0.text" u ($1):($2) w l lt 1 lw 3  title 'p_k'

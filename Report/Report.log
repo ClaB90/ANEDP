@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  26 JUN 2016 18:42
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  28 JUN 2016 16:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -981,7 +981,7 @@ No file Report.bbl.
 Package biblatex Info: Reference section=0 on input line 157.
 Package biblatex Info: Reference segment=0 on input line 157.
 \c@lstlisting=\count299
-(./src/title.tex <Report-frn.pdf, id=68, 597.50829pt x 845.0471pt>
+(./src/title.tex <Report-frn.pdf, id=88, 597.50829pt x 845.0471pt>
 File: Report-frn.pdf Graphic file (type pdf)
 
 <use Report-frn.pdf>
@@ -1152,204 +1152,277 @@ m/n/10 2 \OML/cmm/m/it/10 H[]\OT1/cmr/m/n/10 (
 )
  []
 
-[9]) (./src/VarDisc.tex [10]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 52.
+[9]) (./src/04_VarDisc.tex [10]
+Chapter 4.
 
-(/usr/local/texlive/2011/texmf-dist/tex/latex/base/omscmr.fd
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 6.
+
+[11
+
+]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 52.
+ (/usr/local/texlive/2011/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/it' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 52.
- [11]
+
 
 LaTeX Warning: Reference `P_k' on page 12 undefined on input line 80.
 
-) (./src/04_Codice.tex [12] [13] [14
+[12]) (./src/05_Codice.tex [13] [14
 
 ]
-Chapter 4.
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 5.
+Chapter 5.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 7.
 (/usr/local/texlive/2011/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 7.
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 10.
 
-Underfull \hbox (badness 10000) in paragraph at lines 12--14
+Underfull \hbox (badness 10000) in paragraph at lines 15--17
 
  []
 
-) (./src/05_Risultati.tex [15] [16
+[15] [16]
+
+LaTeX Warning: Reference `fig:griglie' on page 17 undefined on input line 52.
+
+Package epstopdf Info: Source file: <img/cap5/griglie.eps>
+(epstopdf)                    date: 2016-06-28 14:34:23
+(epstopdf)                    size: 113046 bytes
+(epstopdf)             Output file: <img/cap5/griglie-eps-converted-to.pdf>
+(epstopdf)                    date: 2016-06-28 14:44:12
+(epstopdf)                    size: 29488 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/cap5/griglie-eps-conve
+rted-to.pdf img/cap5/griglie.eps>
+(epstopdf)             \includegraphics on input line 55.
+Package epstopdf Info: Output file is already uptodate.
+<img/cap5/griglie-eps-converted-to.pdf, id=364, 849.1725pt x 596.2275pt>
+File: img/cap5/griglie-eps-converted-to.pdf Graphic file (type pdf)
+
+<use img/cap5/griglie-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap5/griglie-eps-converted-to.pdf used on input li
+ne 55.
+(pdftex.def)             Requested size: 345.0pt x 242.23502pt.
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
+nput line 60.
+ [17] [18 <./img/cap5/griglie-eps-converted-to.pdf>] [19]
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <9> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 128.
+
+Overfull \hbox (26.61414pt too wide) in paragraph at lines 129--130
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (142.31467pt too wide) in paragraph at lines 133--134
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (10.22115pt too wide) in paragraph at lines 135--136
+[][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (19.98265pt too wide) in paragraph at lines 136--137
+[][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (2.5136pt too wide) in paragraph at lines 138--139
+[][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (17.41273pt too wide) in paragraph at lines 139--140
+[][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (56.61755pt too wide) in paragraph at lines 148--149
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (67.10715pt too wide) in paragraph at lines 152--153
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[20]) (./src/06_Risultati.tex [21] [22
 
 ]
-Chapter 5.
+Chapter 6.
 
-LaTeX Warning: Citation 'MAIN' on page 17 undefined on input line 4.
+LaTeX Warning: Citation 'MAIN' on page 23 undefined on input line 4.
 
 
-LaTeX Warning: Reference `chap:Continuo' on page 17 undefined on input line 9.
+LaTeX Warning: Reference `chap:Continuo' on page 23 undefined on input line 9.
 
-[17] <img/cap5/TestCase01_ues_paper.png, id=344, 996.72375pt x 314.17375pt>
-File: img/cap5/TestCase01_ues_paper.png Graphic file (type png)
+[23] <img/cap6/TestCase01_ues_paper.png, id=479, 996.72375pt x 314.17375pt>
+File: img/cap6/TestCase01_ues_paper.png Graphic file (type png)
 
-<use img/cap5/TestCase01_ues_paper.png>
-Package pdftex.def Info: img/cap5/TestCase01_ues_paper.png used on input line 5
+<use img/cap6/TestCase01_ues_paper.png>
+Package pdftex.def Info: img/cap6/TestCase01_ues_paper.png used on input line 5
 7.
 (pdftex.def)             Requested size: 345.0pt x 108.7448pt.
 
 
-LaTeX Warning: Citation 'MAIN' on page 18 undefined on input line 58.
+LaTeX Warning: Citation 'MAIN' on page 24 undefined on input line 58.
 
 
-LaTeX Warning: Citation 'MAIN' on page 18 undefined on input line 58.
+LaTeX Warning: Citation 'MAIN' on page 24 undefined on input line 58.
 
-Package epstopdf Info: Source file: <img/cap5/TestCase01_ues_l1.eps>
+Package epstopdf Info: Source file: <img/cap6/TestCase01_ues_l1.eps>
 (epstopdf)                    date: 2016-05-18 11:56:51
 (epstopdf)                    size: 62019 bytes
-(epstopdf)             Output file: <img/cap5/TestCase01_ues_l1-eps-converted-t
+(epstopdf)             Output file: <img/cap6/TestCase01_ues_l1-eps-converted-t
 o.pdf>
 (epstopdf)                    date: 2016-05-18 12:03:12
 (epstopdf)                    size: 16199 bytes
-(epstopdf)             Command: <repstopdf --outfile=img/cap5/TestCase01_ues_l1
--eps-converted-to.pdf img/cap5/TestCase01_ues_l1.eps>
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/TestCase01_ues_l1
+-eps-converted-to.pdf img/cap6/TestCase01_ues_l1.eps>
 (epstopdf)             \includegraphics on input line 65.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap5/TestCase01_ues_l1-eps-converted-to.pdf, id=346, 849.1725pt x 596.2275
+<img/cap6/TestCase01_ues_l1-eps-converted-to.pdf, id=481, 849.1725pt x 596.2275
 pt>
-File: img/cap5/TestCase01_ues_l1-eps-converted-to.pdf Graphic file (type pdf)
- <use img/cap5/TestCase01_ues_l1-eps-converted-to.pdf>
-Package pdftex.def Info: img/cap5/TestCase01_ues_l1-eps-converted-to.pdf used o
+File: img/cap6/TestCase01_ues_l1-eps-converted-to.pdf Graphic file (type pdf)
+ <use img/cap6/TestCase01_ues_l1-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/TestCase01_ues_l1-eps-converted-to.pdf used o
 n input line 65.
 (pdftex.def)             Requested size: 103.50105pt x 72.66322pt.
-Package epstopdf Info: Source file: <img/cap5/TestCase01_ues_l2.eps>
+Package epstopdf Info: Source file: <img/cap6/TestCase01_ues_l2.eps>
 (epstopdf)                    date: 2016-05-18 14:00:42
 (epstopdf)                    size: 63685 bytes
-(epstopdf)             Output file: <img/cap5/TestCase01_ues_l2-eps-converted-t
+(epstopdf)             Output file: <img/cap6/TestCase01_ues_l2-eps-converted-t
 o.pdf>
 (epstopdf)                    date: 2016-05-18 14:03:10
 (epstopdf)                    size: 16263 bytes
-(epstopdf)             Command: <repstopdf --outfile=img/cap5/TestCase01_ues_l2
--eps-converted-to.pdf img/cap5/TestCase01_ues_l2.eps>
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/TestCase01_ues_l2
+-eps-converted-to.pdf img/cap6/TestCase01_ues_l2.eps>
 (epstopdf)             \includegraphics on input line 67.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap5/TestCase01_ues_l2-eps-converted-to.pdf, id=348, 849.1725pt x 596.2275
+<img/cap6/TestCase01_ues_l2-eps-converted-to.pdf, id=483, 849.1725pt x 596.2275
 pt>
-File: img/cap5/TestCase01_ues_l2-eps-converted-to.pdf Graphic file (type pdf)
- <use img/cap5/TestCase01_ues_l2-eps-converted-to.pdf>
-Package pdftex.def Info: img/cap5/TestCase01_ues_l2-eps-converted-to.pdf used o
+File: img/cap6/TestCase01_ues_l2-eps-converted-to.pdf Graphic file (type pdf)
+ <use img/cap6/TestCase01_ues_l2-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/TestCase01_ues_l2-eps-converted-to.pdf used o
 n input line 67.
 (pdftex.def)             Requested size: 103.50105pt x 72.66322pt.
-Package epstopdf Info: Source file: <img/cap5/TestCase01_ues_l3.eps>
+Package epstopdf Info: Source file: <img/cap6/TestCase01_ues_l3.eps>
 (epstopdf)                    date: 2016-05-18 14:00:26
 (epstopdf)                    size: 70526 bytes
-(epstopdf)             Output file: <img/cap5/TestCase01_ues_l3-eps-converted-t
+(epstopdf)             Output file: <img/cap6/TestCase01_ues_l3-eps-converted-t
 o.pdf>
 (epstopdf)                    date: 2016-05-18 14:03:11
 (epstopdf)                    size: 17283 bytes
-(epstopdf)             Command: <repstopdf --outfile=img/cap5/TestCase01_ues_l3
--eps-converted-to.pdf img/cap5/TestCase01_ues_l3.eps>
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/TestCase01_ues_l3
+-eps-converted-to.pdf img/cap6/TestCase01_ues_l3.eps>
 (epstopdf)             \includegraphics on input line 69.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap5/TestCase01_ues_l3-eps-converted-to.pdf, id=350, 849.1725pt x 596.2275
+<img/cap6/TestCase01_ues_l3-eps-converted-to.pdf, id=485, 849.1725pt x 596.2275
 pt>
-File: img/cap5/TestCase01_ues_l3-eps-converted-to.pdf Graphic file (type pdf)
- <use img/cap5/TestCase01_ues_l3-eps-converted-to.pdf>
-Package pdftex.def Info: img/cap5/TestCase01_ues_l3-eps-converted-to.pdf used o
+File: img/cap6/TestCase01_ues_l3-eps-converted-to.pdf Graphic file (type pdf)
+ <use img/cap6/TestCase01_ues_l3-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/TestCase01_ues_l3-eps-converted-to.pdf used o
 n input line 69.
 (pdftex.def)             Requested size: 103.50105pt x 72.66322pt.
 
 
-LaTeX Warning: Reference `chap:Continuo' on page 18 undefined on input line 75.
+LaTeX Warning: Reference `chap:Continuo' on page 24 undefined on input line 75.
 
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [18 <./img/cap5/TestCase01_ues_paper.png> <./img/cap5/TestCase01_ues_l1-eps-co
-nverted-to.pdf> <./img/cap5/TestCase01_ues_l2-eps-converted-to.pdf> <./img/cap5
+ [24 <./img/cap6/TestCase01_ues_paper.png> <./img/cap6/TestCase01_ues_l1-eps-co
+nverted-to.pdf> <./img/cap6/TestCase01_ues_l2-eps-converted-to.pdf> <./img/cap6
 /TestCase01_ues_l3-eps-converted-to.pdf>]
-<img/cap5/TestCase02_ues_paper.png, id=374, 999.735pt x 303.1325pt>
-File: img/cap5/TestCase02_ues_paper.png Graphic file (type png)
+<img/cap6/TestCase02_ues_paper.png, id=510, 999.735pt x 303.1325pt>
+File: img/cap6/TestCase02_ues_paper.png Graphic file (type png)
 
-<use img/cap5/TestCase02_ues_paper.png>
-Package pdftex.def Info: img/cap5/TestCase02_ues_paper.png used on input line 1
+<use img/cap6/TestCase02_ues_paper.png>
+Package pdftex.def Info: img/cap6/TestCase02_ues_paper.png used on input line 1
 18.
 (pdftex.def)             Requested size: 345.0pt x 104.60857pt.
 
 
-LaTeX Warning: Citation 'MAIN' on page 19 undefined on input line 119.
+LaTeX Warning: Citation 'MAIN' on page 25 undefined on input line 119.
 
 
-LaTeX Warning: Citation 'MAIN' on page 19 undefined on input line 119.
+LaTeX Warning: Citation 'MAIN' on page 25 undefined on input line 119.
 
-Package epstopdf Info: Source file: <img/cap5/TestCase02_ues_l1.eps>
+Package epstopdf Info: Source file: <img/cap6/TestCase02_ues_l1.eps>
 (epstopdf)                    date: 2016-05-18 14:01:05
 (epstopdf)                    size: 60248 bytes
-(epstopdf)             Output file: <img/cap5/TestCase02_ues_l1-eps-converted-t
+(epstopdf)             Output file: <img/cap6/TestCase02_ues_l1-eps-converted-t
 o.pdf>
 (epstopdf)                    date: 2016-05-18 14:03:11
 (epstopdf)                    size: 15749 bytes
-(epstopdf)             Command: <repstopdf --outfile=img/cap5/TestCase02_ues_l1
--eps-converted-to.pdf img/cap5/TestCase02_ues_l1.eps>
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/TestCase02_ues_l1
+-eps-converted-to.pdf img/cap6/TestCase02_ues_l1.eps>
 (epstopdf)             \includegraphics on input line 126.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap5/TestCase02_ues_l1-eps-converted-to.pdf, id=375, 849.1725pt x 596.2275
+<img/cap6/TestCase02_ues_l1-eps-converted-to.pdf, id=511, 849.1725pt x 596.2275
 pt>
-File: img/cap5/TestCase02_ues_l1-eps-converted-to.pdf Graphic file (type pdf)
- <use img/cap5/TestCase02_ues_l1-eps-converted-to.pdf>
-Package pdftex.def Info: img/cap5/TestCase02_ues_l1-eps-converted-to.pdf used o
+File: img/cap6/TestCase02_ues_l1-eps-converted-to.pdf Graphic file (type pdf)
+ <use img/cap6/TestCase02_ues_l1-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/TestCase02_ues_l1-eps-converted-to.pdf used o
 n input line 126.
 (pdftex.def)             Requested size: 103.50105pt x 72.66322pt.
-Package epstopdf Info: Source file: <img/cap5/TestCase02_ues_l2.eps>
+Package epstopdf Info: Source file: <img/cap6/TestCase02_ues_l2.eps>
 (epstopdf)                    date: 2016-05-18 13:04:16
 (epstopdf)                    size: 68557 bytes
-(epstopdf)             Output file: <img/cap5/TestCase02_ues_l2-eps-converted-t
+(epstopdf)             Output file: <img/cap6/TestCase02_ues_l2-eps-converted-t
 o.pdf>
 (epstopdf)                    date: 2016-05-18 14:03:12
 (epstopdf)                    size: 17647 bytes
-(epstopdf)             Command: <repstopdf --outfile=img/cap5/TestCase02_ues_l2
--eps-converted-to.pdf img/cap5/TestCase02_ues_l2.eps>
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/TestCase02_ues_l2
+-eps-converted-to.pdf img/cap6/TestCase02_ues_l2.eps>
 (epstopdf)             \includegraphics on input line 128.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap5/TestCase02_ues_l2-eps-converted-to.pdf, id=377, 849.1725pt x 596.2275
+<img/cap6/TestCase02_ues_l2-eps-converted-to.pdf, id=513, 849.1725pt x 596.2275
 pt>
-File: img/cap5/TestCase02_ues_l2-eps-converted-to.pdf Graphic file (type pdf)
- <use img/cap5/TestCase02_ues_l2-eps-converted-to.pdf>
-Package pdftex.def Info: img/cap5/TestCase02_ues_l2-eps-converted-to.pdf used o
+File: img/cap6/TestCase02_ues_l2-eps-converted-to.pdf Graphic file (type pdf)
+ <use img/cap6/TestCase02_ues_l2-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/TestCase02_ues_l2-eps-converted-to.pdf used o
 n input line 128.
 (pdftex.def)             Requested size: 103.50105pt x 72.66322pt.
-Package epstopdf Info: Source file: <img/cap5/TestCase02_ues_l3.eps>
+Package epstopdf Info: Source file: <img/cap6/TestCase02_ues_l3.eps>
 (epstopdf)                    date: 2016-05-18 13:04:33
 (epstopdf)                    size: 78402 bytes
-(epstopdf)             Output file: <img/cap5/TestCase02_ues_l3-eps-converted-t
+(epstopdf)             Output file: <img/cap6/TestCase02_ues_l3-eps-converted-t
 o.pdf>
 (epstopdf)                    date: 2016-05-18 14:03:12
 (epstopdf)                    size: 19159 bytes
-(epstopdf)             Command: <repstopdf --outfile=img/cap5/TestCase02_ues_l3
--eps-converted-to.pdf img/cap5/TestCase02_ues_l3.eps>
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/TestCase02_ues_l3
+-eps-converted-to.pdf img/cap6/TestCase02_ues_l3.eps>
 (epstopdf)             \includegraphics on input line 130.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap5/TestCase02_ues_l3-eps-converted-to.pdf, id=379, 849.1725pt x 596.2275
+<img/cap6/TestCase02_ues_l3-eps-converted-to.pdf, id=515, 849.1725pt x 596.2275
 pt>
-File: img/cap5/TestCase02_ues_l3-eps-converted-to.pdf Graphic file (type pdf)
- <use img/cap5/TestCase02_ues_l3-eps-converted-to.pdf>
-Package pdftex.def Info: img/cap5/TestCase02_ues_l3-eps-converted-to.pdf used o
+File: img/cap6/TestCase02_ues_l3-eps-converted-to.pdf Graphic file (type pdf)
+ <use img/cap6/TestCase02_ues_l3-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/TestCase02_ues_l3-eps-converted-to.pdf used o
 n input line 130.
 (pdftex.def)             Requested size: 103.50105pt x 72.66322pt.
 )
-(./src/06_Conclusioni.tex [19] [20 <./img/cap5/TestCase02_ues_paper.png> <./img
-/cap5/TestCase02_ues_l1-eps-converted-to.pdf> <./img/cap5/TestCase02_ues_l2-eps
--converted-to.pdf> <./img/cap5/TestCase02_ues_l3-eps-converted-to.pdf>]
-Chapter 6.
-) [21
+(./src/07_Conclusioni.tex [25] [26 <./img/cap6/TestCase02_ues_paper.png> <./img
+/cap6/TestCase02_ues_l1-eps-converted-to.pdf> <./img/cap6/TestCase02_ues_l2-eps
+-converted-to.pdf> <./img/cap6/TestCase02_ues_l3-eps-converted-to.pdf>]
+Chapter 7.
+) [27
 
-] [22
+] [28
 
 ]
 
@@ -1358,29 +1431,38 @@ LaTeX Warning: Citation 'QUART' undefined on input line 180.
 
 LaTeX Warning: Empty bibliography on input line 181.
 
-(./Report.lof)
+(./Report.lof
+Overfull \hbox (3.09015pt too wide) in paragraph at lines 15--15
+ [][] [][]\T1/cmr/m/n/10 Esempio di dif-ferenza fra la griglia per la soluzione
+ $\OML/cmm/m/it/10 u[]$ \T1/cmr/m/n/10 e la soluzione 
+ []
+
+)
 \tf@lof=\write7
 \openout7 = `Report.lof'.
 
- [23
+ [29
 
-] [24
+] [30
 
 ] (./Report.lot)
 \tf@lot=\write8
 \openout8 = `Report.lot'.
 
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 186.
- [25]
+ [31]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 186.
  (./Report.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 186.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 186.
 Package rerunfilecheck Info: File `Report.out' has not changed.
-(rerunfilecheck)             Checksum: B61E3BB6095D804E68B77F500D4596FE;1097.
+(rerunfilecheck)             Checksum: E77E6FD393CBC36C1F88D0AAED6A655B;1424.
 
 
 LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
 
 Package biblatex Warning: Please (re)run Biber on the file:
@@ -1392,13 +1474,13 @@ Package logreq Info: Writing requests to 'Report.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 15594 strings out of 493633
- 240128 string characters out of 3143378
- 441623 words of memory out of 3000000
- 18443 multiletter control sequences out of 15000+200000
- 22511 words of font info for 62 fonts, out of 3000000 for 9000
+ 15903 strings out of 493633
+ 243679 string characters out of 3143378
+ 473623 words of memory out of 3000000
+ 18658 multiletter control sequences out of 15000+200000
+ 25829 words of font info for 72 fonts, out of 3000000 for 9000
  831 hyphenation exceptions out of 8191
- 36i,13n,58p,854b,2163s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 36i,13n,58p,854b,2390s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/local/texlive/2011/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
 </usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><
 /usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><
@@ -1413,26 +1495,30 @@ xlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texli
 ve/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texliv
 e/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/
 2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/20
-11/texmf-dist/fonts/type1/public/esint-type1/esint10.pfb></usr/local/texlive/20
-11/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texliv
-e/2011/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/local/tex
-live/2011/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/local/texli
-ve/2011/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive
-/2011/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2
-011/texmf-dist/fonts/type1/public/cm-super/sfbx2074.pfb></usr/local/texlive/201
-1/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb></usr/local/texlive/2011/
-texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb></usr/local/texlive/2011/te
-xmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb></usr/local/texlive/2011/texm
-f-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2011/texmf-
-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2011/texmf-di
-st/fonts/type1/public/cm-super/sfsl1000.pfb></usr/local/texlive/2011/texmf-dist
-/fonts/type1/public/cm-super/sfti1000.pfb></usr/local/texlive/2011/texmf-dist/f
-onts/type1/public/cm-super/sftt0800.pfb></usr/local/texlive/2011/texmf-dist/fon
-ts/type1/public/cm-super/sftt1000.pfb>
-Output written on Report.pdf (29 pages, 695644 bytes).
+11/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2011
+/texmf-dist/fonts/type1/public/esint-type1/esint10.pfb></usr/local/texlive/2011
+/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/
+2011/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/local/texli
+ve/2011/texmf-dist/fonts/type1/public/cm-super/sfbx0900.pfb></usr/local/texlive
+/2011/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/local/texlive/2
+011/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/201
+1/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2011/
+texmf-dist/fonts/type1/public/cm-super/sfbx2074.pfb></usr/local/texlive/2011/te
+xmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb></usr/local/texlive/2011/texm
+f-dist/fonts/type1/public/cm-super/sfrm0500.pfb></usr/local/texlive/2011/texmf-
+dist/fonts/type1/public/cm-super/sfrm0600.pfb></usr/local/texlive/2011/texmf-di
+st/fonts/type1/public/cm-super/sfrm0700.pfb></usr/local/texlive/2011/texmf-dist
+/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2011/texmf-dist/f
+onts/type1/public/cm-super/sfrm0900.pfb></usr/local/texlive/2011/texmf-dist/fon
+ts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2011/texmf-dist/fonts
+/type1/public/cm-super/sfsl1000.pfb></usr/local/texlive/2011/texmf-dist/fonts/t
+ype1/public/cm-super/sfti1000.pfb></usr/local/texlive/2011/texmf-dist/fonts/typ
+e1/public/cm-super/sftt0800.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1
+/public/cm-super/sftt1000.pfb>
+Output written on Report.pdf (35 pages, 826054 bytes).
 PDF statistics:
- 555 PDF objects out of 1000 (max. 8388607)
- 479 compressed objects within 5 object streams
- 141 named destinations out of 1000 (max. 500000)
- 174 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 719 PDF objects out of 1000 (max. 8388607)
+ 630 compressed objects within 7 object streams
+ 216 named destinations out of 1000 (max. 500000)
+ 219 words of extra memory for PDF output out of 10000 (max. 10000000)
 
