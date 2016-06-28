@@ -15,7 +15,7 @@ errAdjL2vec :
  a j 2 errAdjL2vec = 0.182662
  a j 3 errAdjL2vec = 0.0888955
  j = 1
-EOC errControlL2 = 0.819324 Vorrei fosse ~ 2
+EOC errControlL2 = 0.819323 Vorrei fosse ~ 2
 errControlLinfvec[1] e nullo
 EOC errProjectStateL2 = 0.0973545 Vorrei fosse ~ 2
 EOC errStateL2 = 0.431356 Vorrei fosse ~ 1
@@ -32,8 +32,8 @@ iterNewton :
  a j 1 iterNewton = 3
  Lambda fin 0.2 Lambda min 0.2
  a j 2 iterNewton = 3
- Lambda fin 0.0016 Lambda min 0.0016
- a j 3 iterNewton = 3
+ Lambda fin 2.048e-08 Lambda min 2.048e-08
+ a j 3 iterNewton = 4
  Lambda fin 1 Lambda min 1
 Dati della simulazione :
  a j 0 nsol = 3 dt= 0.25 meshN =10

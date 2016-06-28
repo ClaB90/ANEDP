@@ -23,7 +23,7 @@
 real alpha,epsilon;
 int k, Nmax;
 alpha = 1.;    
-epsilon = 1e-3;    
+epsilon = 1e-5;    
 Nmax = 300;        
 k = 1;  
 

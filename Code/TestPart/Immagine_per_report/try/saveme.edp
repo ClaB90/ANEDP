@@ -1,0 +1,168 @@
+/****************** Politecnico di Milano - ANEDP project ******************/
+/* 														 					*
+ *  	authors Edoardo Arbib 							 					*
+ *				Claudia Bonomi 							 					*
+ *											   			 					*
+ *  	Descrizione:  funzioni per salvare vettori in file di testo         *
+ *					   					   			 				        *
+ *		Dipendenze: main -> valore j	   			 				        *
+ *					    					   			 				    *
+ * 														 					*
+ ****************************************************************************/
+
+func real saveControl(int j)
+{
+	string uk, uesk, uenpsk;
+
+	uk= "PostProcessing/ControlSol/ControlSol"+j+".text";
+	uesk= "PostProcessing/ControlSol/ControlSolEs"+j+".text";
+	uenpsk= "PostProcessing/ControlSol/ControlSolEsnp"+j+".text";
+	ofstream ff(uk);
+	ofstream gg(uesk);
+	ofstream hh(uenpsk);
+	ff << "Soluzione Controllo Approssimata a dt= " << dt <<endl;
+	gg << "Soluzione Esatta Controllo a dt= " << dt <<endl;
+	hh << "Soluzione Esatta Controllo np a dt= " << dt <<endl;
+	real k=0.;
+	for(int i=0; i<nsol; i++)
+	{
+		ff << k << "	" << u[i] << endl;
+		gg << k << "	" << ue[i] << endl;
+		hh << k << "	" << uenp[i] << endl;
+		
+		k+=dt;
+	}
+	
+	return 0;
+}
+
+func real saveAdj(int j)
+{
+	string adjk, adjes;
+
+	adjk= "PostProcessing/AdjSol/AdjSol"+j+".text";
+	adjes= "PostProcessing/AdjSol/AdjSolEs"+j+".text";
+	ofstream ff(adjk);
+	ofstream gg(adjes);
+	ff << "Soluzione Adj Problem a dt= " << dt <<endl;
+	gg << "Soluzione Adj Varf a dt= " << dt <<endl;
+	real k=0.;
+	for(int i=0; i<nsol; i++)
+	{	
+		real tmp;
+		Ph tmp2;
+		tmp2 = pe;
+		tmp = (-1./alpha)*int2d(Th)( pe*g );
+		
+		ff << k << "	" << Bpk[i] << endl;
+		gg << k << "	" << tmp << endl;
+		
+		k+=dt;
+	}
+	
+	return 0;
+}
+
+func real saveu(int j)
+{
+
+	string uesg2;
+
+	uesg2= "PostProcessing/ControlSol/ControlSolEs2g"+j+".text";
+	ofstream ff(uesg2);
+
+	ff << "Soluzione Esatta Controllo sulla seconda griglia " <<endl;
+	real k=0.;
+
+	real savet=t;
+	t=0.;
+	
+	/* In queste variabili andrò a salvare il valore della u esatta negli estremi dell'intervallo (t,t+dt)
+	 */
+	real uedx,uesx;
+	
+	/* m e q della retta y=mt+q a cui appartiene il segmento che rappresenta la u non proettata nel intervallo (t,t+dt)
+	 */
+	real m,q;
+	
+	/* ta e tb sono i punti di intersezione della retta y=mt+q e le rette y=a ed y=b
+	 */
+	real ta,tb;
+	
+	ff << t << "	" << u[0] << endl;
+
+	for(int i=0; i<nsol-2; i++)
+	{
+		
+		m = (uenp[i+1]-uenp[i])/(dt);
+		q = (uenp[i]*(t+dt)-uenp[i+1]*t)/(dt);
+		
+		uesx = uet(t);
+	    uedx = uet(t+dt);
+		
+		if( m != 0 )
+		{
+		
+			ta = (a-q)/m;
+			tb = (b-q)/m;
+    		
+			//caso di non intersezione
+			if((ta<t || ta>(t+dt)) && (tb<t || tb>(t+dt)))
+			{
+				ff << t+dt << "	" << ue[i+1] << endl;
+				
+			}
+			//interseco solo retta y=a => trovo due sottointervalli (t,ta) e (ta,t+dt)
+			else if(ta>=t && ta<=(t+dt) && (tb<t || tb>(t+dt)))
+			{
+				real ueta=uet(ta);
+				
+				ff << ta << "	" << ueta << endl;
+				ff << t+dt << "	" << ue[i+1] << endl;
+				
+			}
+		   	//interseco solo retta y=b => trovo due sottointervalli (t,tb) e (tb,t+dt)
+			else if(tb>=t && tb<=(t+dt) && (ta<t || ta>(t+dt)))
+			{
+				real uetb=uet(tb);
+		
+				ff << tb << "	" << uetb << endl;
+				ff << t+dt << "	" << ue[i+1] << endl;
+				
+			}
+			//interseco sia y=b che y=a => trovo tre sottointervalli (t,tc) (tc,td) (td,t+dt)
+			else
+			{
+	   			real c,d,tc,td;
+		
+	   			if(ta<=tb)
+				{ 
+				  c=a;
+				  d=b;
+			    }
+	   			else
+				{
+				  c=b;
+				  d=a;
+			    }
+		
+	   			tc=min(ta,tb);
+	   			td=max(ta,tb);
+		
+				real uetc=uet(tc);
+				real uetd=uet(td);
+		
+				ff << tc << "	" << uetc << endl;
+				ff << td << "	" << uetd << endl;
+				ff << t+dt << "	" << ue[i+1] << endl;
+			} 
+		
+		} // Chiude else per segmenti non orizzontali
+		   			
+		t=t+dt;
+	} // Chiude il for					
+
+	t =savet;
+	
+	return 0;
+}

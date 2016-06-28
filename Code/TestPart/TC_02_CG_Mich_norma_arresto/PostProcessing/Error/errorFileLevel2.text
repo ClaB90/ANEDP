@@ -8,4 +8,4 @@ errStateL2 :
 errAdjL2vec : 
  a j 2 errAdjL2vec = 0.0888955
 iterNewton : 
- a j 2 iterNewton = 3
+ a j 2 iterNewton = 4

@@ -90,7 +90,7 @@ func real DampedNewton()
 	DNlamb[j] =2.;
 	
 	//Nmax = 4;
-	while( ErrDN > epsilon && k < Nmax && (ErrDN-ErrDNold) > epsilon )
+	while( ErrDN > epsilon && k < Nmax /*&& (ErrDN-ErrDNold) > epsilon*/ )
 	{
 		/* PASSO 1
 		 * 	ricava dl dall'equazione
@@ -125,9 +125,12 @@ func real DampedNewton()
 		 * NB prodottoL2CS prende in ingresso -grad(phi)
 		 *    e wd è gestita in prodottoL2CS
 		 */
+		
+		real C1 = 1.e-04;
+		cout << C1 << endl;
 		tmp2 = prodottoL2CS(deltal, tmp4);
 		cout << " discesa " << tmp2 << endl;
-		tmp2 = (lambdaDN/3.)*tmp2;
+		tmp2 = (lambdaDN*C1)*tmp2;
         
 		/* Inexact Armijo Linesearch	
 		 * il calcolo di phi() e molto costoso computazionalmente, allora cerco di chiamare la funzione 
@@ -147,7 +150,7 @@ func real DampedNewton()
 		
 		real lambdatoll = 2*10.^(-3.);
 
-		while( lambdaDN > lambdatoll && phitmp > phil + tmp2 )
+		while( /*lambdaDN > lambdatoll &&*/ phitmp > phil + tmp2 )
 		{
 			//aggiorni lambda			
 			lambdaDN = lambdaDN*betaDN;
@@ -156,7 +159,7 @@ func real DampedNewton()
 		    tmp += deltal*lambdaDN;
 			phitmp = phi(tmp);
 			 
-		    tmp2 = (lambdaDN/3.)*tmp2;
+		    tmp2 = (lambdaDN*C1)*tmp2;
 			cout << " lambdaDN = " << lambdaDN << endl;	
 		}
 
@@ -164,16 +167,27 @@ func real DampedNewton()
 		 * l = l + lambdaDN*deltal;
 		 * torna al passo 1;
 		 */
+		//aggiorna tolleranza normL2YhCS considera che tmp4 è grad(phi)+wd
+		ErrDNold = ErrDN;
+		ErrDN = normL2YhCSnowd(l, tmp);
+		
 		cout << "DN passo 3" << endl;
 		k=k+1;
 		l += lambdaDN*deltal;
 		
-		//aggiorna tolleranza normL2YhCS considera che tmp4 è grad(phi)+wd
-		ErrDNold = ErrDN;
-		//ErrDN = normL2YhCSnowd(deltal, deltalold);
-		ErrDN = normL2YhCS(tmp4);
-		cout << " norma " << ErrDN << endl;
-		cout << " arresto " << ErrDN-epsilon << endl;
+		
+		//ErrDN = normL2YhCS(tmp4);
+		cout << " errore ora " << ErrDN << endl;
+		cout << " errore prima " << ErrDNold << endl;
+		if(ErrDN != 0)
+		{
+			cout << " come scende errore " << ErrDNold/ErrDN << endl;
+		}
+		else
+		{
+			cout << "err Dn = 0" << endl;
+		}
+		
 		
 		DNlamb[j] = min(lambdaDN, DNlamb[j]);
 
