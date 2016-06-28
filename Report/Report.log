@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  28 JUN 2016 16:06
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  28 JUN 2016 16:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -615,6 +615,21 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 \Hy@SectionHShift=\skip68
 )
 (/usr/local/texlive/2011/texmf-dist/tex/latex/braket/braket.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/tools/bm.sty
+Package: bm 2004/02/26 v1.1c Bold Symbol Support (DPC/FMi)
+\symboldoperators=\mathgroup8
+\symboldletters=\mathgroup9
+\symboldsymbols=\mathgroup10
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 138.
+LaTeX Info: Redefining \bm on input line 204.
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/bbm-macros/bbm.sty
+Package: bbm 1999/03/15 V 1.2 provides fonts for set symbols - TH
+LaTeX Font Info:    Overwriting math alphabet `\mathbbm' in version `bold'
+(Font)                  U/bbm/m/n --> U/bbm/bx/n on input line 33.
+LaTeX Font Info:    Overwriting math alphabet `\mathbbmss' in version `bold'
+(Font)                  U/bbmss/m/n --> U/bbmss/bx/n on input line 35.
+)
 (/usr/local/texlive/2011/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
 
@@ -896,27 +911,27 @@ File: english.lbx 2011/06/08 v1.5 biblatex localization
 (./Report.aux)
 \openout1 = `Report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 157.
-LaTeX Font Info:    ... okay on input line 157.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 157.
-LaTeX Font Info:    ... okay on input line 157.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 157.
-LaTeX Font Info:    ... okay on input line 157.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 157.
-LaTeX Font Info:    ... okay on input line 157.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 157.
-LaTeX Font Info:    ... okay on input line 157.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 157.
-LaTeX Font Info:    ... okay on input line 157.
-LaTeX Font Info:    Checking defaults for LGR/cmr/m/n on input line 157.
-LaTeX Font Info:    Try loading font information for LGR+cmr on input line 157.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 159.
+LaTeX Font Info:    ... okay on input line 159.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 159.
+LaTeX Font Info:    ... okay on input line 159.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 159.
+LaTeX Font Info:    ... okay on input line 159.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 159.
+LaTeX Font Info:    ... okay on input line 159.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 159.
+LaTeX Font Info:    ... okay on input line 159.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 159.
+LaTeX Font Info:    ... okay on input line 159.
+LaTeX Font Info:    Checking defaults for LGR/cmr/m/n on input line 159.
+LaTeX Font Info:    Try loading font information for LGR+cmr on input line 159.
 
  (/usr/local/texlive/2011/texmf-dist/tex/generic/babel/lgrcmr.fd
 File: lgrcmr.fd 2008/06/17 v2.3 Greek Computer Modern
 )
-LaTeX Font Info:    ... okay on input line 157.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 157.
-LaTeX Font Info:    ... okay on input line 157.
+LaTeX Font Info:    ... okay on input line 159.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 159.
+LaTeX Font Info:    ... okay on input line 159.
 (/usr/local/texlive/2011/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count292
@@ -951,7 +966,7 @@ Package caption Info: listings package is loaded.
 Package caption Info: wrapfig package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \AtBeginShipoutBox=\box34
-Package hyperref Info: Link coloring OFF on input line 157.
+Package hyperref Info: Link coloring OFF on input line 159.
 
 (/usr/local/texlive/2011/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2010/04/30 v2.40 Cross-referencing by name of section
@@ -961,9 +976,9 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count298
 )
-LaTeX Info: Redefining \ref on input line 157.
-LaTeX Info: Redefining \pageref on input line 157.
-LaTeX Info: Redefining \nameref on input line 157.
+LaTeX Info: Redefining \ref on input line 159.
+LaTeX Info: Redefining \pageref on input line 159.
+LaTeX Info: Redefining \nameref on input line 159.
 
 (./Report.out) (./Report.out)
 \@outlinefile=\write5
@@ -978,10 +993,10 @@ Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'Report.bbl' not found.
 
 No file Report.bbl.
-Package biblatex Info: Reference section=0 on input line 157.
-Package biblatex Info: Reference segment=0 on input line 157.
+Package biblatex Info: Reference section=0 on input line 159.
+Package biblatex Info: Reference segment=0 on input line 159.
 \c@lstlisting=\count299
-(./src/title.tex <Report-frn.pdf, id=88, 597.50829pt x 845.0471pt>
+(./src/title.tex <Report-frn.pdf, id=92, 597.50829pt x 845.0471pt>
 File: Report-frn.pdf Graphic file (type pdf)
 
 <use Report-frn.pdf>
@@ -1171,9 +1186,25 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/it' in size <10> not available
 
 LaTeX Warning: Reference `P_k' on page 12 undefined on input line 80.
 
-[12]) (./src/05_Codice.tex [13] [14
+[12] [13]
+Overfull \hbox (74.33269pt too wide) detected at line 140
+ []$[] \OMS/cmsy/m/n/10 ^^@ [][][][]$ []  
+ []
 
-]
+LaTeX Font Info:    Try loading font information for U+bbm on input line 167.
+(/usr/local/texlive/2011/texmf-dist/tex/latex/bbm-macros/ubbm.fd
+File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
+) [14]
+Overfull \hbox (65.31046pt too wide) in paragraph at lines 192--193
+[]\T1/cmr/m/n/10 Finché risulta vera la con-dizione $\OML/cmm/m/it/10 '\OT1/cmr
+/m/n/10 (\OML/cmm/m/it/10 w[] \OT1/cmr/m/n/10 + \OML/cmm/m/it/10 ^^U^^Nw[]\OT1/
+cmr/m/n/10 ) \OML/cmm/m/it/10 > '\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 w\OT1/cmr/m/
+n/10 ) + []\OML/cmm/m/it/10 ^^U\OT1/cmr/m/n/10 (\OMS/cmsy/m/n/10 r\OML/cmm/m/it
+/10 '\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 w[]\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 ; ^
+^Nw[]\OT1/cmr/m/n/10 )[]$\T1/cmr/m/n/10 ,
+ []
+
+[15]) (./src/05_Codice.tex [16]
 Chapter 5.
 LaTeX Font Info:    Try loading font information for T1+cmtt on input line 7.
 (/usr/local/texlive/2011/texmf-dist/tex/latex/base/t1cmtt.fd
@@ -1186,10 +1217,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 15--17
 
  []
 
-[15] [16]
+[17
 
-LaTeX Warning: Reference `fig:griglie' on page 17 undefined on input line 52.
-
+] [18]
 Package epstopdf Info: Source file: <img/cap5/griglie.eps>
 (epstopdf)                    date: 2016-06-28 14:34:23
 (epstopdf)                    size: 113046 bytes
@@ -1200,7 +1230,8 @@ Package epstopdf Info: Source file: <img/cap5/griglie.eps>
 rted-to.pdf img/cap5/griglie.eps>
 (epstopdf)             \includegraphics on input line 55.
 Package epstopdf Info: Output file is already uptodate.
-<img/cap5/griglie-eps-converted-to.pdf, id=364, 849.1725pt x 596.2275pt>
+
+<img/cap5/griglie-eps-converted-to.pdf, id=426, 849.1725pt x 596.2275pt>
 File: img/cap5/griglie-eps-converted-to.pdf Graphic file (type pdf)
 
 <use img/cap5/griglie-eps-converted-to.pdf>
@@ -1209,60 +1240,60 @@ ne 55.
 (pdftex.def)             Requested size: 345.0pt x 242.23502pt.
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
 nput line 60.
- [17] [18 <./img/cap5/griglie-eps-converted-to.pdf>] [19]
+ [19] [20 <./img/cap5/griglie-eps-converted-to.pdf>] [21]
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <9> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 128.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 125.
 
-Overfull \hbox (26.61414pt too wide) in paragraph at lines 129--130
+Overfull \hbox (26.61414pt too wide) in paragraph at lines 126--127
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (142.31467pt too wide) in paragraph at lines 133--134
+Overfull \hbox (142.31467pt too wide) in paragraph at lines 130--131
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (10.22115pt too wide) in paragraph at lines 135--136
+Overfull \hbox (10.22115pt too wide) in paragraph at lines 132--133
 [][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (19.98265pt too wide) in paragraph at lines 136--137
+Overfull \hbox (19.98265pt too wide) in paragraph at lines 133--134
 [][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (2.5136pt too wide) in paragraph at lines 138--139
+Overfull \hbox (2.5136pt too wide) in paragraph at lines 135--136
 [][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (17.41273pt too wide) in paragraph at lines 139--140
+Overfull \hbox (17.41273pt too wide) in paragraph at lines 136--137
 [][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (56.61755pt too wide) in paragraph at lines 148--149
+Overfull \hbox (56.61755pt too wide) in paragraph at lines 145--146
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (67.10715pt too wide) in paragraph at lines 152--153
+Overfull \hbox (67.10715pt too wide) in paragraph at lines 149--150
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-[20]) (./src/06_Risultati.tex [21] [22
+[22]) (./src/06_Risultati.tex [23] [24
 
 ]
 Chapter 6.
 
-LaTeX Warning: Citation 'MAIN' on page 23 undefined on input line 4.
+LaTeX Warning: Citation 'MAIN' on page 25 undefined on input line 4.
 
 
-LaTeX Warning: Reference `chap:Continuo' on page 23 undefined on input line 9.
+LaTeX Warning: Reference `chap:Continuo' on page 25 undefined on input line 9.
 
-[23] <img/cap6/TestCase01_ues_paper.png, id=479, 996.72375pt x 314.17375pt>
+[25] <img/cap6/TestCase01_ues_paper.png, id=542, 996.72375pt x 314.17375pt>
 File: img/cap6/TestCase01_ues_paper.png Graphic file (type png)
 
 <use img/cap6/TestCase01_ues_paper.png>
@@ -1271,10 +1302,10 @@ Package pdftex.def Info: img/cap6/TestCase01_ues_paper.png used on input line 5
 (pdftex.def)             Requested size: 345.0pt x 108.7448pt.
 
 
-LaTeX Warning: Citation 'MAIN' on page 24 undefined on input line 58.
+LaTeX Warning: Citation 'MAIN' on page 26 undefined on input line 58.
 
 
-LaTeX Warning: Citation 'MAIN' on page 24 undefined on input line 58.
+LaTeX Warning: Citation 'MAIN' on page 26 undefined on input line 58.
 
 Package epstopdf Info: Source file: <img/cap6/TestCase01_ues_l1.eps>
 (epstopdf)                    date: 2016-05-18 11:56:51
@@ -1288,7 +1319,7 @@ o.pdf>
 (epstopdf)             \includegraphics on input line 65.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/TestCase01_ues_l1-eps-converted-to.pdf, id=481, 849.1725pt x 596.2275
+<img/cap6/TestCase01_ues_l1-eps-converted-to.pdf, id=544, 849.1725pt x 596.2275
 pt>
 File: img/cap6/TestCase01_ues_l1-eps-converted-to.pdf Graphic file (type pdf)
  <use img/cap6/TestCase01_ues_l1-eps-converted-to.pdf>
@@ -1307,7 +1338,7 @@ o.pdf>
 (epstopdf)             \includegraphics on input line 67.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/TestCase01_ues_l2-eps-converted-to.pdf, id=483, 849.1725pt x 596.2275
+<img/cap6/TestCase01_ues_l2-eps-converted-to.pdf, id=546, 849.1725pt x 596.2275
 pt>
 File: img/cap6/TestCase01_ues_l2-eps-converted-to.pdf Graphic file (type pdf)
  <use img/cap6/TestCase01_ues_l2-eps-converted-to.pdf>
@@ -1326,7 +1357,7 @@ o.pdf>
 (epstopdf)             \includegraphics on input line 69.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/TestCase01_ues_l3-eps-converted-to.pdf, id=485, 849.1725pt x 596.2275
+<img/cap6/TestCase01_ues_l3-eps-converted-to.pdf, id=548, 849.1725pt x 596.2275
 pt>
 File: img/cap6/TestCase01_ues_l3-eps-converted-to.pdf Graphic file (type pdf)
  <use img/cap6/TestCase01_ues_l3-eps-converted-to.pdf>
@@ -1335,16 +1366,16 @@ n input line 69.
 (pdftex.def)             Requested size: 103.50105pt x 72.66322pt.
 
 
-LaTeX Warning: Reference `chap:Continuo' on page 24 undefined on input line 75.
+LaTeX Warning: Reference `chap:Continuo' on page 26 undefined on input line 75.
 
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [24 <./img/cap6/TestCase01_ues_paper.png> <./img/cap6/TestCase01_ues_l1-eps-co
+ [26 <./img/cap6/TestCase01_ues_paper.png> <./img/cap6/TestCase01_ues_l1-eps-co
 nverted-to.pdf> <./img/cap6/TestCase01_ues_l2-eps-converted-to.pdf> <./img/cap6
 /TestCase01_ues_l3-eps-converted-to.pdf>]
-<img/cap6/TestCase02_ues_paper.png, id=510, 999.735pt x 303.1325pt>
+<img/cap6/TestCase02_ues_paper.png, id=572, 999.735pt x 303.1325pt>
 File: img/cap6/TestCase02_ues_paper.png Graphic file (type png)
 
 <use img/cap6/TestCase02_ues_paper.png>
@@ -1353,10 +1384,10 @@ Package pdftex.def Info: img/cap6/TestCase02_ues_paper.png used on input line 1
 (pdftex.def)             Requested size: 345.0pt x 104.60857pt.
 
 
-LaTeX Warning: Citation 'MAIN' on page 25 undefined on input line 119.
+LaTeX Warning: Citation 'MAIN' on page 27 undefined on input line 119.
 
 
-LaTeX Warning: Citation 'MAIN' on page 25 undefined on input line 119.
+LaTeX Warning: Citation 'MAIN' on page 27 undefined on input line 119.
 
 Package epstopdf Info: Source file: <img/cap6/TestCase02_ues_l1.eps>
 (epstopdf)                    date: 2016-05-18 14:01:05
@@ -1370,7 +1401,7 @@ o.pdf>
 (epstopdf)             \includegraphics on input line 126.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/TestCase02_ues_l1-eps-converted-to.pdf, id=511, 849.1725pt x 596.2275
+<img/cap6/TestCase02_ues_l1-eps-converted-to.pdf, id=573, 849.1725pt x 596.2275
 pt>
 File: img/cap6/TestCase02_ues_l1-eps-converted-to.pdf Graphic file (type pdf)
  <use img/cap6/TestCase02_ues_l1-eps-converted-to.pdf>
@@ -1389,7 +1420,7 @@ o.pdf>
 (epstopdf)             \includegraphics on input line 128.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/TestCase02_ues_l2-eps-converted-to.pdf, id=513, 849.1725pt x 596.2275
+<img/cap6/TestCase02_ues_l2-eps-converted-to.pdf, id=575, 849.1725pt x 596.2275
 pt>
 File: img/cap6/TestCase02_ues_l2-eps-converted-to.pdf Graphic file (type pdf)
  <use img/cap6/TestCase02_ues_l2-eps-converted-to.pdf>
@@ -1408,7 +1439,7 @@ o.pdf>
 (epstopdf)             \includegraphics on input line 130.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/TestCase02_ues_l3-eps-converted-to.pdf, id=515, 849.1725pt x 596.2275
+<img/cap6/TestCase02_ues_l3-eps-converted-to.pdf, id=577, 849.1725pt x 596.2275
 pt>
 File: img/cap6/TestCase02_ues_l3-eps-converted-to.pdf Graphic file (type pdf)
  <use img/cap6/TestCase02_ues_l3-eps-converted-to.pdf>
@@ -1416,20 +1447,20 @@ Package pdftex.def Info: img/cap6/TestCase02_ues_l3-eps-converted-to.pdf used o
 n input line 130.
 (pdftex.def)             Requested size: 103.50105pt x 72.66322pt.
 )
-(./src/07_Conclusioni.tex [25] [26 <./img/cap6/TestCase02_ues_paper.png> <./img
+(./src/07_Conclusioni.tex [27] [28 <./img/cap6/TestCase02_ues_paper.png> <./img
 /cap6/TestCase02_ues_l1-eps-converted-to.pdf> <./img/cap6/TestCase02_ues_l2-eps
 -converted-to.pdf> <./img/cap6/TestCase02_ues_l3-eps-converted-to.pdf>]
 Chapter 7.
-) [27
+) [29
 
-] [28
+] [30
 
 ]
 
-LaTeX Warning: Citation 'QUART' undefined on input line 180.
+LaTeX Warning: Citation 'QUART' undefined on input line 182.
 
 
-LaTeX Warning: Empty bibliography on input line 181.
+LaTeX Warning: Empty bibliography on input line 183.
 
 (./Report.lof
 Overfull \hbox (3.09015pt too wide) in paragraph at lines 15--15
@@ -1441,28 +1472,25 @@ Overfull \hbox (3.09015pt too wide) in paragraph at lines 15--15
 \tf@lof=\write7
 \openout7 = `Report.lof'.
 
- [29
+ [31
 
-] [30
+] [32
 
 ] (./Report.lot)
 \tf@lot=\write8
 \openout8 = `Report.lot'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 186.
- [31]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 186.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 188.
+ [33]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 188.
  (./Report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 186.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 186.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 188.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 188.
 Package rerunfilecheck Info: File `Report.out' has not changed.
-(rerunfilecheck)             Checksum: E77E6FD393CBC36C1F88D0AAED6A655B;1424.
+(rerunfilecheck)             Checksum: 4A19D342B3CF398FA45D3BF57463FFD3;1489.
 
 
 LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
 
 Package biblatex Warning: Please (re)run Biber on the file:
@@ -1474,51 +1502,55 @@ Package logreq Info: Writing requests to 'Report.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 15903 strings out of 493633
- 243679 string characters out of 3143378
- 473623 words of memory out of 3000000
- 18658 multiletter control sequences out of 15000+200000
- 25829 words of font info for 72 fonts, out of 3000000 for 9000
+ 16089 strings out of 493633
+ 246070 string characters out of 3143378
+ 472023 words of memory out of 3000000
+ 18776 multiletter control sequences out of 15000+200000
+ 33522 words of font info for 98 fonts, out of 3000000 for 9000
  831 hyphenation exceptions out of 8191
- 36i,13n,58p,854b,2390s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/local/texlive/2011/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
-</usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><
-/usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><
-/usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></
-usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></u
-sr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr
-/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/l
-ocal/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loc
-al/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local
-/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/te
-xlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texli
-ve/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texliv
-e/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/
-2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/20
-11/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2011
-/texmf-dist/fonts/type1/public/esint-type1/esint10.pfb></usr/local/texlive/2011
-/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/
-2011/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/local/texli
-ve/2011/texmf-dist/fonts/type1/public/cm-super/sfbx0900.pfb></usr/local/texlive
-/2011/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/local/texlive/2
-011/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/201
-1/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2011/
-texmf-dist/fonts/type1/public/cm-super/sfbx2074.pfb></usr/local/texlive/2011/te
-xmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb></usr/local/texlive/2011/texm
-f-dist/fonts/type1/public/cm-super/sfrm0500.pfb></usr/local/texlive/2011/texmf-
-dist/fonts/type1/public/cm-super/sfrm0600.pfb></usr/local/texlive/2011/texmf-di
-st/fonts/type1/public/cm-super/sfrm0700.pfb></usr/local/texlive/2011/texmf-dist
-/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2011/texmf-dist/f
-onts/type1/public/cm-super/sfrm0900.pfb></usr/local/texlive/2011/texmf-dist/fon
-ts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2011/texmf-dist/fonts
-/type1/public/cm-super/sfsl1000.pfb></usr/local/texlive/2011/texmf-dist/fonts/t
-ype1/public/cm-super/sfti1000.pfb></usr/local/texlive/2011/texmf-dist/fonts/typ
-e1/public/cm-super/sftt0800.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1
-/public/cm-super/sftt1000.pfb>
-Output written on Report.pdf (35 pages, 826054 bytes).
+ 36i,15n,58p,854b,2390s stack positions out of 5000i,500n,10000p,200000b,50000s
+pdfTeX warning (dest): name{algoritmo.2} has been referenced but does not exi
+st, replaced by a fixed one
+
+{/usr/local/texlive/2011/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc} <
+/Users/Claudia/Library/texlive/2011/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.
+600pk></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12
+.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10
+.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.
+pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.p
+fb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb
+></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><
+/usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></u
+sr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr
+/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/lo
+cal/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local
+/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/
+texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/te
+xlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texl
+ive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texliv
+e/2011/texmf-dist/fonts/type1/public/esint-type1/esint10.pfb></usr/local/texliv
+e/2011/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/te
+xlive/2011/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/local
+/texlive/2011/texmf-dist/fonts/type1/public/cm-super/sfbx0900.pfb></usr/local/t
+exlive/2011/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/local/tex
+live/2011/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texli
+ve/2011/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive
+/2011/texmf-dist/fonts/type1/public/cm-super/sfbx2074.pfb></usr/local/texlive/2
+011/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb></usr/local/texlive/201
+1/texmf-dist/fonts/type1/public/cm-super/sfrm0500.pfb></usr/local/texlive/2011/
+texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb></usr/local/texlive/2011/te
+xmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb></usr/local/texlive/2011/texm
+f-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2011/texmf-
+dist/fonts/type1/public/cm-super/sfrm0900.pfb></usr/local/texlive/2011/texmf-di
+st/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2011/texmf-dist
+/fonts/type1/public/cm-super/sfsl1000.pfb></usr/local/texlive/2011/texmf-dist/f
+onts/type1/public/cm-super/sfti1000.pfb></usr/local/texlive/2011/texmf-dist/fon
+ts/type1/public/cm-super/sftt0800.pfb></usr/local/texlive/2011/texmf-dist/fonts
+/type1/public/cm-super/sftt1000.pfb>
+Output written on Report.pdf (37 pages, 847166 bytes).
 PDF statistics:
- 719 PDF objects out of 1000 (max. 8388607)
- 630 compressed objects within 7 object streams
- 216 named destinations out of 1000 (max. 500000)
- 219 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 798 PDF objects out of 1000 (max. 8388607)
+ 705 compressed objects within 8 object streams
+ 248 named destinations out of 1000 (max. 500000)
+ 227 words of extra memory for PDF output out of 10000 (max. 10000000)
 

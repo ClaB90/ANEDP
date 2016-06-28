@@ -32,34 +32,36 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4.1}Metodo di punto fisso}{13}{section.4.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}Descrizione Implementazione}{15}{chapter.5}
+\contentsline {section}{\numberline {4.2}Metodo semi-Newton}{14}{section.4.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.1}Strumenti di sviluppo}{15}{section.5.1}
+\contentsline {chapter}{\numberline {5}Descrizione Implementazione}{17}{chapter.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\texttt {FreeFem$++$}}{15}{section*.7}
+\contentsline {section}{\numberline {5.1}Strumenti di sviluppo}{17}{section.5.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\texttt {GitHub}}{15}{section*.8}
+\contentsline {subsubsection}{\texttt {FreeFem$++$}}{17}{section*.7}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.2}Implementazione}{16}{section.5.2}
+\contentsline {subsubsection}{\texttt {GitHub}}{17}{section*.8}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.2.1}Calcolo dell'errore}{17}{subsection.5.2.1}
+\contentsline {section}{\numberline {5.2}Implementazione}{18}{section.5.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.2.2}Punto Fisso}{19}{subsection.5.2.2}
+\contentsline {subsection}{\numberline {5.2.1}Calcolo dell'errore}{19}{subsection.5.2.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.2.3}Damped Newton}{21}{subsection.5.2.3}
+\contentsline {subsection}{\numberline {5.2.2}Punto Fisso}{21}{subsection.5.2.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {6}Risultati numerici}{23}{chapter.6}
+\contentsline {subsection}{\numberline {5.2.3}Damped Newton}{23}{subsection.5.2.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6.1}Test Case 01}{23}{section.6.1}
+\contentsline {chapter}{\numberline {6}Risultati numerici}{25}{chapter.6}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Set-up}{23}{section*.10}
+\contentsline {section}{\numberline {6.1}Test Case 01}{25}{section.6.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Risultati Numerici}{25}{section*.11}
+\contentsline {subsubsection}{Set-up}{25}{section*.10}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6.2}Test Case 02}{25}{section.6.2}
+\contentsline {subsubsection}{Risultati Numerici}{27}{section*.11}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Set-up}{25}{section*.14}
+\contentsline {section}{\numberline {6.2}Test Case 02}{27}{section.6.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Risultati Numerici}{25}{section*.15}
+\contentsline {subsubsection}{Set-up}{27}{section*.14}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {7}Conclusioni}{27}{chapter.7}
+\contentsline {subsubsection}{Risultati Numerici}{27}{section*.15}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {7}Conclusioni}{29}{chapter.7}

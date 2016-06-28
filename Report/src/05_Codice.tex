@@ -127,7 +127,8 @@ varf s(w,wtest) =   int2d(Th)( w*wtest/dt )
 				  + on(1,2,3,4, w=wb);
 
 varf statetn(w,wtest) =   int2d(Th)( wold*wtest/dt)
-				  		- int2d(Th)( gamma2*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) ) )
+				  		- int2d(Th)( gamma2*(   dx(wold)*dx(wtest) 
+				  							 + dy(wold)*dy(wtest) ) )
 							//contributo di u
 						+ int2d(Th)( gamma3*( g*ui*wtest ))
 				 		+ int2d(Th)( gamma4*( g*uold*wtest ))
