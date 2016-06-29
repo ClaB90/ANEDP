@@ -44,7 +44,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {7.2.1}Calcolo dell'errore}{14}{subsubsection.7.2.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {7.2.2}Punto Fisso}{16}{subsubsection.7.2.2}
+\contentsline {subsubsection}{\numberline {7.2.2}Punto Fisso}{15}{subsubsection.7.2.2}
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {7.2.3}Semi-Newton}{17}{subsubsection.7.2.3}
 \defcounter {refsection}{0}\relax 
@@ -54,12 +54,12 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {8.1.1}Set-up}{17}{subsubsection.8.1.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {8.1.2}Risultati Numerici}{19}{subsubsection.8.1.2}
+\contentsline {subsubsection}{\numberline {8.1.2}Risultati Numerici}{18}{subsubsection.8.1.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {8.2}Test Case 02}{19}{subsection.8.2}
+\contentsline {section}{\numberline {9}Test Case 02}{18}{section.9}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {8.2.1}Set-up}{19}{subsubsection.8.2.1}
+\contentsline {subsubsection}{\numberline {9.0.3}Set-up}{18}{subsubsection.9.0.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {8.2.2}Risultati Numerici}{19}{subsubsection.8.2.2}
+\contentsline {subsubsection}{\numberline {9.0.4}Risultati Numerici}{20}{subsubsection.9.0.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {9}Conclusioni}{19}{section.9}
+\contentsline {section}{\numberline {10}Conclusioni}{20}{section.10}

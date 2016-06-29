@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  28 JUN 2016 17:01
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  29 JUN 2016 16:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1163,23 +1163,23 @@ m/it/10 p[]\OT1/cmr/m/n/10 ) = []$
 
 [10] [11]) (./src/05_Codice.tex
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 11.
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 13.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 11.
+(hyperref)                removing `math shift' on input line 13.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 11.
+(hyperref)                removing `math shift' on input line 13.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 16--18
+Underfull \hbox (badness 10000) in paragraph at lines 18--20
 
  []
 
 [12]
-Overfull \hbox (16.02332pt too wide) in paragraph at lines 45--46
+Overfull \hbox (16.02332pt too wide) in paragraph at lines 47--48
 []\T1/cmtt/m/n/10 funzioniErrore.edp \T1/cmr/m/n/10 e \T1/cmtt/m/n/10 funzioniE
 rroreAdj.edp\T1/cmr/m/n/10 : con-tengono le fun-zioni per il cal-colo dell'erro
 re
@@ -1187,29 +1187,29 @@ re
 
 [13]
 Package epstopdf Info: Source file: <img/cap5/griglie.eps>
-(epstopdf)                    date: 2016-06-28 14:34:23
-(epstopdf)                    size: 113046 bytes
+(epstopdf)                    date: 2016-06-29 12:29:01
+(epstopdf)                    size: 138516 bytes
 (epstopdf)             Output file: <img/cap5/griglie-eps-converted-to.pdf>
-(epstopdf)                    date: 2016-06-28 14:44:12
-(epstopdf)                    size: 29488 bytes
+(epstopdf)                    date: 2016-06-29 12:30:29
+(epstopdf)                    size: 36903 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/cap5/griglie-eps-conve
 rted-to.pdf img/cap5/griglie.eps>
-(epstopdf)             \includegraphics on input line 56.
+(epstopdf)             \includegraphics on input line 58.
 Package epstopdf Info: Output file is already uptodate.
- <img/cap5/griglie-eps-converted-to.pdf, id=430, 849.1725pt x 596.2275pt>
+ <img/cap5/griglie-eps-converted-to.pdf, id=432, 849.1725pt x 596.2275pt>
 File: img/cap5/griglie-eps-converted-to.pdf Graphic file (type pdf)
 
 <use img/cap5/griglie-eps-converted-to.pdf>
 Package pdftex.def Info: img/cap5/griglie-eps-converted-to.pdf used on input li
-ne 56.
-(pdftex.def)             Requested size: 426.79135pt x 299.65962pt.
+ne 58.
+(pdftex.def)             Requested size: 382.1241pt x 268.2999pt.
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 61.
- [14] [15 <./img/cap5/griglie-eps-converted-to.pdf>]
+nput line 63.
+ [14 <./img/cap5/griglie-eps-converted-to.pdf>] [15]
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <9> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 126.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 128.
 
-Overfull \hbox (46.64333pt too wide) in paragraph at lines 132--133
+Overfull \hbox (46.64333pt too wide) in paragraph at lines 134--135
 [][][][][][][][][][][][][][][][][][][] 
  []
 
@@ -1221,7 +1221,7 @@ LaTeX Warning: Citation 'MAIN' on page 17 undefined on input line 5.
 LaTeX Warning: Reference `chap:Continuo' on page 17 undefined on input line 10.
 
 
-[17] <img/cap6/TestCase01_ues_paper.png, id=529, 996.72375pt x 314.17375pt>
+<img/cap6/TestCase01_ues_paper.png, id=528, 996.72375pt x 314.17375pt>
 File: img/cap6/TestCase01_ues_paper.png Graphic file (type png)
 
 <use img/cap6/TestCase01_ues_paper.png>
@@ -1230,87 +1230,208 @@ Package pdftex.def Info: img/cap6/TestCase01_ues_paper.png used on input line 5
 (pdftex.def)             Requested size: 426.79135pt x 134.52638pt.
 
 
-LaTeX Warning: Citation 'MAIN' on page 18 undefined on input line 59.
+LaTeX Warning: Citation 'MAIN' on page 17 undefined on input line 59.
 
 
-LaTeX Warning: Citation 'MAIN' on page 18 undefined on input line 59.
+LaTeX Warning: Citation 'MAIN' on page 17 undefined on input line 59.
 
-Package epstopdf Info: Source file: <img/cap6/TestCase01_ues_l1.eps>
-(epstopdf)                    date: 2016-05-18 11:56:51
-(epstopdf)                    size: 62019 bytes
-(epstopdf)             Output file: <img/cap6/TestCase01_ues_l1-eps-converted-t
-o.pdf>
-(epstopdf)                    date: 2016-05-18 12:03:12
-(epstopdf)                    size: 16199 bytes
-(epstopdf)             Command: <repstopdf --outfile=img/cap6/TestCase01_ues_l1
--eps-converted-to.pdf img/cap6/TestCase01_ues_l1.eps>
+[17]
+Package epstopdf Info: Source file: <img/cap6/Imm_PF_01/ControlSol_N150_l1.eps>
+
+(epstopdf)                    date: 2016-06-18 12:46:48
+(epstopdf)                    size: 58002 bytes
+(epstopdf)             Output file: <img/cap6/Imm_PF_01/ControlSol_N150_l1-eps-
+converted-to.pdf>
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_01/Control
+Sol_N150_l1-eps-converted-to.pdf img/cap6/Imm_PF_01/ControlSol_N150_l1.eps>
 (epstopdf)             \includegraphics on input line 66.
-Package epstopdf Info: Output file is already uptodate.
+runsystem(repstopdf --outfile=img/cap6/Imm_PF_01/ControlSol_N150_l1-eps-convert
+ed-to.pdf img/cap6/Imm_PF_01/ControlSol_N150_l1.eps)...executed safely (allowed
+).
 
-<img/cap6/TestCase01_ues_l1-eps-converted-to.pdf, id=531, 849.1725pt x 596.2275
-pt>
-File: img/cap6/TestCase01_ues_l1-eps-converted-to.pdf Graphic file (type pdf)
- <use img/cap6/TestCase01_ues_l1-eps-converted-to.pdf>
-Package pdftex.def Info: img/cap6/TestCase01_ues_l1-eps-converted-to.pdf used o
-n input line 66.
-(pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
-Package epstopdf Info: Source file: <img/cap6/TestCase01_ues_l2.eps>
-(epstopdf)                    date: 2016-05-18 14:00:42
-(epstopdf)                    size: 63685 bytes
-(epstopdf)             Output file: <img/cap6/TestCase01_ues_l2-eps-converted-t
-o.pdf>
-(epstopdf)                    date: 2016-05-18 14:03:10
-(epstopdf)                    size: 16263 bytes
-(epstopdf)             Command: <repstopdf --outfile=img/cap6/TestCase01_ues_l2
--eps-converted-to.pdf img/cap6/TestCase01_ues_l2.eps>
+Package epstopdf Info: Result file: <img/cap6/Imm_PF_01/ControlSol_N150_l1-eps-
+converted-to.pdf>.
+
+
+! Package pdftex.def Error: File `img/cap6/Imm_PF_01/ControlSol_N150_l1-eps-con
+verted-to.pdf' not found.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.66 ...h]{img/cap6/Imm_PF_01/ControlSol_N150_l1}}
+                                                  \qquad
+Using draft setting for this image.
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Package epstopdf Info: Source file: <img/cap6/Imm_PF_01/ControlSol_N150_l2.eps>
+
+(epstopdf)                    date: 2016-06-18 13:03:22
+(epstopdf)                    size: 58994 bytes
+(epstopdf)             Output file: <img/cap6/Imm_PF_01/ControlSol_N150_l2-eps-
+converted-to.pdf>
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_01/Control
+Sol_N150_l2-eps-converted-to.pdf img/cap6/Imm_PF_01/ControlSol_N150_l2.eps>
 (epstopdf)             \includegraphics on input line 68.
-Package epstopdf Info: Output file is already uptodate.
+runsystem(repstopdf --outfile=img/cap6/Imm_PF_01/ControlSol_N150_l2-eps-convert
+ed-to.pdf img/cap6/Imm_PF_01/ControlSol_N150_l2.eps)...executed safely (allowed
+).
 
-<img/cap6/TestCase01_ues_l2-eps-converted-to.pdf, id=533, 849.1725pt x 596.2275
-pt>
-File: img/cap6/TestCase01_ues_l2-eps-converted-to.pdf Graphic file (type pdf)
- <use img/cap6/TestCase01_ues_l2-eps-converted-to.pdf>
-Package pdftex.def Info: img/cap6/TestCase01_ues_l2-eps-converted-to.pdf used o
-n input line 68.
-(pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
-Package epstopdf Info: Source file: <img/cap6/TestCase01_ues_l3.eps>
-(epstopdf)                    date: 2016-05-18 14:00:26
-(epstopdf)                    size: 70526 bytes
-(epstopdf)             Output file: <img/cap6/TestCase01_ues_l3-eps-converted-t
-o.pdf>
-(epstopdf)                    date: 2016-05-18 14:03:11
-(epstopdf)                    size: 17283 bytes
-(epstopdf)             Command: <repstopdf --outfile=img/cap6/TestCase01_ues_l3
--eps-converted-to.pdf img/cap6/TestCase01_ues_l3.eps>
+Package epstopdf Info: Result file: <img/cap6/Imm_PF_01/ControlSol_N150_l2-eps-
+converted-to.pdf>.
+
+! Package pdftex.def Error: File `img/cap6/Imm_PF_01/ControlSol_N150_l2-eps-con
+verted-to.pdf' not found.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.68 ...h]{img/cap6/Imm_PF_01/ControlSol_N150_l2}}
+                                                  \qquad
+Using draft setting for this image.
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Package epstopdf Info: Source file: <img/cap6/Imm_PF_01/ControlSol_N150_l3.eps>
+
+(epstopdf)                    date: 2016-06-18 13:03:35
+(epstopdf)                    size: 61066 bytes
+(epstopdf)             Output file: <img/cap6/Imm_PF_01/ControlSol_N150_l3-eps-
+converted-to.pdf>
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_01/Control
+Sol_N150_l3-eps-converted-to.pdf img/cap6/Imm_PF_01/ControlSol_N150_l3.eps>
 (epstopdf)             \includegraphics on input line 70.
-Package epstopdf Info: Output file is already uptodate.
+runsystem(repstopdf --outfile=img/cap6/Imm_PF_01/ControlSol_N150_l3-eps-convert
+ed-to.pdf img/cap6/Imm_PF_01/ControlSol_N150_l3.eps)...executed safely (allowed
+).
 
-<img/cap6/TestCase01_ues_l3-eps-converted-to.pdf, id=535, 849.1725pt x 596.2275
-pt>
-File: img/cap6/TestCase01_ues_l3-eps-converted-to.pdf Graphic file (type pdf)
- <use img/cap6/TestCase01_ues_l3-eps-converted-to.pdf>
-Package pdftex.def Info: img/cap6/TestCase01_ues_l3-eps-converted-to.pdf used o
-n input line 70.
-(pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
+Package epstopdf Info: Result file: <img/cap6/Imm_PF_01/ControlSol_N150_l3-eps-
+converted-to.pdf>.
+
+! Package pdftex.def Error: File `img/cap6/Imm_PF_01/ControlSol_N150_l3-eps-con
+verted-to.pdf' not found.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.70 ...h]{img/cap6/Imm_PF_01/ControlSol_N150_l3}}
+                                                  \qquad
+Using draft setting for this image.
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Package epstopdf Info: Source file: <img/cap6/Imm_PF_01/ControlSol_N150_l4.eps>
+
+(epstopdf)                    date: 2016-06-18 13:03:49
+(epstopdf)                    size: 64928 bytes
+(epstopdf)             Output file: <img/cap6/Imm_PF_01/ControlSol_N150_l4-eps-
+converted-to.pdf>
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_01/Control
+Sol_N150_l4-eps-converted-to.pdf img/cap6/Imm_PF_01/ControlSol_N150_l4.eps>
+(epstopdf)             \includegraphics on input line 72.
+runsystem(repstopdf --outfile=img/cap6/Imm_PF_01/ControlSol_N150_l4-eps-convert
+ed-to.pdf img/cap6/Imm_PF_01/ControlSol_N150_l4.eps)...executed safely (allowed
+).
+
+Package epstopdf Info: Result file: <img/cap6/Imm_PF_01/ControlSol_N150_l4-eps-
+converted-to.pdf>.
+
+! Package pdftex.def Error: File `img/cap6/Imm_PF_01/ControlSol_N150_l4-eps-con
+verted-to.pdf' not found.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.72 ...h]{img/cap6/Imm_PF_01/ControlSol_N150_l4}}
+                                                  \qquad
+Using draft setting for this image.
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Package epstopdf Info: Source file: <img/cap6/Imm_PF_01/ControlSol_N150_l5.eps>
+
+(epstopdf)                    date: 2016-06-18 13:04:00
+(epstopdf)                    size: 72657 bytes
+(epstopdf)             Output file: <img/cap6/Imm_PF_01/ControlSol_N150_l5-eps-
+converted-to.pdf>
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_01/Control
+Sol_N150_l5-eps-converted-to.pdf img/cap6/Imm_PF_01/ControlSol_N150_l5.eps>
+(epstopdf)             \includegraphics on input line 74.
+runsystem(repstopdf --outfile=img/cap6/Imm_PF_01/ControlSol_N150_l5-eps-convert
+ed-to.pdf img/cap6/Imm_PF_01/ControlSol_N150_l5.eps)...executed safely (allowed
+).
+
+Package epstopdf Info: Result file: <img/cap6/Imm_PF_01/ControlSol_N150_l5-eps-
+converted-to.pdf>.
+
+! Package pdftex.def Error: File `img/cap6/Imm_PF_01/ControlSol_N150_l5-eps-con
+verted-to.pdf' not found.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.74 ...h]{img/cap6/Imm_PF_01/ControlSol_N150_l5}}
+                                                  \qquad
+Using draft setting for this image.
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Package epstopdf Info: Source file: <img/cap6/Imm_PF_01/ControlSol_N150_l6.eps>
+
+(epstopdf)                    date: 2016-06-18 13:42:02
+(epstopdf)                    size: 88140 bytes
+(epstopdf)             Output file: <img/cap6/Imm_PF_01/ControlSol_N150_l6-eps-
+converted-to.pdf>
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_01/Control
+Sol_N150_l6-eps-converted-to.pdf img/cap6/Imm_PF_01/ControlSol_N150_l6.eps>
+(epstopdf)             \includegraphics on input line 76.
+runsystem(repstopdf --outfile=img/cap6/Imm_PF_01/ControlSol_N150_l6-eps-convert
+ed-to.pdf img/cap6/Imm_PF_01/ControlSol_N150_l6.eps)...executed safely (allowed
+).
+
+Package epstopdf Info: Result file: <img/cap6/Imm_PF_01/ControlSol_N150_l6-eps-
+converted-to.pdf>.
+
+! Package pdftex.def Error: File `img/cap6/Imm_PF_01/ControlSol_N150_l6-eps-con
+verted-to.pdf' not found.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.76 ...h]{img/cap6/Imm_PF_01/ControlSol_N150_l6}}
+                                                  
+Using draft setting for this image.
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
 
 
-LaTeX Warning: Reference `chap:Continuo' on page 18 undefined on input line 76.
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 81.
 
 
-[18 <./img/cap6/TestCase01_ues_paper.png>]
-<img/cap6/TestCase02_ues_paper.png, id=550, 999.735pt x 303.1325pt>
+LaTeX Warning: Reference `chap:Continuo' on page 18 undefined on input line 82.
+
+
+<img/cap6/TestCase02_ues_paper.png, id=548, 999.735pt x 303.1325pt>
 File: img/cap6/TestCase02_ues_paper.png Graphic file (type png)
 
 <use img/cap6/TestCase02_ues_paper.png>
 Package pdftex.def Info: img/cap6/TestCase02_ues_paper.png used on input line 1
-19.
+25.
 (pdftex.def)             Requested size: 426.79135pt x 129.4101pt.
 
 
-LaTeX Warning: Citation 'MAIN' on page 19 undefined on input line 120.
+LaTeX Warning: Citation 'MAIN' on page 18 undefined on input line 126.
 
 
-LaTeX Warning: Citation 'MAIN' on page 19 undefined on input line 120.
+LaTeX Warning: Citation 'MAIN' on page 18 undefined on input line 126.
 
 Package epstopdf Info: Source file: <img/cap6/TestCase02_ues_l1.eps>
 (epstopdf)                    date: 2016-05-18 14:01:05
@@ -1321,15 +1442,15 @@ o.pdf>
 (epstopdf)                    size: 15749 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/cap6/TestCase02_ues_l1
 -eps-converted-to.pdf img/cap6/TestCase02_ues_l1.eps>
-(epstopdf)             \includegraphics on input line 127.
+(epstopdf)             \includegraphics on input line 133.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/TestCase02_ues_l1-eps-converted-to.pdf, id=551, 849.1725pt x 596.2275
+<img/cap6/TestCase02_ues_l1-eps-converted-to.pdf, id=549, 849.1725pt x 596.2275
 pt>
 File: img/cap6/TestCase02_ues_l1-eps-converted-to.pdf Graphic file (type pdf)
  <use img/cap6/TestCase02_ues_l1-eps-converted-to.pdf>
 Package pdftex.def Info: img/cap6/TestCase02_ues_l1-eps-converted-to.pdf used o
-n input line 127.
+n input line 133.
 (pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
 Package epstopdf Info: Source file: <img/cap6/TestCase02_ues_l2.eps>
 (epstopdf)                    date: 2016-05-18 13:04:16
@@ -1340,15 +1461,15 @@ o.pdf>
 (epstopdf)                    size: 17647 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/cap6/TestCase02_ues_l2
 -eps-converted-to.pdf img/cap6/TestCase02_ues_l2.eps>
-(epstopdf)             \includegraphics on input line 129.
+(epstopdf)             \includegraphics on input line 135.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/TestCase02_ues_l2-eps-converted-to.pdf, id=553, 849.1725pt x 596.2275
+<img/cap6/TestCase02_ues_l2-eps-converted-to.pdf, id=551, 849.1725pt x 596.2275
 pt>
 File: img/cap6/TestCase02_ues_l2-eps-converted-to.pdf Graphic file (type pdf)
  <use img/cap6/TestCase02_ues_l2-eps-converted-to.pdf>
 Package pdftex.def Info: img/cap6/TestCase02_ues_l2-eps-converted-to.pdf used o
-n input line 129.
+n input line 135.
 (pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
 Package epstopdf Info: Source file: <img/cap6/TestCase02_ues_l3.eps>
 (epstopdf)                    date: 2016-05-18 13:04:33
@@ -1359,15 +1480,15 @@ o.pdf>
 (epstopdf)                    size: 19159 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/cap6/TestCase02_ues_l3
 -eps-converted-to.pdf img/cap6/TestCase02_ues_l3.eps>
-(epstopdf)             \includegraphics on input line 131.
+(epstopdf)             \includegraphics on input line 137.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/TestCase02_ues_l3-eps-converted-to.pdf, id=555, 849.1725pt x 596.2275
+<img/cap6/TestCase02_ues_l3-eps-converted-to.pdf, id=553, 849.1725pt x 596.2275
 pt>
 File: img/cap6/TestCase02_ues_l3-eps-converted-to.pdf Graphic file (type pdf)
  <use img/cap6/TestCase02_ues_l3-eps-converted-to.pdf>
 Package pdftex.def Info: img/cap6/TestCase02_ues_l3-eps-converted-to.pdf used o
-n input line 131.
+n input line 137.
 (pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
 )
 (./src/07_Conclusioni.tex)
@@ -1378,18 +1499,23 @@ LaTeX Warning: Citation 'QUART' undefined on input line 185.
 LaTeX Warning: Empty bibliography on input line 186.
 
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 191.
-[19 <./img/cap6/TestCase01_ues_l1-eps-converted-to.pdf> <./img/cap6/TestCase01_
-ues_l2-eps-converted-to.pdf> <./img/cap6/TestCase01_ues_l3-eps-converted-to.pdf
->] [20 <./img/cap6/TestCase02_ues_paper.png> <./img/cap6/TestCase02_ues_l1-eps-
-converted-to.pdf> <./img/cap6/TestCase02_ues_l2-eps-converted-to.pdf> <./img/ca
-p6/TestCase02_ues_l3-eps-converted-to.pdf>]
+[18 <./img/cap6/TestCase01_ues_paper.png>] [19 <./img/cap6/TestCase02_ues_paper
+.png>] [20 <./img/cap6/TestCase02_ues_l1-eps-converted-to.pdf> <./img/cap6/Test
+Case02_ues_l2-eps-converted-to.pdf> <./img/cap6/TestCase02_ues_l3-eps-converted
+-to.pdf>]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 191.
  (./Report.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 191.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 191.
-Package rerunfilecheck Info: File `Report.out' has not changed.
-(rerunfilecheck)             Checksum: D308B1B393B10B2D169112551266EFF6;2078.
 
+
+Package rerunfilecheck Warning: File `Report.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `Report.out':
+(rerunfilecheck)             Before: D308B1B393B10B2D169112551266EFF6;2078
+(rerunfilecheck)             After:  4CA3FC8F7F7F505569CA50253AA7ECBB;2065.
 
 LaTeX Warning: There were undefined references.
 
@@ -1406,15 +1532,24 @@ Package logreq Info: Writing requests to 'Report.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 16480 strings out of 493633
- 251875 string characters out of 3143378
- 484973 words of memory out of 3000000
- 19195 multiletter control sequences out of 15000+200000
+ 16479 strings out of 493633
+ 251416 string characters out of 3143378
+ 488973 words of memory out of 3000000
+ 19183 multiletter control sequences out of 15000+200000
  29607 words of font info for 93 fonts, out of 3000000 for 9000
  831 hyphenation exceptions out of 8191
  36i,15n,58p,854b,1400s stack positions out of 5000i,500n,10000p,200000b,50000s
 pdfTeX warning (dest): name{algoritmo.2} has been referenced but does not exi
 st, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsubsection.8.2.2} has been referenced but does n
+ot exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsubsection.8.2.1} has been referenced but does n
+ot exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsection.8.2} has been referenced but does not ex
+ist, replaced by a fixed one
 
 {/usr/local/texlive/2011/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc} <
 /Users/Claudia/Library/texlive/2011/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.
@@ -1448,10 +1583,10 @@ f-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2011/texmf-
 dist/fonts/type1/public/cm-super/sfti1000.pfb></usr/local/texlive/2011/texmf-di
 st/fonts/type1/public/cm-super/sftt0800.pfb></usr/local/texlive/2011/texmf-dist
 /fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on Report.pdf (21 pages, 795666 bytes).
+Output written on Report.pdf (21 pages, 786991 bytes).
 PDF statistics:
- 742 PDF objects out of 1000 (max. 8388607)
- 669 compressed objects within 7 object streams
- 230 named destinations out of 1000 (max. 500000)
- 299 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 745 PDF objects out of 1000 (max. 8388607)
+ 675 compressed objects within 7 object streams
+ 237 named destinations out of 1000 (max. 500000)
+ 284 words of extra memory for PDF output out of 10000 (max. 10000000)
 
