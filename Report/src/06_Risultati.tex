@@ -63,15 +63,40 @@ Infine definiamo le soluzioni esatte per il problema di controllo ottimo \ref{eq
 \begin{figure}
 \centering%
 \subfigure[\protect\url{l = 1}]%
-{\includegraphics[width=0.3\linewidth]{img/cap6/TestCase01_ues_l1.eps}}\qquad
+{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_PF_01/ControlSol_N150_l1}}\qquad
 \subfigure[\protect\url{l = 2}]%
-{\includegraphics[width=0.3\linewidth]{img/cap6/TestCase01_ues_l2.eps}}\qquad
+{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_PF_01/ControlSol_N150_l2}}\qquad
 \subfigure[\protect\url{l = 3}]%
-{\includegraphics[width=0.3\linewidth]{img/cap6/TestCase01_ues_l3.eps}}
-\caption{Test Case 01 $\overline{u}$ e $u_k$ risultati di questo studio\label{fig:501}}
+{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_PF_01/ControlSol_N150_l3}}\qquad
+\subfigure[\protect\url{l = 4}]%
+{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_PF_01/ControlSol_N150_l4}}\qquad
+\subfigure[\protect\url{l = 5}]%
+{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_PF_01/ControlSol_N150_l5}}\qquad
+\subfigure[\protect\url{l = 6}]%
+{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_PF_01/ControlSol_N150_l6}}
+\caption{Test Case 01 $\overline{u}$ e $u_k$ risultati dell'algoritmo di punto fisso}
+\label{fig:501}
 \end{figure}
 
-\subsection{Test Case 02}
+\begin{figure}
+\centering%
+\subfigure[\protect\url{l = 1}]%
+{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_CG_01/ControlSol_N150_l1}}\qquad
+\subfigure[\protect\url{l = 2}]%
+{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_CG_01/ControlSol_N150_l2}}\qquad
+\subfigure[\protect\url{l = 3}]%
+{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_CG_01/ControlSol_N150_l3}}\qquad
+\subfigure[\protect\url{l = 4}]%
+{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_CG_01/ControlSol_N150_l4}}\qquad
+\subfigure[\protect\url{l = 5}]%
+{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_CG_01/ControlSol_N150_l5}}\qquad
+\subfigure[\protect\url{l = 6}]%
+{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_CG_01/ControlSol_N150_l6}}
+\caption{Test Case 01 $\overline{u}$ e $u_k$: risultati dell'algortimod di semi newton}
+\label{fig:502}
+\end{figure}
+
+\section{Test Case 02}
 \subsubsection{Set-up}
 Il primo esempio considerato, in accordo con l'ipotesi i) introdotta in Chapter \ref{chap:Continuo}.
 Preso il dominio spazio-temporale $\Omega \times I = (0,1)^2 x(0,0.5)$ e d=1, si considera l'operatore di controllo lineare affine $\tilde{B}$ che può essere completamente caratterizato da:
@@ -118,17 +143,49 @@ w_a(t,x_1,x_2) = cos \left( \frac{t}{T}2{\pi}a \right) \cdot g_1(t,x_1,x_2)
 \centering
 \includegraphics[width=\linewidth]{img/cap6/TestCase02_ues_paper}
 \caption{Test Case 02 $\overline{u}$ e $u_k$ risultati di \cite{MAIN}}
-\label{fig:502}
+\label{fig:503}
 \end{figure}
 
 \begin{figure}
 \centering%
 \subfigure[\protect\url{l = 1}]%
-{\includegraphics[width=0.3\linewidth]{img/cap6/TestCase02_ues_l1.eps}}\qquad
+{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_PF_02/ControlSol_N150_l1}}\qquad
 \subfigure[\protect\url{l = 2}]%
-{\includegraphics[width=0.3\linewidth]{img/cap6/TestCase02_ues_l2.eps}}\qquad
+{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_PF_02/ControlSol_N150_l2}}\qquad
 \subfigure[\protect\url{l = 3}]%
-{\includegraphics[width=0.3\linewidth]{img/cap6/TestCase02_ues_l3.eps}}
-\caption{Test Case 02 $\overline{u}$ e $u_k$ risultati di questo studio}
-\label{fig:503}
+{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_PF_02/ControlSol_N150_l3}}\qquad
+\subfigure[\protect\url{l = 4}]%
+{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_PF_02/ControlSol_N150_l4}}\qquad
+\subfigure[\protect\url{l = 5}]%
+{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_PF_02/ControlSol_N150_l5}}\qquad
+\subfigure[\protect\url{l = 6}]%
+{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_PF_02/ControlSol_N150_l6}}\qquad
+\subfigure[\protect\url{l = 7}]%
+{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_PF_02/ControlSol_N150_l7}}\qquad
+\subfigure[\protect\url{l = 8}]%
+{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_PF_02/ControlSol_N150_l8}}
+\caption{Test Case 02 $\overline{u}$ e $u_k$ risultati dell'algoritmo di punto fisso}
+\label{fig:504}
+\end{figure}
+
+\begin{figure}
+\centering%
+\subfigure[\protect\url{l = 1}]%
+{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_CG_02/ControlSol_N150_l1}}\qquad
+\subfigure[\protect\url{l = 2}]%
+{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_CG_02/ControlSol_N150_l2}}\qquad
+\subfigure[\protect\url{l = 3}]%
+{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_CG_02/ControlSol_N150_l3}}\qquad
+\subfigure[\protect\url{l = 4}]%
+{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_CG_02/ControlSol_N150_l4}}\qquad
+\subfigure[\protect\url{l = 5}]%
+{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_CG_02/ControlSol_N150_l5}}\qquad
+\subfigure[\protect\url{l = 6}]%
+{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_CG_02/ControlSol_N150_l6}}\qquad
+\subfigure[\protect\url{l = 7}]%
+{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_CG_02/ControlSol_N150_l7}}\qquad
+\subfigure[\protect\url{l = 8}]%
+{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_CG_02/ControlSol_N150_l8}}
+\caption{Test Case 02 $\overline{u}$ e $u_k$: risultati dell'algortimod di semi newton}
+\label{fig:505}
 \end{figure}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/MacPorts 2015_7) (preloaded format=pdflatex 2016.5.5)  29 JUN 2016 16:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/MacPorts 2015_7) (preloaded format=pdflatex 2016.5.5)  29 JUN 2016 18:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -617,4 +617,1266 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 (/opt/local/share/texmf-texlive/tex/latex/braket/braket.sty)
 (/opt/local/share/texmf-texlive/tex/latex/tools/bm.sty
-Package: bm 2014/10/28 v1.1c Bold Symbol Support 
+Package: bm 2014/10/28 v1.1c Bold Symbol Support (DPC/FMi)
+\symboldoperators=\mathgroup8
+\symboldletters=\mathgroup9
+\symboldsymbols=\mathgroup10
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 141.
+LaTeX Info: Redefining \bm on input line 207.
+)
+(/opt/local/share/texmf-texlive/tex/latex/bbm-macros/bbm.sty
+Package: bbm 1999/03/15 V 1.2 provides fonts for set symbols - TH
+LaTeX Font Info:    Overwriting math alphabet `\mathbbm' in version `bold'
+(Font)                  U/bbm/m/n --> U/bbm/bx/n on input line 33.
+LaTeX Font Info:    Overwriting math alphabet `\mathbbmss' in version `bold'
+(Font)                  U/bbmss/m/n --> U/bbmss/bx/n on input line 35.
+)
+(/opt/local/share/texmf-texlive/tex/latex/geometry/geometry.sty
+Package: geometry 2010/09/12 v5.6 Page Geometry
+\Gm@cnth=\count131
+\Gm@cntv=\count132
+\c@Gm@tempcnt=\count133
+\Gm@bindingoffset=\dimen139
+\Gm@wd@mp=\dimen140
+\Gm@odd@mp=\dimen141
+\Gm@even@mp=\dimen142
+\Gm@layoutwidth=\dimen143
+\Gm@layoutheight=\dimen144
+\Gm@layouthoffset=\dimen145
+\Gm@layoutvoffset=\dimen146
+\Gm@dimlist=\toks31
+)
+(/opt/local/share/texmf-texlive/tex/latex/base/fontenc.sty
+Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
+
+(/opt/local/share/texmf-texlive/tex/latex/base/t1enc.def
+File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
+))
+(/opt/local/share/texmf-texlive/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2005/04/14 v1.61803 publication quality tables
+\heavyrulewidth=\dimen147
+\lightrulewidth=\dimen148
+\cmidrulewidth=\dimen149
+\belowrulesep=\dimen150
+\belowbottomsep=\dimen151
+\aboverulesep=\dimen152
+\abovetopsep=\dimen153
+\cmidrulesep=\dimen154
+\cmidrulekern=\dimen155
+\defaultaddspace=\dimen156
+\@cmidla=\count134
+\@cmidlb=\count135
+\@aboverulesep=\dimen157
+\@belowrulesep=\dimen158
+\@thisruleclass=\count136
+\@lastruleclass=\count137
+\@thisrulewidth=\dimen159
+)
+(/opt/local/share/texmf-texlive/tex/latex/multirow/multirow.sty
+\bigstrutjot=\dimen160
+)
+(/opt/local/share/texmf-texlive/tex/latex/biblatex/biblatex.sty
+Package: biblatex 2015/04/19 v3.0 programmable bibliographies (PK/JW/AB)
+
+(/opt/local/share/texmf-texlive/tex/latex/biblatex/biblatex2.sty
+Package: biblatex2 2015/04/19 v3.0 programmable bibliographies (biber) (PK/JW/A
+B)
+
+(/opt/local/share/texmf-texlive/tex/latex/logreq/logreq.sty
+Package: logreq 2010/08/04 v1.0 xml request logger
+\lrq@indent=\count138
+
+(/opt/local/share/texmf-texlive/tex/latex/logreq/logreq.def
+File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
+))
+(/opt/local/share/texmf-texlive/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\c@tabx@nest=\count139
+\c@listtotal=\count140
+\c@listcount=\count141
+\c@liststart=\count142
+\c@liststop=\count143
+\c@citecount=\count144
+\c@citetotal=\count145
+\c@multicitecount=\count146
+\c@multicitetotal=\count147
+\c@instcount=\count148
+\c@maxnames=\count149
+\c@minnames=\count150
+\c@maxitems=\count151
+\c@minitems=\count152
+\c@citecounter=\count153
+\c@savedcitecounter=\count154
+\c@uniquelist=\count155
+\c@uniquename=\count156
+\c@refsection=\count157
+\c@refsegment=\count158
+\c@maxextratitle=\count159
+\c@maxextratitleyear=\count160
+\c@maxextrayear=\count161
+\c@maxextraalpha=\count162
+\c@abbrvpenalty=\count163
+\c@highnamepenalty=\count164
+\c@lownamepenalty=\count165
+\c@maxparens=\count166
+\c@parenlevel=\count167
+\blx@tempcnta=\count168
+\blx@tempcntb=\count169
+\blx@tempcntc=\count170
+\blx@maxsection=\count171
+\blx@maxsegment@0=\count172
+\blx@notetype=\count173
+\blx@parenlevel@text=\count174
+\blx@parenlevel@foot=\count175
+\blx@sectionciteorder@0=\count176
+\labelnumberwidth=\skip69
+\labelalphawidth=\skip70
+\biblabelsep=\skip71
+\bibitemsep=\skip72
+\bibnamesep=\skip73
+\bibinitsep=\skip74
+\bibparsep=\skip75
+\bibhang=\skip76
+\blx@bcfin=\read1
+\blx@bcfout=\write3
+\c@mincomprange=\count177
+\c@maxcomprange=\count178
+\c@mincompwidth=\count179
+Package biblatex Info: Trying to load biblatex default data model...
+Package biblatex Info: ... file 'blx-dm.def' found.
+
+(/opt/local/share/texmf-texlive/tex/latex/biblatex/blx-dm.def)
+Package biblatex Info: Trying to load biblatex citestyle data model...
+Package biblatex Info: ... file 'alphabetic.dbx' not found.
+Package biblatex Info: Trying to load biblatex custom data model...
+Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
+\c@afterword=\count180
+\c@savedafterword=\count181
+\c@annotator=\count182
+\c@savedannotator=\count183
+\c@author=\count184
+\c@savedauthor=\count185
+\c@bookauthor=\count186
+\c@savedbookauthor=\count187
+\c@commentator=\count188
+\c@savedcommentator=\count189
+\c@editor=\count190
+\c@savededitor=\count191
+\c@editora=\count192
+\c@savededitora=\count193
+\c@editorb=\count194
+\c@savededitorb=\count195
+\c@editorc=\count196
+\c@savededitorc=\count197
+\c@foreword=\count198
+\c@savedforeword=\count199
+\c@holder=\count200
+\c@savedholder=\count201
+\c@introduction=\count202
+\c@savedintroduction=\count203
+\c@namea=\count204
+\c@savednamea=\count205
+\c@nameb=\count206
+\c@savednameb=\count207
+\c@namec=\count208
+\c@savednamec=\count209
+\c@translator=\count210
+\c@savedtranslator=\count211
+\c@shortauthor=\count212
+\c@savedshortauthor=\count213
+\c@shorteditor=\count214
+\c@savedshorteditor=\count215
+\c@labelname=\count216
+\c@savedlabelname=\count217
+\c@institution=\count218
+\c@savedinstitution=\count219
+\c@lista=\count220
+\c@savedlista=\count221
+\c@listb=\count222
+\c@savedlistb=\count223
+\c@listc=\count224
+\c@savedlistc=\count225
+\c@listd=\count226
+\c@savedlistd=\count227
+\c@liste=\count228
+\c@savedliste=\count229
+\c@listf=\count230
+\c@savedlistf=\count231
+\c@location=\count232
+\c@savedlocation=\count233
+\c@organization=\count266
+\c@savedorganization=\count267
+\c@origlocation=\count268
+\c@savedoriglocation=\count269
+\c@origpublisher=\count270
+\c@savedorigpublisher=\count271
+\c@publisher=\count272
+\c@savedpublisher=\count273
+\c@language=\count274
+\c@savedlanguage=\count275
+\c@pageref=\count276
+\c@savedpageref=\count277
+\shorthandwidth=\skip77
+\shortjournalwidth=\skip78
+\shortserieswidth=\skip79
+\shorttitlewidth=\skip80
+\shortauthorwidth=\skip81
+\shorteditorwidth=\skip82
+Package biblatex Info: Trying to load compatibility code...
+Package biblatex Info: ... file 'blx-compat.def' found.
+
+(/opt/local/share/texmf-texlive/tex/latex/biblatex/blx-compat.def
+File: blx-compat.def 2015/04/19 v3.0 biblatex compatibility (PK/JW/AB)
+)
+Package biblatex Info: Trying to load generic definitions...
+Package biblatex Info: ... file 'biblatex.def' found.
+
+(/opt/local/share/texmf-texlive/tex/latex/biblatex/biblatex.def
+File: biblatex.def 
+\c@textcitecount=\count278
+\c@textcitetotal=\count279
+\c@textcitemaxnames=\count280
+\c@biburlnumpenalty=\count281
+\c@biburlucpenalty=\count282
+\c@biburllcpenalty=\count283
+\c@smartand=\count284
+)
+Package biblatex Info: Trying to load bibliography style 'alphabetic'...
+Package biblatex Info: ... file 'alphabetic.bbx' found.
+
+(/opt/local/share/texmf-texlive/tex/latex/biblatex/bbx/alphabetic.bbx
+File: alphabetic.bbx 2015/04/19 v3.0 biblatex bibliography style (PK/JW/AB)
+Package biblatex Info: Trying to load bibliography style 'standard'...
+Package biblatex Info: ... file 'standard.bbx' found.
+
+(/opt/local/share/texmf-texlive/tex/latex/biblatex/bbx/standard.bbx
+File: standard.bbx 2015/04/19 v3.0 biblatex bibliography style (PK/JW/AB)
+\c@bbx:relatedcount=\count285
+\c@bbx:relatedtotal=\count286
+))
+Package biblatex Info: Trying to load citation style 'alphabetic'...
+Package biblatex Info: ... file 'alphabetic.cbx' found.
+
+(/opt/local/share/texmf-texlive/tex/latex/biblatex/cbx/alphabetic.cbx
+File: alphabetic.cbx 2015/04/19 v3.0 biblatex citation style (PK/JW/AB)
+Package biblatex Info: Redefining '\cite'.
+Package biblatex Info: Redefining '\parencite'.
+Package biblatex Info: Redefining '\footcite'.
+Package biblatex Info: Redefining '\footcitetext'.
+Package biblatex Info: Redefining '\smartcite'.
+Package biblatex Info: Redefining '\textcite'.
+Package biblatex Info: Redefining '\textcites'.
+Package biblatex Info: Redefining '\cites'.
+Package biblatex Info: Redefining '\parencites'.
+Package biblatex Info: Redefining '\smartcites'.
+)
+Package biblatex Info: Trying to load configuration file...
+Package biblatex Info: ... file 'biblatex.cfg' found.
+
+(/opt/local/share/texmf-texlive/tex/latex/biblatex/biblatex.cfg
+File: biblatex.cfg 
+)))
+(/opt/local/share/texmf-texlive/tex/latex/tools/verbatim.sty
+Package: verbatim 2014/10/28 v1.5q LaTeX2e package for verbatim enhancements
+\every@verbatim=\toks32
+\verbatim@line=\toks33
+\verbatim@in@stream=\read2
+)
+(/opt/local/share/texmf-texlive/tex/latex/listings/listings.sty
+\lst@mode=\count287
+\lst@gtempboxa=\box29
+\lst@token=\toks34
+\lst@length=\count288
+\lst@currlwidth=\dimen161
+\lst@column=\count289
+\lst@pos=\count290
+\lst@lostspace=\dimen162
+\lst@width=\dimen163
+\lst@newlines=\count291
+\lst@lineno=\count292
+\lst@maxwidth=\dimen164
+
+(/opt/local/share/texmf-texlive/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2014/09/06 1.5e (Carsten Heinz)
+\c@lstnumber=\count293
+\lst@skipnumbers=\count294
+\lst@framebox=\box30
+)
+(/opt/local/share/texmf-texlive/tex/latex/listings/listings.cfg
+File: listings.cfg 2014/09/06 1.5e listings configuration
+))
+Package: listings 2014/09/06 1.5e (Carsten Heinz)
+
+(/opt/local/share/texmf-texlive/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2014/09/06 1.5e listings language file
+)
+(/opt/local/share/texmf-texlive/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2014/09/06 1.5e listings language file
+)
+(/opt/local/share/texmf-texlive/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2014/09/06 1.5e (Carsten Heinz)
+)
+(/opt/local/share/texmf-texlive/tex/latex/graphics/color.sty
+Package: color 2014/10/28 v1.1a Standard LaTeX Color (DPC)
+
+(/opt/local/share/texmf-texlive/tex/latex/latexconfig/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: pdftex.def on input line 142.
+)
+\c@lemma=\count295
+\c@osservazione=\count296
+\c@teorema=\count297
+\c@algoritmo=\count298
+\c@definizione=\count299
+\c@proposizione=\count300
+
+(/opt/local/share/texmf-texlive/tex/latex/frontespizio/frontespizio.sty
+Package: frontespizio 2011/09/21 1.4a (Enrico Gregorio)
+
+(/opt/local/share/texmf-texlive/tex/latex/tools/afterpage.sty
+Package: afterpage 2014/10/28 v1.08 After-Page Package (DPC)
+\AP@output=\toks35
+\AP@partial=\box31
+\AP@footins=\box32
+)
+(/opt/local/share/texmf-texlive/tex/latex/environ/environ.sty
+Package: environ 2014/05/04 v0.3 A new way to define environments
+
+(/opt/local/share/texmf-texlive/tex/latex/trimspaces/trimspaces.sty
+Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
+))
+\front@out=\write4
+\openout4 = `Report-frn.tex'.
+
+)
+Package csquotes Info: Checking for multilingual support...
+Package csquotes Info: ... found 'babel' package.
+Package biblatex Info: Trying to load language 'english'...
+Package biblatex Info: ... file 'english.lbx' found.
+
+(/opt/local/share/texmf-texlive/tex/latex/biblatex/lbx/english.lbx
+File: english.lbx 2015/04/19 v3.0 biblatex localization (PK/JW/AB)
+)
+(./Report-build/Report.aux)
+\openout1 = `Report.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 161.
+LaTeX Font Info:    ... okay on input line 161.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 161.
+LaTeX Font Info:    ... okay on input line 161.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 161.
+LaTeX Font Info:    ... okay on input line 161.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 161.
+LaTeX Font Info:    ... okay on input line 161.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 161.
+LaTeX Font Info:    ... okay on input line 161.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 161.
+LaTeX Font Info:    ... okay on input line 161.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 161.
+LaTeX Font Info:    ... okay on input line 161.
+LaTeX Info: Redefining \it@ocap on input line 161.
+LaTeX Info: Redefining \it@ccap on input line 161.
+
+(/opt/local/share/texmf-texlive/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count301
+\scratchdimen=\dimen165
+\scratchbox=\box33
+\nofMPsegments=\count302
+\nofMParguments=\count303
+\everyMPshowfont=\toks36
+\MPscratchCnt=\count304
+\MPscratchDim=\dimen166
+\MPnumerator=\count305
+\makeMPintoPDFobject=\count306
+\everyMPtoPDFconversion=\toks37
+) (/opt/local/share/texmf-texlive/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/opt/local/share/texmf-texlive/tex/latex/oberdiek/grfext.sty
+Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+)
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+
+(/opt/local/share/texmf-texlive/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: hyperref package is loaded.
+Package caption Info: listings package is loaded.
+Package caption Info: wrapfig package is loaded.
+Package caption Info: End \AtBeginDocument code.
+\AtBeginShipoutBox=\box34
+Package hyperref Info: Link coloring OFF on input line 161.
+
+(/opt/local/share/texmf-texlive/tex/latex/hyperref/nameref.sty
+Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
+
+(/opt/local/share/texmf-texlive/tex/generic/oberdiek/gettitlestring.sty
+Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
+)
+\c@section@level=\count307
+)
+LaTeX Info: Redefining \ref on input line 161.
+LaTeX Info: Redefining \pageref on input line 161.
+LaTeX Info: Redefining \nameref on input line 161.
+
+(./Report-build/Report.out) (./Report-build/Report.out)
+\@outlinefile=\write5
+\openout5 = `Report.out'.
+
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(85.35826pt, 426.79135pt, 85.35826pt)
+* v-part:(T,H,B)=(101.40665pt, 591.5302pt, 152.11pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=426.79135pt
+* \textheight=591.5302pt
+* \oddsidemargin=13.08827pt
+* \evensidemargin=13.08827pt
+* \topmargin=-7.86334pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=10.0pt
+* \footskip=30.0pt
+* \marginparwidth=65.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+Package biblatex Info: Input encoding 'utf8' detected.
+Package biblatex Info: Automatic encoding selection.
+(biblatex)             Assuming data encoding 'utf8'.
+\openout3 = `Report.bcf'.
+
+Package biblatex Info: Trying to load bibliographic data...
+Package biblatex Info: ... file 'Report.bbl' found.
+(./Report-build/Report.bbl)
+Package biblatex Info: Reference section=0 on input line 161.
+Package biblatex Info: Reference segment=0 on input line 161.
+\c@lstlisting=\count308
+ (./src/title.tex
+<Report-frn.pdf, id=132, 597.50829pt x 845.0471pt>
+File: Report-frn.pdf Graphic file (type pdf)
+ <use Report-frn.pdf>
+Package pdftex.def Info: Report-frn.pdf used on input line 2.
+(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
+
+[1
+
+ <./Report-frn.pdf{/opt/local/var/db/texmf/fonts/map/pdftex/updmap/pdftex.map}>
+]) (./Report-build/Report.toc
+LaTeX Font Info:    Try loading font information for U+msa on input line 9.
+
+(/opt/local/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 9.
+
+(/opt/local/share/texmf-texlive/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Try loading font information for U+esint on input line 9.
+
+(/opt/local/share/texmf-texlive/tex/latex/esint/uesint.fd
+File: uesint.fd 
+)
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 9.
+
+(/opt/local/share/texmf-texlive/tex/latex/jknapltx/ursfs.fd
+File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
+)
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 39.
+
+(/opt/local/share/texmf-texlive/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+))
+\tf@toc=\write6
+\openout6 = `Report.toc'.
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.173   \newpage
+                 [1] (./src/01_Introduzione.tex)
+(./src/02_Analisi_del_problema_continuo.tex [2pdfTeX warning (ext4): destinatio
+n with the same identifier (name{equation.2.1}) has been already used, duplicat
+e ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.41 \end{equation}
+                   ] [3]) (./src/03_Analisi_del_problema_discreto.tex [4]
+[5] [6]) (./src/04_VarDisc.tex [7]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 53.
+
+(/opt/local/share/texmf-texlive/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/it' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 53.
+ [8]
+
+LaTeX Warning: Reference `P_k' on page 9 undefined on input line 81.
+
+[9]
+Overfull \hbox (7.02571pt too wide) in paragraph at lines 153--154
+[][]\T1/cmr/bx/n/10 Lemma 5. []\T1/cmr/m/it/10 La fun-zione $\OML/cmm/m/it/10 '
+ \OT1/cmr/m/n/10 : \OML/cmm/m/it/10 L[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 I; L[]
+\OT1/cmr/m/n/10 (
+)) \OMS/cmsy/m/n/10 ! \U/msb/m/n/10 R$ \T1/cmr/m/it/10 da  [] è forte-mente con
+-vessa e Frechet-differenziabile
+ []
+
+LaTeX Font Info:    Try loading font information for U+bbm on input line 168.
+(/opt/local/share/texmf-texlive/tex/latex/bbm-macros/ubbm.fd
+File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
+)
+Overfull \hbox (30.98903pt too wide) in paragraph at lines 169--171
+\T1/cmr/m/n/10 della fun-zione $\OML/cmm/m/it/10 p[] \OMS/cmsy/m/n/10 2 \OML/cm
+m/m/it/10 L[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 I; L[]\OT1/cmr/m/n/10 (
+))$ \T1/cmr/m/n/10 come l'insieme $\OMS/cmsy/m/n/10 I\OT1/cmr/m/n/10 (\OML/cmm/
+m/it/10 p[]\OT1/cmr/m/n/10 ) = []$
+ []
+
+[10] [11]) (./src/05_Codice.tex
+LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10> not available
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 11.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 11.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 11.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 16--18
+
+ []
+
+[12]
+Overfull \hbox (16.02332pt too wide) in paragraph at lines 45--46
+[]\T1/cmtt/m/n/10 funzioniErrore.edp \T1/cmr/m/n/10 e \T1/cmtt/m/n/10 funzioniE
+rroreAdj.edp\T1/cmr/m/n/10 : con-tengono le fun-zioni per il cal-colo dell'erro
+re
+ []
+
+[13]
+Package epstopdf Info: Source file: <img/cap5/griglie.eps>
+(epstopdf)                    date: 2016-06-29 12:29:01
+(epstopdf)                    size: 138516 bytes
+(epstopdf)             Output file: <img/cap5/griglie-eps-converted-to.pdf>
+(epstopdf)                    date: 2016-06-29 12:30:29
+(epstopdf)                    size: 36903 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/cap5/griglie-eps-conve
+rted-to.pdf img/cap5/griglie.eps>
+(epstopdf)             \includegraphics on input line 56.
+Package epstopdf Info: Output file is already uptodate.
+ <img/cap5/griglie-eps-converted-to.pdf, id=450, 849.1725pt x 596.2275pt>
+File: img/cap5/griglie-eps-converted-to.pdf Graphic file (type pdf)
+
+<use img/cap5/griglie-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap5/griglie-eps-converted-to.pdf used on input li
+ne 56.
+(pdftex.def)             Requested size: 382.1241pt x 268.2999pt.
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
+nput line 61.
+ [14] [15 <./img/cap5/griglie-eps-converted-to.pdf>]
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <9> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 126.
+
+Overfull \hbox (46.64333pt too wide) in paragraph at lines 132--133
+[][][][][][][][][][][][][][][][][][][] 
+ []
+
+[16]) (./src/06_Risultati.tex
+
+LaTeX Warning: Reference `chap:Continuo' on page 17 undefined on input line 10.
+
+
+[17] <img/cap6/TestCase01_ues_paper.png, id=557, 996.72375pt x 314.17375pt>
+File: img/cap6/TestCase01_ues_paper.png Graphic file (type png)
+
+<use img/cap6/TestCase01_ues_paper.png>
+Package pdftex.def Info: img/cap6/TestCase01_ues_paper.png used on input line 5
+8.
+(pdftex.def)             Requested size: 426.79135pt x 134.52638pt.
+Package epstopdf Info: Source file: <img/cap6/Imm_PF_01/ControlSol_N150_l1.eps>
+
+(epstopdf)                    date: 2016-06-18 12:46:48
+(epstopdf)                    size: 58002 bytes
+(epstopdf)             Output file: <img/cap6/Imm_PF_01/ControlSol_N150_l1-eps-
+converted-to.pdf>
+(epstopdf)                    date: 2016-06-29 17:15:41
+(epstopdf)                    size: 15438 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_01/Control
+Sol_N150_l1-eps-converted-to.pdf img/cap6/Imm_PF_01/ControlSol_N150_l1.eps>
+(epstopdf)             \includegraphics on input line 66.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/cap6/Imm_PF_01/ControlSol_N150_l1-eps-converted-to.pdf, id=561, 849.1725pt
+ x 596.2275pt>
+File: img/cap6/Imm_PF_01/ControlSol_N150_l1-eps-converted-to.pdf Graphic file (
+type pdf)
+
+<use img/cap6/Imm_PF_01/ControlSol_N150_l1-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/Imm_PF_01/ControlSol_N150_l1-eps-converted-to
+.pdf used on input line 66.
+(pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
+Package epstopdf Info: Source file: <img/cap6/Imm_PF_01/ControlSol_N150_l2.eps>
+
+(epstopdf)                    date: 2016-06-18 13:03:22
+(epstopdf)                    size: 58994 bytes
+(epstopdf)             Output file: <img/cap6/Imm_PF_01/ControlSol_N150_l2-eps-
+converted-to.pdf>
+(epstopdf)                    date: 2016-06-29 17:15:41
+(epstopdf)                    size: 15616 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_01/Control
+Sol_N150_l2-eps-converted-to.pdf img/cap6/Imm_PF_01/ControlSol_N150_l2.eps>
+(epstopdf)             \includegraphics on input line 68.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/cap6/Imm_PF_01/ControlSol_N150_l2-eps-converted-to.pdf, id=563, 849.1725pt
+ x 596.2275pt>
+File: img/cap6/Imm_PF_01/ControlSol_N150_l2-eps-converted-to.pdf Graphic file (
+type pdf)
+
+<use img/cap6/Imm_PF_01/ControlSol_N150_l2-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/Imm_PF_01/ControlSol_N150_l2-eps-converted-to
+.pdf used on input line 68.
+(pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
+Package epstopdf Info: Source file: <img/cap6/Imm_PF_01/ControlSol_N150_l3.eps>
+
+(epstopdf)                    date: 2016-06-18 13:03:35
+(epstopdf)                    size: 61066 bytes
+(epstopdf)             Output file: <img/cap6/Imm_PF_01/ControlSol_N150_l3-eps-
+converted-to.pdf>
+(epstopdf)                    date: 2016-06-29 17:15:41
+(epstopdf)                    size: 15967 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_01/Control
+Sol_N150_l3-eps-converted-to.pdf img/cap6/Imm_PF_01/ControlSol_N150_l3.eps>
+(epstopdf)             \includegraphics on input line 70.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/cap6/Imm_PF_01/ControlSol_N150_l3-eps-converted-to.pdf, id=565, 849.1725pt
+ x 596.2275pt>
+File: img/cap6/Imm_PF_01/ControlSol_N150_l3-eps-converted-to.pdf Graphic file (
+type pdf)
+
+<use img/cap6/Imm_PF_01/ControlSol_N150_l3-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/Imm_PF_01/ControlSol_N150_l3-eps-converted-to
+.pdf used on input line 70.
+(pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
+Package epstopdf Info: Source file: <img/cap6/Imm_PF_01/ControlSol_N150_l4.eps>
+
+(epstopdf)                    date: 2016-06-18 13:03:49
+(epstopdf)                    size: 64928 bytes
+(epstopdf)             Output file: <img/cap6/Imm_PF_01/ControlSol_N150_l4-eps-
+converted-to.pdf>
+(epstopdf)                    date: 2016-06-29 17:15:42
+(epstopdf)                    size: 16650 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_01/Control
+Sol_N150_l4-eps-converted-to.pdf img/cap6/Imm_PF_01/ControlSol_N150_l4.eps>
+(epstopdf)             \includegraphics on input line 72.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/cap6/Imm_PF_01/ControlSol_N150_l4-eps-converted-to.pdf, id=567, 849.1725pt
+ x 596.2275pt>
+File: img/cap6/Imm_PF_01/ControlSol_N150_l4-eps-converted-to.pdf Graphic file (
+type pdf)
+
+<use img/cap6/Imm_PF_01/ControlSol_N150_l4-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/Imm_PF_01/ControlSol_N150_l4-eps-converted-to
+.pdf used on input line 72.
+(pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
+Package epstopdf Info: Source file: <img/cap6/Imm_PF_01/ControlSol_N150_l5.eps>
+
+(epstopdf)                    date: 2016-06-18 13:04:00
+(epstopdf)                    size: 72657 bytes
+(epstopdf)             Output file: <img/cap6/Imm_PF_01/ControlSol_N150_l5-eps-
+converted-to.pdf>
+(epstopdf)                    date: 2016-06-29 17:15:42
+(epstopdf)                    size: 17993 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_01/Control
+Sol_N150_l5-eps-converted-to.pdf img/cap6/Imm_PF_01/ControlSol_N150_l5.eps>
+(epstopdf)             \includegraphics on input line 74.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/cap6/Imm_PF_01/ControlSol_N150_l5-eps-converted-to.pdf, id=569, 849.1725pt
+ x 596.2275pt>
+File: img/cap6/Imm_PF_01/ControlSol_N150_l5-eps-converted-to.pdf Graphic file (
+type pdf)
+
+<use img/cap6/Imm_PF_01/ControlSol_N150_l5-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/Imm_PF_01/ControlSol_N150_l5-eps-converted-to
+.pdf used on input line 74.
+(pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
+Package epstopdf Info: Source file: <img/cap6/Imm_PF_01/ControlSol_N150_l6.eps>
+
+(epstopdf)                    date: 2016-06-18 13:42:02
+(epstopdf)                    size: 88140 bytes
+(epstopdf)             Output file: <img/cap6/Imm_PF_01/ControlSol_N150_l6-eps-
+converted-to.pdf>
+(epstopdf)                    date: 2016-06-29 17:15:43
+(epstopdf)                    size: 20617 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_01/Control
+Sol_N150_l6-eps-converted-to.pdf img/cap6/Imm_PF_01/ControlSol_N150_l6.eps>
+(epstopdf)             \includegraphics on input line 76.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/cap6/Imm_PF_01/ControlSol_N150_l6-eps-converted-to.pdf, id=571, 849.1725pt
+ x 596.2275pt>
+File: img/cap6/Imm_PF_01/ControlSol_N150_l6-eps-converted-to.pdf Graphic file (
+type pdf)
+
+<use img/cap6/Imm_PF_01/ControlSol_N150_l6-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/Imm_PF_01/ControlSol_N150_l6-eps-converted-to
+.pdf used on input line 76.
+(pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
+Package epstopdf Info: Source file: <img/cap6/Imm_CG_01/ControlSol_N150_l1.eps>
+
+(epstopdf)                    date: 2016-06-21 17:39:04
+(epstopdf)                    size: 58002 bytes
+(epstopdf)             Output file: <img/cap6/Imm_CG_01/ControlSol_N150_l1-eps-
+converted-to.pdf>
+(epstopdf)                    date: 2016-06-29 17:20:23
+(epstopdf)                    size: 15438 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_CG_01/Control
+Sol_N150_l1-eps-converted-to.pdf img/cap6/Imm_CG_01/ControlSol_N150_l1.eps>
+(epstopdf)             \includegraphics on input line 84.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/cap6/Imm_CG_01/ControlSol_N150_l1-eps-converted-to.pdf, id=573, 849.1725pt
+ x 596.2275pt>
+File: img/cap6/Imm_CG_01/ControlSol_N150_l1-eps-converted-to.pdf Graphic file (
+type pdf)
+
+<use img/cap6/Imm_CG_01/ControlSol_N150_l1-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/Imm_CG_01/ControlSol_N150_l1-eps-converted-to
+.pdf used on input line 84.
+(pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
+Package epstopdf Info: Source file: <img/cap6/Imm_CG_01/ControlSol_N150_l2.eps>
+
+(epstopdf)                    date: 2016-06-21 17:39:17
+(epstopdf)                    size: 58994 bytes
+(epstopdf)             Output file: <img/cap6/Imm_CG_01/ControlSol_N150_l2-eps-
+converted-to.pdf>
+(epstopdf)                    date: 2016-06-29 17:20:24
+(epstopdf)                    size: 15616 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_CG_01/Control
+Sol_N150_l2-eps-converted-to.pdf img/cap6/Imm_CG_01/ControlSol_N150_l2.eps>
+(epstopdf)             \includegraphics on input line 86.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/cap6/Imm_CG_01/ControlSol_N150_l2-eps-converted-to.pdf, id=575, 849.1725pt
+ x 596.2275pt>
+File: img/cap6/Imm_CG_01/ControlSol_N150_l2-eps-converted-to.pdf Graphic file (
+type pdf)
+
+<use img/cap6/Imm_CG_01/ControlSol_N150_l2-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/Imm_CG_01/ControlSol_N150_l2-eps-converted-to
+.pdf used on input line 86.
+(pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
+Package epstopdf Info: Source file: <img/cap6/Imm_CG_01/ControlSol_N150_l3.eps>
+
+(epstopdf)                    date: 2016-06-21 17:39:28
+(epstopdf)                    size: 61066 bytes
+(epstopdf)             Output file: <img/cap6/Imm_CG_01/ControlSol_N150_l3-eps-
+converted-to.pdf>
+(epstopdf)                    date: 2016-06-29 17:20:24
+(epstopdf)                    size: 15967 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_CG_01/Control
+Sol_N150_l3-eps-converted-to.pdf img/cap6/Imm_CG_01/ControlSol_N150_l3.eps>
+(epstopdf)             \includegraphics on input line 88.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/cap6/Imm_CG_01/ControlSol_N150_l3-eps-converted-to.pdf, id=577, 849.1725pt
+ x 596.2275pt>
+File: img/cap6/Imm_CG_01/ControlSol_N150_l3-eps-converted-to.pdf Graphic file (
+type pdf)
+
+<use img/cap6/Imm_CG_01/ControlSol_N150_l3-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/Imm_CG_01/ControlSol_N150_l3-eps-converted-to
+.pdf used on input line 88.
+(pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
+Package epstopdf Info: Source file: <img/cap6/Imm_CG_01/ControlSol_N150_l4.eps>
+
+(epstopdf)                    date: 2016-06-21 17:39:41
+(epstopdf)                    size: 64928 bytes
+(epstopdf)             Output file: <img/cap6/Imm_CG_01/ControlSol_N150_l4-eps-
+converted-to.pdf>
+(epstopdf)                    date: 2016-06-29 17:20:24
+(epstopdf)                    size: 16650 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_CG_01/Control
+Sol_N150_l4-eps-converted-to.pdf img/cap6/Imm_CG_01/ControlSol_N150_l4.eps>
+(epstopdf)             \includegraphics on input line 90.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/cap6/Imm_CG_01/ControlSol_N150_l4-eps-converted-to.pdf, id=579, 849.1725pt
+ x 596.2275pt>
+File: img/cap6/Imm_CG_01/ControlSol_N150_l4-eps-converted-to.pdf Graphic file (
+type pdf)
+
+<use img/cap6/Imm_CG_01/ControlSol_N150_l4-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/Imm_CG_01/ControlSol_N150_l4-eps-converted-to
+.pdf used on input line 90.
+(pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
+Package epstopdf Info: Source file: <img/cap6/Imm_CG_01/ControlSol_N150_l5.eps>
+
+(epstopdf)                    date: 2016-06-21 17:39:53
+(epstopdf)                    size: 72673 bytes
+(epstopdf)             Output file: <img/cap6/Imm_CG_01/ControlSol_N150_l5-eps-
+converted-to.pdf>
+(epstopdf)                    date: 2016-06-29 17:20:25
+(epstopdf)                    size: 17998 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_CG_01/Control
+Sol_N150_l5-eps-converted-to.pdf img/cap6/Imm_CG_01/ControlSol_N150_l5.eps>
+(epstopdf)             \includegraphics on input line 92.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/cap6/Imm_CG_01/ControlSol_N150_l5-eps-converted-to.pdf, id=581, 849.1725pt
+ x 596.2275pt>
+File: img/cap6/Imm_CG_01/ControlSol_N150_l5-eps-converted-to.pdf Graphic file (
+type pdf)
+
+<use img/cap6/Imm_CG_01/ControlSol_N150_l5-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/Imm_CG_01/ControlSol_N150_l5-eps-converted-to
+.pdf used on input line 92.
+(pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
+Package epstopdf Info: Source file: <img/cap6/Imm_CG_01/ControlSol_N150_l6.eps>
+
+(epstopdf)                    date: 2016-06-29 17:22:21
+(epstopdf)                    size: 88140 bytes
+(epstopdf)             Output file: <img/cap6/Imm_CG_01/ControlSol_N150_l6-eps-
+converted-to.pdf>
+(epstopdf)                    date: 2016-06-29 17:22:32
+(epstopdf)                    size: 20617 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_CG_01/Control
+Sol_N150_l6-eps-converted-to.pdf img/cap6/Imm_CG_01/ControlSol_N150_l6.eps>
+(epstopdf)             \includegraphics on input line 94.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/cap6/Imm_CG_01/ControlSol_N150_l6-eps-converted-to.pdf, id=583, 849.1725pt
+ x 596.2275pt>
+File: img/cap6/Imm_CG_01/ControlSol_N150_l6-eps-converted-to.pdf Graphic file (
+type pdf)
+
+<use img/cap6/Imm_CG_01/ControlSol_N150_l6-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/Imm_CG_01/ControlSol_N150_l6-eps-converted-to
+.pdf used on input line 94.
+(pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
+
+
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 100.
+
+
+LaTeX Warning: Reference `chap:Continuo' on page 18 undefined on input line 101
+.
+
+[18 <./img/cap6/TestCase01_ues_paper.png>] [19 <./img/cap6/Imm_PF_01/ControlSol
+_N150_l1-eps-converted-to.pdf> <./img/cap6/Imm_PF_01/ControlSol_N150_l2-eps-con
+verted-to.pdf> <./img/cap6/Imm_PF_01/ControlSol_N150_l3-eps-converted-to.pdf> <
+./img/cap6/Imm_PF_01/ControlSol_N150_l4-eps-converted-to.pdf> <./img/cap6/Imm_P
+F_01/ControlSol_N150_l5-eps-converted-to.pdf> <./img/cap6/Imm_PF_01/ControlSol_
+N150_l6-eps-converted-to.pdf> <./img/cap6/Imm_CG_01/ControlSol_N150_l1-eps-conv
+erted-to.pdf> <./img/cap6/Imm_CG_01/ControlSol_N150_l2-eps-converted-to.pdf> <.
+/img/cap6/Imm_CG_01/ControlSol_N150_l3-eps-converted-to.pdf> <./img/cap6/Imm_CG
+_01/ControlSol_N150_l4-eps-converted-to.pdf> <./img/cap6/Imm_CG_01/ControlSol_N
+150_l5-eps-converted-to.pdf> <./img/cap6/Imm_CG_01/ControlSol_N150_l6-eps-conve
+rted-to.pdf>]
+<img/cap6/TestCase02_ues_paper.png, id=652, 999.735pt x 303.1325pt>
+File: img/cap6/TestCase02_ues_paper.png Graphic file (type png)
+
+<use img/cap6/TestCase02_ues_paper.png>
+Package pdftex.def Info: img/cap6/TestCase02_ues_paper.png used on input line 1
+44.
+(pdftex.def)             Requested size: 426.79135pt x 129.4101pt.
+Package epstopdf Info: Source file: <img/cap6/Imm_PF_02/ControlSol_N150_l1.eps>
+
+(epstopdf)                    date: 2016-06-18 13:08:08
+(epstopdf)                    size: 59574 bytes
+(epstopdf)             Output file: <img/cap6/Imm_PF_02/ControlSol_N150_l1-eps-
+converted-to.pdf>
+(epstopdf)                    date: 2016-06-29 17:20:28
+(epstopdf)                    size: 16269 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_02/Control
+Sol_N150_l1-eps-converted-to.pdf img/cap6/Imm_PF_02/ControlSol_N150_l1.eps>
+(epstopdf)             \includegraphics on input line 152.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/cap6/Imm_PF_02/ControlSol_N150_l1-eps-converted-to.pdf, id=655, 849.1725pt
+ x 596.2275pt>
+File: img/cap6/Imm_PF_02/ControlSol_N150_l1-eps-converted-to.pdf Graphic file (
+type pdf)
+
+<use img/cap6/Imm_PF_02/ControlSol_N150_l1-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/Imm_PF_02/ControlSol_N150_l1-eps-converted-to
+.pdf used on input line 152.
+(pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
+Package epstopdf Info: Source file: <img/cap6/Imm_PF_02/ControlSol_N150_l2.eps>
+
+(epstopdf)                    date: 2016-06-18 18:18:24
+(epstopdf)                    size: 60601 bytes
+(epstopdf)             Output file: <img/cap6/Imm_PF_02/ControlSol_N150_l2-eps-
+converted-to.pdf>
+(epstopdf)                    date: 2016-06-29 17:20:28
+(epstopdf)                    size: 16465 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_02/Control
+Sol_N150_l2-eps-converted-to.pdf img/cap6/Imm_PF_02/ControlSol_N150_l2.eps>
+(epstopdf)             \includegraphics on input line 154.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/cap6/Imm_PF_02/ControlSol_N150_l2-eps-converted-to.pdf, id=657, 849.1725pt
+ x 596.2275pt>
+File: img/cap6/Imm_PF_02/ControlSol_N150_l2-eps-converted-to.pdf Graphic file (
+type pdf)
+
+<use img/cap6/Imm_PF_02/ControlSol_N150_l2-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/Imm_PF_02/ControlSol_N150_l2-eps-converted-to
+.pdf used on input line 154.
+(pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
+Package epstopdf Info: Source file: <img/cap6/Imm_PF_02/ControlSol_N150_l3.eps>
+
+(epstopdf)                    date: 2016-06-18 18:19:49
+(epstopdf)                    size: 62558 bytes
+(epstopdf)             Output file: <img/cap6/Imm_PF_02/ControlSol_N150_l3-eps-
+converted-to.pdf>
+(epstopdf)                    date: 2016-06-29 17:20:28
+(epstopdf)                    size: 16773 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_02/Control
+Sol_N150_l3-eps-converted-to.pdf img/cap6/Imm_PF_02/ControlSol_N150_l3.eps>
+(epstopdf)             \includegraphics on input line 156.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/cap6/Imm_PF_02/ControlSol_N150_l3-eps-converted-to.pdf, id=659, 849.1725pt
+ x 596.2275pt>
+File: img/cap6/Imm_PF_02/ControlSol_N150_l3-eps-converted-to.pdf Graphic file (
+type pdf)
+
+<use img/cap6/Imm_PF_02/ControlSol_N150_l3-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/Imm_PF_02/ControlSol_N150_l3-eps-converted-to
+.pdf used on input line 156.
+(pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
+Package epstopdf Info: Source file: <img/cap6/Imm_PF_02/ControlSol_N150_l4.eps>
+
+(epstopdf)                    date: 2016-06-18 18:18:36
+(epstopdf)                    size: 66474 bytes
+(epstopdf)             Output file: <img/cap6/Imm_PF_02/ControlSol_N150_l4-eps-
+converted-to.pdf>
+(epstopdf)                    date: 2016-06-29 17:20:29
+(epstopdf)                    size: 17362 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_02/Control
+Sol_N150_l4-eps-converted-to.pdf img/cap6/Imm_PF_02/ControlSol_N150_l4.eps>
+(epstopdf)             \includegraphics on input line 158.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/cap6/Imm_PF_02/ControlSol_N150_l4-eps-converted-to.pdf, id=661, 849.1725pt
+ x 596.2275pt>
+File: img/cap6/Imm_PF_02/ControlSol_N150_l4-eps-converted-to.pdf Graphic file (
+type pdf)
+
+<use img/cap6/Imm_PF_02/ControlSol_N150_l4-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/Imm_PF_02/ControlSol_N150_l4-eps-converted-to
+.pdf used on input line 158.
+(pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
+Package epstopdf Info: Source file: <img/cap6/Imm_PF_02/ControlSol_N150_l5.eps>
+
+(epstopdf)                    date: 2016-06-18 18:18:53
+(epstopdf)                    size: 74417 bytes
+(epstopdf)             Output file: <img/cap6/Imm_PF_02/ControlSol_N150_l5-eps-
+converted-to.pdf>
+(epstopdf)                    date: 2016-06-29 17:20:29
+(epstopdf)                    size: 18532 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_02/Control
+Sol_N150_l5-eps-converted-to.pdf img/cap6/Imm_PF_02/ControlSol_N150_l5.eps>
+(epstopdf)             \includegraphics on input line 160.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/cap6/Imm_PF_02/ControlSol_N150_l5-eps-converted-to.pdf, id=663, 849.1725pt
+ x 596.2275pt>
+File: img/cap6/Imm_PF_02/ControlSol_N150_l5-eps-converted-to.pdf Graphic file (
+type pdf)
+
+<use img/cap6/Imm_PF_02/ControlSol_N150_l5-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/Imm_PF_02/ControlSol_N150_l5-eps-converted-to
+.pdf used on input line 160.
+(pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
+Package epstopdf Info: Source file: <img/cap6/Imm_PF_02/ControlSol_N150_l6.eps>
+
+(epstopdf)                    date: 2016-06-18 18:19:04
+(epstopdf)                    size: 90401 bytes
+(epstopdf)             Output file: <img/cap6/Imm_PF_02/ControlSol_N150_l6-eps-
+converted-to.pdf>
+(epstopdf)                    date: 2016-06-29 17:20:30
+(epstopdf)                    size: 20943 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_02/Control
+Sol_N150_l6-eps-converted-to.pdf img/cap6/Imm_PF_02/ControlSol_N150_l6.eps>
+(epstopdf)             \includegraphics on input line 162.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/cap6/Imm_PF_02/ControlSol_N150_l6-eps-converted-to.pdf, id=665, 849.1725pt
+ x 596.2275pt>
+File: img/cap6/Imm_PF_02/ControlSol_N150_l6-eps-converted-to.pdf Graphic file (
+type pdf)
+
+<use img/cap6/Imm_PF_02/ControlSol_N150_l6-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/Imm_PF_02/ControlSol_N150_l6-eps-converted-to
+.pdf used on input line 162.
+(pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
+Package epstopdf Info: Source file: <img/cap6/Imm_PF_02/ControlSol_N150_l7.eps>
+
+(epstopdf)                    date: 2016-06-18 18:39:44
+(epstopdf)                    size: 122139 bytes
+(epstopdf)             Output file: <img/cap6/Imm_PF_02/ControlSol_N150_l7-eps-
+converted-to.pdf>
+(epstopdf)                    date: 2016-06-29 17:20:30
+(epstopdf)                    size: 25469 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_02/Control
+Sol_N150_l7-eps-converted-to.pdf img/cap6/Imm_PF_02/ControlSol_N150_l7.eps>
+(epstopdf)             \includegraphics on input line 164.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/cap6/Imm_PF_02/ControlSol_N150_l7-eps-converted-to.pdf, id=667, 849.1725pt
+ x 596.2275pt>
+File: img/cap6/Imm_PF_02/ControlSol_N150_l7-eps-converted-to.pdf Graphic file (
+type pdf)
+
+<use img/cap6/Imm_PF_02/ControlSol_N150_l7-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/Imm_PF_02/ControlSol_N150_l7-eps-converted-to
+.pdf used on input line 164.
+(pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
+Package epstopdf Info: Source file: <img/cap6/Imm_PF_02/ControlSol_N150_l8.eps>
+
+(epstopdf)                    date: 2016-06-19 00:14:43
+(epstopdf)                    size: 185251 bytes
+(epstopdf)             Output file: <img/cap6/Imm_PF_02/ControlSol_N150_l8-eps-
+converted-to.pdf>
+(epstopdf)                    date: 2016-06-29 17:20:31
+(epstopdf)                    size: 34033 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_02/Control
+Sol_N150_l8-eps-converted-to.pdf img/cap6/Imm_PF_02/ControlSol_N150_l8.eps>
+(epstopdf)             \includegraphics on input line 166.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/cap6/Imm_PF_02/ControlSol_N150_l8-eps-converted-to.pdf, id=669, 849.1725pt
+ x 596.2275pt>
+File: img/cap6/Imm_PF_02/ControlSol_N150_l8-eps-converted-to.pdf Graphic file (
+type pdf)
+
+<use img/cap6/Imm_PF_02/ControlSol_N150_l8-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/Imm_PF_02/ControlSol_N150_l8-eps-converted-to
+.pdf used on input line 166.
+(pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
+Package epstopdf Info: Source file: <img/cap6/Imm_CG_02/ControlSol_N150_l1.eps>
+
+(epstopdf)                    date: 2016-06-22 16:01:23
+(epstopdf)                    size: 59574 bytes
+(epstopdf)             Output file: <img/cap6/Imm_CG_02/ControlSol_N150_l1-eps-
+converted-to.pdf>
+(epstopdf)                    date: 2016-06-29 17:20:31
+(epstopdf)                    size: 16281 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_CG_02/Control
+Sol_N150_l1-eps-converted-to.pdf img/cap6/Imm_CG_02/ControlSol_N150_l1.eps>
+(epstopdf)             \includegraphics on input line 174.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/cap6/Imm_CG_02/ControlSol_N150_l1-eps-converted-to.pdf, id=671, 849.1725pt
+ x 596.2275pt>
+File: img/cap6/Imm_CG_02/ControlSol_N150_l1-eps-converted-to.pdf Graphic file (
+type pdf)
+
+<use img/cap6/Imm_CG_02/ControlSol_N150_l1-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/Imm_CG_02/ControlSol_N150_l1-eps-converted-to
+.pdf used on input line 174.
+(pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
+Package epstopdf Info: Source file: <img/cap6/Imm_CG_02/ControlSol_N150_l2.eps>
+
+(epstopdf)                    date: 2016-06-22 16:01:34
+(epstopdf)                    size: 60618 bytes
+(epstopdf)             Output file: <img/cap6/Imm_CG_02/ControlSol_N150_l2-eps-
+converted-to.pdf>
+(epstopdf)                    date: 2016-06-29 17:20:31
+(epstopdf)                    size: 16452 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_CG_02/Control
+Sol_N150_l2-eps-converted-to.pdf img/cap6/Imm_CG_02/ControlSol_N150_l2.eps>
+(epstopdf)             \includegraphics on input line 176.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/cap6/Imm_CG_02/ControlSol_N150_l2-eps-converted-to.pdf, id=673, 849.1725pt
+ x 596.2275pt>
+File: img/cap6/Imm_CG_02/ControlSol_N150_l2-eps-converted-to.pdf Graphic file (
+type pdf)
+
+<use img/cap6/Imm_CG_02/ControlSol_N150_l2-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/Imm_CG_02/ControlSol_N150_l2-eps-converted-to
+.pdf used on input line 176.
+(pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
+Package epstopdf Info: Source file: <img/cap6/Imm_CG_02/ControlSol_N150_l3.eps>
+
+(epstopdf)                    date: 2016-06-22 16:01:43
+(epstopdf)                    size: 62564 bytes
+(epstopdf)             Output file: <img/cap6/Imm_CG_02/ControlSol_N150_l3-eps-
+converted-to.pdf>
+(epstopdf)                    date: 2016-06-29 17:20:32
+(epstopdf)                    size: 16775 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_CG_02/Control
+Sol_N150_l3-eps-converted-to.pdf img/cap6/Imm_CG_02/ControlSol_N150_l3.eps>
+(epstopdf)             \includegraphics on input line 178.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/cap6/Imm_CG_02/ControlSol_N150_l3-eps-converted-to.pdf, id=675, 849.1725pt
+ x 596.2275pt>
+File: img/cap6/Imm_CG_02/ControlSol_N150_l3-eps-converted-to.pdf Graphic file (
+type pdf)
+
+<use img/cap6/Imm_CG_02/ControlSol_N150_l3-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/Imm_CG_02/ControlSol_N150_l3-eps-converted-to
+.pdf used on input line 178.
+(pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
+Package epstopdf Info: Source file: <img/cap6/Imm_CG_02/ControlSol_N150_l4.eps>
+
+(epstopdf)                    date: 2016-06-22 16:01:56
+(epstopdf)                    size: 66490 bytes
+(epstopdf)             Output file: <img/cap6/Imm_CG_02/ControlSol_N150_l4-eps-
+converted-to.pdf>
+(epstopdf)                    date: 2016-06-29 17:20:32
+(epstopdf)                    size: 17361 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_CG_02/Control
+Sol_N150_l4-eps-converted-to.pdf img/cap6/Imm_CG_02/ControlSol_N150_l4.eps>
+(epstopdf)             \includegraphics on input line 180.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/cap6/Imm_CG_02/ControlSol_N150_l4-eps-converted-to.pdf, id=677, 849.1725pt
+ x 596.2275pt>
+File: img/cap6/Imm_CG_02/ControlSol_N150_l4-eps-converted-to.pdf Graphic file (
+type pdf)
+
+<use img/cap6/Imm_CG_02/ControlSol_N150_l4-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/Imm_CG_02/ControlSol_N150_l4-eps-converted-to
+.pdf used on input line 180.
+(pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
+Package epstopdf Info: Source file: <img/cap6/Imm_CG_02/ControlSol_N150_l5.eps>
+
+(epstopdf)                    date: 2016-06-22 16:02:10
+(epstopdf)                    size: 74418 bytes
+(epstopdf)             Output file: <img/cap6/Imm_CG_02/ControlSol_N150_l5-eps-
+converted-to.pdf>
+(epstopdf)                    date: 2016-06-29 17:20:32
+(epstopdf)                    size: 18533 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_CG_02/Control
+Sol_N150_l5-eps-converted-to.pdf img/cap6/Imm_CG_02/ControlSol_N150_l5.eps>
+(epstopdf)             \includegraphics on input line 182.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/cap6/Imm_CG_02/ControlSol_N150_l5-eps-converted-to.pdf, id=679, 849.1725pt
+ x 596.2275pt>
+File: img/cap6/Imm_CG_02/ControlSol_N150_l5-eps-converted-to.pdf Graphic file (
+type pdf)
+
+<use img/cap6/Imm_CG_02/ControlSol_N150_l5-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/Imm_CG_02/ControlSol_N150_l5-eps-converted-to
+.pdf used on input line 182.
+(pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
+Package epstopdf Info: Source file: <img/cap6/Imm_CG_02/ControlSol_N150_l6.eps>
+
+(epstopdf)                    date: 2016-06-22 20:22:30
+(epstopdf)                    size: 90419 bytes
+(epstopdf)             Output file: <img/cap6/Imm_CG_02/ControlSol_N150_l6-eps-
+converted-to.pdf>
+(epstopdf)                    date: 2016-06-29 17:20:33
+(epstopdf)                    size: 20954 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_CG_02/Control
+Sol_N150_l6-eps-converted-to.pdf img/cap6/Imm_CG_02/ControlSol_N150_l6.eps>
+(epstopdf)             \includegraphics on input line 184.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/cap6/Imm_CG_02/ControlSol_N150_l6-eps-converted-to.pdf, id=681, 849.1725pt
+ x 596.2275pt>
+File: img/cap6/Imm_CG_02/ControlSol_N150_l6-eps-converted-to.pdf Graphic file (
+type pdf)
+
+<use img/cap6/Imm_CG_02/ControlSol_N150_l6-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/Imm_CG_02/ControlSol_N150_l6-eps-converted-to
+.pdf used on input line 184.
+(pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
+Package epstopdf Info: Source file: <img/cap6/Imm_CG_02/ControlSol_N150_l7.eps>
+
+(epstopdf)                    date: 2016-06-22 20:22:59
+(epstopdf)                    size: 122129 bytes
+(epstopdf)             Output file: <img/cap6/Imm_CG_02/ControlSol_N150_l7-eps-
+converted-to.pdf>
+(epstopdf)                    date: 2016-06-29 17:20:33
+(epstopdf)                    size: 25455 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_CG_02/Control
+Sol_N150_l7-eps-converted-to.pdf img/cap6/Imm_CG_02/ControlSol_N150_l7.eps>
+(epstopdf)             \includegraphics on input line 186.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/cap6/Imm_CG_02/ControlSol_N150_l7-eps-converted-to.pdf, id=683, 849.1725pt
+ x 596.2275pt>
+File: img/cap6/Imm_CG_02/ControlSol_N150_l7-eps-converted-to.pdf Graphic file (
+type pdf)
+
+<use img/cap6/Imm_CG_02/ControlSol_N150_l7-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/Imm_CG_02/ControlSol_N150_l7-eps-converted-to
+.pdf used on input line 186.
+(pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
+Package epstopdf Info: Source file: <img/cap6/Imm_CG_02/ControlSol_N150_l8.eps>
+
+(epstopdf)                    date: 2016-06-23 09:32:01
+(epstopdf)                    size: 185269 bytes
+(epstopdf)             Output file: <img/cap6/Imm_CG_02/ControlSol_N150_l8-eps-
+converted-to.pdf>
+(epstopdf)                    date: 2016-06-29 17:20:34
+(epstopdf)                    size: 34045 bytes
+(epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_CG_02/Control
+Sol_N150_l8-eps-converted-to.pdf img/cap6/Imm_CG_02/ControlSol_N150_l8.eps>
+(epstopdf)             \includegraphics on input line 188.
+Package epstopdf Info: Output file is already uptodate.
+
+<img/cap6/Imm_CG_02/ControlSol_N150_l8-eps-converted-to.pdf, id=685, 849.1725pt
+ x 596.2275pt>
+File: img/cap6/Imm_CG_02/ControlSol_N150_l8-eps-converted-to.pdf Graphic file (
+type pdf)
+
+<use img/cap6/Imm_CG_02/ControlSol_N150_l8-eps-converted-to.pdf>
+Package pdftex.def Info: img/cap6/Imm_CG_02/ControlSol_N150_l8-eps-converted-to
+.pdf used on input line 188.
+(pdftex.def)             Requested size: 128.0387pt x 89.89424pt.
+)
+(./src/07_Conclusioni.tex) (./src/nocite.tex)
+Overfull \hbox (47.93294pt too wide) in paragraph at lines 186--186
+\T1/cmr/m/n/10 Re-dis-tri-bu-tion sub-ject to SIAM li-cense or copy-right ; see
+ http://www.siam.org/journals/ojsa.php^^Q.
+ []
+
+
+Overfull \hbox (87.38103pt too wide) in paragraph at lines 186--186
+\T1/
