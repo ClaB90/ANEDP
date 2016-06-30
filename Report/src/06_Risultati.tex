@@ -4,6 +4,11 @@
 In questo capitolo verranno esposti i risultati numerici ottenuti.
 I primi due esampi sono stati presi da \cite{MAIN}.
 In entrambi questi esempi verrà considerato l'operatore lineare affine $\tilde{B}$ \ref{eq:210}.
+\par
+Si considera come dominio spaziale il quadrato $ \Omega = (0,1)^2$ ed una mesh uniforme definita da
+\begin{Code}[caption={mesh in spazio square( 150, 150, flags=1 )}]
+-- Square mesh : nb vertices  = 22801 ,  nb triangles = 45000 ,  nb boundary edges 600
+\end{Code}
 
 \subsection{Test Case 01}
 \subsubsection{Set-up}
@@ -53,9 +58,10 @@ Infine definiamo le soluzioni esatte per il problema di controllo ottimo \ref{eq
 }
 
 \subsubsection{Risultati Numerici}
+La tabelle \ref{puntofissoI}, \ref{puntofissoIbis}, \ref{newtonI} e \ref{newtonIbis} mostrano il comportamento degli errori considerati e il valore dell'ordine di convergenza per diverse griglie temporali. Si può notare che sia per l'algoritmo di punto fisso che quello di semi-Newton l'andamento dell'errore \ref{eq:errcon} è di $O(k^2)$ in accordo col risultato teorico \ref{controlteo} e con i risultati numerici di \cite{MAIN}. In particolare si nota che l'ordine di convergenza diminuisce per l'ultimo livello in cui la griglia temporale non è più indipendente da quella spaziale. Essendo la variabile di stato costante a tratti nel tempo l'ordne di convergenza riscontrato è solo uno, ma un ordine due è ottenuto per la proiezione della variabile di stato $\pi_{{P^*}_k}y_k$ conformemente con il \textbf{Lemma} \ref{conv:stato}.
 
 \begin{table}
-\caption{Punto fisso per Test case I: errori e EOC }
+\caption{Punto fisso per Test case 01: errori e EOC }
 \label{puntofissoI}
 \centering
 
@@ -76,7 +82,7 @@ Infine definiamo le soluzioni esatte per il problema di controllo ottimo \ref{eq
 
 
 \begin{table}
-\caption{Punto fisso per Test case I: errori e EOC }
+\caption{Punto fisso per Test case 01: errori e EOC }
 \label{puntofissoIbis}
 \centering
 
@@ -120,7 +126,7 @@ Infine definiamo le soluzioni esatte per il problema di controllo ottimo \ref{eq
 \end{figure}
 
 \begin{table}
-\caption{Newton per Test case I: errori e EOC }
+\caption{Newton per Test case 01: errori e EOC }
 \label{newtonI}
 \centering
 
@@ -141,7 +147,7 @@ Infine definiamo le soluzioni esatte per il problema di controllo ottimo \ref{eq
 
 
 \begin{table}
-\caption{Newton per Test case I: errori e EOC }
+\caption{Newton per Test case 01: errori e EOC }
 \label{newtonIbis}
 \centering
 
@@ -177,6 +183,10 @@ Infine definiamo le soluzioni esatte per il problema di controllo ottimo \ref{eq
 \caption{Test Case 01 $\overline{u}$ e $u_k$: risultati dell'algortimod di semi newton}
 \label{fig:502}
 \end{figure}
+
+In figura \ref{eq:500} sono riportati i risultati del paper \cite{MAIN} nei primi tre livelli di raffinamento di griglia. Mentre in \ref{eq:501} e \ref{eq:502} quelli ottenuti con il codice implementato per questo lavoro per ogni livello considerato. In entrambi i casi si vede che una buona approsimazione della soluzione esatta viene raggiunta.
+\par
+Per l'algoritmo di punto fisso sono richieste cinque o sei iterazioni per ogni griglia temporale prima di arrivare a convergenza, considerando un valore di tolleranza di $toll=10^{-05}$. Mentre per quello di Newton ne bastano quattro. 
 
 \section{Test Case 02}
 \subsubsection{Set-up}
@@ -221,6 +231,23 @@ w_a(t,x_1,x_2) = cos \left( \frac{t}{T}2{\pi}a \right) \cdot g_1(t,x_1,x_2)
 \end{equation}
 
 \subsubsection{Risultati Numerici}
+I risultati per gli errori di convergenza sono gli stessi tratti per il caso 01 e rispecchiano quelli esposti in \cite{MAIN}. Essendo la soluzione esatta per la variabile di controllo $\overline{u}$ più complessa per questo si nota che i primi due livelli di griglia non danno risultati rappresentativi inquanto il numero di punti di non derivabilità della $\overline{u}$ è maggiore dei nodi della griglia temporale considerata.
+La perdita riscontrata nell'ordine di convergenza per l'ultima mesh temporale è da attribuire all'avvicinamento con la griglia spaziale. (EDO)
+\par
+In figura \ref{eq:503} sono riportati i risultati del paper \cite{MAIN} nei primi tre livelli di raffinamento di griglia. Mentre in \ref{eq:504} e \ref{eq:505} quelli ottenuti con il codice implementato per questo lavoro per ogni livello considerato. In entrambi i casi si vede che una buona approsimazione della soluzione esatta viene raggiunta.
+\par
+Per l'algoritmo di punto fisso sono richieste due iterazioni per ogni griglia temporale prima di arrivare a convergenza, considerando un valore di tolleranza di $toll=10^{-05}$. Mentre per quello di Newton ne bastano tre se viene introdotto un criterio di tolleranza aggiuntivo tale per cui:
+\begin{equation}
+\norma{\nabla\phi(w^k)} - \norma{\nabla\phi(w^(k+1)} > t_0
+\label{primanorma}
+\end{equation} 
+oppure quattro se viene considerato invece:
+\begin{equation}
+\norma{\nabla\phi(w^k) - \nabla\phi(w^(k+1)} > t_0
+\label{secondanorma}
+\end{equation}
+Col criterio \ref{primanorma} l'algoritmo converge in tre passi per ogniuna delle mesh considerate. Mentre utilizzano \ref{secondanorma} solamente per dalla seconda griglia in avanti.
+
 \begin{figure}
 \centering
 \includegraphics[width=\linewidth]{img/cap6/TestCase02_ues_paper}

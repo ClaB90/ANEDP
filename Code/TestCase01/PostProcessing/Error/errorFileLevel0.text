@@ -1,0 +1,11 @@
+nsol = 3 dt= 0.05 meshN =150
+errControlL2 :
+ a j 0 errControlL2 = 0.31667
+errProjectStateL2 : 
+ a j 0 errProjectStateL2 = 0.520894
+errStateL2 : 
+ a j 0 errStateL2 = 0.981285
+errAdjL2vec : 
+ a j 0 errAdjL2vec = 0.00660747
+iterPuntoFisso : 
+ a j 0 iterPuntoFisso = 6
