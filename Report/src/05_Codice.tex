@@ -43,7 +43,7 @@ Gli altri file principali sono i seguenti:
 \item[-] \texttt{adjoint.edp}: in questo file viene definito il problema aggiunto. Anche in questo caso vengono introdotti lo spazio degli elementi finiti, la soluzione pT all'istante finale, la definizione delle matrici di Stiffness e la funzione per la risoluzione del problema di aggiunto; 
 \item[-] \texttt{normeeprodotti.edp}: contiene tutte le funzioni implementate per il calcolo delle norme e dei prodotti scalari; 
 \item[-] \texttt{funzioniErrore.edp} e \texttt{funzioniErroreAdj.edp}: contengono le funzioni per il calcolo dell'errore delle variabili y,p e u;
-\item[-] \texttt{funzioniCG.edp}: contiene le funzioni necessarie per l'algoritmo del gradiente coniugato [RIFCG]; 
+\item[-] \texttt{funzioniCG.edp}: contiene le funzioni necessarie per l'algoritmo del gradiente coniugato \ref{CG}; 
 \item[-] \texttt{saveme.edp} e \texttt{saveerr.edp}: descrivono le funzioni per salvare i valori della soluzione approsimata di controllo e dell'aggiunto e degli errori al termine dell'algoritmo per una data griglia temporale. Inoltre contiene la funzione per il calcolo dell'ordine di convergenza dell'errore in tempo;
 \end{itemize}
 Per il calcolo di ogni norma e prodotto scalare il metodo numerico di integrazione in tempo utilizzato è il metodo di Cavalieri Simpson. \MakeUppercase{è} stata fatta questa scelta poichè questa formula di Newton-Cotes ha un errore di quadratura sufficientemente basso da non influenzare l'analisi degli errori oggetto di studio.
@@ -61,28 +61,28 @@ La funzione:
 \begin{Code}[caption={Funzione \texttt{controlErrL2}}]
 func real controlErrL2(real[int] &controlsol)
 \end{Code}
-Prende in ingresso la soluzione approssimata $u_k$ e calcola la norma $L^2(I,L^2(\Omega))$ della differenza con la soluzione esatta ues, equazione \eqref{eq:errcon},utilizzando il metodo di integrazione di Cavalieri-Simpson sulla griglia della soluzione $u_k$ invece che su quella generale. Anche in questo caso il motivo di questa scelta è quello di ridurre al minimo l'influenza degli errori di integrazione rispetto a quello dovuto all'approssimazione della soluzione.
+Prende in ingresso la soluzione approssimata $u_k$ e calcola la norma $L^2(I,L^2(\Omega))$ della differenza con la soluzione esatta $\overline{u}$, equazione \eqref{eq:errcon},utilizzando il metodo di integrazione di Cavalieri-Simpson sulla griglia della soluzione $u_k$ invece che su quella generale. Anche in questo caso il motivo di questa scelta è quello di ridurre al minimo l'influenza degli errori di integrazione rispetto a quello dovuto all'approssimazione della soluzione.
 \begin{equation}
-err_{u_k} = || ues - u_k ||_{L^2(I,L^2(\Omega))}
+err_{u_k} = || \overline{u} - u_k ||_{L^2(I,L^2(\Omega))}
 \label{eq:errcon}
 \end{equation}
 \par
 Per questo studio è di particolare interesse anche l'errore della soluzione di stato $y_k$ proiettata sullo spazio $P^*_k$ definito come:
 \begin{equation}
-err_{\pi_{P^*_k}y_k} = || yes - \pi_{P^*_k}y_k ||_{L^2(I,L^2(\Omega))}
+err_{\pi_{P^*_k}y_k} = || \overline{y} - \pi_{P^*_k}y_k ||_{L^2(I,L^2(\Omega))}
 \label{eq:errprojstate}
 \end{equation}
-dove yes è la soluzione esatta del problema di stato e $\pi_{P^*_k}$ è definito nel Capitolo \ref{chap:Discontinuos}.
+dove $\overline{y}$ è la soluzione esatta del problema di stato e $\pi_{P^*_k}$ è definito nella sezione \ref{chap:Discontinuos}.
 Il calcolo dell'errore \eqref{eq:errprojstate} è eseguito dalla funzione \texttt{stateprojtrap()}.
 \par
 La funzione \texttt{normL2state()}, invece, calcola l'errore per il problema di stato non proiettato definito da:
 \begin{equation}
-err_{u_k} = || ues - u_k ||_{L^2(I,L^2(\Omega))}
+err_{y_k} = || \overline{y} - y_k ||_{L^2(I,L^2(\Omega))}
 \label{eq:errstate}
 \end{equation}
 La funzione \texttt{normL2adj()} calcola infine l'errore per il problema aggiunto definito da:
 \begin{equation}
-err_{p_k} = || pes - p_k ||_{L^2(I,L^2(\Omega))}
+err_{p_k} = || \overline{p} - p_k ||_{L^2(I,L^2(\Omega))}
 \label{eq:erradj}
 \end{equation}
 
@@ -137,11 +137,11 @@ varf statetn(w,wtest) =   int2d(Th)( wold*wtest/dt)
 						+ int2d(Th)( gamma3*( g0*wtest ))
 				 		+ int2d(Th)( gamma4*( g0old*wtest ));
 \end{Code}
-In questo modo la matrice di Stiffness \texttt{s(w,wtest)} verrà calcolata solamente al primo ed all'ultimo passo dell'algoritmo, permettendo una riduzione del tempo di esecuzione. Il trmine forzante $g_0$ verrà introdotto nella sezione \ref{chap:Results}.
+In questo modo la matrice di Stiffness \texttt{s(w,wtest)} verrà calcolata solamente al primo ed all'ultimo passo dell'algoritmo, permettendo una riduzione del tempo di esecuzione. Il termine forzante $g_0$ verrà introdotto nella sezione \ref{chap:Results}.
 \par
 La funzione che calcola la soluzione $y_k$ ad ogni passo è \texttt{statet()} che prima di terminare calcola anche l'errore \eqref{eq:errprojstate} ed \eqref{eq:errstate}.
 \par
-Anche per il problema aggiunto è stato utilizzato un metodo di Crank-Nicolson ed è possibile trovare una matrice di Stiffness principale invariante ne tempo:
+Anche per il problema aggiunto è stato utilizzato un metodo di Crank-Nicolson ed è possibile trovare una matrice di Stiffness principale invariante nel tempo:
 \begin{Code}[caption={Matrici \texttt{adj(w,wtest)} e \texttt{adjtn(w,wtest)}}]
 varf adj(p,ptest) =   int2d(Th)( p*ptest/dt )			
 					+ int2d(Th)( 0.5*( dx(p)*dx(ptest) + dy(p)*dy(ptest) ) ) 
@@ -152,7 +152,7 @@ varf adjtn(p,ptest) =   int2d(Th)( pnext*ptest/dt )
   					  + int2d(Th)( 0.5*( h*ptest ) ) 
   					  + int2d(Th)( 0.5*( hnext*ptest ) ); 
 \end{Code}
-dove \textbf{adj(p,ptest)} è invariante ad ogni passo temporale.
+dove \texttt{adj(p,ptest)} è invariante ad ogni passo temporale.
 \par
 Particolare attenzione è stata posta per il calcolo di h ed hnext che rapresentano il valore della forzante al passo i ed i+1. Per una corretta implementazione del metodo ad ogni passo i vale che:
 \begin{equation}
@@ -172,13 +172,13 @@ Infine la funzione \texttt{puntoFisso()} risolve l'\textbf{Algoritmo} \ref{Punto
 \subsubsection{Semi-Newton}
 Il secondo procedimento implementato, di tipo semi Newton, segue l'\textbf{Algoritmo} \ref{DN} e richiede l'ausilio del metodo del gradiente coniugato, \ref{CG}.
 \par
-Per la soluzione del problema di stato son state implementate due diverse funzioni. La prima chiamata \texttt{stateCG(real[int] \&xx)} risolve il problema di stato ad ogni passo temporale dato un termine noto e crea e restituisce il vettore delle soluzioni. L'operatore implementato è $S_h$ applicato a $P_{U_{ad}}(xx)$.
+Per la soluzione del problema di stato son state implementate due diverse funzioni. La prima chiamata \texttt{stateCG(real[int] \&xx)} risolve il problema di stato ad ogni passo temporale dato un termine noto e crea/restituisce il vettore delle soluzioni. L'operatore implementato è $S_h$ applicato a $P_{U_{ad}}(xx)$.
 In particolare il termine noto, per una corretta proiezione sullo spazio $U_{ad}$, deve essere della forma:
 \begin{equation}
-xx = (-1./alpha)*{S^{*}}_{h}(w)
+xx = -\frac{1}{\alpha}*{S^{*}}_{h}(w)
 \end{equation}
-La seconda denominata \texttt{mat1(real[int] \&xx, real[int] \&ww)} risolve invece l'operatore $S_h\mathbbm{1}_{S^*_hw}$  applicato a un termine noto xx. Questa operazione è necessaria per la costruzione di \eqref{newton}. Il vettore in ingresso ww contiene i valori dell'indicatrice $\mathbbm{1}_{S^*_hw}$.
-L'algortimo seguito dalle queste funzioni è simile. Le differenze principali si trovano nella definizione del termine noto. Nel primo caso verrà introdotta:
+La seconda, denominata \texttt{mat1(real[int] \&xx, real[int] \&ww)}, risolve invece l'operatore $S_h\mathbbm{1}_{S^*_hw}$ applicato sempre a un termine noto xx. Questa operazione è necessaria per la costruzione di \eqref{newton}. Il vettore in ingresso ww contiene i valori dell'indicatrice $\mathbbm{1}_{S^*_hw}$.
+L'algortimo seguito dalle queste funzioni è simile. Le differenze principali si trovano nella definizione del termine noto per il problema di stato. Nel primo caso verrà introdotta:
 \begin{Code}[caption={Matrice \texttt{tnnew(w,wtest)} per \texttt{stateCG(real[int] \&xx)}}]
 varf tnnew(w,wtest) =   int2d(Th)( wold*wtest/dt )
 				  	  - int2d(Th)( gamma2*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) ) )
@@ -196,7 +196,7 @@ varf tnnew(w,wtest) =  int2d(Th)( wold*wtest/dt)
 				     + int2d(Th)(gamma3*g*((indnew<=b)*(indnew>=a)*listate*wtest))
 					 + int2d(Th)(gamma4*g*((indold<=b)*(indold>=a)*loldstate*wtest));
 \end{Code}
-dove le variabili \textit{listate}, \textit{listateold} rappresentano i valori dell'operazione di controllo dovuta al moltiplicatore di Lagrange, mentre \textit{indnew} ed \textit{indold} quelli dell'indicatrice $S_h\mathbbm{1}_{S^*_hw}$.
+dove le variabili \textit{listate}, \textit{listateold} rappresentano i valori dell'operazione di controllo dovuta al moltiplicatore di Lagrange, mentre \textit{indnew} ed \textit{indold} quelli dell'indicatrice $\mathbbm{1}_{S^*_hw}$.
 In entrambe lo schema di integrazione temporale per il problema di stato segue la variante dello schema di Crank-Nicolson(CN) introdotta precedentemente per l'\textbf{Algoritmo} \ref{PuntoFisso} di punto fisso.
 \par
 La funzione \texttt{adjCG(real[int,int] \&xx)} implementa l'operatore $S^*_h$; risolve il problema aggiunto ad ogni passo temporale dato un termine noto xx e restituisce la soluzione in un opportuno vettore. Il procedimento utilizzato rispecchia quello precedentemente implementato per il metodo di punto fisso.

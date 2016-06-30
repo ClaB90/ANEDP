@@ -42,7 +42,7 @@ Nei risultati che si menzioneranno in seguito si farà spesso uso dei seguenti o
 
 
 \subsection{Semidiscretizzazione del problema di stato}
-Uno degli elementi di novità del lavoro DHV è dato proprio dallo schema adottato per la discretizzazione in tempo dell'equazione di stato, che è totalmente variazionale di tipo Petrov-Galerkin. Verranno infatti utilizzati uno spazio di funzioni costanti a tratti per la soluzione e continue lineari a tratti per le test. 
+Uno degli elementi di novità del lavoro \ref{MAIN} è dato proprio dallo schema adottato per la discretizzazione in tempo dell'equazione di stato, che è totalmente variazionale di tipo Petrov-Galerkin. Verranno infatti utilizzati uno spazio di funzioni costanti a tratti per la soluzione e continue lineari a tratti per le test. 
 
 Supponendo di estendere la forma bilineare $A$ di \cite{MAIN} in una mappa $A:W(I)\cup Y_k\times\to\R$, si tratta dunque di risolvere il seguente problema:
 
@@ -118,14 +118,14 @@ con coefficienti $\beta_i\in H^1_0(\Omega)$ e $b_i\in C([0,T]), b_i(t_j)=\delta_
 Stabilità e convergenza:
 \begin{lemma}
 \label{stab:agg}
-Sia $p_k\in P_k$ la soluzione di~\eqref{eqn:agg} con $h\in L^2(I,L^2(\Omega))$. Allora esiste ina costante $C>0$ indipendente da $k$ tale che
+Sia $p_k\in P_k$ la soluzione di~\eqref{eqn:agg} con $h\in L^2(I,L^2(\Omega))$. Allora esiste una costante $C>0$ indipendente da $k$ tale che
 \[
 \norma{p_k}_{H^1(I,L^2(\Omega))} + \norma{p_k(0)}_{H^1(\Omega)} \le C\norma{h}_I.
 \]
 \end{lemma}
 \begin{lemma}
 \label{conv:agg}
-Sian0 $p,p_k$ le soluzioni di \ref{eq:217} e di~\eqref{eqn:agg} rispettivamente, con $h\in L^2(I,L^2(\Omega))$. Allora vale
+Siano $p,p_k$ le soluzioni di \ref{eq:217} e di~\eqref{eqn:agg} rispettivamente, con $h\in L^2(I,L^2(\Omega))$. Allora vale
 \[
 \norma{p_k-p}_I\le Ck^2(\norma{\partial^2_t p}_I + \norma{\partial_t\Delta p}_I).
 \]

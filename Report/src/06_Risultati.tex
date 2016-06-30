@@ -2,8 +2,8 @@
 \section{Risultati numerici}
 \label{chap:Results}
 In questo capitolo verranno esposti i risultati numerici ottenuti.
-I primi due esampi sono stati presi da \cite{MAIN}.
-In entrambi questi esempi verrà considerato l'operatore lineare affine $\tilde{B}$ \ref{eq:210}.
+I due esempi utilizzati come casi tests sono stati presi da \cite{MAIN}.
+In entrambi questi esempi verrà considerato l'operatore lineare affine $\tilde{B}$ \eqref{eq:210}.
 \par
 Si considera come dominio spaziale il quadrato $ \Omega = (0,1)^2$ ed una mesh uniforme definita da
 \begin{Code}[caption={mesh in spazio square( 150, 150, flags=1 )}]
@@ -12,8 +12,8 @@ Si considera come dominio spaziale il quadrato $ \Omega = (0,1)^2$ ed una mesh u
 
 \subsection{Test Case 01}
 \subsubsection{Set-up}
-Il primo esempio considerato, in accordo con l'ipotesi i) introdotta in Chapter \ref{chap:Continuo}.
-Preso il dominio spazio-temporale $\Omega \times I = (0,1)^2 x(0,0.01)$ e d=1, si considera l'operatore di controllo lineare affine $\tilde{B}$ che può essere completamente caratterizato da:
+Il primo esempio considerato, in accordo con l'ipotesi i) introdotta nella sezione \ref{chap:Continuos}.
+Preso il dominio spazio-temporale $\Omega \times I = (0,1)^2 \times (0,0.01)$ e d=1, si considera l'operatore di controllo lineare affine $\tilde{B}$ che può essere completamente caratterizato da:
 {\renewcommand\arraystretch{2}
 \begin{equation}
 \begin{array}{c}
@@ -29,7 +29,7 @@ w_a(t,x_1,x_2) = exp(a{\pi}^2t)sin({\pi}x_1)sin({\pi}x_2) \text{, } a \in \mathb
 \label{eq:501}
 \end{equation}
 In particolare vengono considerate le costanti $a=-\sqrt{5}$ ed $\alpha={pi}^{-4}$.
-Come conseguenza di ciò si ha che \ref{eq:212} verrà riscritta, utilizzando l'aggiunto di B e non $\tilde{B}$, come:
+Come conseguenza di ciò si ha che \eqref{eq:212} verrà riscritta, utilizzando l'aggiunto di B e non $\tilde{B}$, come:
 \begin{equation}
 (B'z)(t) = \int_{\Omega} z(t,x_1,x_2)g_1(t,x_1,x_2) ,dx_1dx_2
 \label{eq:502}
@@ -190,8 +190,8 @@ Per l'algoritmo di punto fisso sono richieste cinque o sei iterazioni per ogni g
 
 \section{Test Case 02}
 \subsubsection{Set-up}
-Il primo esempio considerato, in accordo con l'ipotesi i) introdotta in Chapter \ref{chap:Continuo}.
-Preso il dominio spazio-temporale $\Omega \times I = (0,1)^2 x(0,0.5)$ e d=1, si considera l'operatore di controllo lineare affine $\tilde{B}$ che può essere completamente caratterizato da:
+Il primo esempio considerato, in accordo con l'ipotesi i) introdotta in Chapter nella sezione \ref{chap:Continuos}.
+Preso il dominio spazio-temporale $\Omega \times I = (0,1)^2 \times (0,0.5)$ e d=1, si considera l'operatore di controllo lineare affine $\tilde{B}$ che può essere completamente caratterizato da:
 {\renewcommand\arraystretch{2}
 \begin{equation}
 \begin{array}{c}
@@ -231,8 +231,8 @@ w_a(t,x_1,x_2) = cos \left( \frac{t}{T}2{\pi}a \right) \cdot g_1(t,x_1,x_2)
 \end{equation}
 
 \subsubsection{Risultati Numerici}
-I risultati per gli errori di convergenza sono gli stessi tratti per il caso 01 e rispecchiano quelli esposti in \cite{MAIN}. Essendo la soluzione esatta per la variabile di controllo $\overline{u}$ più complessa per questo si nota che i primi due livelli di griglia non danno risultati rappresentativi inquanto il numero di punti di non derivabilità della $\overline{u}$ è maggiore dei nodi della griglia temporale considerata.
-La perdita riscontrata nell'ordine di convergenza per l'ultima mesh temporale è da attribuire all'avvicinamento con la griglia spaziale. (EDO)
+I risultati per gli errori di convergenza sono gli stessi tratti per il caso 01 e rispecchiano quelli esposti in \cite{MAIN}. Essendo la soluzione esatta $\overline{u}$ più complessa in questo test case, si nota che i primi due livelli di griglia non danno risultati rappresentativi. Infatti il numero di punti di non derivabilità della $\overline{u}$ è maggiore dei nodi della griglia temporale considerata.
+La perdita riscontrata nell'ordine di convergenza per l'ultima mesh temporale è invece da attribuire all'avvicinamento con la griglia spaziale. (EDO)
 \par
 In figura \ref{eq:503} sono riportati i risultati del paper \cite{MAIN} nei primi tre livelli di raffinamento di griglia. Mentre in \ref{eq:504} e \ref{eq:505} quelli ottenuti con il codice implementato per questo lavoro per ogni livello considerato. In entrambi i casi si vede che una buona approsimazione della soluzione esatta viene raggiunta.
 \par
@@ -246,7 +246,7 @@ oppure quattro se viene considerato invece:
 \norma{\nabla\phi(w^k) - \nabla\phi(w^(k+1)} > t_0
 \label{secondanorma}
 \end{equation}
-Col criterio \ref{primanorma} l'algoritmo converge in tre passi per ogniuna delle mesh considerate. Mentre utilizzano \ref{secondanorma} solamente per dalla seconda griglia in avanti.
+Col criterio \ref{primanorma} l'algoritmo converge in tre passi per ogniuna delle mesh considerate. Mentre utilizzano \ref{secondanorma} si ha la convergenza dopo nove passi per la prima griglia utilizzata e mentre quattro dalla successiva in avanti.
 
 \begin{figure}
 \centering

@@ -2,7 +2,7 @@
 \section{Analisi del problema continuo}
 \label{chap:Continuos}
 
-In questo studio vengono considerati un dominio poligonale convesso $\Omega \in \mathbb{R}^n$ dove $n=2,3$, il cui bordo viene indicato con $\partial\Omega$, ed un intervallo temporale $I = (0,T) \subset \mathbb{R}$, $T < \infty$. 
+In questo studio vengono considerati un dominio poligonale convesso $\Omega \in \mathbb{R}^n$, dove $n=2,3$, con cui bordo viene indicato con $\partial\Omega$, ed un intervallo temporale $I = (0,T) \subset \mathbb{R}$, $T < \infty$. 
 Per l'analisi seguente viene introdotta la terna hilbertiana (${H^{0}_{1}(\Omega)},{L^{2}(\Omega)},{H^{-1}(\Omega)}$).
 Il problema di controllo ottimo lineare quadratico analizzato è defnito come:
 {\renewcommand\arraystretch{2}
@@ -19,7 +19,7 @@ Il problema di controllo ottimo lineare quadratico analizzato è defnito come:
 dove $y_d$ è una funzione scelta $\in L^2(I,{L^{2}(\Omega)})$.
 
 \subsection{Problema di Stato}
-Il problema di stato è definito in forma forte e in forma debole rispettivamente in \ref{eq:201} e \ref{eq:202}.
+Il problema di stato è definito in forma forte e in forma debole rispettivamente in \eqref{eq:201} e \eqref{eq:202}.
 \begin{equation}
 \begin{array}{cc}
  	{\partial_{t}}y - {\bigtriangleup}y = f & \text{in I}\times\Omega \\
@@ -70,7 +70,7 @@ dove $y{\in}Y$ è la soluzione di \ref{eq:202}, $v{\in}Y$ è la funzione test e 
  A(y,v) = \int_{0}^{T} -\left \langle {\partial_{t}}v(t),y(t) \right \rangle_{{H^{-1}(\Omega)}{H^{0}_{1}(\Omega)}} \, dt + \int_{0}^{T} a(y(t),v(t)) \, dt + (y(T),v(T))_{L^{2}(\Omega)}
 \label{eq:207}
 \end{equation}
-Per i risultati di stabilità, la consistenza e la convergenza di \ref{eq:201},noti in letteratura, si definisce y come soluzione unica di \ref{eq:206}. L'equazione \ref{eq:207} è necessaria per la definire  lo schema di approsimazione numerica per l'equazione di stato come descritto nel Capitolo \ref{chap:Discontinuos}.
+Per i risultati di stabilità, la consistenza e la convergenza di \eqref{eq:201}, noti in letteratura, si definisce y come soluzione unica di \eqref{eq:206}. L'equazione \eqref{eq:207} è necessaria per la definire  lo schema di approsimazione numerica per l'equazione di stato come descritto nella sezione successiva \ref{chap:Discontinuos}.
 
 \subsection{Spazio del Controllo}
 Nello scenario descritto precedentemente la scelta per lo spazio di controllo non è unica. Seguendo le linee guida di \cite{MAIN} questo viene difinito come $U = L^2(I,\mathbb{R}^d), d \in \mathbb{N}$. Presi dunque $a_i, b_i \in \mathbb{R}$ t.c. $a_i<b_i {\forall}i=1:d$ la regione ammissibile, costituita da un insieme chiuso e convesso, è definita come:
@@ -96,8 +96,8 @@ P_{U_{ad}} : L^2(I,\mathbb{R}^d)\rightarrow U_{ad}
 \end{equation}
 
 \subsection{Problema Aggiunto}
-Il problema \ref{eq:200} ammette un unica soluzione $(\overline{y},\overline{u}){\in}Y{\times}U$ dove $\overline{y}=S(B\overline{u},y_0)$.
-Intodotti ora la variabile aggiunta $(\overline{p},\overline{q}) \in L^2(I,{H^{0}_{1}(\Omega)}{\times}{L^{2}(\Omega)})$, soluzione unica di \ref{eq:214}, e l'operatore aggiunto $B':L^2(I,{H^{0}_{1}(\Omega)}){\rightarrow}L^2(I,\mathbb{R}^d)$ definito da:
+Il problema \ref{eq:200} ammette un'unica soluzione $(\overline{y},\overline{u}){\in}Y{\times}U$ dove $\overline{y}=S(B\overline{u},y_0)$.
+Vengono ora introdotti la variabile aggiunta $(\overline{p},\overline{q}) \in L^2(I,{H^{0}_{1}(\Omega)}{\times}{L^{2}(\Omega)})$, soluzione unica di \ref{eq:214}, e l'operatore aggiunto $B':L^2(I,{H^{0}_{1}(\Omega)}){\rightarrow}L^2(I,\mathbb{R}^d)$ definito da:
 \begin{equation}
 B'q(t) = ( \left \langle g_1,q(t) \right \rangle_{{H^{-1}(\Omega)}{H^{0}_{1}(\Omega)}}, . . . ,\left \langle g_d,q(t) \right \rangle_{{H^{-1}(\Omega)}{H^{0}_{1}(\Omega)}})^T
 \label{eq:212}

@@ -1,0 +1,146 @@
+\section{Algoritmi risolutivi}
+\label{chap:AR}
+\subsection{Metodo di Punto Fisso}
+
+L'equazione ~\eqref{cnott} è incline ad essere risolta numericamente nonostante il controllo non sia discretizzato esplicitamente; nel presente lavoro vengono scelti schemi di punto fisso e Newton con damping (semi-Newton).
+
+Per quanto riguarda il metodo di punto fisso, se si indica con $ S^*_h $ l'operatore di soluzione dell'equazione [RIF], l'algoritmo è il seguente:
+\begin{algoritmo}
+
+\begin{enumerate}
+\item Inizializzare $ u^0_h\in U_{ad} $, $ n:=0 $.
+\item Ripetere fino a convergenza
+          \begin{enumerate}
+          \item calcolare $ Bu^n_h $,
+          \item calcolare $ y^n_h=S_h(y_0,Bu^n_h) $, 
+          \item calcolare $ p^n_h=S^*_h(y^n_h-y_d) $,
+          \item calcolare $ u^{n+1}_h=P_{U_{ad}}\big( -\frac{1}{\alpha}B'p^n_h\big) $,
+          \item porre n=n+1.
+          \end{enumerate}
+\end{enumerate}
+
+Come criterio di arresto è stato scelto   
+\begin{equation}
+\norma{B'\big(p^{n+1}_h-p^n_h\big)}_{L^{\infty}(\Omega\times I)}<\epsilon,
+\label{eq:PuntoFissotoll}
+\end{equation}
+con $ \epsilon $ tolleranza prefissata.
+\label{PuntoFisso}
+\end{algoritmo}
+
+Seguendo [RIF] il metodo di punto fisso per l'equazione ~\eqref{cnott} converge globalmente per $ \alpha>\norma{S_h}^2_{\mathcal{L}(L^2(\Omega),L^2(\Omega))} $, motivo per cui è stato implementato anche lo schema semi-Newton, che ha invece la pretesa di convergere globalmente per qualsiasi valore di $ \alpha $.
+
+\subsection{Metodo semi-Newton}
+Affinché il metodo di Newton converga globalmente, è stato scelto di applicare ad ogni passo una minimizzazione monodimensionale con criterio di Armijo; per ottenere ciò è opportuno riformulare ~\eqref{Pk} come problema di minimizzazione non vincolata; ci si basa dunque sulla seguente funzione lagrangiana duale $ \phi:L^2(I,L^2(\Omega))\to \R $ data da
+\begin{multline}
+\label{lagr}
+\phi(w)= \\
+-\inf_{u,y\in L^2(I,L^2(\Omega))}\Biggl( \underbrace{\frac{1}{2}\norma{y-y_d}^2_{L^2(I,L^2(\Omega))} + \frac{\alpha}{2}\norma{u}^2_{L^2(I,L^2(\Omega))}  + \chi_{U_{ad}}(u) - (w,y-S_hu)_{L^2(I,L^2(\Omega))}}_{\mathcal{L}(u,y,w)}\Biggr)
+\end{multline}
+dove $ \chi_{U_{ad}} $ indica la funzione caratteristica dell'insieme $ U_{ad} $ nel senso dell'analisi convessa, ovvero
+\begin{equation}
+\chi_{U_{ad}}=
+\begin{cases}
+0,        &\text{su} U_{ad},\\
+\infty   &\text{su} L^2(I,L^2(\Omega))\setminus U_{ad}.
+\end{cases}
+\end{equation}
+Si verifica che $ \phi $ è differenziabile con derivata lipschitziana e fortemente convessa, infatti
+\begin{lemma}
+\label{phi}
+La funzione $ \phi:L^2(I,L^2(\Omega))\to\R $ da ~\eqref{lagr} è fortemente convessa e Frechet-differenziabile con gradiente lipschitziano
+\begin{equation}
+\nabla\phi(w)=y(w)-S_hu(w),
+\end{equation}
+dove $ y_h(w)=w+y_d $ e $ u(w)=P_{U_{ad}}(-\frac{1}{\alpha}S^*_hw) $ sono gli unici punti di minimo della lagrangiana $ \mathcal{L}(u,y,w) $ da ~\eqref{lagr} per ogni $ w\in L^2(I,L^2(\Omega)) $ data.
+\end{lemma}
+Si osservi che, poiché il gradiente $ \nabla\phi(w) $ ammette sottogradiente, è possibile applicare una strategia di Newton semi-regolare per il problema duale 
+\begin{equation}
+\label{P'k}
+\min_{w\in L^2(I,L^2(\Omega))} \phi(w).
+\end{equation}
+Grazie alla forte convessità, il problema \eqref{P'k} ammette un'unica soluzione $ w^* $ che soddisfa $ \nabla\phi(w^*)=0 $.
+Una strategia di Newton semi-regolare per ~\eqref{P'k} significa risolvere 
+\begin{equation}
+\label{newton}
+\big( I + \frac{1}{\alpha}S_h\mathbbm{1}_{S^*_hw}S^*_h\big)\delta w=-(w+y_d)+S_hP{U_{ad}}\big( -\frac{1}{\alpha}S^*_hw\big).
+\end{equation}
+L'equazione ~\eqref{newton} contiene l'operatore $ \mathbbm{1}_{p_h(v)} $ che ha il seguente significato: introdotto l'\textit{inactive set} della funzione $ p_h\in L^2(I,L^2(\Omega)) $ come l'insieme $ \mathcal{I}(p_h)=\Set{\omega\in \Omega\times [0,T] | \big( -\frac{1}{\alpha}p_h(v)\big)(\omega)\in (a(\omega),b(\omega))} $ e $ \mathbbm{1}_{\mathcal{I}(p_h)} $ come la funzione indicatrice 
+\begin{equation}
+\mathbbm{1}_{\mathcal{I}(p_h)}=
+\begin{cases}
+1,          &\omega\in\mathcal{I}(p_h), \\
+0,          &\omega\in\Omega\times [0,T]\setminus\mathcal{I}(p_h),
+\end{cases}
+\end{equation}
+con $ \mathbbm{1}_{p_h(v)} $ si denota l'endomorfismo auto-aggiunto in $ L^2(I,L^2(\Omega)) $ dato dalla moltiplicazione puntuale con $ \mathbbm{1}_{\mathcal{I}(p_h)} $. Poiché l'Hessiano generalizzato a primo membro di ~\eqref{newton} è un endomorfismo auto-aggiunto e definito positivo, è lecito utilizzare un algoritmo di tipo gradiente coniugato per la computazione del passo di Newton semi-regolare. Anche $ \phi $ è facile da valutare in quanto dal lemma ~\eqref{phi} si evince che 
+\begin{equation}
+\phi(w)=\frac{1}{2}\norma{w}^2_{L^2(I,L^2(\Omega))} - \frac{\alpha}{2}\norma{u(w)}^2_{L^2(I,L^2(\Omega))} + (w,y_d-S_hu(w))_{L^2(I,L^2(\Omega))}.
+\end{equation}
+
+
+A questo punto è possibile indicare l'algoritmo semi-Newton utilizzato nel presente lavoro:
+\begin{algoritmo}
+\label{dn}
+\begin{enumerate}
+\item Inizializzare $ w^0\in L^2(I,L^2(\Omega)) $, $\beta\in(0,1) $, $ k=0 $, 
+\item Ripetere fino a convergenza
+          \begin{enumerate}
+          \item Risolvere l'equazione ~\eqref{newton} per $ \delta w^k $ tramite CG,
+          \item Porre $ \lambda:=1 $,
+          \item Finché risulta vera la condizione $ \phi(w^k+\lambda\delta w^k) > \phi(w) + \frac{1}{3}\lambda(\nabla\phi(w^k),\delta w^k)_{L^2(I,L^2(\Omega))} $, porre $ \lambda:=\beta\lambda $,
+          \item Porre $ w^{k+1}=w^k + \lambda\delta w^k $
+         \item Porre $ k:=k+1 $.
+          \end{enumerate}
+\end{enumerate}
+Come criterio di arresto è stato scelto 
+\begin{equation}
+\norma{\nabla\phi(w^k)}\le t_0
+\label{eq:DNtoll}
+\end{equation}
+con $ t_0 $ tolleranza prefissata.          
+\label{DN}
+\end{algoritmo}
+L'analisi della convergenza del metodo e la plausibilità del criterio di arresto sono affidati al seguente lemma
+\begin{lemma}
+\label{global}
+Sia $ L=1+\norma{S_h}^2 /\alpha $ la costante di Lipschitz di $ \nabla\phi $ e $ \beta\in(0,1) $ come nell'algoritmo  ~\eqref{dn}. Siano $ u_h $ e $ w^* $ le soluzioni di ~\eqref{Pk} e ~\eqref{P'k} rispettivamente. Allora si verifica che 
+\begin{enumerate}
+\item un passo con parametro di damping $ \lambda\le\beta^{K(L,\beta)} $ è sempre accettato, dove
+\begin{equation}
+K(L,\beta)=\frac{\log(2)-\log(3L)}{\log(\beta)},
+\end{equation}
+\item l'algoritmo ~\eqref{dn} converge per qualsiasi dato iniziale $ w^0\in L^2(I,L^2(\Omega)) $, nel senso che $ w\to w^* $, $ u(w)\to u_h $ in $ L^2(I,L^2(\Omega)) $,
+\item il criterio di arresto $ \norma{\nabla\phi(w)}_{L^2(I,L^2(\Omega))}\le\text{Toll.} $ è ragionevole poiché
+\begin{equation}
+\norma{\nabla\phi(w)}_{L^2(I,L^2(\Omega))}\ge \norma{w-w^*}_{L^2(I,L^2(\Omega))}.
+\end{equation}
+\end{enumerate}
+\end{lemma} 
+
+
+Per completezza si descrive l'algoritmo del gradiente coniugato adoperato per la risoluzione di ~\eqref{newton}
+\begin{algoritmo}
+\label{cg}
+Per brevità sarà indicato con $ A_w $ l'Hessiano generalizzato a primo membro di ~\eqref{newton}, mentre il termine noto a secondo membro con $ b_w $
+\begin{enumerate}
+\item Inizializzare $ \delta w^0 $ in $ L^2(I,L^2(\Omega)) $, $ r^0:=b_w-A_w\delta w^0 $, $ p^0=r^0 $, $ n:=0 $.
+\item Ripetere fino a convergenza
+          \begin{enumerate} 
+          \item $\alpha^n:=\frac{(r^n,r^n)_{L^2(I,L^2(\Omega))}}{(p^n,A_wp^n)_{L^2(I,L^2(\Omega))}}$,
+          \item $\delta w^{n+1}:=\delta w^n + \alpha^np^n$,
+          \item $r^{n+1}:=r^n-\alpha^np^n$,
+          \item $\beta^n:=\frac{(r^{n+1},r^{n+1})_{L^2(I,L^2(\Omega))}}{(r^n,r^n)_{L^2(I,L^2(\Omega))}}$,
+          \item $p^{n+1}:=r^{n+1} + \beta^np^n$,
+          \item $k:=k+1$.
+          \end{enumerate}
+\end{enumerate}
+Come criterio di arresto è stato scelto 
+\begin{equation}
+\norma{r^n}_{L^2(I,L^2(\Omega))}\le t_0 
+\label{eq:CGtoll}
+\end{equation}
+con $ t_0 $ tolleranza prescritta.
+E' superfluo specificare che qui l'indice $ n $ denota l'n-esima iterazione del gradiente coniugato e non di Newton.
+\label{CG}
+\end{algoritmo} 
