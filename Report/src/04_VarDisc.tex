@@ -195,7 +195,13 @@ A questo punto è possibile indicare l'algoritmo semi-Newton utilizzato nel pres
          \item Porre $ k:=k+1 $.
           \end{enumerate}
 \end{enumerate}
-Come criterio di arresto è stato scelto $ \norma{\nabla\phi(w^k)}\le t_0 $, con $ t_0 $ tolleranza prefissata.          
+Come criterio di arresto è stato scelto 
+\begin{equation}
+\norma{\nabla\phi(w^k)}\le t_0
+\label{eq:DNtoll}
+\end{equation}
+con $ t_0 $ tolleranza prefissata.          
+\label{DN}
 \end{algoritmo}
 L'analisi della convergenza del metodo e la plausibilità del criterio di arresto sono affidati al seguente lemma
 \begin{lemma}
@@ -234,9 +240,9 @@ Per brevità sarà indicato con $ A_w $ l'Hessiano generalizzato a primo membro 
 Come criterio di arresto è stato scelto 
 \begin{equation}
 \norma{r^n}_{L^2(I,L^2(\Omega))}\le t_0 
-\label{eq:DNtoll}
+\label{eq:CGtoll}
 \end{equation}
 con $ t_0 $ tolleranza prescritta.
 E' superfluo specificare che qui l'indice $ n $ denota l'n-esima iterazione di CG, non di Newton.
-\label{DN}
+\label{CG}
 \end{algoritmo} 

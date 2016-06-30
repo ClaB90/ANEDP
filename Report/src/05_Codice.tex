@@ -21,7 +21,7 @@ Il codice del progetto è reperibile su \texttt{GitHub} ed è possibile scaricar
 Nella cartella principale è contenuto anche un file \texttt{.gitignore}, in cui sono specificate le estensioni dei files e le sottocartelle che non devono essere visionati in una repository \texttt{GitHub}. In particolare non si è interessati ai files temporanei che vengono eventualmente generati dagli editor.
 
 \subsection{Implementazione}
-In questo lavoro sia l'algoritmo \ref{PuntoFisso} di punto fisso che l'algoritmo di Newton [REFDN] sono stati implementati per la soluzione del problema parabolico di controllo ottimo \eqref{eq:200} descritto nei capitoli precedenti [REFCHAP].
+In questo lavoro sia l'algoritmo \ref{PuntoFisso} di punto fisso che l'algoritmo \ref{DN} di Newton  sono stati implementati per la soluzione del problema parabolico di controllo ottimo \eqref{eq:200} descritto nei capitoli precedenti.
 Il corpo del programma è costituito dal file \textbf{main.edp} che permette di risolve il problema \ref{Pk} con uno dei due algoritmi su una o più griglie temporali. Il processo di raffinamento temporale considera griglie, della tipologia introdotta nella sezione \ref{chap:Discontinuos}, uniformi tali che il numero di nodi Nk al livello l di infittimento sia:
 \begin{equation}
 Nk = ( 2^l + 1 )
@@ -137,7 +137,7 @@ varf statetn(w,wtest) =   int2d(Th)( wold*wtest/dt)
 						+ int2d(Th)( gamma3*( g0*wtest ))
 				 		+ int2d(Th)( gamma4*( g0old*wtest ));
 \end{Code}
-In questo modo la matrice di Stiffness \textbf{s(w,wtest)} verrà calcolata solamente al primo ed all'ultimo passo dell'algoritmo, permettendo una riduzione del tempo di esecuzione.
+In questo modo la matrice di Stiffness \texttt{s(w,wtest)} verrà calcolata solamente al primo ed all'ultimo passo dell'algoritmo, permettendo una riduzione del tempo di esecuzione. Il trmine forzante $g_0$ verrà introdotto nella sezione \ref{chap:Results}.
 \par
 La funzione che calcola la soluzione $y_k$ ad ogni passo è \texttt{statet()} che prima di terminare calcola anche l'errore \eqref{eq:errprojstate} ed \eqref{eq:errstate}.
 \par
@@ -161,12 +161,44 @@ hnext_i = {y_k}_i - y_d(t_i+{\Delta}t)
 \label{hhnext}
 \end{equation}
 dove $t_i$ è il tempo considerato all'iterazione i-esima\footnote{Come si vede dalla formulazione debole \eqref{eqn:agg}}.
-La funzione che calcola la soluzione $p_k$ ad ogni passo è la funzione \textbf{adjointt()} che prima di terminare valuta e salva l'errore per il problema aggiunto definito da \eqref{eq:erradj}. Inoltre in questa funzione vengono calcolati i valori della soluzione di controllo non proiettata:
+La funzione che calcola la soluzione $p_k$ ad ogni passo è la funzione \texttt{adjointt()} che prima di terminare valuta e salva l'errore per il problema aggiunto definito da \eqref{eq:erradj}. Inoltre in questa funzione vengono calcolati i valori della soluzione di controllo non proiettata:
 \begin{equation}
 {u_k}_i = -\frac{1}{\alpha}B'{p_k}_i  %= -\frac{1}{\alpha}*int2d(Th)( {p_k}_i * g ); 
 \label{unp}
 \end{equation}
 \par
-Infine la funzione \textbf{puntoFisso()} risolve l'\textbf{Algoritmo} \ref{PuntoFisso} rispettando il criterio di tolleranza \eqref{eq:PuntoFissotoll}.
+Infine la funzione \texttt{puntoFisso()} risolve l'\textbf{Algoritmo} \ref{PuntoFisso} rispettando il criterio di tolleranza \eqref{eq:PuntoFissotoll}.
 
 \subsubsection{Semi-Newton}
+Il secondo procedimento implementato, di tipo semi Newton, segue l'\textbf{Algoritmo} \ref{DN} e richiede l'ausilio del metodo del gradiente coniugato, \ref{CG}.
+\par
+Per la soluzione del problema di stato son state implementate due diverse funzioni. La prima chiamata \texttt{stateCG(real[int] \&xx)} risolve il problema di stato ad ogni passo temporale dato un termine noto e crea e restituisce il vettore delle soluzioni. L'operatore implementato è $S_h$ applicato a $P_{U_{ad}}(xx)$.
+In particolare il termine noto, per una corretta proiezione sullo spazio $U_{ad}$, deve essere della forma:
+\begin{equation}
+xx = (-1./alpha)*{S^{*}}_{h}(w)
+\end{equation}
+La seconda denominata \texttt{mat1(real[int] \&xx, real[int] \&ww)} risolve invece l'operatore $S_h\mathbbm{1}_{S^*_hw}$  applicato a un termine noto xx. Questa operazione è necessaria per la costruzione di \eqref{newton}. Il vettore in ingresso ww contiene i valori dell'indicatrice $\mathbbm{1}_{S^*_hw}$.
+L'algortimo seguito dalle queste funzioni è simile. Le differenze principali si trovano nella definizione del termine noto. Nel primo caso verrà introdotta:
+\begin{Code}[caption={Matrice \texttt{tnnew(w,wtest)} per \texttt{stateCG(real[int] \&xx)}}]
+varf tnnew(w,wtest) =   int2d(Th)( wold*wtest/dt )
+				  	  - int2d(Th)( gamma2*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) ) )
+						//contributo di u
+					  + int2d(Th)(gamma3*g*(PUabScal(listate)*wtest))
+					  + int2d(Th)(gamma4*g*(PUabScal(loldstate)*wtest)) 
+						//contributo di go 
+					  + int2d(Th)( gamma3*( g0*wtest ))
+			 		  + int2d(Th)( gamma4*( g0old*wtest ));
+\end{Code}
+dove le variabili \textit{listate} e \textit{listateold} rappresentano i valori dell'operazione di controllo dovuta al moltiplicatore di lagrange, mentre $g_0$ è il termine forzante.
+\begin{Code}[caption={Matrice \texttt{tnnew(w,wtest)} per \texttt{mat1(real[int] \&xx, real[int] \&ww)}}]
+varf tnnew(w,wtest) =  int2d(Th)( wold*wtest/dt) 
+	  				 - int2d(Th)( gamma2*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) ) ) 
+				     + int2d(Th)(gamma3*g*((indnew<=b)*(indnew>=a)*listate*wtest))
+					 + int2d(Th)(gamma4*g*((indold<=b)*(indold>=a)*loldstate*wtest));
+\end{Code}
+dove le variabili \textit{listate}, \textit{listateold} rappresentano i valori dell'operazione di controllo dovuta al moltiplicatore di Lagrange, mentre \textit{indnew} ed \textit{indold} quelli dell'indicatrice $S_h\mathbbm{1}_{S^*_hw}$.
+In entrambe lo schema di integrazione temporale per il problema di stato segue la variante dello schema di Crank-Nicolson(CN) introdotta precedentemente per l'\textbf{Algoritmo} \ref{PuntoFisso} di punto fisso.
+\par
+La funzione \texttt{adjCG(real[int,int] \&xx)} implementa l'operatore $S^*_h$; risolve il problema aggiunto ad ogni passo temporale dato un termine noto xx e restituisce la soluzione in un opportuno vettore. Il procedimento utilizzato rispecchia quello precedentemente implementato per il metodo di punto fisso.
+La funzione \texttt{CG(real[int,int] \&xx, real[int,int] \&ww)} risolve il sistema di equazioni \eqref{newton} tramite il metodo del gradiente coniugato introdotto in \ref{CG}. Ia matrice ww corrisponde al valore iniziale ${\delta}w^0$  mentre xx. CHIEDI EDO!
+Infine la funzione \texttt{DampedNewton()} risolve l'\textbf{Algoritmo} \ref{DN} rispettando il criterio di tolleranza \eqref{eq:DNtoll}.
