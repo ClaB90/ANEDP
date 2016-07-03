@@ -158,6 +158,7 @@
 %\addbibresource{src/library.bib}
 
 \usepackage{frontespizio}
+\newcommand{\facciatabianca}{\newpage\shipout\null\stepcounter{page}}
 
 \begin{document}
   
@@ -165,11 +166,12 @@
   \begin{titlepage}
     \input{src/title}
   \end{titlepage}
+  \facciatabianca
 %    \input{src/quotes}
 %    \input{src/abstract}
 %   \input{src/acknowledgments}
 %    \input{src/Nomenclature}
-%    \input{src/Nomenclature_Greek}
+%    \input{src/Nomenclature_Greek}  
   \tableofcontents
   \newpage
   %\mainmatter
