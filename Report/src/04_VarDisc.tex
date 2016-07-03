@@ -1,7 +1,7 @@
 %\chapter{Discretizzazione variazionale}
 \section{Discretizzazione variazionale}
 \label{chap:DiscVar}
-Per approssimare il problema di controllo ottimo [P] viene applicato un metodo detto di discretizzazione variazionale, introdotto da M. Hinze in [Hin05]. Nella prossima sezione viene brevemente presentato questo metodo nel caso generale di problemi di controllo quadratici, dopodiché lo si vedrà in azione per  la risoluzione di \ref{eq:200}.   
+Per approssimare il problema di controllo ottimo ~\eqref{eq:200} viene applicato un metodo detto di discretizzazione variazionale, introdotto da M. Hinze in [Hin05]. Nella prossima sezione viene brevemente presentato questo metodo nel caso generale di problemi di controllo quadratici, dopodiché lo si vedrà in azione per  la risoluzione di ~\eqref{eq:200}.   
 
 \subsection{Il caso generale}
 
@@ -64,25 +64,28 @@ Qui, $ u^*\in U_{ad} $ denota l'unica soluzione del problema ~\eqref{controlpb}.
 
 \subsection{Il caso in oggetto}
 
-Ora si vuole applicare il metodo di discretizzazione variazionale al problema [RIF] nei confronti della variabile tempo, dove gli operatori $ S_h $ e $ S^*_h $ sono individuati dagli schemi di Petrov-Galerkin esposti nei capitoli precedenti.
+Ora si vuole applicare il metodo di discretizzazione variazionale al problema ~\eqref{eq:200} nei confronti della variabile tempo, dove gli operatori $ S_h $ e $ S^*_h $ sono individuati dagli schemi di Petrov-Galerkin esposti nei capitoli precedenti.
 
-Dunque, il problema (semi)discretizzato da considerare è
-\begin{gather}
+Dunque, il problema (semi)discretizzato da considerare è:
+\begin{equation}
+\begin{array}{c}
+	\min_{y_k\in Y_k, u\in U_{ad}} J(y_k,u)=\frac{1}{2}\norma{y_k-y_d}^2_{L^2(I,L^2(\Omega))} + \frac{\alpha}{2}\norma{u}^2_U, \\
+	\text{s.t.} \ y_k=S_k(Bu,y_0) \\
+\end{array}
 \label{Pk}
-\min_{y_k\in Y_k, u\in U_{ad}} J(y_k,u)=\frac{1}{2}\norma{y_k-y_d}^2_{L^2(I,L^2(\Omega))} + \frac{\alpha}{2}\norma{u}^2_U, \\
-\text{s.t.} \ y_k=S_k(Bu,y_0),
-\end{gather}
-dove $ S_k $ è l'operatore delle soluzioni associato a [RIF]. Grazie ai risultati della precedente sezione questo problema ammette un'unica soluzione $ (\bar{y}_k, \bar{u}_k)\in Y_k\times U_{ad} $, con $ \bar{y}_k=S_k(B\bar{u}_k,y_0) $ e la condizione di ottimalità del primo ordine recita
+\end{equation}
+
+dove $ S_k $ è l'operatore delle soluzioni associato a ~\eqref{eqn:stato}. Grazie ai risultati della precedente sezione questo problema ammette un'unica soluzione $ (\bar{y}_k, \bar{u}_k)\in Y_k\times U_{ad} $, con $ \bar{y}_k=S_k(B\bar{u}_k,y_0) $ e la condizione di ottimalità del primo ordine recita
 \begin{equation}
 \label{cnott}
 \bar{u}_k=P_{U_{ad}}\big( -\frac{1}{\alpha}B'\bar{p}_k\big),
 \end{equation}
-dove $ \bar{p}_k\in P_k $ denota la variabile aggiunta discreta, che è l'unica soluzione di [RIF] con $ h:=\bar{y}_k-y_d $.
-A partire dalla formulazione del problema ~\eqref{P_k} è possibile ottenere delle stime di convergenza che somigliano alla stima standard ottenuta per problemi con discretizzazione variazionale. Per completezza vengono trascritti qui di seguito tali risultati.
+dove $ \bar{p}_k\in P_k $ denota la variabile aggiunta discreta, che è l'unica soluzione di ~\eqref{eq:200} con $ h:=\bar{y}_k-y_d $.
+A partire dalla formulazione del problema ~\eqref{Pk} è possibile ottenere delle stime di convergenza che somigliano alla stima standard ottenuta per problemi con discretizzazione variazionale. Per completezza vengono trascritti qui di seguito tali risultati.
 \begin{teorema}
 \label{convu}
 
-Siano $ \bar{u} $ e $ \bar{u}_k $ le soluzioni di [RIF]  e di ~\eqref{Pk} rispettivamente. Allora
+Siano $ \bar{u} $ e $ \bar{u}_k $ le soluzioni di ~\eqref{eq:200} e ~\eqref{Pk} rispettivamente. Allora
 \begin{multline} 
 \alpha \lvert \bar{u}_k-\bar{u}\rvert_I\le Ck^2\big( \norma{\bar{u}}_{H^1(I,\R^D)} + \norma{\bar{u}(0)}_{\R^D} + \\
 \norma{y_d}_{H^1(I,L^2(\Omega))} + \norma{y_d(T)}_{H^1(\Omega)} + \norma{y_0}_{H^1(\Omega)} + \norma{\Delta y_0}_{H^1(\Omega)}\big)
@@ -94,7 +97,7 @@ Siano $ \bar{u} $ e $ \bar{u}_k $ le soluzioni di [RIF]  e di ~\eqref{Pk} rispet
 \begin{teorema}
 \label{convy}
 
-Siano $ \bar{u} $ e $ \bar{u}_k $ le soluzioni di [RIF] e~\eqref{Pk} rispettivamente. Allora vale
+Siano $ \bar{u} $ e $ \bar{u}_k $ le soluzioni di  ~\eqref{eq:200} e ~\eqref{Pk} rispettivamente. Allora vale
 \begin{multline}
 \norma{\bar{y}-\pi_{P^*_k}\bar{y_k}}_I\le\big( \lvert a\rvert_I + \norma{\bar{u}}_{H^1(I,\R^D)} + \norma{\bar{u}(0)}_{\R^D} + \\ 
 \norma{y_d}_{H^1(I,L^2(\Omega))} + \norma{y_d(T)}_{H^1(\Omega)} + \norma{y_0}_{H^1(\Omega)} + \norma{\Delta y_0}_{H^1(\Omega)}\big).

@@ -4,7 +4,7 @@
 
 L'equazione ~\eqref{cnott} è incline ad essere risolta numericamente nonostante il controllo non sia discretizzato esplicitamente; nel presente lavoro vengono scelti schemi di punto fisso e Newton con damping (semi-Newton).
 
-Per quanto riguarda il metodo di punto fisso, se si indica con $ S^*_h $ l'operatore di soluzione dell'equazione [RIF], l'algoritmo è il seguente:
+Per quanto riguarda il metodo di punto fisso, se si indica con $ S^*_h $ l'operatore di soluzione dell'equazione ~\eqref{eqn:agg}, l'algoritmo è il seguente:
 \begin{algoritmo}
 
 \begin{enumerate}
@@ -28,7 +28,7 @@ con $ \epsilon $ tolleranza prefissata.
 \label{PuntoFisso}
 \end{algoritmo}
 
-Seguendo [RIF] il metodo di punto fisso per l'equazione ~\eqref{cnott} converge globalmente per $ \alpha>\norma{S_h}^2_{\mathcal{L}(L^2(\Omega),L^2(\Omega))} $, motivo per cui è stato implementato anche lo schema semi-Newton, che ha invece la pretesa di convergere globalmente per qualsiasi valore di $ \alpha $.
+Seguendo \cite{HV12} il metodo di punto fisso per l'equazione ~\eqref{cnott} converge globalmente per $ \alpha>\norma{S_h}^2_{\mathcal{L}(L^2(\Omega),L^2(\Omega))} $, motivo per cui è stato implementato anche lo schema semi-Newton, che ha invece la pretesa di convergere globalmente per qualsiasi valore di $ \alpha $.
 
 \subsection{Metodo semi-Newton}
 Affinché il metodo di Newton converga globalmente, è stato scelto di applicare ad ogni passo una minimizzazione monodimensionale con criterio di Armijo; per ottenere ciò è opportuno riformulare ~\eqref{Pk} come problema di minimizzazione non vincolata; ci si basa dunque sulla seguente funzione lagrangiana duale $ \phi:L^2(I,L^2(\Omega))\to \R $ data da

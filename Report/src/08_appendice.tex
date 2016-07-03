@@ -1,0 +1,29 @@
+\section{Appendice A}
+\label{ranna}
+\subsection{Passo di Rannacher}
+In questa sezione si espone brevemente cosa significhi un passo di Rannacher all'interno di uno schema numerico per la soluzione di EDP.
+
+Come è noto i problemi lineari continui di diffusione esibiscono il cosiddetto `` effetto regolarizzante '' ovvero che la soluzione dell'equazione del calore in assenza di coefficienti discontinui è di classe $ C^{\infty} $ anche se il dato iniziale è una distribuzione. Le modifiche di uno schema numerico per equazioni paraboliche attraverso alcuni passi di Rannacher servono proprio a restituire questa proprietà anche al problema discreto.
+
+Per essere più concreti, si consideri la seguente equazione lineare di diffusione-convezione
+\begin{gather}
+\label{heat}
+\partial_t u + Au=f \ \text{in}\ \Omega\times(0,\infty),  \\
+u(0)=u^0 \ \text{in}\ \Omega, \\
+u=d \ \text{in} \ \partial\Omega\times (0,\infty).
+\end{gather}
+
+dove $ A $ è un operatore differenziale ellittico e sono state scelte condizioni al bordo di solo Dirichlet per semplicità. Si supponga ora che ~\eqref{heat} venga discretizzato con elementi finiti in spazio di modo che la semidiscretizzazione conduca al seguente sistema di equazioni differenziali ordinarie
+\begin{gather}
+\label{heatsd}
+\partial_t u_h + A_hu_h=F_h,\ t\in(0,\infty) \\
+u_h(0)=u^0_h.
+\end{gather}
+Si tratta dunque di affrontare, trascurando il termine noto, un sistema del tipo
+\begin{gather}
+\label{pbmod}
+\frac{\partial\psi}{\partial t}=H(t)\psi(t)  \\
+\psi(0)=\psi_0
+\end{gather}
+la cui soluzione formale è $ \psi(t)=\psi_0\exp(\int^t_0 H(s)ds) $. Ora si può pensare, al fine di ricavare uno schema numerico, di sostituire l'esponenziale con una sua approssimante di Padè di ordine $ (\nu,\mu) $ e di supporre l'operatore $ H(t) $ costante in tempo; scegliendo per esempio $ \nu=1, \ \mu=1$ si ottiene lo schema di Crank-Nicolson, con la premura di aggiungere un termine che tenga conto dell'integrazione in tempo del termine noto. Il problema riscontrato dai metodi con $ \nu=\mu $ (schemi di Padè diagonali) è la mancanza di assoluta stabilità. Questa proprietà è invece verificata da algoritmi con $ \mu<\nu $ (schemi di Padè sub-diagonali). Ci si aspetta quindi che gli schemi di Padè diagonali propaghino maggiormente gli errori locali dovuti alle discontinuità dei dati rispetto a quelli sub-diagonali. 
+L'idea del passo di Rannacher consiste, qualora si scegliesse di utilizzare uno schema di Padè diagonale, nella sostituzione dei passi in corrispondenza di irregolarità nel termine noto o nelle condizioni al bordo con altri tipici di schemi sub-diagonali. In effetti si dimostra che la sostituzione ottimale per uno schema di ordine $ (\mu,\mu) $ si compie attraverso passi sub-diagonali $ (\mu-1,\mu) $. 
