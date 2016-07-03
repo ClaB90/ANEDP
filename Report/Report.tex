@@ -63,6 +63,13 @@
 
 \newcommand{\mail}[1]{\href{mailto:#1}{\texttt{#1}}}
 
+\usepackage {color}							%Definire colori
+	\ifx\color@rgb\@undefined\else
+		\definecolor{darkgreen}{rgb}{0,0.55,0}
+		\definecolor{fuxia}{rgb}{1,0,0.98}
+		\definecolor{rossoscuro}{rgb}{.6,0,0}
+	\fi
+
 \usepackage {listings}						%Per il codice
 	\lstset {
 		language=C++,
@@ -77,12 +84,6 @@
 		commentstyle=\color{blue},
 		stringstyle=\color{fuxia},
 	}
-
-\usepackage {color}							%Definire colori
-	\ifx\color@rgb\@undefined\else
-		\definecolor{darkgreen}{rgb}{0,0.55,0}
-		\definecolor{fuxia}{rgb}{1,0,0.98}
-	\fi
 
 
 
@@ -180,7 +181,7 @@
     \input{src/05_Codice}
  	\input{src/06_Risultati}   
  	\input{src/07_Conclusioni}
- 	\input{src/08_appendice}
+ 	%\input{src/08_appendice}
  	\input{src/nocite}
     
   %\backmatter
