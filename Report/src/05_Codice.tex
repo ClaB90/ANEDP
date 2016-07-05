@@ -5,7 +5,7 @@
 \label{chap:Code}
 
 In questo capitolo verranno descritte la struttura di base e le funzioni principali del codice sviluppato.
-Per l'implementazione del codice si è utilizzato il solver \href{http://www.freefem.org/}\texttt{FreeFem$++$}\footnote{http://www.freefem.org/} ed il relativo linguaggio di programazione. Durante tutte le fasi di sviluppo del codice è stata utilizzata la piattaforma di hotsing web \href{https://github.com/}{\texttt{GitHub}}\footnote{https://github.com/}. Questo ha sia reso più fluida la collaborazione fra gli autori che garantito un maggiore controllo sull'avanzamento del codice.
+Per l'implementazione del codice si è utilizzato il solver \href{http://www.freefem.org/}\texttt{FreeFem$++$}\footnote{http://www.freefem.org/} ed il relativo linguaggio di programazione. Durante tutte le fasi di sviluppo del codice è stata utilizzata la piattaforma di hosting web \href{https://github.com/}{\texttt{GitHub}}\footnote{https://github.com/}. Questo ha sia reso più fluida la collaborazione fra gli autori che garantito un maggiore controllo sull'avanzamento del codice.
 
 \subsection{Strumenti di sviluppo}
 \subsubsection{\texttt{FreeFem$++$}}
@@ -177,8 +177,8 @@ In particolare il termine noto, per una corretta proiezione sullo spazio $U_{ad}
 \begin{equation}
 xx = -\frac{1}{\alpha}*{S^{*}}_{h}(w)
 \end{equation}
-La seconda, denominata \texttt{mat1(real[int] \&xx, real[int] \&ww)}, risolve invece l'operatore $S_h\mathbbm{1}_{S^*_hw}$ applicato sempre a un termine noto xx. Questa operazione è necessaria per la costruzione di \eqref{newton}. Il vettore in ingresso ww contiene i valori dell'indicatrice $\mathbbm{1}_{S^*_hw}$.
-L'algortimo seguito dalle queste funzioni è simile. Le differenze principali si trovano nella definizione del termine noto per il problema di stato. Nel primo caso verrà introdotta:
+La seconda, denominata \texttt{mat1(real[int] \&xx, real[int] \&ww)}, rappresenta invece l'operatore $S_h\mathbbm{1}_{S^*_hw}$ applicato sempre a un termine noto xx. Questa operazione è necessaria per la costruzione di \eqref{newton}. Il vettore in ingresso ww contiene i valori dell'indicatrice $\mathbbm{1}_{S^*_hw}$.
+L'algoritmo seguito da queste funzioni è simile. Le differenze principali si trovano nella definizione del termine noto per il problema di stato. Nel primo caso verrà introdotta:
 \begin{Code}[caption={Matrice \texttt{tnnew(w,wtest)} per \texttt{stateCG(real[int] \&xx)}}]
 varf tnnew(w,wtest) =   int2d(Th)( wold*wtest/dt )
 				  	  - int2d(Th)( gamma2*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) ) )
@@ -196,9 +196,9 @@ varf tnnew(w,wtest) =  int2d(Th)( wold*wtest/dt)
 				     + int2d(Th)(gamma3*g*((indnew<=b)*(indnew>=a)*listate*wtest))
 					 + int2d(Th)(gamma4*g*((indold<=b)*(indold>=a)*loldstate*wtest));
 \end{Code}
-dove le variabili \textit{listate}, \textit{listateold} rappresentano i valori dell'operazione di controllo dovuta al moltiplicatore di Lagrange, mentre \textit{indnew} ed \textit{indold} quelli dell'indicatrice $\mathbbm{1}_{S^*_hw}$.
+dove le variabili \textit{listate}, \textit{listateold} rappresentano i valori di $ S^*_h\delta w $, mentre \textit{indnew} ed \textit{indold} quelli dell'indicatrice $\mathbbm{1}_{S^*_hw}$.
 In entrambe lo schema di integrazione temporale per il problema di stato segue la variante dello schema di Crank-Nicolson(CN) introdotta precedentemente per l'\textbf{Algoritmo} \ref{PuntoFisso} di punto fisso.
 \par
 La funzione \texttt{adjCG(real[int,int] \&xx)} implementa l'operatore $S^*_h$; risolve il problema aggiunto ad ogni passo temporale dato un termine noto xx e restituisce la soluzione in un opportuno vettore. Il procedimento utilizzato rispecchia quello precedentemente implementato per il metodo di punto fisso.
-La funzione \texttt{CG(real[int,int] \&xx, real[int,int] \&ww)} risolve il sistema di equazioni \eqref{newton} tramite il metodo del gradiente coniugato introdotto in \ref{CG}. Ia matrice ww corrisponde al valore iniziale ${\delta}w^0$  mentre xx. CHIEDI EDO!
+La funzione \texttt{CG(real[int,int] \&xx, real[int,int] \&ww)} risolve il sistema di equazioni \eqref{newton} tramite il metodo del gradiente coniugato introdotto in \ref{CG}. Il vettore ww corrisponde al valore iniziale ${\delta}w^0$  mentre xx la funzione $ w $ per l'iterazione di Newton in questione.
 Infine la funzione \texttt{DampedNewton()} risolve l'\textbf{Algoritmo} \ref{DN} rispettando il criterio di tolleranza \eqref{eq:DNtoll}.

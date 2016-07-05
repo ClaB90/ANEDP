@@ -2,7 +2,7 @@
 \section{Risultati numerici}
 \label{chap:Results}
 In questo capitolo verranno esposti i risultati numerici ottenuti.
-I due esempi utilizzati come casi tests sono stati presi da \cite{MAIN}.
+I due esempi utilizzati come casi test sono stati presi da \cite{MAIN}.
 In entrambi questi esempi verrà considerato l'operatore lineare affine $\tilde{B}$ \eqref{eq:210}.
 \par
 Si considera come dominio spaziale il quadrato $ \Omega = (0,1)^2$ ed una mesh uniforme definita da
@@ -12,12 +12,12 @@ Si considera come dominio spaziale il quadrato $ \Omega = (0,1)^2$ ed una mesh u
 
 \subsection{Test Case 01}
 \subsubsection{Set-up}
-Il primo esempio considerato, in accordo con l'ipotesi i) introdotta nella sezione \ref{chap:Continuos}.
-Preso il dominio spazio-temporale $\Omega \times I = (0,1)^2 \times (0,0.01)$ e d=1, si considera l'operatore di controllo lineare affine $\tilde{B}$ che può essere completamente caratterizato da:
+Il primo esempio considerato è in accordo con l'ipotesi i) introdotta nella sezione \ref{chap:Continuos}.
+Preso il dominio spazio-temporale $\Omega \times I = (0,1)^2 \times (0,0.01)$ e d=1, si considera l'operatore di controllo lineare affine $\tilde{B}$ che può essere completamente caratterizzato da:
 {\renewcommand\arraystretch{2}
 \begin{equation}
 \begin{array}{c}
-g_1(t,x_1,x_2) = sin({\pi}x_1)sin({\pi}x_2)\\
+g_1(x_1,x_2) = sin({\pi}x_1)sin({\pi}x_2)\\
 g_0(t,x_1,x_2) = -{\pi}^2w_a(t,x_1,x_2) - BP_{U_{ad}} \left( -\frac{1}{4\alpha}(exp(a{\pi}^2t)-exp(a{\pi}^2T)) \right)
 \end{array}
 \label{eq:500}
@@ -28,18 +28,18 @@ dove
 w_a(t,x_1,x_2) = exp(a{\pi}^2t)sin({\pi}x_1)sin({\pi}x_2) \text{, } a \in \mathbb{R}
 \label{eq:501}
 \end{equation}
-In particolare vengono considerate le costanti $a=-\sqrt{5}$ ed $\alpha={pi}^{-4}$.
+In particolare vengono considerate le costanti $a=-\sqrt{5}$ ed $\alpha={\pi}^{-4}$.
 Come conseguenza di ciò si ha che \eqref{eq:212} verrà riscritta, utilizzando l'aggiunto di B e non $\tilde{B}$, come:
 \begin{equation}
-(B'z)(t) = \int_{\Omega} z(t,x_1,x_2)g_1(t,x_1,x_2) ,dx_1dx_2
+(B'z)(t) = \int_{\Omega} z(t,x_1,x_2)g_1(x_1,x_2) ,dx_1dx_2
 \label{eq:502}
 \end{equation}
 Si definiscono ora:
 {\renewcommand\arraystretch{2}
 \begin{equation}
 \begin{array}{c}
-y_d(t,x_1,x_2) = \frac{a^2 - 5}{2 + a}{pi}^2w_a(t,x_1,x_2) + 2{pi}^2w_a(T,x_1,x_2) \\
-y_0(x_1,x_2) = \frac{- 1}{2 + a}{pi}^2w_a(0,x_1,x_2)
+y_d(t,x_1,x_2) = \frac{a^2 - 5}{2 + a}{\pi}^2w_a(t,x_1,x_2) + 2{\pi}^2w_a(T,x_1,x_2) \\
+y_0(x_1,x_2) = \frac{- 1}{2 + a}{\pi}^2w_a(0,x_1,x_2)
 \end{array}
 \label{eq:503}
 \end{equation}
@@ -49,8 +49,8 @@ Infine definiamo le soluzioni esatte per il problema di controllo ottimo \ref{eq
 {\renewcommand\arraystretch{2}
 \begin{equation}
 \begin{array}{c}
-\overline{u}(t,x_1,x_2) = P_{U_{ad}} \left( -\frac{1}{4\alpha}(exp(a{\pi}^2t)-exp(a{\pi}^2T)) \right) \\
-\overline{y}(t,x_1,x_2) = \frac{- 1}{2 + a}{pi}^2w_a(0,x_1,x_2) \\
+\overline{u}(t,x_1,x_2) = P_{U_{ad}} \left( -\frac{1}{4\alpha}(\exp(a{\pi}^2t)-\exp(a{\pi}^2T)) \right) \\
+\overline{y}(t,x_1,x_2) = \frac{- 1}{2 + a}{\pi}^2w_a(0,x_1,x_2) \\
 \overline{p}(t,x_1,x_2) = w_a(t,x_1,x_2) - w_a(T,x_1,x_2)
 \end{array}
 \label{eq:504}
@@ -58,7 +58,7 @@ Infine definiamo le soluzioni esatte per il problema di controllo ottimo \ref{eq
 }
 
 \subsubsection{Risultati Numerici}
-La tabelle \ref{puntofissoI}, \ref{puntofissoIbis}, \ref{newtonI} e \ref{newtonIbis} mostrano il comportamento degli errori considerati e il valore dell'ordine di convergenza per diverse griglie temporali. Si può notare che sia per l'algoritmo di punto fisso che quello di semi-Newton l'andamento dell'errore \ref{eq:errcon} è di $O(k^2)$ in accordo col risultato teorico \ref{controlteo} e con i risultati numerici di \cite{MAIN}. In particolare si nota che l'ordine di convergenza diminuisce per l'ultimo livello in cui la griglia temporale non è più indipendente da quella spaziale. Essendo la variabile di stato costante a tratti nel tempo l'ordne di convergenza riscontrato è solo uno, ma un ordine due è ottenuto per la proiezione della variabile di stato $\pi_{{P^*}_k}y_k$ conformemente con il \textbf{Lemma} \ref{conv:stato}.
+La tabelle \ref{puntofissoI}, \ref{puntofissoIbis}, \ref{newtonI} e \ref{newtonIbis} mostrano il comportamento degli errori considerati e il valore dell'ordine di convergenza per diverse griglie temporali. Si può notare che sia per l'algoritmo di punto fisso che quello di semi-Newton l'andamento dell'errore \ref{eq:errcon} è di $O(k^2)$ in accordo col risultato teorico \ref{controlteo} e con i risultati numerici di \cite{MAIN}. In particolare si rileva che l'ordine di convergenza diminuisce per l'ultimo livello in cui la griglia temporale non è più indipendente da quella spaziale. Essendo la variabile di stato costante a tratti nel tempo l'ordne di convergenza riscontrato è solo uno, ma un ordine due è ottenuto per la proiezione della variabile di stato $\pi_{{P^*}_k}y_k$ conformemente con il \textbf{Lemma} \ref{conv:stato}.
 
 \begin{table}
 \caption{Punto fisso per Test case 01: errori e EOC }
@@ -180,23 +180,23 @@ La tabelle \ref{puntofissoI}, \ref{puntofissoIbis}, \ref{newtonI} e \ref{newtonI
 {\includegraphics[width=0.3\linewidth]{img/cap6/Imm_CG_01/ControlSol_N150_l5}}\qquad
 \subfigure[\protect\url{l = 6}]%
 {\includegraphics[width=0.3\linewidth]{img/cap6/Imm_CG_01/ControlSol_N150_l6}}
-\caption{Test Case 01 $\overline{u}$ e $u_k$: risultati dell'algortimod di semi newton}
+\caption{Test Case 01 $\overline{u}$ e $u_k$: risultati dell'algortimo semi Newton}
 \label{fig:502}
 \end{figure}
 
-In figura \ref{eq:500} sono riportati i risultati del paper \cite{MAIN} nei primi tre livelli di raffinamento di griglia. Mentre in \ref{eq:501} e \ref{eq:502} quelli ottenuti con il codice implementato per questo lavoro per ogni livello considerato. In entrambi i casi si vede che una buona approsimazione della soluzione esatta viene raggiunta.
+In figura \ref{eq:500} sono riportati i risultati del paper \cite{MAIN} nei primi tre livelli di raffinamento di griglia. Mentre in \ref{eq:501} e \ref{eq:502} quelli ottenuti con il codice implementato per questo lavoro per ogni livello considerato. In entrambi i casi si vede che una buona approssimazione della soluzione esatta viene raggiunta.
 \par
-Per l'algoritmo di punto fisso sono richieste cinque o sei iterazioni per ogni griglia temporale prima di arrivare a convergenza, considerando un valore di tolleranza di $toll=10^{-05}$. Mentre per quello di Newton ne bastano quattro. 
+Per l'algoritmo di punto fisso sono richieste cinque o sei iterazioni per ogni griglia temporale prima di arrivare a convergenza, considerando un valore di tolleranza di $toll=10^{-5}$. Mentre per quello di Newton ne bastano quattro. 
 
-\section{Test Case 02}
+\subsection{Test Case 02}
 \subsubsection{Set-up}
-Il primo esempio considerato, in accordo con l'ipotesi i) introdotta in Chapter nella sezione \ref{chap:Continuos}.
-Preso il dominio spazio-temporale $\Omega \times I = (0,1)^2 \times (0,0.5)$ e d=1, si considera l'operatore di controllo lineare affine $\tilde{B}$ che può essere completamente caratterizato da:
+Il secondo esempio considerato è in accordo con l'ipotesi i) introdotta in \ref{chap:Continuos}.
+Preso il dominio spazio-temporale $\Omega \times I = (0,1)^2 \times (0,0.5)$ e d=1, si considera l'operatore di controllo lineare affine $\tilde{B}$ che può essere completamente caratterizzato da:
 {\renewcommand\arraystretch{2}
 \begin{equation}
 \begin{array}{c}
-g_1(t,x_1,x_2) = sin({\pi}x_1)sin({\pi}x_2)\\
-g_0(t,x_1,x_2) = g_1(t,x_1,x_2) 2\pi \left( -\frac{a}{T}sin\left( \frac{t}{T}2{\pi}a \right) + \pi cos\left( \frac{t}{T}2{\pi}a \right) \right) - B\overline{u}
+g_1(x_1,x_2) = sin({\pi}x_1)sin({\pi}x_2)\\
+g_0(t,x_1,x_2) = g_1(x_1,x_2) 2\pi \left( -\frac{a}{T}sin\left( \frac{t}{T}2{\pi}a \right) + \pi cos\left( \frac{t}{T}2{\pi}a \right) \right) - B\overline{u}
 \end{array}
 \label{eq:505}
 \end{equation}
@@ -207,7 +207,7 @@ Si definiscono ora:
 \begin{equation}
 \begin{array}{c}
 y_d(t,x_1,x_2) = g_1\left( cos\left( \frac{t}{T}2{\pi}a \right)(1-2{\pi}^2) -\frac{2{\pi}a}{T}sin\left( \frac{t}{T}2{\pi}a \right) +2{\pi}^2cos(2{\pi}a) \right)\\
-y_0(x_1,x_2) = g_1(t,x_1,x_2)
+y_0(x_1,x_2) = g_1(x_1,x_2)
 \end{array}
 \label{eq:506}
 \end{equation}
@@ -218,7 +218,7 @@ Infine definiamo le soluzioni esatte per il problema di controllo ottimo \ref{eq
 \begin{equation}
 \begin{array}{c}
 \overline{u}(t,x_1,x_2) = P_{U_{ad}} \left( -\frac{1}{4\alpha}cos \left( \frac{t}{T}2{\pi}a \right) +\frac{1}{4\alpha} \right) \\
-\overline{y}(t,x_1,x_2) = \frac{- 1}{2 + a}{pi}^2w_a(0,x_1,x_2) \\
+\overline{y}(t,x_1,x_2) = \frac{- 1}{2 + a}{\pi}^2w_a(0,x_1,x_2) \\
 \overline{p}(t,x_1,x_2) = w_a(t,x_1,x_2) - w_a(T,x_1,x_2)
 \end{array}
 \label{eq:507}
@@ -232,21 +232,21 @@ w_a(t,x_1,x_2) = cos \left( \frac{t}{T}2{\pi}a \right) \cdot g_1(t,x_1,x_2)
 
 \subsubsection{Risultati Numerici}
 I risultati per gli errori di convergenza sono gli stessi tratti per il caso 01 e rispecchiano quelli esposti in \cite{MAIN}. Essendo la soluzione esatta $\overline{u}$ più complessa in questo test case, si nota che i primi due livelli di griglia non danno risultati rappresentativi. Infatti il numero di punti di non derivabilità della $\overline{u}$ è maggiore dei nodi della griglia temporale considerata.
-La perdita riscontrata nell'ordine di convergenza per l'ultima mesh temporale è invece da attribuire all'avvicinamento con la griglia spaziale. (EDO)
+La perdita riscontrata nell'ordine di convergenza per l'ultima mesh temporale è invece da attribuire all'influenza dell'errore in spazio.
 \par
-In figura \ref{eq:503} sono riportati i risultati del paper \cite{MAIN} nei primi tre livelli di raffinamento di griglia. Mentre in \ref{eq:504} e \ref{eq:505} quelli ottenuti con il codice implementato per questo lavoro per ogni livello considerato. In entrambi i casi si vede che una buona approsimazione della soluzione esatta viene raggiunta.
+In figura \ref{eq:503} sono riportati i risultati del paper \cite{MAIN} nei primi tre livelli di raffinamento di griglia. Mentre in \ref{eq:504} e \ref{eq:505} quelli ottenuti con il codice implementato per questo lavoro per ogni livello considerato. In entrambi i casi si vede che una buona approssimazione della soluzione esatta viene raggiunta.
 \par
-Per l'algoritmo di punto fisso sono richieste due iterazioni per ogni griglia temporale prima di arrivare a convergenza, considerando un valore di tolleranza di $toll=10^{-05}$. Mentre per quello di Newton ne bastano tre se viene introdotto un criterio di tolleranza aggiuntivo tale per cui:
+Per l'algoritmo di punto fisso sono richieste due iterazioni per ogni griglia temporale prima di arrivare a convergenza, considerando un valore di tolleranza di $toll=10^{-5}$, mentre per quello di Newton ne bastano tre se viene introdotto un criterio di tolleranza aggiuntivo tale per cui:
 \begin{equation}
-\norma{\nabla\phi(w^k)} - \norma{\nabla\phi(w^(k+1)} > t_0
+\norma{\nabla\phi(w^k)} - \norma{\nabla\phi(w^{k+1}} > t_0
 \label{primanorma}
 \end{equation} 
 oppure quattro se viene considerato invece:
 \begin{equation}
-\norma{\nabla\phi(w^k) - \nabla\phi(w^(k+1)} > t_0
+\norma{\nabla\phi(w^k) - \nabla\phi(w^{k+1}} > t_0
 \label{secondanorma}
 \end{equation}
-Col criterio \ref{primanorma} l'algoritmo converge in tre passi per ogniuna delle mesh considerate. Mentre utilizzano \ref{secondanorma} si ha la convergenza dopo nove passi per la prima griglia utilizzata e mentre quattro dalla successiva in avanti.
+Col criterio \ref{primanorma} l'algoritmo converge in tre passi per ognuna delle mesh considerate. Mentre utilizzando \ref{secondanorma} si ha la convergenza dopo nove passi per la prima griglia utilizzata e quattro dalla successiva in avanti.
 
 \begin{figure}
 \centering

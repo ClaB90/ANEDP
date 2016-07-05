@@ -41,8 +41,8 @@ dove $ \chi_{U_{ad}} $ indica la funzione caratteristica dell'insieme $ U_{ad} $
 \begin{equation}
 \chi_{U_{ad}}=
 \begin{cases}
-0,        &\text{su} U_{ad},\\
-\infty   &\text{su} L^2(I,L^2(\Omega))\setminus U_{ad}.
+0,        &\text{su} \ U_{ad},\\
+\infty   &\text{su} \ L^2(I,L^2(\Omega))\setminus U_{ad}.
 \end{cases}
 \end{equation}
 Si verifica che $ \phi $ è differenziabile con derivata lipschitziana e fortemente convessa, infatti
@@ -60,7 +60,7 @@ Si osservi che, poiché il gradiente $ \nabla\phi(w) $ ammette sottogradiente, �
 \min_{w\in L^2(I,L^2(\Omega))} \phi(w).
 \end{equation}
 Grazie alla forte convessità, il problema \eqref{P'k} ammette un'unica soluzione $ w^* $ che soddisfa $ \nabla\phi(w^*)=0 $.
-Una strategia di Newton semi-regolare per ~\eqref{P'k} significa risolvere 
+Una strategia di Newton semi-regolare per ~\eqref{P'k} significa risolvere ad ogni passo
 \begin{equation}
 \label{newton}
 \big( I + \frac{1}{\alpha}S_h\mathbbm{1}_{S^*_hw}S^*_h\big)\delta w=-(w+y_d)+S_hP{U_{ad}}\big( -\frac{1}{\alpha}S^*_hw\big).

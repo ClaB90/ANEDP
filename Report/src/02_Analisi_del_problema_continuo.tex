@@ -2,8 +2,8 @@
 \section{Analisi del problema continuo}
 \label{chap:Continuos}
 
-In questo studio vengono considerati un dominio poligonale convesso $\Omega \in \mathbb{R}^n$, dove $n=2,3$, con cui bordo viene indicato con $\partial\Omega$, ed un intervallo temporale $I = (0,T) \subset \mathbb{R}$, $T < \infty$. 
-Per l'analisi seguente viene introdotta la terna hilbertiana (${H^{0}_{1}(\Omega)},{L^{2}(\Omega)},{H^{-1}(\Omega)}$).
+In questo studio vengono considerati un dominio poligonale convesso $\Omega \in \mathbb{R}^n$, dove $n=2,3$, il cui bordo viene indicato con $\partial\Omega$, ed un intervallo temporale $I = (0,T) \subset \mathbb{R}$, $T < \infty$. 
+Per l'analisi seguente viene introdotta la terna hilbertiana (${H^{1}_{0}(\Omega)},{L^{2}(\Omega)},{H^{-1}(\Omega)}$).
 Il problema di controllo ottimo lineare quadratico analizzato è defnito come:
 {\renewcommand\arraystretch{2}
 \begin{equation}
@@ -28,19 +28,19 @@ Il problema di stato è definito in forma forte e in forma debole rispettivament
 \end{array}
 \label{eq:201}
 \end{equation}
-$\text{?} y \in W(I) \text{ con } y(0)=\kappa \text{ e } \text{con (f,}\kappa) \in L^2(I,{H^{-1}(\Omega)})\times {L^{2}(\Omega)}$ \\
+$\text{Trovare} y \in W(I) \text{ con } y(0)=\kappa \text{ e } \text{con (f,}\kappa) \in L^2(I,{H^{-1}(\Omega)})\times {L^{2}(\Omega)}$ \\
 tale che:
 %{\renewcommand\arraystretch{1.4}
 \begin{equation}
 \begin{array}{c}
-	\int_{0}^{T} \left \langle {\partial_{t}}y(t),v(t) \right \rangle_{{H^{-1}(\Omega)}{H^{0}_{1}(\Omega)}} \, dt +  	\int_{0}^{T} a(y(t),v(t)) \, dt  \\
+	\int_{0}^{T} \left \langle {\partial_{t}}y(t),v(t) \right \rangle_{{H^{-1}(\Omega)}{H^{1}_{0}(\Omega)}} \, dt +  	\int_{0}^{T} a(y(t),v(t)) \, dt  \\
 	 = \\
 	\int_{0}^{T} \left \langle f(t),v(t) \right \rangle_{{H^{-1}(\Omega)}{H^{0}_{1}(\Omega)}} \, dt \ \ \forall v \in L^2(I,{H^{0}_{1}(\Omega)}) \\
 \end{array}
 \label{eq:202}
 \end{equation}
 %}
-dove $y(t) e v(T) \in {H^{0}_{1}(\Omega)}$ e la forma bilineare $a(y(t),v(t)): {H^{0}_{1}(\Omega)}{\times}{H^{0}_{1}(\Omega)}\rightarrow\mathbb{R}$ è definita come:
+dove $y(t),\ v(T) \in {H^{0}_{1}(\Omega)} \text{ e } $ e la forma bilineare $a(y(t),v(t)): {H^{1}_{0}(\Omega)}{\times}{H^{1}_{0}(\Omega)}\rightarrow\mathbb{R}$ è definita come:
 \begin{equation}
  a(y,v) = \int_{\Omega} {\bigtriangledown}y(x){\bigtriangledown}v(x) \, dx
 \label{eq:203}
@@ -62,20 +62,20 @@ S : L^2(I,{H^{-1}(\Omega)}) \times {L^{2}(\Omega)} \rightarrow Y \text{, } (f,\k
 \end{equation}
 Applicando l'integrazione per parti sul \ref{eq:202} si ricava che:
 \begin{equation}
-A(y,v) = \int_{0}^{T} \left \langle f(t),v(t) \right \rangle_{{H^{-1}(\Omega)}{H^{0}_{1}(\Omega)}} \, dt + ({\kappa},v(0))_{L^{2}(\Omega)}
+A(y,v) = \int_{0}^{T} \left \langle f(t),v(t) \right \rangle_{{H^{-1}(\Omega)}{H^{1}_{0}(\Omega)}} \, dt + ({\kappa},v(0))_{L^{2}(\Omega)}
 \label{eq:206}
 \end{equation}
 dove $y{\in}Y$ è la soluzione di \ref{eq:202}, $v{\in}Y$ è la funzione test e la forma bilineare $A(y,v): Y{\times}Y\rightarrow\mathbb{R}$ è definita come:
 \begin{equation}
- A(y,v) = \int_{0}^{T} -\left \langle {\partial_{t}}v(t),y(t) \right \rangle_{{H^{-1}(\Omega)}{H^{0}_{1}(\Omega)}} \, dt + \int_{0}^{T} a(y(t),v(t)) \, dt + (y(T),v(T))_{L^{2}(\Omega)}
+ A(y,v) = \int_{0}^{T} -\left \langle {\partial_{t}}v(t),y(t) \right \rangle_{{H^{-1}(\Omega)}{H^{1}_{0}(\Omega)}} \, dt + \int_{0}^{T} a(y(t),v(t)) \, dt + (y(T),v(T))_{L^{2}(\Omega)}
 \label{eq:207}
 \end{equation}
-Per i risultati di stabilità, la consistenza e la convergenza di \eqref{eq:201}, noti in letteratura, si definisce y come soluzione unica di \eqref{eq:206}. L'equazione \eqref{eq:207} è necessaria per la definire  lo schema di approsimazione numerica per l'equazione di stato come descritto nella sezione successiva \ref{chap:Discontinuos}.
+Per i risultati di stabilità, la consistenza e la convergenza di \eqref{eq:201}, noti in letteratura, si definisce y come soluzione unica di \eqref{eq:206}. L'equazione \eqref{eq:207} è necessaria per la definire  lo schema di approssimazione numerica per l'equazione di stato come descritto nella sezione successiva \ref{chap:Discontinuos}.
 
 \subsection{Spazio del Controllo}
-Nello scenario descritto precedentemente la scelta per lo spazio di controllo non è unica. Seguendo le linee guida di \cite{MAIN} questo viene difinito come $U = L^2(I,\mathbb{R}^d), d \in \mathbb{N}$. Presi dunque $a_i, b_i \in \mathbb{R}$ t.c. $a_i<b_i {\forall}i=1:d$ la regione ammissibile, costituita da un insieme chiuso e convesso, è definita come:
+Nello scenario descritto precedentemente la scelta per lo spazio di controllo non è unica. Seguendo le linee guida di \cite{MAIN} questo viene definito come $U = L^2(I,\mathbb{R}^d), d \in \mathbb{N}$. Presi dunque $a_i, b_i \in \mathbb{R}$ t.c. $a_i<b_i \ {\forall}i=1:d$ la regione ammissibile, costituita da un insieme chiuso e convesso, è definita come:
 \begin{equation}
-U_{ad} = \left\{ u \in U | a_i \leq u_i(t) \geq b_i {\forall}i=1:d  \right\}
+U_{ad} = \left\{ u \in U | a_i \leq u_i(t) \leq b_i {\forall}i=1:d  \right\}
 \label{eq:208}
 \end{equation}
 in questo caso, introdotti i funzionali $g_i \in {H^{-1}(\Omega)}$ l'operatore di controllo B, lineare e limitato, è definito da \ref{eq:209}.
@@ -83,12 +83,12 @@ in questo caso, introdotti i funzionali $g_i \in {H^{-1}(\Omega)}$ l'operatore d
 B : U \rightarrow L^2(I,{H^{-1}(\Omega)}), u\mapsto \left( t\mapsto\sum_{i=1}^d u_i(t)g_i \right)
 \label{eq:209}
 \end{equation}
-Si nota che l'operatore di controllo B può essere sostituito con l'operatore lineare affine $\tilde{B}$ definito come:
+Si noti che la teoria presentata rimane valida se l'operatore di controllo B viene sostituito con l'operatore lineare affine $\tilde{B}$ definito come:
 \begin{equation}
 \tilde{B} : U \rightarrow L^2(I,{H^{-1}(\Omega)}) \text{, } u\mapsto g_0 + Bu
 \label{eq:210}
 \end{equation}
-Affinchè non si perda la validità dei risultati che verranno esposti in seguito si suppone $g_0 \in L^2(I,{L^{2}(\Omega)})$ ed $g_0(0) \in {H^{0}_{1}(\Omega)}$
+Affinchè non si perda la validità dei risultati che verranno esposti in seguito si suppone $g_0 \in L^2(I,{L^{2}(\Omega)})$ ed $g_0(0) \in {H^{1}_{0}(\Omega)}$
 \MakeUppercase{è} quindi possibile introdurre l'operatore di proiezione ortogonale 
 \begin{equation}
 P_{U_{ad}} : L^2(I,\mathbb{R}^d)\rightarrow U_{ad}
@@ -102,11 +102,6 @@ Vengono ora introdotti la variabile aggiunta $(\overline{p},\overline{q}) \in L^
 B'q(t) = ( \left \langle g_1,q(t) \right \rangle_{{H^{-1}(\Omega)}{H^{0}_{1}(\Omega)}}, . . . ,\left \langle g_d,q(t) \right \rangle_{{H^{-1}(\Omega)}{H^{0}_{1}(\Omega)}})^T
 \label{eq:212}
 \end{equation}
-Il controllo ottimo, utilizzando l'operatore di proiezione ortogonale \ref{eq:211}, è caratterizatto dalla seguente condizione necessaria e suffciente di prim ordine:
-\begin{equation}
-\overline{u}=P_{U_{ad}}\left( -\frac{1}{\alpha}B'\overline{p} \right)
-\label{eq:213}
-\end{equation}
 \begin{equation}
 \begin{array}{c}
 	\int_{0}^{T} \left \langle {\partial_{t}}\tilde{y}(t),\overline{p}(t) \right \rangle_{{H^{-1}(\Omega)}{H^{0}_{1}(\Omega)}} \, dt +  	\int_{0}^{T} a(\tilde{y}(t),\overline{p}(t)) \, dt + (\tilde{y}(0),\overline{q})_{L^{2}(\Omega)}  \\
@@ -115,13 +110,18 @@ Il controllo ottimo, utilizzando l'operatore di proiezione ortogonale \ref{eq:21
 \end{array}
 \label{eq:214}
 \end{equation}
-Si nota che per $v \in L^2(I,\mathbb{R}^d)$ vale che:
+Il controllo ottimo, utilizzando l'operatore di proiezione ortogonale \ref{eq:211}, è caratterizatto dalla seguente condizione necessaria e sufficiente del primo ordine:
+\begin{equation}
+\overline{u}=P_{U_{ad}}\left( -\frac{1}{\alpha}B'\overline{p} \right)
+\label{eq:213}
+\end{equation}
+Si noti che per $v \in L^2(I,\mathbb{R}^d)$ vale che:
 \begin{equation}
 P_{U_{ad}}(v)(t) = {(P_{[a_i,b_i]}(v_i(t)))_{i=1}}^d
 \label{eq:215}
 \end{equation}
-considerati $a,b,z \in \mathbb{R}$ $P_{[a,b]}(z) = max(a,min(z,b))$.
-Poichè $\overline{y} - y_d \in L^2(I,{L^{2}(\Omega)})$ in \ref{eq:214}, si ha $\overline{p} \in Y$ ed integrando per parti con funzione di Y si trova che:
+considerati $a,b,z \in \mathbb{R}$ $P_{[a,b]}(z) = \max(a,\min(z,b))$.
+Poichè $\overline{y} - y_d \in L^2(I,{L^{2}(\Omega)})$ in \ref{eq:214}, si ha $\overline{p} \in Y$ ed integrando per parti si trova che:
 {\renewcommand\arraystretch{2}
 \begin{equation}
 \begin{array}{c}
@@ -137,8 +137,8 @@ Il problema \ref{eq:216} può essere riscritto in forma forte come:
 \begin{equation}
 \begin{aligned}
 & {\partial_{t}}\overline{p} -\bigtriangleup\overline{p} = h & & \text{in }I{\times}\Omega \\
-& \overline{p}=0 & & \text{in }{\times}\partial\Omega \\
-& \overline{p}(T) & & \text{su }\Omega \\
+& \overline{p}=0 & & \text{in }I{\times}\partial\Omega \\
+& \overline{p}(T)=0 & & \text{su }\Omega \\
 \label{eq:217}
 \end{aligned}
 \end{equation}
@@ -147,6 +147,6 @@ dove $ h= \overline{y} - y_d$ e $\overline{q}=\overline{p}(0)$.
 \subsection{Regolarità}
 Per lo studio della regolarità di \ref{eq:201} e \ref{eq:215} è importante assumere che:
 \begin{itemize}
-\item[i)] $y_d \in H^1(I,{L^{2}(\Omega)})$ e $y_d(T) \in {H^{0}_{1}(\Omega)}$ ed $g_i \in {H^{0}_{1}(\Omega)} {\forall}i=1:d$ e $y_0 \in {H^{0}_{1}(\Omega)}$ con ${\bigtriangleup}y_0 \in {H^{0}_{1}(\Omega)}$.
+\item[i)] $y_d \in H^1(I,{L^{2}(\Omega)})$ e $y_d(T) \in {H^{1}_{0}(\Omega)}$ ed $g_i \in {H^{0}_{1}(\Omega)} \ {\forall}i=1:d$ e $y_0 \in {H^{0}_{1}(\Omega)}$ con ${\bigtriangleup}y_0 \in {H^{0}_{1}(\Omega)}$.
 \end{itemize} 
-Per le dimostrazioni dei risultati esposti in questa sezione si rimanda a \cite{MAIN} o \cite{MV11}
+Per gli enunciati e le dimostrazioni sui risultati di regolarità si rimanda al paragrafo $3$ di \cite{MAIN}.

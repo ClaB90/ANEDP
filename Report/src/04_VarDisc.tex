@@ -16,7 +16,7 @@ J(y,u)=\frac{1}{2}\norma{y-z}^2_Z + \frac{\alpha}{2}\norma{u}^2_U,
 \end{equation}
 dove $ Z=Z^* $ denota uno spazio di Hilbert, $ z\in Z $ e $ Y\hookrightarrow Z\hookrightarrow Y^* $.   
 
-La presente  discretizzazione di ~\eqref{controlpb} si basa sulla discretizzazione dei soli spazi di stato e aggiunto, utilizzando implicitamente le condizioni di ottimalità del primo ordine per la discretizzazione del controllo. Tra i vantaggi di tale approccio si consideri , nel caso si utilizzino schemi ad elementi finiti,  il disaccoppiamento dell'approssimazione dell'\textit{active set} dai nodi della griglia per gli elementi finiti. 
+Il presente  metodo si basa sulla discretizzazione dei soli spazi di stato e aggiunto, utilizzando implicitamente le condizioni di ottimalità del primo ordine per la discretizzazione del controllo. Tra i vantaggi di tale approccio si consideri , nel caso si utilizzino schemi ad elementi finiti,  il disaccoppiamento dell'approssimazione dell'\textit{active set} dai nodi della griglia per gli elementi finiti. 
 
 Per definire il controllo discreto sia $ S_h:U\to Y_h\subset Y\subseteq U$ l'operatore lineare limitato tra il controllo e lo stato discretizzato, dove $ Y_h\subseteq Y $ è uno sottospazio finito-dimensionale equipaggiato con la norma di $ Y $.
 \begin{definizione}
@@ -35,7 +35,7 @@ Nel caso di problemi di controllo quadratici vincolati (come per il presente lav
 u^{*}_{h}= \argmin_{u \in U_{ad}} J(S_hu,u).
 \end{equation}
 
-\end{osservazione}.
+\end{osservazione}
 Se esprimiamo la condizione di ottimalità ~\eqref{contrpbdisc} qualora $ U_{ad}=U $ appare chiaro come sia possibile realizzare uno schema numerico per risolvere un problema di ottimizzazione senza discretizzare lo spazio di controllo:
 \begin{equation}
 u^*_h=-\frac{1}{\alpha}S^*_h(S_hu^*_h-z),
@@ -67,13 +67,18 @@ Qui, $ u^*\in U_{ad} $ denota l'unica soluzione del problema ~\eqref{controlpb}.
 Ora si vuole applicare il metodo di discretizzazione variazionale al problema ~\eqref{eq:200} nei confronti della variabile tempo, dove gli operatori $ S_h $ e $ S^*_h $ sono individuati dagli schemi di Petrov-Galerkin esposti nei capitoli precedenti.
 
 Dunque, il problema (semi)discretizzato da considerare è:
+{\renewcommand\arraystretch{2}
 \begin{equation}
-\begin{array}{c}
-	\min_{y_k\in Y_k, u\in U_{ad}} J(y_k,u)=\frac{1}{2}\norma{y_k-y_d}^2_{L^2(I,L^2(\Omega))} + \frac{\alpha}{2}\norma{u}^2_U, \\
-	\text{s.t.} \ y_k=S_k(Bu,y_0) \\
-\end{array}
+\tag{$\mathbb{P}_k$}
+\begin{aligned}
+& \underset{y_k \in Y_k, u \in U_{ad}}{\text{min}}
+& & J(y_k,u) = \frac{1}{2}\norma{y_k-y_d}^2_{L^2(I,L^2(\Omega))} + \frac{\alpha}{2}\norma{u}^2_U \\
+& \text{s.t.} & & y_k = S(Bu,y_0) \\
 \label{Pk}
+\end{aligned}
 \end{equation}
+} %chiude \renewcommand\arraystretch{1.5}
+
 
 dove $ S_k $ è l'operatore delle soluzioni associato a ~\eqref{eqn:stato}. Grazie ai risultati della precedente sezione questo problema ammette un'unica soluzione $ (\bar{y}_k, \bar{u}_k)\in Y_k\times U_{ad} $, con $ \bar{y}_k=S_k(B\bar{u}_k,y_0) $ e la condizione di ottimalità del primo ordine recita
 \begin{equation}

@@ -6,7 +6,7 @@
 %\subsubsection{Caratteristiche dello schema numerico}
 La sezione inizia introducendo la griglia e gli spazi funzionali utilizzati per la semidiscretizzazione temporale dei problemi di stato e aggiunto.
 
-Si partizioni l'intervallo $[0,T)$ in sottointervalli $I_m=[t_{m-1},t_m)$, dove $0=t_0<t_1<\dots<t_M=T$ sono punti appartenenti al segmento $[0,T)$. Inoltre si affianchi a tale griglia una seconda partizione dell'intervallo $[0,T)$, fondamentale per ottenere i risultati di convergenza dei problemi semidiscretizzati, detta \textit{griglia duale}; essa è composta dagli intervalli $I^*_m=[t^*_{m-1},t^*_m)$, con $0=t^*_0<t^*_1<\dots<t^*_M=T$ e $t^*_m=\frac{t_{m-1}+t_m}{2}\quad\text{per $m=1,\dots,M$}$. Riassumendo si può contare su due suddivisioni dell'intervallo $[0,T)$ tali che $[0,T)=\bigcup^{M+1}_{m=1} I_m$ e $[0,T)=\bigcup^{M+1}_{m=1} I^*_m$.
+Si partizioni l'intervallo $[0,T)$ in sottointervalli $I_m=[t_{m-1},t_m)$, dove $0=t_0<t_1<\dots<t_M=T$ sono punti appartenenti al segmento $[0,T]$. Inoltre si affianchi a tale griglia una seconda partizione dell'intervallo $[0,T)$, fondamentale per ottenere i risultati di convergenza dei problemi semidiscretizzati, detta \textit{griglia duale}; essa è composta dagli intervalli $I^*_m=[t^*_{m-1},t^*_m)$, con $0=t^*_0<t^*_1<\dots<t^*_M=T$ e $t^*_m=\frac{t_{m-1}+t_m}{2}\quad\text{per $m=1,\dots,M$}$. Riassumendo si può contare su due suddivisioni dell'intervallo $[0,T)$ tali che $[0,T)=\bigcup^{M+1}_{m=1} I_m$ e $[0,T)=\bigcup^{M+1}_{m=1} I^*_m$.
 
 Chiaramente la griglia primale avrà un parametro che ne descrive ``l'accuratezza'' che per noi sarà 
 \[
@@ -42,7 +42,7 @@ Nei risultati che si menzioneranno in seguito si farà spesso uso dei seguenti o
 
 
 \subsection{Semidiscretizzazione del problema di stato}
-Uno degli elementi di novità del lavoro \ref{MAIN} è dato proprio dallo schema adottato per la discretizzazione in tempo dell'equazione di stato, che è totalmente variazionale di tipo Petrov-Galerkin. Verranno infatti utilizzati uno spazio di funzioni costanti a tratti per la soluzione e continue lineari a tratti per le test. 
+Uno degli elementi di novità del lavoro \cite{MAIN} è dato proprio dallo schema adottato per la discretizzazione in tempo dell'equazione di stato, che è totalmente variazionale di tipo Petrov-Galerkin. Verranno infatti utilizzati uno spazio di funzioni costanti a tratti per la soluzione e continue lineari a tratti per le test. 
 
 Supponendo di estendere la forma bilineare $A$ di \cite{MAIN} in una mappa $A:W(I)\cup Y_k\times\to\R$, si tratta dunque di risolvere il seguente problema:
 
@@ -75,10 +75,14 @@ e attraverso facili calcoli si arriva alla formulazione del problema~\eqref{eqn:
 \end{enumerate}
 Alla luce di questa seconda formulazione si evince che lo schema di Petrov-Galerkin introdotto è equivalente ad una variante del metodo di Crank-Nicolson con primo e ultimo passo temporale di Rannacher, e sempre dalla seconda formulazione risulta chiaro che il problema semidiscretizzato ammette unica soluzione $y_k\in Y_k$.
 
-A questo punto vengono enunciati senza dimostrazione alcuni risultati tratti da \cite{MAIN} che garantiscono la stabilità e convergenza del metodo di Petrov-Galerkin. Per la stabilità:
+Prima di enunciare senza dimostrazione alcuni risultati tratti da \cite{MAIN} che garantiscono la stabilità e convergenza del metodo di Petrov-Galerkin, aggiungiamo le seguenti abbreviazioni
+\begin{equation}
+\norma{\cdot}_I:=\norma{\cdot}_{L^2(I,L^2(\Omega))}, \quad \lvert \cdot \rvert_I:=\norma{\cdot}_{L^2(I,\R^d)}.
+\end{equation}
+Ora, per la stabilità:
  \begin{lemma} 
  \label{stab:stato}
- Sia $y_k\in Y_k$ la soluzione di~\eqref{eqn:stato} con $f\in L^2(I,L^2(\Omega))$ e $\kappa\in L^2(\Omega)$ assegnati. Allora esiste una costante $C>0$ indipendente dal parametro di griglia $k$ tale che
+ Sia $y_k\in Y_k$ la soluzione di \eqref{eqn:stato} con $f\in L^2(I,L^2(\Omega))$ e $\kappa\in L^2(\Omega)$ assegnati. Allora esiste una costante $C>0$ indipendente dal parametro di griglia $k$ tale che
  \[
  \norma{y_k}_I\le C(\norma{f}_I + \norma{\kappa}_{L^2(\Omega)})
  \]
@@ -95,7 +99,7 @@ A questo punto vengono enunciati senza dimostrazione alcuni risultati tratti da 
 \subsubsection{Passo di Rannacher}
 In questa sezione si espone brevemente cosa significhi un passo di Rannacher all'interno di uno schema numerico per la soluzione di EDP.
 
-Come è noto i problemi lineari continui di diffusione esibiscono il cosiddetto `` effetto regolarizzante '' ovvero che la soluzione dell'equazione del calore in assenza di coefficienti discontinui è di classe $ C^{\infty} $ anche se il dato iniziale è una distribuzione. Le modifiche di uno schema numerico per equazioni paraboliche attraverso alcuni passi di Rannacher servono proprio a restituire questa proprietà anche al problema discreto.
+Come è noto i problemi lineari continui di diffusione esibiscono il cosiddetto `` effetto regolarizzante ''; infatti per esempio la soluzione dell'equazione del calore in assenza di coefficienti discontinui è di classe $ C^{\infty} $ anche se il dato iniziale è una distribuzione. Le modifiche di uno schema numerico per equazioni paraboliche attraverso alcuni passi di Rannacher servono proprio a restituire questa proprietà anche al problema discreto.
 
 Per essere più concreti, si consideri la seguente equazione lineare di diffusione-convezione
 \begin{gather}
