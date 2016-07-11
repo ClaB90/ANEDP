@@ -315,6 +315,7 @@ Gli strumenti di sviluppo utilizzati sono \textbf{Freefem++} e \textbf{GitHub}
 \end{frame}
 
 \section{Risultati}
+\subsection{Test Case 01}
 
 \begin{frame}
 \frametitle{Test Case 01 Punto fisso $\overline{u}$ e $u_k$}
@@ -322,23 +323,21 @@ Gli strumenti di sviluppo utilizzati sono \textbf{Freefem++} e \textbf{GitHub}
 \begin{figure}
 \centering
 \subfigure[\protect\url{l = 1}]%
-{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_PF_01/ControlSol_N150_l1}}\qquad
+{\includegraphics[width=0.25\linewidth]{img/cap6/Imm_PF_01/ControlSol_N150_l1}}\qquad
 \subfigure[\protect\url{l = 2}]%
-{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_PF_01/ControlSol_N150_l2}}\qquad
+{\includegraphics[width=0.25\linewidth]{img/cap6/Imm_PF_01/ControlSol_N150_l2}}\qquad
 \subfigure[\protect\url{l = 3}]%
-{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_PF_01/ControlSol_N150_l3}}\qquad
+{\includegraphics[width=0.25\linewidth]{img/cap6/Imm_PF_01/ControlSol_N150_l3}}\qquad
 \subfigure[\protect\url{l = 4}]%
-{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_PF_01/ControlSol_N150_l4}}\qquad
+{\includegraphics[width=0.25\linewidth]{img/cap6/Imm_PF_01/ControlSol_N150_l4}}\qquad
 \subfigure[\protect\url{l = 5}]%
-{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_PF_01/ControlSol_N150_l5}}\qquad
+{\includegraphics[width=0.25\linewidth]{img/cap6/Imm_PF_01/ControlSol_N150_l5}}\qquad
 \subfigure[\protect\url{l = 6}]%
-{\includegraphics[width=0.3\linewidth]{img/cap6/Imm_PF_01/ControlSol_N150_l6}}
+{\includegraphics[width=0.25\linewidth]{img/cap6/Imm_PF_01/ControlSol_N150_l6}}
 \label{fig:501}
 \end{figure}
 
 \end{frame}
-
-
 
 \begin{frame}
 \frametitle{Test Case 01 Punto fisso}
@@ -389,11 +388,233 @@ Gli strumenti di sviluppo utilizzati sono \textbf{Freefem++} e \textbf{GitHub}
 
 \begin{frame}
 \frametitle{Test Case 01 Semi-Newton}
+\begin{figure}
+\centering%
+\subfigure[\protect\url{l = 1}]%
+{\includegraphics[width=0.25\linewidth]{img/cap6/Imm_CG_01/ControlSol_N150_l1}}\qquad
+\subfigure[\protect\url{l = 2}]%
+{\includegraphics[width=0.25\linewidth]{img/cap6/Imm_CG_01/ControlSol_N150_l2}}\qquad
+\subfigure[\protect\url{l = 3}]%
+{\includegraphics[width=0.25\linewidth]{img/cap6/Imm_CG_01/ControlSol_N150_l3}}\qquad
+\subfigure[\protect\url{l = 4}]%
+{\includegraphics[width=0.25\linewidth]{img/cap6/Imm_CG_01/ControlSol_N150_l4}}\qquad
+\subfigure[\protect\url{l = 5}]%
+{\includegraphics[width=0.25\linewidth]{img/cap6/Imm_CG_01/ControlSol_N150_l5}}\qquad
+\subfigure[\protect\url{l = 6}]%
+{\includegraphics[width=0.25\linewidth]{img/cap6/Imm_CG_01/ControlSol_N150_l6}}
+%\caption{Test Case 01 $\overline{u}$ e $u_k$: risultati dell'algortimo semi Newton}
+\label{fig:502}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Test Case 01 Semi-Newton}
+
+\begin{table}
+\caption{Newton per Test case 01: errori e EOC }
+\label{newtonI}
+\centering
+
+\begin{tabular}{cllll}
+\toprule
+{l}           &  {$ \norma{\bar{u}-u_{kh}}_{L^2(L^2)} $} &  {$ \norma{\bar{y}-y_{kh}}_{L^2(L^2)} $} &  {$ EOC_u $} &  {$ EOC_y $} \\
+\midrule
+1            &  0.316669 &  0.981285 &  {$-$} &  {$-$} \\
+2            &  0.0835064 &  0.496296 &  2.60937 &  1.33449 \\
+3            &  0.0209612 &  0.248822 &  2.35161 &  1.17464 \\
+4            &  0.00500971 &  0.124494  &  2.25051 &  1.08882 \\
+5            &  0.00109312 &  0.0622586 &  2.29512 &  1.04473 \\
+6            &  0.000497833 &  0.0311327 &  1.16028 &  1.02236 \\
+\bottomrule
+\end{tabular}              
+\end{table}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Test Case 01 Semi-Newton}
+\begin{table}
+\caption{Newton per Test case 01: errori e EOC }
+\label{newtonIbis}
+\centering
+
+\begin{tabular}{cllll}
+\toprule
+{l}           &  {$ \norma{\bar{y}-\pi_{P^*_k}y_{kh}}_{L^2(L^2)} $} & {$ \norma{\bar{p}-p_{kh}}_{L^2(L^2)} $} &  {$ EOC_{\pi y} $}  &  {$ EOC_p $} \\
+\midrule
+1            &  0.520894 &  0.00660747 &  {$-$} &  {$-$} \\
+2            &  0.15134 &  0.00173155 &  2.41965 &  2.6216 \\
+3            &  0.0393476 &  0.00043334 &  2.29181 &  2.35672 \\
+4            &  0.00970089 &  0.000103614 &  2.20164 &  2.24981 \\
+5            &  0.00221621 &  0.0000228246 &  2.22589 &  2.28078 \\
+6            &  0.000432023 &  0.0000107235 &  2.41204 &  1.11436 \\
+\bottomrule
+\end{tabular}              
+\end{table}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Test Case 02 Punto fisso $\overline{u}$ e $u_k$}
+\begin{figure}
+\centering%
+\subfigure[\protect\url{l = 1}]%
+{\includegraphics[width=0.2\linewidth]{img/cap6/Imm_PF_02/ControlSol_N150_l1}}\qquad
+\subfigure[\protect\url{l = 2}]%
+{\includegraphics[width=0.2\linewidth]{img/cap6/Imm_PF_02/ControlSol_N150_l2}}\qquad
+\subfigure[\protect\url{l = 3}]%
+{\includegraphics[width=0.2\linewidth]{img/cap6/Imm_PF_02/ControlSol_N150_l3}}\qquad
+\subfigure[\protect\url{l = 4}]%
+{\includegraphics[width=0.2\linewidth]{img/cap6/Imm_PF_02/ControlSol_N150_l4}}\qquad
+\subfigure[\protect\url{l = 5}]%
+{\includegraphics[width=0.2\linewidth]{img/cap6/Imm_PF_02/ControlSol_N150_l5}}\qquad
+\subfigure[\protect\url{l = 6}]%
+{\includegraphics[width=0.2\linewidth]{img/cap6/Imm_PF_02/ControlSol_N150_l6}}\qquad
+\subfigure[\protect\url{l = 7}]%
+{\includegraphics[width=0.2\linewidth]{img/cap6/Imm_PF_02/ControlSol_N150_l7}}\qquad
+\subfigure[\protect\url{l = 8}]%
+{\includegraphics[width=0.2\linewidth]{img/cap6/Imm_PF_02/ControlSol_N150_l8}}
+\caption{Test Case 02 $\overline{u}$ e $u_k$ risultati dell'algoritmo di punto fisso}
+\label{fig:504}
+\end{figure}
+
+\end{frame}
+
+\subsection{Test Case 02}
+\begin{frame}
+\frametitle{Test Case 02 Punto fisso}
+
+\begin{table}
+\caption{Punto fisso per Test case II: errori e EOC }
+\label{puntofissoII}
+\centering
+
+\begin{tabular}{cllll}
+\toprule
+{l}           &  {$ \norma{\bar{u}-u_{kh}}_{L^2(L^2)} $} &  {$ \norma{\bar{y}-y_{kh}}_{L^2(L^2)} $} &  {$ EOC_{u} $} &  {$ EOC_y $} \\
+\midrule
+1            &  0.11547 &  0.577323 &  {$-$} &  {$-$} \\
+2            &  0.049267 &  0.463462 &  1.66741 &  0.430045 \\
+3            &  0.0229418 &  0.136413 &  1.30029 &  2.08074 \\
+4            &  0.0036817 &  0.0594452 &  2.87676 &  1.30605 \\
+5            &  0.000908002 &  0.0286805 &  2.1105 &  1.09882 \\
+6            &  0.000229782  &  0.0142118 &  2.02708 &  1.0358 \\
+7            &  0.0000652737 &  0.0070899 &  1.83615 &  1.01455 \\      
+8            &  0.0000267529 &  0.003543 &  1.29406 &  1.00643 \\
+\bottomrule
+\end{tabular}              
+
+\end{table}
 
 
 \end{frame}
 
-\section{Conclusioni e Lavori Futuri}
+\begin{frame}
+\frametitle{Test Case 02 Punto fisso}
+\begin{table}
+\caption{Punto fisso per Test case II: errori e EOC }
+\label{puntofissoIIbis}
+\centering
+
+\begin{tabular}{cllll}
+\toprule
+{l}           &  {$ \norma{\bar{y}-\pi_{P^*_k}y_{kh}}_{L^2(L^2)} $} &  {$ \norma{\bar{p}-p_{kh}}_{L^2(L^2)} $} &  {$ EOC_{\pi y} $} &  {$ EOC_p $} \\
+\midrule
+1            &  0.408219 &  0.57735 &  {$-$} &  {$-$} \\
+2            &  0.428289 &  0.181146 &  0.0939571 &  2.26916 \\
+3            &  0.108057  &  0.0846821 &  2.34293 &  1.29366 \\
+4            &  0.0223162  &  0.0224906 &  2.48014 &  2.08464 \\
+5            &  0.00443799 &  0.00571816 &  2.43498 &  2.06462 \\
+6            &  0.000929298 &  0.00145281 &  2.3065 &  2.02122 \\
+7            &  0.000203934 &  0.000385864 &  2.21269 &  1.93423 \\      
+8            &  0.0000465654 &  0.000130114 &  2.14277 &  1.57715 \\
+\bottomrule
+\end{tabular}              
+\end{table}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Test Case 02 Semi-Newton}
+\begin{figure}
+\centering%
+\subfigure[\protect\url{l = 1}]%
+{\includegraphics[width=0.2\linewidth]{img/cap6/Imm_CG_02/ControlSol_N150_l1}}\qquad
+\subfigure[\protect\url{l = 2}]%
+{\includegraphics[width=0.2\linewidth]{img/cap6/Imm_CG_02/ControlSol_N150_l2}}\qquad
+\subfigure[\protect\url{l = 3}]%
+{\includegraphics[width=0.2\linewidth]{img/cap6/Imm_CG_02/ControlSol_N150_l3}}\qquad
+\subfigure[\protect\url{l = 4}]%
+{\includegraphics[width=0.2\linewidth]{img/cap6/Imm_CG_02/ControlSol_N150_l4}}\qquad
+\subfigure[\protect\url{l = 5}]%
+{\includegraphics[width=0.2\linewidth]{img/cap6/Imm_CG_02/ControlSol_N150_l5}}\qquad
+\subfigure[\protect\url{l = 6}]%
+{\includegraphics[width=0.2\linewidth]{img/cap6/Imm_CG_02/ControlSol_N150_l6}}\qquad
+\subfigure[\protect\url{l = 7}]%
+{\includegraphics[width=0.2\linewidth]{img/cap6/Imm_CG_02/ControlSol_N150_l7}}\qquad
+\subfigure[\protect\url{l = 8}]%
+{\includegraphics[width=0.2\linewidth]{img/cap6/Imm_CG_02/ControlSol_N150_l8}}
+\caption{Test Case 02 $\overline{u}$ e $u_k$: risultati dell'algoritmo di semi newton}
+\label{fig:505}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Test Case 02 Semi-Newton}
+\begin{table}
+\caption{Newton per Test case II: errori e EOC }
+\label{newtonII}
+\centering
+
+\begin{tabular}{cllll}
+\toprule
+{l} &  {$ \norma{\bar{u}-u_{kh}}_{L^2(L^2)} $} &  {$ \norma{\bar{y}-y_{kh}}_{L^2(L^2)} $} &  {$ EOC_{u} $} &  {$ EOC_y $} \\
+\midrule
+1            &  0.115495 &  0.579976 &  {$-$} &  {$-$} \\
+2            &  0.076157  &  0.462076 &  0.815213 &  0.444884 \\
+3            &  0.0127336  &  0.136402 &  3.04286 &  2.07579 \\
+4            &  0.00222359 &  0.0594457 &  2.74395 &  1.30591 \\
+5            &  0.000541362 &  0.0286803 &  2.12996 &  1.09884 \\
+6            &  0.000138463  &  0.0142117 &  2.01139 &  1.03579 \\
+7            &  0.0000349821 &  0.0070899 &  2.00717 &  1.01455 \\      
+8            &  0.0000178053 &  0.003543 &  0.979797  &  1.00643 \\
+\bottomrule
+\end{tabular}              
+
+\end{table}
+\end{frame}
+
+\begin{frame}
+\frametitle{Test Case 02 Semi-Newton}
+\begin{table}
+\caption{Newton per Test case II: errori e EOC }
+\label{newtonIIbis}
+\centering
+
+\begin{tabular}{cllll}
+\toprule
+{l}  &  {$ \norma{\bar{y}-\pi_{P^*_k}y_{kh}}_{L^2(L^2)} $}  &  {$ \norma{\bar{p}-p_{kh}}_{L^2(L^2)} $}        &  {$ EOC_{\pi y} $} &  {$ EOC_p $} \\
+\midrule
+1 			 &  0.410488 &  0.57748 &  {$-$} & {$-$} \\
+2            &  0.427682 &  0.181205 &  0.080328 &  2.26897 \\
+3            &  0.108041 &  0.0846824 &  2.34076 &  1.29421 \\
+4            &  0.0223131  &  0.0224907 &  2.48014 &  2.08463 \\
+5            &  0.00443687 &  0.00571824 &  2.43516  &  2.06461 \\
+6            &  0.0009289  &  0.00145285 &  2.30675 &  2.02121 \\
+7            &  0.000203852 &  0.000385873 &  2.21265 &  1.93423 \\      
+8            &  0.0000465544 &  0.000130118 &  2.14254 &  1.57714 \\
+\bottomrule
+\end{tabular}              
+
+\end{table}
+
+\end{frame}
+
+
+
+\section{Conclusioni}
 \begin{frame}
 
 

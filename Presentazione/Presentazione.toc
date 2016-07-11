@@ -7,4 +7,6 @@
 \beamer@sectionintoc {3}{Algoritmi risolutivi}{13}{0}{3}
 \beamer@sectionintoc {4}{Implementazione}{18}{0}{4}
 \beamer@sectionintoc {5}{Risultati}{19}{0}{5}
-\beamer@sectionintoc {6}{Conclusioni e Lavori Futuri}{23}{0}{6}
+\beamer@subsectionintoc {5}{1}{Test Case 01}{19}{0}{5}
+\beamer@subsectionintoc {5}{2}{Test Case 02}{26}{0}{5}
+\beamer@sectionintoc {6}{Conclusioni}{31}{0}{6}
