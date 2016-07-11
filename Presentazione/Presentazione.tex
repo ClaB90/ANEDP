@@ -316,11 +316,13 @@ Nk = ( 2^l + 1 )
 \label{Nk}
 \end{equation}
 
-Per il calcolo di ogni norma e prodotto scalare il metodo numerico di integrazione in tempo utilizzato è il metodo di Cavalieri Simpson.
 
 \end{frame}
 \frametitle{Implementazione: Funzione per il calcolo dell'Errore}
 \begin{frame}
+
+Per il calcolo di ogni norma e prodotto scalare il metodo numerico di integrazione in tempo utilizzato è il metodo di Cavalieri Simpson.
+
 \begin{figure}
 \centering
 \includegraphics[scale=0.25]{img/cap5/griglie}
@@ -334,9 +336,12 @@ l'operazione di proiezione $P_{U_{ab}}$ non garantisce che i nodi della griglia 
 \begin{frame}
 \frametitle{Implementazione: Schema Problema di Stato}
 %Lo schema di integrazione temporale per il problema di stato è una variante dello schema di Crank-Nicolson.
-Considerato la matrice di Stiffness al passo k:
+Considerato la matrice di Stiffness ed il temine noto al passo k:
 \begin{multline*}
-A(y_k,y_{test}) = \int_{\Omega} \gamma_1 \bigtriangledown y_k \bigtriangledown y_{test} \, d\Omega + \int_{\Omega} \gamma_2 \bigtriangledown y_{k-1} \bigtriangledown y_{test} \, d\Omega \\+ \int_{\Omega} \gamma_3 (f_{k}+u_k)y_{test} \, d\Omega + \int_{\Omega} \gamma_4 (f_{k-1}+u_{k-1})y_{test} \, d\Omega
+A(y_k,y_{test}) = \int_{\Omega} \gamma_1 \bigtriangledown y_k \bigtriangledown y_{test} \, d\Omega 
+\end{multline*}
+\begin{multline*}
+b(y_{test}) = \int_{\Omega} \gamma_2 \bigtriangledown y_{k-1} \bigtriangledown y_{test} \, d\Omega \\+ \int_{\Omega} \gamma_3 (f_{k}+u_k)y_{test} \, d\Omega + \int_{\Omega} \gamma_4 (f_{k-1}+u_{k-1})y_{test} \, d\Omega
 \end{multline*}
 
 \begin{table}
@@ -357,14 +362,17 @@ EA & 0 & 0.5 & 0.5 & 0\\
 
 \begin{frame}
 \frametitle{Implementazione: Forzante del Problema Aggiunto}
-Anche per il problema aggiunto è stato utilizzato un metodo di Crank-Nicolson con la matrice di Stiffness al passo i:
+Anche per il problema aggiunto è stato utilizzato un metodo di Crank-Nicolson con la matrice di Stiffness ed il termine noto al passo i:
 \begin{multline*}
-A(p_i,p_{test}) = \int_{\Omega} \frac{1}{2}\bigtriangledown p_i \bigtriangledown p_{test} \, d\Omega + \int_{\Omega} \frac{1}{2} \bigtriangledown p_{i-1} \bigtriangledown p_{test} \, d\Omega \\+ \int_{\Omega} \frac{1}{2} h_i p_{test} \, d\Omega + \int_{\Omega} \frac{1}{2} h_{i-1} p_{test} \, d\Omega
+A(p_i,p_{test}) = \int_{\Omega} \frac{1}{2}\bigtriangledown p_i \bigtriangledown p_{test} \, d\Omega 
+\end{multline*}
+\begin{multline*}
+b(p_{test}) = \int_{\Omega} \frac{1}{2} \bigtriangledown p_{i+1} \bigtriangledown p_{test} \, d\Omega \\+ \int_{\Omega} \frac{1}{2} h_i p_{test} \, d\Omega + \int_{\Omega} \frac{1}{2} h_{i+1} p_{test} \, d\Omega
 \end{multline*}
 dove:
 \begin{equation*}
 h_i = {y_k}_i - y_d(t_i), \quad
-hnext_i = {y_k}_i - y_d(t_i+{\Delta}t)
+h_{i+1} = {y_k}_i - y_d(t_i+{\Delta}t)
 \end{equation*}
 
 \end{frame}
@@ -387,53 +395,51 @@ La funzione \texttt{adjCG(real[int,int] \&xx)} implementa l’operatore ${S_h}^*
 \begin{frame}
 \frametitle{Funzioni per l'operatore di stato}
 Per la soluzione dell'operatore di stato son state implementate due diverse funzioni.
-\texttt{stateCG(real[int] \&xx)} risolve l'operatore $S_h$ applicato a $P_{U_{ad}}(xx)$ con matrice di Stiffness al passo k:
+\texttt{stateCG(real[int] \&xx)} risolve l'operatore $S_h$ applicato a $P_{U_{ad}}(xx)$ con termine noto al passo k:
 \begin{multline*}
-A(y_k,y_{test}) = \int_{\Omega} \gamma_1 \bigtriangledown y_k \bigtriangledown y_{test} \, d\Omega + \int_{\Omega} \gamma_2 \bigtriangledown y_{k-1} \bigtriangledown y_{test} \, d\Omega \\+ \int_{\Omega} \gamma_3 (f_{k}+P_{U_{ad}}(xx_k))y_{test} \, d\Omega + \int_{\Omega} \gamma_4 (f_{k-1}+P_{U_{ad}}(xx_{k-1}))y_{test} \, d\Omega
+b(y_{test}) = \int_{\Omega} \gamma_2 \bigtriangledown y_{k-1} \bigtriangledown y_{test} \, d\Omega \\+ \int_{\Omega} \gamma_3 (f_{k}+P_{U_{ad}}(xx_k))y_{test} \, d\Omega + \int_{\Omega} \gamma_4 (f_{k-1}+P_{U_{ad}}(xx_{k-1}))y_{test} \, d\Omega
 \end{multline*}
 
-\texttt{mat1(real[int] \&xx, real[int] \&ww)} risolve l'operatore $S_h\mathbbm{1}_{S^*_hw}$ considerato la matrice di Stiffness al passo k:
+\texttt{mat1(real[int] \&xx, real[int] \&ww)} risolve l'operatore $S_h\mathbbm{1}_{S^*_hw}$ considerato con termine noto al passo k:
 \begin{multline*}
-A(y_k,y_{test}) = \int_{\Omega} \gamma_1 \bigtriangledown y_k \bigtriangledown y_{test} \, d\Omega + \int_{\Omega} \gamma_2 \bigtriangledown y_{k-1} \bigtriangledown y_{test} \, d\Omega \\+ \int_{\Omega} \gamma_3 \chi_{U_{ad}}xx_k y_{test} \, d\Omega + \int_{\Omega} \gamma_4 \chi_{U_{ad}}xx_{k-1} y_{test} \, d\Omega
+b(y_{test}) = \int_{\Omega} \gamma_2 \bigtriangledown y_{k-1} \bigtriangledown y_{test} \, d\Omega \\+ \int_{\Omega} \gamma_3 \chi_{U_{ad}}xx_k y_{test} \, d\Omega + \int_{\Omega} \gamma_4 \chi_{U_{ad}}xx_{k-1} y_{test} \, d\Omega
 \end{multline*}
 
 \end{frame}
 
 \section{Risultati}
 
-\subsection{Test Case 01}
+
 \begin{frame}
-\frametitle{Test Case 01 dati del problema}
-\begin{tabular}{|c|c|}
+\frametitle{Test Case 01 ed 02: dati del problema}
+
+Per entrambi i test case considera $\Omega = (0,1)^2$.
+Viene utilizzata una mesh spaziale uniforme con 22801 nodi.
+
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|}
 \hline
-\textbf{funzione} & \textbf{TestCase01}\\
+\textbf{Parametro} & \textbf{TestCase01} & \textbf{TestCase02} \\
 \hline
-$g_1(x_1,x_2)$ & $sin({\pi}x_1)sin({\pi}x_2)$\\
+I & (0,0.1) & (0,0.5) \\
 \hline
-$g_0(t,x_1,x_2)$ & $ -{\pi}^2w_a(t,x_1,x_2) - BP_{U_{ad}} \left( -\frac{1}{4\alpha} (e^{a{\pi}^2t} - e^{a{\pi}^2T)}) \right)$ \\
+$U_{ad}$ & a=-25 ed b =-1 & a=0.2 ed b=0.4 \\
 \hline
-$w_a(t,x_1,x_2)$ & $e^{a{\pi}^2t}sin({\pi}x_1)sin({\pi}x_2) \text{, } a \in \mathbb{R}$ \\
-\hline
-$y_d(t,x_1,x_2)$ & $\frac{a^2 - 5}{2 + a}{\pi}^2w_a(t,x_1,x_2) + 2{\pi}^2w_a(T,x_1,x_2)$ \\
-\hline
-$y_0(x_1,x_2)$ & $\frac{- 1}{2 + a}{\pi}^2w_a(0,x_1,x_2)$ \\
-\hline
-$\overline{u}(t,x_1,x_2)$ & $P_{U_{ad}} \left( -\frac{1}{4\alpha}(e^{a{\pi}^2t}-e^{a{\pi}^2T)} \right)$ \\
-\hline
-$\overline{y}(t,x_1,x_2)$ & $\frac{- 1}{2 + a}{\pi}^2w_a(0,x_1,x_2)$ \\
-\hline
-$\overline{p}(t,x_1,x_2)$ & $w_a(t,x_1,x_2) - w_a(T,x_1,x_2)$ \\
+$\alpha$ & $\pi^{-4}$ & 1 \\
 \hline
 \end{tabular}
+\end{table}
 
 \end{frame}
 
+\subsection{Test Case 01}
 \begin{frame}
 \frametitle{Test Case 01 Punto fisso $\overline{u}$ e $u_k$}
 
 \begin{figure}
 \centering
-\subfigure[\protect\url{l = 1}]%
+\subfigure[{l = 1}]%
 {\includegraphics[width=0.25\linewidth]{img/cap6/Imm_PF_01/ControlSol_N150_l1}}\qquad
 \subfigure[\protect\url{l = 2}]%
 {\includegraphics[width=0.25\linewidth]{img/cap6/Imm_PF_01/ControlSol_N150_l2}}\qquad
@@ -501,7 +507,7 @@ $\overline{p}(t,x_1,x_2)$ & $w_a(t,x_1,x_2) - w_a(T,x_1,x_2)$ \\
 \frametitle{Test Case 01 Semi-Newton}
 \begin{figure}
 \centering%
-\subfigure[\protect\url{l = 1}]%
+\subfigure[{l = 1}]%
 {\includegraphics[width=0.25\linewidth]{img/cap6/Imm_CG_01/ControlSol_N150_l1}}\qquad
 \subfigure[\protect\url{l = 2}]%
 {\includegraphics[width=0.25\linewidth]{img/cap6/Imm_CG_01/ControlSol_N150_l2}}\qquad
@@ -568,36 +574,10 @@ $\overline{p}(t,x_1,x_2)$ & $w_a(t,x_1,x_2) - w_a(T,x_1,x_2)$ \\
 
 \subsection{Test Case 02}
 \begin{frame}
-\frametitle{Test Case 02 dati del problema}
-\begin{tabular}{|c|c|}
-\hline
-\textbf{funzione} & \textbf{TestCase01}\\
-\hline
-$g_1(x_1,x_2)$ & $sin({\pi}x_1)sin({\pi}x_2)$\\
-\hline
-$g_0(t,x_1,x_2)$ & $g_1(x_1,x_2) 2\pi \left( -\frac{a}{T}sin\left( \frac{t}{T}2{\pi}a \right) + \pi cos\left( \frac{t}{T}2{\pi}a \right) \right) - B\overline{u}$ \\
-\hline
-$w_a(t,x_1,x_2)$ & $cos \left( \frac{t}{T}2{\pi}a \right) \cdot g_1(t,x_1,x_2)$ \\
-\hline
-$y_d(t,x_1,x_2)$ & $g_1\left( cos\left( \frac{t}{T}2{\pi}a \right)(1-2{\pi}^2) -\frac{2{\pi}a}{T}sin\left( \frac{t}{T}2{\pi}a \right) +2{\pi}^2cos(2{\pi}a) \right)$ \\
-\hline
-$y_0(x_1,x_2)$ & $g_1(x_1,x_2)$ \\
-\hline
-$\overline{u}(t,x_1,x_2)$ & $P_{U_{ad}} \left( -\frac{1}{4\alpha}cos \left( \frac{t}{T}2{\pi}a \right) +\frac{1}{4\alpha} \right)$ \\
-\hline
-$\overline{y}(t,x_1,x_2)$ & $\frac{- 1}{2 + a}{\pi}^2w_a(0,x_1,x_2)$ \\
-\hline
-$\overline{p}(t,x_1,x_2)$ & $w_a(t,x_1,x_2) - w_a(T,x_1,x_2)$ \\
-\hline
-\end{tabular}
-
-\end{frame}
-
-\begin{frame}
 \frametitle{Test Case 02 Punto fisso $\overline{u}$ e $u_k$}
 \begin{figure}
 \centering%
-\subfigure[\protect\url{l = 1}]%
+\subfigure[{l = 1}]%
 {\includegraphics[width=0.2\linewidth]{img/cap6/Imm_PF_02/ControlSol_N150_l1}}\qquad
 \subfigure[\protect\url{l = 2}]%
 {\includegraphics[width=0.2\linewidth]{img/cap6/Imm_PF_02/ControlSol_N150_l2}}\qquad
@@ -676,7 +656,7 @@ $\overline{p}(t,x_1,x_2)$ & $w_a(t,x_1,x_2) - w_a(T,x_1,x_2)$ \\
 \frametitle{Test Case 02 Semi-Newton}
 \begin{figure}
 \centering%
-\subfigure[\protect\url{l = 1}]%
+\subfigure[{l = 1}]%
 {\includegraphics[width=0.2\linewidth]{img/cap6/Imm_CG_02/ControlSol_N150_l1}}\qquad
 \subfigure[\protect\url{l = 2}]%
 {\includegraphics[width=0.2\linewidth]{img/cap6/Imm_CG_02/ControlSol_N150_l2}}\qquad
@@ -692,8 +672,6 @@ $\overline{p}(t,x_1,x_2)$ & $w_a(t,x_1,x_2) - w_a(T,x_1,x_2)$ \\
 {\includegraphics[width=0.2\linewidth]{img/cap6/Imm_CG_02/ControlSol_N150_l7}}\qquad
 \subfigure[\protect\url{l = 8}]%
 {\includegraphics[width=0.2\linewidth]{img/cap6/Imm_CG_02/ControlSol_N150_l8}}
-\caption{Test Case 02 $\overline{u}$ e $u_k$: risultati dell'algoritmo di semi newton}
-\label{fig:505}
 \end{figure}
 
 \end{frame}
@@ -753,13 +731,75 @@ $\overline{p}(t,x_1,x_2)$ & $w_a(t,x_1,x_2) - w_a(T,x_1,x_2)$ \\
 \section{Conclusioni}
 \begin{frame}
 Entrambi gli algoritmi implementati confermano i risultati teorici per l'ordine di convergenza dell'errore nei problemi di controllo ottimo parabolico se viene utilizzato uno schema di Petrov Galerkin.
+Per il primo test case, nel quale $\alpha$ è minore, il metodo di Newton converge più velocemente che quello di punto fisso.
 
 Possibili lavori futuri:
 \begin{enumerate}
 \item analisi analitica di semi-Newton nel caso per i problemi di controllo ottimo parabolici
 \item scrittura/lettura su/da file per le soluzioni dei problemi di stato ed aggiunto
-\item spazi EF su $\Omega$ differenti per il problema di stato e quello di aggiunto nel caso dell'algoritmo di Semi-Newton
+%\item spazi EF su $\Omega$ differenti per il problema di stato e quello di aggiunto nel caso dell'algoritmo di Semi-Newton
 \end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+\centering
+Grazie Per L'Attenzione
+\end{frame}
+
+\begin{frame}
+APPENDICE
+\end{frame}
+
+\begin{frame}
+\frametitle{Test Case 01 dati del problema}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{funzione} & \textbf{TestCase01}\\
+\hline
+$g_1(x_1,x_2)$ & $sin({\pi}x_1)sin({\pi}x_2)$\\
+\hline
+$g_0(t,x_1,x_2)$ & $ -{\pi}^2w_a(t,x_1,x_2) - BP_{U_{ad}} \left( -\frac{1}{4\alpha} (e^{a{\pi}^2t} - e^{a{\pi}^2T}) \right)$ \\
+\hline
+$w_a(t,x_1,x_2)$ & $e^{a{\pi}^2t}sin({\pi}x_1)sin({\pi}x_2) \text{, } a \in \mathbb{R}$ \\
+\hline
+$y_d(t,x_1,x_2)$ & $\frac{a^2 - 5}{2 + a}{\pi}^2w_a(t,x_1,x_2) + 2{\pi}^2w_a(T,x_1,x_2)$ \\
+\hline
+$y_0(x_1,x_2)$ & $\frac{- 1}{2 + a}{\pi}^2w_a(0,x_1,x_2)$ \\
+\hline
+$\overline{u}(t,x_1,x_2)$ & $P_{U_{ad}} \left( -\frac{1}{4\alpha}(e^{a{\pi}^2t}-e^{a{\pi}^2T} \right)$ \\
+\hline
+$\overline{y}(t,x_1,x_2)$ & $\frac{- 1}{2 + a}{\pi}^2w_a(0,x_1,x_2)$ \\
+\hline
+$\overline{p}(t,x_1,x_2)$ & $w_a(t,x_1,x_2) - w_a(T,x_1,x_2)$ \\
+\hline
+\end{tabular}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Test Case 02 dati del problema}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{funzione} & \textbf{TestCase01}\\
+\hline
+$g_1(x_1,x_2)$ & $sin({\pi}x_1)sin({\pi}x_2)$\\
+\hline
+$g_0(t,x_1,x_2)$ & $g_1(x_1,x_2) 2\pi \left( -\frac{a}{T}sin\left( \frac{t}{T}2{\pi}a \right) + \pi cos\left( \frac{t}{T}2{\pi}a \right) \right) - B\overline{u}$ \\
+\hline
+$w_a(t,x_1,x_2)$ & $cos \left( \frac{t}{T}2{\pi}a \right) \cdot g_1(t,x_1,x_2)$ \\
+\hline
+$y_d(t,x_1,x_2)$ & $g_1\left( cos\left( \frac{t}{T}2{\pi}a \right)(1-2{\pi}^2) -\frac{2{\pi}a}{T}sin\left( \frac{t}{T}2{\pi}a \right) +2{\pi}^2cos(2{\pi}a) \right)$ \\
+\hline
+$y_0(x_1,x_2)$ & $g_1(x_1,x_2)$ \\
+\hline
+$\overline{u}(t,x_1,x_2)$ & $P_{U_{ad}} \left( -\frac{1}{4\alpha}cos \left( \frac{t}{T}2{\pi}a \right) +\frac{1}{4\alpha} \right)$ \\
+\hline
+$\overline{y}(t,x_1,x_2)$ & $\frac{- 1}{2 + a}{\pi}^2w_a(0,x_1,x_2)$ \\
+\hline
+$\overline{p}(t,x_1,x_2)$ & $w_a(t,x_1,x_2) - w_a(T,x_1,x_2)$ \\
+\hline
+\end{tabular}
 
 \end{frame}
 
