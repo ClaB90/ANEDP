@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  8 JUL 2016 14:50
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  11 JUL 2016 09:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -956,6 +956,21 @@ Package: mhsetup 2010/01/21 v1.2a programming setup (MH)
 \l_MT_shortvdotswithinadjustbelow_dim=\dimen187
 )
 (/usr/local/texlive/2011/texmf-dist/tex/latex/braket/braket.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/tools/bm.sty
+Package: bm 2004/02/26 v1.1c Bold Symbol Support (DPC/FMi)
+\symboldoperators=\mathgroup6
+\symboldletters=\mathgroup7
+\symboldsymbols=\mathgroup8
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 138.
+LaTeX Info: Redefining \bm on input line 204.
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/bbm-macros/bbm.sty
+Package: bbm 1999/03/15 V 1.2 provides fonts for set symbols - TH
+LaTeX Font Info:    Overwriting math alphabet `\mathbbm' in version `bold'
+(Font)                  U/bbm/m/n --> U/bbm/bx/n on input line 33.
+LaTeX Font Info:    Overwriting math alphabet `\mathbbmss' in version `bold'
+(Font)                  U/bbmss/m/n --> U/bbmss/bx/n on input line 35.
+)
 (/usr/local/texlive/2011/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2005/04/14 v1.61803 publication quality tables
 \heavyrulewidth=\dimen188
@@ -1030,20 +1045,20 @@ Package: beamercolorthemecrane 2010/06/17  (rcs-revision d02a7cf4d8ae)
  (./Presentazione.aux)
 \openout1 = `Presentazione.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 61.
-LaTeX Font Info:    ... okay on input line 61.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 61.
-LaTeX Font Info:    ... okay on input line 61.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 61.
-LaTeX Font Info:    ... okay on input line 61.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 61.
-LaTeX Font Info:    ... okay on input line 61.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 61.
-LaTeX Font Info:    ... okay on input line 61.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 61.
-LaTeX Font Info:    ... okay on input line 61.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 61.
-LaTeX Font Info:    ... okay on input line 61.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1109,7 +1124,7 @@ e
 ))
 ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box54
-Package hyperref Info: Link coloring OFF on input line 61.
+Package hyperref Info: Link coloring OFF on input line 63.
 
 (/usr/local/texlive/2011/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2010/04/30 v2.40 Cross-referencing by name of section
@@ -1119,56 +1134,52 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count176
 )
-LaTeX Info: Redefining \ref on input line 61.
-LaTeX Info: Redefining \pageref on input line 61.
-LaTeX Info: Redefining \nameref on input line 61.
+LaTeX Info: Redefining \ref on input line 63.
+LaTeX Info: Redefining \pageref on input line 63.
+LaTeX Info: Redefining \nameref on input line 63.
 
 (./Presentazione.out) (./Presentazione.out)
 \@outlinefile=\write5
 \openout5 = `Presentazione.out'.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 61.
+(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 63.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 61.
-\symnumbers=\mathgroup6
-\sympureletters=\mathgroup7
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 63.
+\symnumbers=\mathgroup9
+\sympureletters=\mathgroup10
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/cmss/m/n --> T1/cmr/m/n on input line 61.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 61.
-LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> T1/cmss/bx/n on input line 61.
-LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmr/bx/n --> T1/cmss/bx/n on input line 61.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 61.
+(Font)                  OT1/cmss/m/n --> T1/cmr/m/n on input line 63.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 63.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 63.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> T1/cmss/m/n on input line 61.
+(Font)                  OT1/cmss/m/n --> T1/cmss/m/n on input line 63.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> T1/cmss/m/n on input line 61.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 61.
+(Font)                  OT1/cmss/bx/n --> T1/cmss/m/n on input line 63.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 63.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> T1/cmss/m/it on input line 61.
+(Font)                  OT1/cmr/m/it --> T1/cmss/m/it on input line 63.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> T1/cmss/m/it on input line 61.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 61.
+(Font)                  OT1/cmr/bx/it --> T1/cmss/m/it on input line 63.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 63.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> T1/cmtt/m/n on input line 61.
+(Font)                  OT1/cmtt/m/n --> T1/cmtt/m/n on input line 63.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> T1/cmtt/m/n on input line 61.
+(Font)                  OT1/cmtt/m/n --> T1/cmtt/m/n on input line 63.
 LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
-(Font)                  T1/cmss/m/n --> T1/cmss/bx/n on input line 61.
+(Font)                  T1/cmss/m/n --> T1/cmss/bx/n on input line 63.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  T1/cmss/m/it --> T1/cmss/bx/it on input line 61.
+(Font)                  T1/cmss/m/it --> T1/cmss/bx/it on input line 63.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OT1/cmss/bx/n --> T1/cmr/bx/n on input line 61.
+(Font)                  OT1/cmss/bx/n --> T1/cmr/bx/n on input line 63.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  T1/cmss/bx/n --> T1/cmss/bx/n on input line 61.
+(Font)                  T1/cmss/bx/n --> T1/cmss/bx/n on input line 63.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  T1/cmss/m/n --> T1/cmss/bx/n on input line 61.
+(Font)                  T1/cmss/m/n --> T1/cmss/bx/n on input line 63.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  T1/cmss/m/it --> T1/cmss/bx/it on input line 61.
+(Font)                  T1/cmss/m/it --> T1/cmss/bx/it on input line 63.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  T1/cmtt/m/n --> T1/cmtt/bx/n on input line 61.
+(Font)                  T1/cmtt/m/n --> T1/cmtt/bx/n on input line 63.
 
 (/usr/local/texlive/2011/texmf-dist/tex/latex/beamer/translator/dicts/translato
 r-basic-dictionary/translator-basic-dictionary-English.dict
@@ -1197,7 +1208,7 @@ Dictionary: translator-theorem-dictionary, Language: English
 (./Presentazione.nav)
 
 LaTeX Font Warning: Font shape `T1/cmss/m/n' in size <4> not available
-(Font)              size <5> substituted on input line 65.
+(Font)              size <5> substituted on input line 67.
 
 [1{/usr/local/texlive/2011/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
@@ -1205,17 +1216,17 @@ LaTeX Font Warning: Font shape `T1/cmss/m/n' in size <4> not available
 (./Presentazione.toc) [2
 
 ]
-LaTeX Font Info:    Try loading font information for U+msa on input line 118.
+LaTeX Font Info:    Try loading font information for U+msa on input line 120.
 
 (/usr/local/texlive/2011/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 118.
+LaTeX Font Info:    Try loading font information for U+msb on input line 120.
 
 (/usr/local/texlive/2011/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 )
-Overfull \vbox (0.64137pt too high) detected at line 118
+Overfull \vbox (0.64137pt too high) detected at line 120
  []
 
 [3
@@ -1248,6 +1259,19 @@ LaTeX Font Warning: Font shape `T1/cmss/m/sc' undefined
 ] [14
 
 ]
+LaTeX Font Info:    Try loading font information for U+bbm on input line 266.
+ (/usr/local/texlive/2011/texmf-dist/tex/latex/bbm-macros/ubbm.fd
+File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
+)
+[15
+
+] [16
+
+] [17
+
+] [18
+
+]
 Package epstopdf Info: Source file: <img/cap6/Imm_PF_01/ControlSol_N150_l1.eps>
 
 (epstopdf)                    date: 2016-06-18 12:46:48
@@ -1258,19 +1282,19 @@ converted-to.pdf>
 (epstopdf)                    size: 15438 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_01/Control
 Sol_N150_l1-eps-converted-to.pdf img/cap6/Imm_PF_01/ControlSol_N150_l1.eps>
-(epstopdf)             \includegraphics on input line 270.
+(epstopdf)             \includegraphics on input line 339.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_PF_01/ControlSol_N150_l1-eps-converted-to.pdf, id=622, 849.1725pt
+<img/cap6/Imm_PF_01/ControlSol_N150_l1-eps-converted-to.pdf, id=755, 849.1725pt
  x 596.2275pt>
 File: img/cap6/Imm_PF_01/ControlSol_N150_l1-eps-converted-to.pdf Graphic file (
 type pdf)
 
 <use img/cap6/Imm_PF_01/ControlSol_N150_l1-eps-converted-to.pdf>
 Package pdftex.def Info: img/cap6/Imm_PF_01/ControlSol_N150_l1-eps-converted-to
-.pdf used on input line 270.
+.pdf used on input line 339.
 (pdftex.def)             Requested size: 92.1879pt x 64.72095pt.
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 270.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 339.
 
 
 (/usr/local/texlive/2011/texmf-dist/tex/latex/base/t1cmtt.fd
@@ -1286,17 +1310,17 @@ converted-to.pdf>
 (epstopdf)                    size: 15616 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_01/Control
 Sol_N150_l2-eps-converted-to.pdf img/cap6/Imm_PF_01/ControlSol_N150_l2.eps>
-(epstopdf)             \includegraphics on input line 270.
+(epstopdf)             \includegraphics on input line 339.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_PF_01/ControlSol_N150_l2-eps-converted-to.pdf, id=624, 849.1725pt
+<img/cap6/Imm_PF_01/ControlSol_N150_l2-eps-converted-to.pdf, id=757, 849.1725pt
  x 596.2275pt>
 File: img/cap6/Imm_PF_01/ControlSol_N150_l2-eps-converted-to.pdf Graphic file (
 type pdf)
 
 <use img/cap6/Imm_PF_01/ControlSol_N150_l2-eps-converted-to.pdf>
 Package pdftex.def Info: img/cap6/Imm_PF_01/ControlSol_N150_l2-eps-converted-to
-.pdf used on input line 270.
+.pdf used on input line 339.
 (pdftex.def)             Requested size: 92.1879pt x 64.72095pt.
 Package epstopdf Info: Source file: <img/cap6/Imm_PF_01/ControlSol_N150_l3.eps>
 
@@ -1308,17 +1332,17 @@ converted-to.pdf>
 (epstopdf)                    size: 15967 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_01/Control
 Sol_N150_l3-eps-converted-to.pdf img/cap6/Imm_PF_01/ControlSol_N150_l3.eps>
-(epstopdf)             \includegraphics on input line 270.
+(epstopdf)             \includegraphics on input line 339.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_PF_01/ControlSol_N150_l3-eps-converted-to.pdf, id=626, 849.1725pt
+<img/cap6/Imm_PF_01/ControlSol_N150_l3-eps-converted-to.pdf, id=759, 849.1725pt
  x 596.2275pt>
 File: img/cap6/Imm_PF_01/ControlSol_N150_l3-eps-converted-to.pdf Graphic file (
 type pdf)
 
 <use img/cap6/Imm_PF_01/ControlSol_N150_l3-eps-converted-to.pdf>
 Package pdftex.def Info: img/cap6/Imm_PF_01/ControlSol_N150_l3-eps-converted-to
-.pdf used on input line 270.
+.pdf used on input line 339.
 (pdftex.def)             Requested size: 92.1879pt x 64.72095pt.
 Package epstopdf Info: Source file: <img/cap6/Imm_PF_01/ControlSol_N150_l4.eps>
 
@@ -1330,17 +1354,17 @@ converted-to.pdf>
 (epstopdf)                    size: 16650 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_01/Control
 Sol_N150_l4-eps-converted-to.pdf img/cap6/Imm_PF_01/ControlSol_N150_l4.eps>
-(epstopdf)             \includegraphics on input line 270.
+(epstopdf)             \includegraphics on input line 339.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_PF_01/ControlSol_N150_l4-eps-converted-to.pdf, id=628, 849.1725pt
+<img/cap6/Imm_PF_01/ControlSol_N150_l4-eps-converted-to.pdf, id=761, 849.1725pt
  x 596.2275pt>
 File: img/cap6/Imm_PF_01/ControlSol_N150_l4-eps-converted-to.pdf Graphic file (
 type pdf)
 
 <use img/cap6/Imm_PF_01/ControlSol_N150_l4-eps-converted-to.pdf>
 Package pdftex.def Info: img/cap6/Imm_PF_01/ControlSol_N150_l4-eps-converted-to
-.pdf used on input line 270.
+.pdf used on input line 339.
 (pdftex.def)             Requested size: 92.1879pt x 64.72095pt.
 Package epstopdf Info: Source file: <img/cap6/Imm_PF_01/ControlSol_N150_l5.eps>
 
@@ -1352,17 +1376,17 @@ converted-to.pdf>
 (epstopdf)                    size: 17993 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_01/Control
 Sol_N150_l5-eps-converted-to.pdf img/cap6/Imm_PF_01/ControlSol_N150_l5.eps>
-(epstopdf)             \includegraphics on input line 270.
+(epstopdf)             \includegraphics on input line 339.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_PF_01/ControlSol_N150_l5-eps-converted-to.pdf, id=630, 849.1725pt
+<img/cap6/Imm_PF_01/ControlSol_N150_l5-eps-converted-to.pdf, id=763, 849.1725pt
  x 596.2275pt>
 File: img/cap6/Imm_PF_01/ControlSol_N150_l5-eps-converted-to.pdf Graphic file (
 type pdf)
 
 <use img/cap6/Imm_PF_01/ControlSol_N150_l5-eps-converted-to.pdf>
 Package pdftex.def Info: img/cap6/Imm_PF_01/ControlSol_N150_l5-eps-converted-to
-.pdf used on input line 270.
+.pdf used on input line 339.
 (pdftex.def)             Requested size: 92.1879pt x 64.72095pt.
 Package epstopdf Info: Source file: <img/cap6/Imm_PF_01/ControlSol_N150_l6.eps>
 
@@ -1374,36 +1398,36 @@ converted-to.pdf>
 (epstopdf)                    size: 20617 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_01/Control
 Sol_N150_l6-eps-converted-to.pdf img/cap6/Imm_PF_01/ControlSol_N150_l6.eps>
-(epstopdf)             \includegraphics on input line 270.
+(epstopdf)             \includegraphics on input line 339.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_PF_01/ControlSol_N150_l6-eps-converted-to.pdf, id=632, 849.1725pt
+<img/cap6/Imm_PF_01/ControlSol_N150_l6-eps-converted-to.pdf, id=765, 849.1725pt
  x 596.2275pt>
 File: img/cap6/Imm_PF_01/ControlSol_N150_l6-eps-converted-to.pdf Graphic file (
 type pdf)
 
 <use img/cap6/Imm_PF_01/ControlSol_N150_l6-eps-converted-to.pdf>
 Package pdftex.def Info: img/cap6/Imm_PF_01/ControlSol_N150_l6-eps-converted-to
-.pdf used on input line 270.
+.pdf used on input line 339.
 (pdftex.def)             Requested size: 92.1879pt x 64.72095pt.
 
-Overfull \vbox (58.30313pt too high) detected at line 270
+Overfull \vbox (58.30313pt too high) detected at line 339
  []
 
-[15
+[19
 
  <./img/cap6/Imm_PF_01/ControlSol_N150_l1-eps-converted-to.pdf> <./img/cap6/Imm
 _PF_01/ControlSol_N150_l2-eps-converted-to.pdf> <./img/cap6/Imm_PF_01/ControlSo
 l_N150_l3-eps-converted-to.pdf> <./img/cap6/Imm_PF_01/ControlSol_N150_l4-eps-co
 nverted-to.pdf> <./img/cap6/Imm_PF_01/ControlSol_N150_l5-eps-converted-to.pdf> 
-<./img/cap6/Imm_PF_01/ControlSol_N150_l6-eps-converted-to.pdf>] [16
+<./img/cap6/Imm_PF_01/ControlSol_N150_l6-eps-converted-to.pdf>] [20
 
 ]
-[17
+[21
 
-] [18
+] [22
 
-] [19
+] [23
 
 ]
 \tf@nav=\write6
@@ -1415,14 +1439,20 @@ nverted-to.pdf> <./img/cap6/Imm_PF_01/ControlSol_N150_l5-eps-converted-to.pdf>
 \tf@snm=\write8
 \openout8 = `Presentazione.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 335.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 335.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 404.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 404.
  (./Presentazione.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 335.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 335.
-Package rerunfilecheck Info: File `Presentazione.out' has not changed.
-(rerunfilecheck)             Checksum: A7214E5E693896AFC38E35E322151238;472.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 404.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 404.
 
+
+Package rerunfilecheck Warning: File `Presentazione.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `Presentazione.out':
+(rerunfilecheck)             Before: 8DD2BAB35EFD4EF500E510920516E749;316
+(rerunfilecheck)             After:  A7214E5E693896AFC38E35E322151238;472.
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
@@ -1430,49 +1460,54 @@ LaTeX Font Warning: Size substitutions with differences
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 335.
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 404.
  ) 
 Here is how much of TeX's memory you used:
- 17282 strings out of 493633
- 319593 string characters out of 3143378
- 409968 words of memory out of 3000000
- 20047 multiletter control sequences out of 15000+200000
- 28130 words of font info for 74 fonts, out of 3000000 for 9000
+ 17451 strings out of 493633
+ 321932 string characters out of 3143378
+ 411336 words of memory out of 3000000
+ 20171 multiletter control sequences out of 15000+200000
+ 36553 words of font info for 106 fonts, out of 3000000 for 9000
  831 hyphenation exceptions out of 8191
- 49i,20n,62p,426b,953s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 49i,20n,62p,426b,972s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/local/texlive/2011/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
-</usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
-/usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
-usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></u
-sr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr
-/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/l
-ocal/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/lo
-cal/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/loca
-l/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local
-/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/t
-exlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/tex
-live/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texli
-ve/2011/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/t
-exlive/2011/texmf-dist/fonts/type1/public/cm-super/sfsi0500.pfb></usr/local/tex
-live/2011/texmf-dist/fonts/type1/public/cm-super/sfsi0600.pfb></usr/local/texli
-ve/2011/texmf-dist/fonts/type1/public/cm-super/sfsi0700.pfb></usr/local/texlive
-/2011/texmf-dist/fonts/type1/public/cm-super/sfsi0800.pfb></usr/local/texlive/2
-011/texmf-dist/fonts/type1/public/cm-super/sfsi1000.pfb></usr/local/texlive/201
-1/texmf-dist/fonts/type1/public/cm-super/sfsi1095.pfb></usr/local/texlive/2011/
-texmf-dist/fonts/type1/public/cm-super/sfsi1440.pfb></usr/local/texlive/2011/te
-xmf-dist/fonts/type1/public/cm-super/sfss0600.pfb></usr/local/texlive/2011/texm
-f-dist/fonts/type1/public/cm-super/sfss0700.pfb></usr/local/texlive/2011/texmf-
-dist/fonts/type1/public/cm-super/sfss0800.pfb></usr/local/texlive/2011/texmf-di
-st/fonts/type1/public/cm-super/sfss0900.pfb></usr/local/texlive/2011/texmf-dist
-/fonts/type1/public/cm-super/sfss1000.pfb></usr/local/texlive/2011/texmf-dist/f
-onts/type1/public/cm-super/sfss1095.pfb></usr/local/texlive/2011/texmf-dist/fon
-ts/type1/public/cm-super/sfss1440.pfb></usr/local/texlive/2011/texmf-dist/fonts
-/type1/public/cm-super/sfsx1095.pfb></usr/local/texlive/2011/texmf-dist/fonts/t
-ype1/public/cm-super/sftt0900.pfb>
-Output written on Presentazione.pdf (19 pages, 381363 bytes).
+ </Users/Claudia/Library/texlive/2011/texmf-var/fonts/pk/ljfour/public/bbm/bbm1
+0.657pk></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmex
+10.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi1
+0.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12
+.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.p
+fb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb
+></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb>
+</usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></
+usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></u
+sr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr
+/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/l
+ocal/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/loc
+al/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr
+/local/texlive/2011/texmf-dist/fonts/type1/public/cm-super/sfsi0500.pfb></usr/l
+ocal/texlive/2011/texmf-dist/fonts/type1/public/cm-super/sfsi0600.pfb></usr/loc
+al/texlive/2011/texmf-dist/fonts/type1/public/cm-super/sfsi0700.pfb></usr/local
+/texlive/2011/texmf-dist/fonts/type1/public/cm-super/sfsi0800.pfb></usr/local/t
+exlive/2011/texmf-dist/fonts/type1/public/cm-super/sfsi1000.pfb></usr/local/tex
+live/2011/texmf-dist/fonts/type1/public/cm-super/sfsi1095.pfb></usr/local/texli
+ve/2011/texmf-dist/fonts/type1/public/cm-super/sfsi1440.pfb></usr/local/texlive
+/2011/texmf-dist/fonts/type1/public/cm-super/sfss0500.pfb></usr/local/texlive/2
+011/texmf-dist/fonts/type1/public/cm-super/sfss0600.pfb></usr/local/texlive/201
+1/texmf-dist/fonts/type1/public/cm-super/sfss0700.pfb></usr/local/texlive/2011/
+texmf-dist/fonts/type1/public/cm-super/sfss0800.pfb></usr/local/texlive/2011/te
+xmf-dist/fonts/type1/public/cm-super/sfss0900.pfb></usr/local/texlive/2011/texm
+f-dist/fonts/type1/public/cm-super/sfss1000.pfb></usr/local/texlive/2011/texmf-
+dist/fonts/type1/public/cm-super/sfss1095.pfb></usr/local/texlive/2011/texmf-di
+st/fonts/type1/public/cm-super/sfss1440.pfb></usr/local/texlive/2011/texmf-dist
+/fonts/type1/public/cm-super/sfsx1095.pfb></usr/local/texlive/2011/texmf-dist/f
+onts/type1/public/cm-super/sftt0900.pfb>
+Output written on Presentazione.pdf (23 pages, 418531 bytes).
 PDF statistics:
- 937 PDF objects out of 1000 (max. 8388607)
- 847 compressed objects within 9 object streams
- 54 named destinations out of 1000 (max. 500000)
- 199 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1082 PDF objects out of 1200 (max. 8388607)
+ 985 compressed objects within 10 object streams
+ 63 named destinations out of 1000 (max. 500000)
+ 175 words of extra memory for PDF output out of 10000 (max. 10000000)
 

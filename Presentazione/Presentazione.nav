@@ -28,29 +28,37 @@
 \headcommand {\beamer@subsectionpages {10}{12}}
 \headcommand {\slideentry {3}{0}{2}{13/13}{}{0}}
 \headcommand {\beamer@framepages {13}{13}}
-\headcommand {\sectionentry {4}{Implementazione}{14}{Implementazione}{0}}
-\headcommand {\beamer@sectionpages {13}{13}}
-\headcommand {\beamer@subsectionpages {13}{13}}
-\headcommand {\slideentry {4}{0}{3}{14/14}{}{0}}
+\headcommand {\slideentry {3}{0}{3}{14/14}{}{0}}
 \headcommand {\beamer@framepages {14}{14}}
-\headcommand {\sectionentry {5}{Risultati}{15}{Risultati}{0}}
-\headcommand {\beamer@sectionpages {14}{14}}
-\headcommand {\beamer@subsectionpages {14}{14}}
-\headcommand {\slideentry {5}{0}{4}{15/15}{}{0}}
+\headcommand {\slideentry {3}{0}{4}{15/15}{}{0}}
 \headcommand {\beamer@framepages {15}{15}}
-\headcommand {\slideentry {5}{0}{5}{16/16}{}{0}}
+\headcommand {\slideentry {3}{0}{5}{16/16}{}{0}}
 \headcommand {\beamer@framepages {16}{16}}
-\headcommand {\slideentry {5}{0}{6}{17/17}{}{0}}
+\headcommand {\slideentry {3}{0}{6}{17/17}{}{0}}
 \headcommand {\beamer@framepages {17}{17}}
-\headcommand {\slideentry {5}{0}{7}{18/18}{}{0}}
+\headcommand {\sectionentry {4}{Implementazione}{18}{Implementazione}{0}}
+\headcommand {\beamer@sectionpages {13}{17}}
+\headcommand {\beamer@subsectionpages {13}{17}}
+\headcommand {\slideentry {4}{0}{7}{18/18}{}{0}}
 \headcommand {\beamer@framepages {18}{18}}
-\headcommand {\sectionentry {6}{Conclusioni e Lavori Futuri}{19}{Conclusioni e Lavori Futuri}{0}}
-\headcommand {\beamer@sectionpages {15}{18}}
-\headcommand {\beamer@subsectionpages {15}{18}}
-\headcommand {\slideentry {6}{0}{8}{19/19}{}{0}}
+\headcommand {\sectionentry {5}{Risultati}{19}{Risultati}{0}}
+\headcommand {\beamer@sectionpages {18}{18}}
+\headcommand {\beamer@subsectionpages {18}{18}}
+\headcommand {\slideentry {5}{0}{8}{19/19}{}{0}}
 \headcommand {\beamer@framepages {19}{19}}
-\headcommand {\beamer@partpages {1}{19}}
-\headcommand {\beamer@subsectionpages {19}{19}}
-\headcommand {\beamer@sectionpages {19}{19}}
-\headcommand {\beamer@documentpages {19}}
-\headcommand {\def \inserttotalframenumber {15}}
+\headcommand {\slideentry {5}{0}{9}{20/20}{}{0}}
+\headcommand {\beamer@framepages {20}{20}}
+\headcommand {\slideentry {5}{0}{10}{21/21}{}{0}}
+\headcommand {\beamer@framepages {21}{21}}
+\headcommand {\slideentry {5}{0}{11}{22/22}{}{0}}
+\headcommand {\beamer@framepages {22}{22}}
+\headcommand {\sectionentry {6}{Conclusioni e Lavori Futuri}{23}{Conclusioni e Lavori Futuri}{0}}
+\headcommand {\beamer@sectionpages {19}{22}}
+\headcommand {\beamer@subsectionpages {19}{22}}
+\headcommand {\slideentry {6}{0}{12}{23/23}{}{0}}
+\headcommand {\beamer@framepages {23}{23}}
+\headcommand {\beamer@partpages {1}{23}}
+\headcommand {\beamer@subsectionpages {23}{23}}
+\headcommand {\beamer@sectionpages {23}{23}}
+\headcommand {\beamer@documentpages {23}}
+\headcommand {\def \inserttotalframenumber {19}}

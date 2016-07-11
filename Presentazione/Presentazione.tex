@@ -11,6 +11,8 @@
 \usepackage{amsthm}
 \usepackage{mathtools}
 \usepackage{braket}
+\usepackage{bm}
+\usepackage{bbm}
 
 \usepackage {booktabs}									%tabelle
 \usepackage {multirow}
@@ -231,7 +233,74 @@ La CNES di ottimalià del problema discreto è sempre $ \bar{u}_k=P_{U_{ad}}\big
 Criterio di arresto: $ \norma{B'\big(p^{n+1}_h-p^n_h\big)}_{L^{\infty}(\Omega\times I)}<\epsilon $
 \end{block}
 {\scshape {\Large Non converge per $ \alpha $ piccoli}}
+\end{frame}
 
+\begin{frame}
+\frametitle{Semi-Newton}
+Metodo di Newton con minimizzazione monodimensionale (Armijo) $ \Rightarrow $ formulazione del problema tramite Lagrangiana primale e duale
+\begin{multline}
+%\label{lagr}
+\phi(w)= \\
+-\inf_{u,y\in L^2(I,L^2)}\Biggl( \underbrace{\frac{1}{2}\norma{y-y_d}^2 + \frac{\alpha}{2}\norma{u}^2  + \chi_{U_{ad}}(u) - (w,y-S_hu)}_{\mathcal{L}(u,y,w)}\Biggr)
+\end{multline}
+che diventa quindi un caso di minimizzazione non vincolata $ \min_{w\in L^2(I,L^2(\Omega))} \phi(w) $.
+Qual è la CNES di ottimalità? Si può applicare un metodo di Newton? Risponde il seguente
+\end{frame}
+
+\begin{frame}
+\frametitle{Semi-Newton II}
+\begin{lemma}
+%\label{phi}
+La funzione $ \phi:L^2(I,L^2(\Omega))\to\R $  è fortemente convessa e Frechet-differenziabile con gradiente lipschitziano
+\begin{equation}
+\nabla\phi(w)=y(w)-S_hu(w),
+\end{equation}
+dove $ y_h(w)=w+y_d $ e $ u(w)=P_{U_{ad}}(-\frac{1}{\alpha}S^*_hw) $ sono gli unici punti di minimo della lagrangiana $ \mathcal{L}(u,y,w) $ per ogni $ w\in L^2(I,L^2(\Omega)) $ data.
+\end{lemma}
+Ma allora calcolato l'Hessiano generalizzato di $ \phi $, ogni iterazione di Newton risolve
+\begin{equation}
+\label{newton}
+\big( I + \frac{1}{\alpha}S_h\mathbbm{1}_{S^*_hw}S^*_h\big)\delta w=-(w+y_d)+S_hP{U_{ad}}\big( -\frac{1}{\alpha}S^*_hw\big).
+\end{equation}
+Ecco quindi l'algoritmo promesso
+\end{frame}
+
+\begin{frame}
+\frametitle{Semi-Newton III}
+\begin{algoritmo}
+%\label{dn}
+\begin{enumerate}
+\item Inizializzare $ w^0\in L^2(I,L^2(\Omega)) $, $\beta\in(0,1) $, $ k=0 $, 
+\item Ripetere fino a convergenza
+          \begin{enumerate}
+          \item Risolvere l'equazione ~\eqref{newton} per $ \delta w^k $ tramite CG,
+          \item Porre $ \lambda:=1 $,
+          \item Finché risulta vera la condizione $ \phi(w^k+\lambda\delta w^k) > \phi(w) + \frac{1}{3}\lambda(\nabla\phi(w^k),\delta w^k)_{L^2(I,L^2(\Omega))} $, porre $ \lambda:=\beta\lambda $,
+          \item Porre $ w^{k+1}=w^k + \lambda\delta w^k $
+         \item Porre $ k:=k+1 $.
+          \end{enumerate}
+\end{enumerate}
+criterio di arresto:$ \norma{\nabla\phi(w^k)}\le t_0 $
+\end{algoritmo}
+L'algoritmo converge e il criterio di arresto è plausibile.
+\end{frame}
+
+\begin{frame}
+\frametitle{Significato della simbologia}
+\begin{block}{$ \chi_{U_{ad}} $}
+Indica la funzione caratteristica dell'insieme $ U_{ad} $ nel senso dell'analisi convessa, ovvero
+\begin{equation}
+\chi_{U_{ad}}=
+\begin{cases}
+0,        &\text{su} \ U_{ad},\\
+\infty   &\text{su} \ L^2(I,L^2(\Omega))\setminus U_{ad}.
+\end{cases}
+\end{equation}
+\end{block}
+\begin{block}{$ \mathbbm{1}_{p_h(v)} $}
+Introdotto l'\textit{inactive set} della funzione $ p_h $ come l'insieme $ \mathcal{I}(p_h)=\Set{\omega\in \Omega\times [0,T] | \big( -\frac{1}{\alpha}p_h(v)\big)(\omega)\in (a(\omega),b(\omega))} $ e $ \mathbbm{1}_{\mathcal{I}(p_h)} $ come la funzione indicatrice di tale insieme
+con $ \mathbbm{1}_{p_h(v)} $ si denota l'endomorfismo auto-aggiunto in $ L^2(I,L^2(\Omega)) $ dato dalla moltiplicazione puntuale con $ \mathbbm{1}_{\mathcal{I}(p_h)} $. 
+\end{block}
 
 \end{frame}
 

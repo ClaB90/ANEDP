@@ -5,6 +5,6 @@
 \beamer@subsectionintoc {2}{1}{Equazioni di stato e aggiunta}{5}{0}{2}
 \beamer@subsectionintoc {2}{2}{Discretizzazione variazionale}{10}{0}{2}
 \beamer@sectionintoc {3}{Algoritmi risolutivi}{13}{0}{3}
-\beamer@sectionintoc {4}{Implementazione}{14}{0}{4}
-\beamer@sectionintoc {5}{Risultati}{15}{0}{5}
-\beamer@sectionintoc {6}{Conclusioni e Lavori Futuri}{19}{0}{6}
+\beamer@sectionintoc {4}{Implementazione}{18}{0}{4}
+\beamer@sectionintoc {5}{Risultati}{19}{0}{5}
+\beamer@sectionintoc {6}{Conclusioni e Lavori Futuri}{23}{0}{6}
