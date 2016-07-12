@@ -309,13 +309,10 @@ con $ \mathbbm{1}_{p_h(v)} $ si denota l'endomorfismo auto-aggiunto in $ L^2(I,L
 \begin{frame}
 \frametitle{Implementazione}
 Gli strumenti di sviluppo utilizzati sono \textbf{Freefem++} e \textbf{GitHub}.
-
-Processo di raffinamento temporale al livello l: 
-\begin{equation}
-Nk = ( 2^l + 1 )
-\label{Nk}
-\end{equation}
-
+\par\bigskip
+i parametri e le funzioni che definiscono/risolvono il problema di controllo, aggiunto e di stato sono contenuti in appositi script.
+\par\bigskip
+Lo script che permette l'esecuzione del programma è denominato main.edp
 
 \end{frame}
 \frametitle{Implementazione: Funzione per il calcolo dell'Errore}
@@ -337,11 +334,11 @@ l'operazione di proiezione $P_{U_{ab}}$ non garantisce che i nodi della griglia 
 \frametitle{Implementazione: Schema Problema di Stato}
 %Lo schema di integrazione temporale per il problema di stato è una variante dello schema di Crank-Nicolson.
 Considerato la matrice di Stiffness ed il temine noto al passo k:
+\begin{equation*}
+A(y_k,y_{test}) =  \int_{\Omega} \frac{y_ky_{test}}{{\Delta}t} \, d\Omega + \int_{\Omega} \gamma_1 \bigtriangledown y_k \bigtriangledown y_{test} \, d\Omega 
+\end{equation*}
 \begin{multline*}
-A(y_k,y_{test}) = \int_{\Omega} \gamma_1 \bigtriangledown y_k \bigtriangledown y_{test} \, d\Omega 
-\end{multline*}
-\begin{multline*}
-b(y_{test}) = \int_{\Omega} \gamma_2 \bigtriangledown y_{k-1} \bigtriangledown y_{test} \, d\Omega \\+ \int_{\Omega} \gamma_3 (f_{k}+u_k)y_{test} \, d\Omega + \int_{\Omega} \gamma_4 (f_{k-1}+u_{k-1})y_{test} \, d\Omega
+b(y_{test}) = \int_{\Omega} \frac{y_{k-1}y_{test}}{{\Delta}t} \, d\Omega + \int_{\Omega} \gamma_2 \bigtriangledown y_{k-1} \bigtriangledown y_{test} \, d\Omega \\+ \int_{\Omega} \gamma_3 (f_{k}+u_k)y_{test} \, d\Omega + \int_{\Omega} \gamma_4 (f_{k-1}+u_{k-1})y_{test} \, d\Omega
 \end{multline*}
 
 \begin{table}
@@ -363,16 +360,16 @@ EA & 0 & 0.5 & 0.5 & 0\\
 \begin{frame}
 \frametitle{Implementazione: Forzante del Problema Aggiunto}
 Anche per il problema aggiunto è stato utilizzato un metodo di Crank-Nicolson con la matrice di Stiffness ed il termine noto al passo i:
+\begin{equation*}
+A(p_i,p_{test}) = \int_{\Omega} \frac{p_ip_{test}}{{\Delta}t} \, d\Omega + \int_{\Omega} \frac{1}{2}\bigtriangledown p_i \bigtriangledown p_{test} \, d\Omega 
+\end{equation*}
 \begin{multline*}
-A(p_i,p_{test}) = \int_{\Omega} \frac{1}{2}\bigtriangledown p_i \bigtriangledown p_{test} \, d\Omega 
-\end{multline*}
-\begin{multline*}
-b(p_{test}) = \int_{\Omega} \frac{1}{2} \bigtriangledown p_{i+1} \bigtriangledown p_{test} \, d\Omega \\+ \int_{\Omega} \frac{1}{2} h_i p_{test} \, d\Omega + \int_{\Omega} \frac{1}{2} h_{i+1} p_{test} \, d\Omega
+b(p_{test}) = \int_{\Omega} \frac{p_{i+1}p_{test}}{{\Delta}t} \, d\Omega - \int_{\Omega} \frac{1}{2} \bigtriangledown p_{i+1} \bigtriangledown p_{test} \, d\Omega \\+ \int_{\Omega} \frac{1}{2} h_i p_{test} \, d\Omega + \int_{\Omega} \frac{1}{2} h_{i+1} p_{test} \, d\Omega
 \end{multline*}
 dove:
 \begin{equation*}
 h_i = {y_k}_i - y_d(t_i), \quad
-h_{i+1} = {y_k}_i - y_d(t_i+{\Delta}t)
+h_{i+1} = {y_k}_i - y_d(t_{i+1})
 \end{equation*}
 
 \end{frame}
@@ -386,8 +383,8 @@ Per risolvere l'equazione:
 \end{equation*}
 
 è stato implementato il metodo del gradiente coniugato.
-\\
-La funzione \texttt{adjCG(real[int,int] \&xx)} implementa l’operatore ${S_h}^*$; 
+\par\bigskip
+La funzione \texttt{adjCG(real[int,int] \&xx)} implementa l’operatore $S_h^*$; 
 %Il procedimento utilizzato rispecchia quello precedentemente implementato per il metodo di punto fisso.
 
 \end{frame}
@@ -397,12 +394,12 @@ La funzione \texttt{adjCG(real[int,int] \&xx)} implementa l’operatore ${S_h}^*
 Per la soluzione dell'operatore di stato son state implementate due diverse funzioni.
 \texttt{stateCG(real[int] \&xx)} risolve l'operatore $S_h$ applicato a $P_{U_{ad}}(xx)$ con termine noto al passo k:
 \begin{multline*}
-b(y_{test}) = \int_{\Omega} \gamma_2 \bigtriangledown y_{k-1} \bigtriangledown y_{test} \, d\Omega \\+ \int_{\Omega} \gamma_3 (f_{k}+P_{U_{ad}}(xx_k))y_{test} \, d\Omega + \int_{\Omega} \gamma_4 (f_{k-1}+P_{U_{ad}}(xx_{k-1}))y_{test} \, d\Omega
+b(y_{test}) = \int_{\Omega} \frac{y_ky_{test}}{{\Delta}t} \, d\Omega + \int_{\Omega} \gamma_2 \bigtriangledown y_{k-1} \bigtriangledown y_{test} \, d\Omega \\+ \int_{\Omega} \gamma_3 (f_{k}+P_{U_{ad}}(xx_k))y_{test} \, d\Omega + \int_{\Omega} \gamma_4 (f_{k-1}+P_{U_{ad}}(xx_{k-1}))y_{test} \, d\Omega
 \end{multline*}
 
 \texttt{mat1(real[int] \&xx, real[int] \&ww)} risolve l'operatore $S_h\mathbbm{1}_{S^*_hw}$ considerato con termine noto al passo k:
 \begin{multline*}
-b(y_{test}) = \int_{\Omega} \gamma_2 \bigtriangledown y_{k-1} \bigtriangledown y_{test} \, d\Omega \\+ \int_{\Omega} \gamma_3 \chi_{U_{ad}}xx_k y_{test} \, d\Omega + \int_{\Omega} \gamma_4 \chi_{U_{ad}}xx_{k-1} y_{test} \, d\Omega
+b(y_{test}) = \int_{\Omega} \frac{y_ky_{test}}{{\Delta}t} \, d\Omega + \int_{\Omega} \gamma_2 \bigtriangledown y_{k-1} \bigtriangledown y_{test} \, d\Omega \\+ \int_{\Omega} \gamma_3 \chi_{U_{ad}}xx_k y_{test} \, d\Omega + \int_{\Omega} \gamma_4 \chi_{U_{ad}}xx_{k-1} y_{test} \, d\Omega
 \end{multline*}
 
 \end{frame}
@@ -415,6 +412,12 @@ b(y_{test}) = \int_{\Omega} \gamma_2 \bigtriangledown y_{k-1} \bigtriangledown y
 
 Per entrambi i test case considera $\Omega = (0,1)^2$.
 Viene utilizzata una mesh spaziale uniforme con 22801 nodi.
+
+Processo di raffinamento temporale al livello l: 
+\begin{equation*}
+Nk = ( 2^l + 1 )
+\label{Nk}
+\end{equation*}
 
 \begin{table}
 \centering
@@ -727,6 +730,29 @@ $\alpha$ & $\pi^{-4}$ & 1 \\
 
 \end{frame}
 
+\begin{frame}
+\frametitle{Numero di iterazioni}
+
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Algoritmo} & \textbf{TestCase01} & \textbf{TestCase02}\\
+\hline
+Punto Fisso & 5-6 & 2 \\
+\hline
+Semi Newton & 2 & 2-3 \\
+\hline
+\end{tabular}
+\end{table}
+
+Criteri di tolleranza aggiuntivi per Semi-Newton utilizzati nel TestCase 02
+\begin{tabular}{cc}
+ & \\
+$\norma{\nabla\phi(w^k)} - \norma{\nabla\phi(w^{k+1})} > t_0$ & $\norma{\nabla\phi(w^k) - \nabla\phi(w^{k+1})} > t_0$
+\end{tabular}
+dove t0 è una tolleranza fissata
+\end{frame}
 
 \section{Conclusioni}
 \begin{frame}
@@ -781,7 +807,7 @@ $\overline{p}(t,x_1,x_2)$ & $w_a(t,x_1,x_2) - w_a(T,x_1,x_2)$ \\
 \frametitle{Test Case 02 dati del problema}
 \begin{tabular}{|c|c|}
 \hline
-\textbf{funzione} & \textbf{TestCase01}\\
+\textbf{funzione} & \textbf{TestCase02}\\
 \hline
 $g_1(x_1,x_2)$ & $sin({\pi}x_1)sin({\pi}x_2)$\\
 \hline
@@ -789,7 +815,8 @@ $g_0(t,x_1,x_2)$ & $g_1(x_1,x_2) 2\pi \left( -\frac{a}{T}sin\left( \frac{t}{T}2{
 \hline
 $w_a(t,x_1,x_2)$ & $cos \left( \frac{t}{T}2{\pi}a \right) \cdot g_1(t,x_1,x_2)$ \\
 \hline
-$y_d(t,x_1,x_2)$ & $g_1\left( cos\left( \frac{t}{T}2{\pi}a \right)(1-2{\pi}^2) -\frac{2{\pi}a}{T}sin\left( \frac{t}{T}2{\pi}a \right) +2{\pi}^2cos(2{\pi}a) \right)$ \\
+\multirow{2}{*}{$y_d(t,x_1,x_2)$} & $g_1 ( cos\left( \frac{t}{T}2{\pi}a \right) (1-2{\pi}^2)+$ \\  
+ & $-\frac{2{\pi}a}{T}sin\left( \frac{t}{T}2{\pi}a \right) +2{\pi}^2cos(2{\pi}a) )$ \\
 \hline
 $y_0(x_1,x_2)$ & $g_1(x_1,x_2)$ \\
 \hline

@@ -1,0 +1,103 @@
+errControlL2 :
+ a j 1 errControlL2 = 0.113739
+ a j 2 errControlL2 = 0.074842
+ a j 3 errControlL2 = 0.0137263
+ a j 4 errControlL2 = 0.00421709
+ a j 5 errControlL2 = 0.00396413
+ a j 6 errControlL2 = 0.0040315
+ a j 7 errControlL2 = 0.00405464
+ a j 8 errControlL2 = 0.00403077
+errProjectStateL2 : 
+ a j 1 errProjectStateL2 = 0.403902
+ a j 2 errProjectStateL2 = 0.424496
+ a j 3 errProjectStateL2 = 0.106739
+ a j 4 errProjectStateL2 = 0.0216614
+ a j 5 errProjectStateL2 = 0.00554437
+ a j 6 errProjectStateL2 = 0.00450085
+ a j 7 errProjectStateL2 = 0.00462422
+ a j 8 errProjectStateL2 = 0.00467035
+errStateL2 : 
+ a j 1 errStateL2 = 0.573775
+ a j 2 errStateL2 = 0.460305
+ a j 3 errStateL2 = 0.134636
+ a j 4 errStateL2 = 0.0585656
+ a j 5 errStateL2 = 0.0285196
+ a j 6 errStateL2 = 0.0147025
+ a j 7 errStateL2 = 0.00838393
+ a j 8 errStateL2 = 0.00583363
+errAdjL2vec : 
+ a j 1 errAdjL2vec = 0.577406
+ a j 2 errAdjL2vec = 0.182662
+ a j 3 errAdjL2vec = 0.0888955
+ a j 4 errAdjL2vec = 0.0305975
+ a j 5 errAdjL2vec = 0.0180118
+ a j 6 errAdjL2vec = 0.0159464
+ a j 7 errAdjL2vec = 0.0155602
+ a j 8 errAdjL2vec = 0.0154731
+ j = 1
+EOC errControlL2 = 0.819324 Vorrei fosse ~ 2
+errControlLinfvec[1] e nullo
+EOC errProjectStateL2 = 0.0973545 Vorrei fosse ~ 2
+EOC errStateL2 = 0.431356 Vorrei fosse ~ 1
+EOC errAdjL2 = 2.25304 Vorrei fosse ~ 2
+EOC errStateLinf =  0.00998663 Vorrei fosse ~ 1
+ j = 2
+EOC errControlL2 = 2.88552 Vorrei fosse ~ 2
+EOC errControlLinf = inf Vorrei fosse ~ 2
+EOC errProjectStateL2 = 2.34867 Vorrei fosse ~ 2
+EOC errStateL2 = 2.09143 Vorrei fosse ~ 1
+EOC errAdjL2 = 1.22523 Vorrei fosse ~ 2
+EOC errStateLinf =  2.26949 Vorrei fosse ~ 1
+ j = 3
+EOC errControlL2 = 1.85564 Vorrei fosse ~ 2
+EOC errControlLinf = 1.73307 Vorrei fosse ~ 2
+EOC errProjectStateL2 = 2.50767 Vorrei fosse ~ 2
+EOC errStateL2 = 1.30887 Vorrei fosse ~ 1
+EOC errAdjL2 = 1.67699 Vorrei fosse ~ 2
+EOC errStateLinf =  2.33391 Vorrei fosse ~ 1
+ j = 4
+EOC errControlL2 = 0.0932607 Vorrei fosse ~ 2
+EOC errControlLinf = 0.242966 Vorrei fosse ~ 2
+EOC errProjectStateL2 = 2.05452 Vorrei fosse ~ 2
+EOC errStateL2 = 1.08482 Vorrei fosse ~ 1
+EOC errAdjL2 = 0.798878 Vorrei fosse ~ 2
+EOC errStateLinf =  2.19392 Vorrei fosse ~ 1
+ j = 5
+EOC errControlL2 = 0.0248611 Vorrei fosse ~ 2
+EOC errControlLinf = 0.308856 Vorrei fosse ~ 2
+EOC errProjectStateL2 = 0.307602 Vorrei fosse ~ 2
+EOC errStateL2 = 0.97742 Vorrei fosse ~ 1
+EOC errAdjL2 = 0.179664 Vorrei fosse ~ 2
+EOC errStateLinf =  2.15801 Vorrei fosse ~ 1
+ j = 6
+EOC errControlL2 = 0.0083521 Vorrei fosse ~ 2
+EOC errControlLinf = 0.0548801 Vorrei fosse ~ 2
+EOC errProjectStateL2 = 0.0394531 Vorrei fosse ~ 2
+EOC errStateL2 = 0.819495 Vorrei fosse ~ 1
+EOC errAdjL2 = 0.0357682 Vorrei fosse ~ 2
+EOC errStateLinf =  2.23541 Vorrei fosse ~ 1
+ j = 7
+EOC errControlL2 = 0.00856984 Vorrei fosse ~ 2
+EOC errControlLinf = 0.0304888 Vorrei fosse ~ 2
+EOC errProjectStateL2 = 0.0143989 Vorrei fosse ~ 2
+EOC errStateL2 = 0.52618 Vorrei fosse ~ 1
+EOC errAdjL2 = 0.00815078 Vorrei fosse ~ 2
+EOC errStateLinf =  2.0931 Vorrei fosse ~ 1
+iterNewton : 
+ a j 1 iterNewton = 3 Lambda min 0.2
+ a j 2 iterNewton = 3 Lambda min 0.0016
+ a j 3 iterNewton = 3 Lambda min 1
+ a j 4 iterNewton = 3 Lambda min 0.2
+ a j 5 iterNewton = 3 Lambda min 1
+ a j 6 iterNewton = 3 Lambda min 1
+ a j 7 iterNewton = 3 Lambda min 1
+ a j 8 iterNewton = 3 Lambda min 1
+Dati della simulazione :
+ a j 0 nsol = 3 dt= 0.25 meshN =10
+ a j 1 nsol = 5 dt= 0.125 meshN =10
+ a j 2 nsol = 9 dt= 0.0625 meshN =10
+ a j 3 nsol = 17 dt= 0.03125 meshN =10
+ a j 4 nsol = 33 dt= 0.015625 meshN =10
+ a j 5 nsol = 65 dt= 0.0078125 meshN =10
+ a j 6 nsol = 129 dt= 0.00390625 meshN =10
+ a j 7 nsol = 257 dt= 0.00195312 meshN =10

@@ -82,11 +82,11 @@
 \headcommand {\beamer@framepages {35}{35}}
 \headcommand {\slideentry {5}{2}{6}{36/36}{Test Case 02}{0}}
 \headcommand {\beamer@framepages {36}{36}}
-\headcommand {\sectionentry {6}{Conclusioni}{37}{Conclusioni}{0}}
-\headcommand {\beamer@sectionpages {24}{36}}
-\headcommand {\beamer@subsectionpages {31}{36}}
-\headcommand {\slideentry {6}{0}{7}{37/37}{}{0}}
+\headcommand {\slideentry {5}{2}{7}{37/37}{Test Case 02}{0}}
 \headcommand {\beamer@framepages {37}{37}}
+\headcommand {\sectionentry {6}{Conclusioni}{38}{Conclusioni}{0}}
+\headcommand {\beamer@sectionpages {24}{37}}
+\headcommand {\beamer@subsectionpages {31}{37}}
 \headcommand {\slideentry {6}{0}{8}{38/38}{}{0}}
 \headcommand {\beamer@framepages {38}{38}}
 \headcommand {\slideentry {6}{0}{9}{39/39}{}{0}}
@@ -95,8 +95,10 @@
 \headcommand {\beamer@framepages {40}{40}}
 \headcommand {\slideentry {6}{0}{11}{41/41}{}{0}}
 \headcommand {\beamer@framepages {41}{41}}
-\headcommand {\beamer@partpages {1}{41}}
-\headcommand {\beamer@subsectionpages {37}{41}}
-\headcommand {\beamer@sectionpages {37}{41}}
-\headcommand {\beamer@documentpages {41}}
-\headcommand {\def \inserttotalframenumber {37}}
+\headcommand {\slideentry {6}{0}{12}{42/42}{}{0}}
+\headcommand {\beamer@framepages {42}{42}}
+\headcommand {\beamer@partpages {1}{42}}
+\headcommand {\beamer@subsectionpages {38}{42}}
+\headcommand {\beamer@sectionpages {38}{42}}
+\headcommand {\beamer@documentpages {42}}
+\headcommand {\def \inserttotalframenumber {38}}

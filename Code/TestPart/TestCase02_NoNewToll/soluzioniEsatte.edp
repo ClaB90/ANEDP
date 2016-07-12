@@ -1,0 +1,116 @@
+/****************** Politecnico di Milano - ANEDP project ******************/
+/* 														 					*
+ *  	authors Edoardo Arbib 							 					*
+ *				Claudia Bonomi 							 					*
+ *											   			 					*
+ *  	Descrizione: definizioni delle soluzioni esatte per w,p,u 			*
+ *						per il primo test case								*
+ *					 + funzioni per errore									*
+ *																			*
+ * 		Dipendenze:	funzioni.edp -> waT e a1						        *		
+ *				    main -> parametro alpha									*
+ * 					UabSet -> PUabscal									 	*
+ * 					costante c1 = 2.*pi*a1/T definita in funzioni.edp		*
+ * 														 					*
+ ****************************************************************************/
+
+//Definiamo le funzioni 
+func we = cos(c1*t)*g;
+//per il calcolo dell'errore è necessario definire la funzione esatta di w in diversi t
+func wep = cos(c1*(t+dt/2.))*g;
+func wepppp = cos(c1*(t+0.75*dt))*g;
+func wepp = cos(c1*(t+dt))*g;
+func weppp = cos(c1*(t+1.5*dt))*g;
+func weppppp = cos(c1*(t+dt/4.))*g;
+
+//Definiamo le funzioni esatte per p
+func pe = wa -waT;
+//per il calcolo dell'errore è necessario definire la funzione esatta di p in diversi t
+func pe2 = cos(c1*(t-dt))*g - waT;
+func pep = cos(c1*(t+dt/2.))*g - waT;
+func pepp = cos(c1*(t+dt))*g - waT;
+func pemed = cos(c1*(t+dt/2.))*g - waT;
+
+/* ues = BPUab( -(exp(a1*pi^2*t))/(4*alpha) - (exp(a1*pi^2*T)) )
+ * La costruzione della funzione esatta di u implica quindi l'utilizzo dell'operatore
+ * di proiezione	
+ */
+func uenonproject = g0nonprojdx;
+
+/* La funzione uet(t) prende in ingresso un tempo e calcola il valore della u esatta 
+ * in quel istante temporale
+ */
+func real uet(real x)
+{
+	real tmp,savet=t;
+	
+	t=x;
+	tmp = uenonproject;
+	tmp = PUabScal(tmp);
+	
+	t=savet;
+	return tmp;
+	
+}
+
+/* La funzione ueproject() crea il vettore della soluzione di controllo esatta sulla griglia temporale standard
+ */
+func real[int] ueproject()
+{
+	real tmp=0,savet=t;
+	real[int] control(nsol);
+	
+	//inizializzo t che parte da 0
+	t = 0.;
+	
+	for(int i=0; i<nsol; i++)
+	{
+		tmp = uenonproject;
+		control[i] = PUabScal(tmp);
+		t +=dt;
+	}
+	
+	t=savet;
+	
+	return control;
+	
+}
+
+/* Definisco e calcolo la soluzione di controllo esatta sulla griglia temporale standard
+ */
+real[int] ue(nsol);
+ue = ueproject();
+//cout << ue << endl;
+
+/* La funzione uepuntimedi() crea il vettore dei punti medi della soluzione di controllo esatta sulla griglia temporale standard
+ */
+func real[int] uepuntimedi()
+{
+	real tmp=0, savet=t;
+	real[int] control(nsol-1);
+	
+	//inizializzo t che parte da 0
+	t = dt/2.;
+	
+	for(int i=0; i<nsol-1; i++)
+	{
+		tmp = uenonproject;
+		control[i] = PUabScal(tmp);
+		t +=dt;
+	}
+	
+	t=savet;
+	
+	return control;
+	
+}
+
+real[int] uemed(nsol-1);
+uemed = uepuntimedi();
+
+
+
+
+
+
+

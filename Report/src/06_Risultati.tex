@@ -236,17 +236,17 @@ La perdita riscontrata nell'ordine di convergenza per l'ultima mesh temporale è
 \par
 In figura \ref{eq:503} sono riportati i risultati del paper \cite{MAIN} nei primi tre livelli di raffinamento di griglia. Mentre in \ref{eq:504} e \ref{eq:505} quelli ottenuti con il codice implementato per questo lavoro per ogni livello considerato. In entrambi i casi si vede che una buona approssimazione della soluzione esatta viene raggiunta.
 \par
-Per l'algoritmo di punto fisso sono richieste due iterazioni per ogni griglia temporale prima di arrivare a convergenza, considerando un valore di tolleranza di $toll=10^{-5}$, mentre per quello di Newton ne bastano tre se viene introdotto un criterio di tolleranza aggiuntivo tale per cui:
+Per l'algoritmo di punto fisso sono richieste due iterazioni per ogni griglia temporale prima di arrivare a convergenza, considerando un valore di tolleranza di $toll=10^{-5}$, mentre per quello di Newton ne bastano due se viene introdotto un criterio di tolleranza aggiuntivo tale per cui:
 \begin{equation}
-\norma{\nabla\phi(w^k)} - \norma{\nabla\phi(w^{k+1}} > t_0
+\norma{\nabla\phi(w^k)} - \norma{\nabla\phi(w^{k+1})} > t_0
 \label{primanorma}
 \end{equation} 
 oppure quattro se viene considerato invece:
 \begin{equation}
-\norma{\nabla\phi(w^k) - \nabla\phi(w^{k+1}} > t_0
+\norma{\nabla\phi(w^k) - \nabla\phi(w^{k+1})} > t_0
 \label{secondanorma}
 \end{equation}
-Col criterio \ref{primanorma} l'algoritmo converge in tre passi per ognuna delle mesh considerate. Mentre utilizzando \ref{secondanorma} si ha la convergenza dopo nove passi per la prima griglia utilizzata e quattro dalla successiva in avanti.
+Col criterio \ref{primanorma} l'algoritmo converge in due passi per ognuna delle mesh considerate. Mentre utilizzando \ref{secondanorma} si ha la convergenza dopo nove passi per la prima griglia utilizzata e tre dalla successiva in avanti.
 
 \begin{figure}
 \centering
