@@ -326,7 +326,7 @@ Per il calcolo di ogni norma e prodotto scalare il metodo numerico di integrazio
 \label{fig:griglie}
 \end{figure}
 
-l'operazione di proiezione $P_{U_{ab}}$ non garantisce che i nodi della griglia temporale utilizzata corrispondano a i punti di non derivabilità della funzione proiettata
+L'operazione di proiezione $P_{U_{ab}}$ non garantisce che i nodi della griglia temporale utilizzata corrispondano a i punti di non derivabilità della funzione proiettata
 
 \end{frame}
 
@@ -413,9 +413,9 @@ b(y_{test}) = \int_{\Omega} \frac{y_ky_{test}}{{\Delta}t} \, d\Omega + \int_{\Om
 Per entrambi i test case considera $\Omega = (0,1)^2$.
 Viene utilizzata una mesh spaziale uniforme con 22801 nodi.
 
-Processo di raffinamento temporale al livello l: 
+Processo di raffinamento temporale al livello \texttt{l} 
 \begin{equation*}
-Nk = ( 2^l + 1 )
+Nk = ( 2^{\texttt{l} } + 1 )
 \label{Nk}
 \end{equation*}
 
@@ -442,7 +442,7 @@ $\alpha$ & $\pi^{-4}$ & 1 \\
 
 \begin{figure}
 \centering
-\subfigure[{l = 1}]%
+\subfigure[\protect\url{l = 1}]%
 {\includegraphics[width=0.25\linewidth]{img/cap6/Imm_PF_01/ControlSol_N150_l1}}\qquad
 \subfigure[\protect\url{l = 2}]%
 {\includegraphics[width=0.25\linewidth]{img/cap6/Imm_PF_01/ControlSol_N150_l2}}\qquad
@@ -468,7 +468,7 @@ $\alpha$ & $\pi^{-4}$ & 1 \\
 
 \begin{tabular}{cllll}
 \toprule
-{l}           &  {$ \norma{\bar{u}-u_{kh}}_{L^2(L^2)} $} &  {$ \norma{\bar{y}-y_{kh}}_{L^2(L^2)} $} &  {$ EOC_u $} &  {$ EOC_y $} \\
+{\texttt{l}}           &  {$ \norma{\bar{u}-u_{kh}}_{L^2(L^2)} $} &  {$ \norma{\bar{y}-y_{kh}}_{L^2(L^2)} $} &  {$ EOC_u $} &  {$ EOC_y $} \\
 \midrule
 1            &  0.31667 &  0.981285 &  {$-$} &  {$-$} \\
 2            &  0.0835064 &  0.496296 &  2.60937 &  1.33449 \\
@@ -492,7 +492,7 @@ $\alpha$ & $\pi^{-4}$ & 1 \\
 
 \begin{tabular}{cllll}
 \toprule
-{l}           &  {$ \norma{\bar{y}-\pi_{P^*_k}y_{kh}}_{L^2(L^2)} $} &  {$ \norma{\bar{p}-p_{kh}}_{L^2(L^2)} $} &  {$ EOC_{\pi y} $} &  {$ EOC_p $} \\
+{\texttt{l}}           &  {$ \norma{\bar{y}-\pi_{P^*_k}y_{kh}}_{L^2(L^2)} $} &  {$ \norma{\bar{p}-p_{kh}}_{L^2(L^2)} $} &  {$ EOC_{\pi y} $} &  {$ EOC_p $} \\
 \midrule
 1            &  0.520894 &  0.00660747 &  {$-$} &  {$-$} \\
 2            &  0.15134 &  0.00173155 &  2.41965 &  2.6216 \\
@@ -510,7 +510,7 @@ $\alpha$ & $\pi^{-4}$ & 1 \\
 \frametitle{Test Case 01 Semi-Newton}
 \begin{figure}
 \centering%
-\subfigure[{l = 1}]%
+\subfigure[\protect\url{l = 1}]%
 {\includegraphics[width=0.25\linewidth]{img/cap6/Imm_CG_01/ControlSol_N150_l1}}\qquad
 \subfigure[\protect\url{l = 2}]%
 {\includegraphics[width=0.25\linewidth]{img/cap6/Imm_CG_01/ControlSol_N150_l2}}\qquad
@@ -538,7 +538,7 @@ $\alpha$ & $\pi^{-4}$ & 1 \\
 
 \begin{tabular}{cllll}
 \toprule
-{l}           &  {$ \norma{\bar{u}-u_{kh}}_{L^2(L^2)} $} &  {$ \norma{\bar{y}-y_{kh}}_{L^2(L^2)} $} &  {$ EOC_u $} &  {$ EOC_y $} \\
+{\texttt{l}}           &  {$ \norma{\bar{u}-u_{kh}}_{L^2(L^2)} $} &  {$ \norma{\bar{y}-y_{kh}}_{L^2(L^2)} $} &  {$ EOC_u $} &  {$ EOC_y $} \\
 \midrule
 1            &  0.316669 &  0.981285 &  {$-$} &  {$-$} \\
 2            &  0.0835064 &  0.496296 &  2.60937 &  1.33449 \\
@@ -561,7 +561,7 @@ $\alpha$ & $\pi^{-4}$ & 1 \\
 
 \begin{tabular}{cllll}
 \toprule
-{l}           &  {$ \norma{\bar{y}-\pi_{P^*_k}y_{kh}}_{L^2(L^2)} $} & {$ \norma{\bar{p}-p_{kh}}_{L^2(L^2)} $} &  {$ EOC_{\pi y} $}  &  {$ EOC_p $} \\
+{\texttt{l}}           &  {$ \norma{\bar{y}-\pi_{P^*_k}y_{kh}}_{L^2(L^2)} $} & {$ \norma{\bar{p}-p_{kh}}_{L^2(L^2)} $} &  {$ EOC_{\pi y} $}  &  {$ EOC_p $} \\
 \midrule
 1            &  0.520894 &  0.00660747 &  {$-$} &  {$-$} \\
 2            &  0.15134 &  0.00173155 &  2.41965 &  2.6216 \\
@@ -580,7 +580,7 @@ $\alpha$ & $\pi^{-4}$ & 1 \\
 \frametitle{Test Case 02 Punto fisso $\overline{u}$ e $u_k$}
 \begin{figure}
 \centering%
-\subfigure[{l = 1}]%
+\subfigure[\protect\url{l = 1}]%
 {\includegraphics[width=0.2\linewidth]{img/cap6/Imm_PF_02/ControlSol_N150_l1}}\qquad
 \subfigure[\protect\url{l = 2}]%
 {\includegraphics[width=0.2\linewidth]{img/cap6/Imm_PF_02/ControlSol_N150_l2}}\qquad
@@ -596,8 +596,7 @@ $\alpha$ & $\pi^{-4}$ & 1 \\
 {\includegraphics[width=0.2\linewidth]{img/cap6/Imm_PF_02/ControlSol_N150_l7}}\qquad
 \subfigure[\protect\url{l = 8}]%
 {\includegraphics[width=0.2\linewidth]{img/cap6/Imm_PF_02/ControlSol_N150_l8}}
-\caption{Test Case 02 $\overline{u}$ e $u_k$ risultati dell'algoritmo di punto fisso}
-\label{fig:504}
+\caption{ }
 \end{figure}
 
 \end{frame}
@@ -612,7 +611,7 @@ $\alpha$ & $\pi^{-4}$ & 1 \\
 
 \begin{tabular}{cllll}
 \toprule
-{l}           &  {$ \norma{\bar{u}-u_{kh}}_{L^2(L^2)} $} &  {$ \norma{\bar{y}-y_{kh}}_{L^2(L^2)} $} &  {$ EOC_{u} $} &  {$ EOC_y $} \\
+{\texttt{l}}           &  {$ \norma{\bar{u}-u_{kh}}_{L^2(L^2)} $} &  {$ \norma{\bar{y}-y_{kh}}_{L^2(L^2)} $} &  {$ EOC_{u} $} &  {$ EOC_y $} \\
 \midrule
 1            &  0.11547 &  0.577323 &  {$-$} &  {$-$} \\
 2            &  0.049267 &  0.463462 &  1.66741 &  0.430045 \\
@@ -639,7 +638,7 @@ $\alpha$ & $\pi^{-4}$ & 1 \\
 
 \begin{tabular}{cllll}
 \toprule
-{l}           &  {$ \norma{\bar{y}-\pi_{P^*_k}y_{kh}}_{L^2(L^2)} $} &  {$ \norma{\bar{p}-p_{kh}}_{L^2(L^2)} $} &  {$ EOC_{\pi y} $} &  {$ EOC_p $} \\
+{\texttt{l}}           &  {$ \norma{\bar{y}-\pi_{P^*_k}y_{kh}}_{L^2(L^2)} $} &  {$ \norma{\bar{p}-p_{kh}}_{L^2(L^2)} $} &  {$ EOC_{\pi y} $} &  {$ EOC_p $} \\
 \midrule
 1            &  0.408219 &  0.57735 &  {$-$} &  {$-$} \\
 2            &  0.428289 &  0.181146 &  0.0939571 &  2.26916 \\
@@ -659,7 +658,7 @@ $\alpha$ & $\pi^{-4}$ & 1 \\
 \frametitle{Test Case 02 Semi-Newton}
 \begin{figure}
 \centering%
-\subfigure[{l = 1}]%
+\subfigure[\protect\url{l = 1}]%
 {\includegraphics[width=0.2\linewidth]{img/cap6/Imm_CG_02/ControlSol_N150_l1}}\qquad
 \subfigure[\protect\url{l = 2}]%
 {\includegraphics[width=0.2\linewidth]{img/cap6/Imm_CG_02/ControlSol_N150_l2}}\qquad
@@ -688,7 +687,7 @@ $\alpha$ & $\pi^{-4}$ & 1 \\
 
 \begin{tabular}{cllll}
 \toprule
-{l} &  {$ \norma{\bar{u}-u_{kh}}_{L^2(L^2)} $} &  {$ \norma{\bar{y}-y_{kh}}_{L^2(L^2)} $} &  {$ EOC_{u} $} &  {$ EOC_y $} \\
+{\texttt{l}} &  {$ \norma{\bar{u}-u_{kh}}_{L^2(L^2)} $} &  {$ \norma{\bar{y}-y_{kh}}_{L^2(L^2)} $} &  {$ EOC_{u} $} &  {$ EOC_y $} \\
 \midrule
 1            &  0.115495 &  0.579976 &  {$-$} &  {$-$} \\
 2            &  0.076157  &  0.462076 &  0.815213 &  0.444884 \\
@@ -713,7 +712,7 @@ $\alpha$ & $\pi^{-4}$ & 1 \\
 
 \begin{tabular}{cllll}
 \toprule
-{l}  &  {$ \norma{\bar{y}-\pi_{P^*_k}y_{kh}}_{L^2(L^2)} $}  &  {$ \norma{\bar{p}-p_{kh}}_{L^2(L^2)} $}        &  {$ EOC_{\pi y} $} &  {$ EOC_p $} \\
+{\texttt{l}}  &  {$ \norma{\bar{y}-\pi_{P^*_k}y_{kh}}_{L^2(L^2)} $}  &  {$ \norma{\bar{p}-p_{kh}}_{L^2(L^2)} $}        &  {$ EOC_{\pi y} $} &  {$ EOC_p $} \\
 \midrule
 1 			 &  0.410488 &  0.57748 &  {$-$} & {$-$} \\
 2            &  0.427682 &  0.181205 &  0.080328 &  2.26897 \\

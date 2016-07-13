@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  12 JUL 2016 14:29
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  12 JUL 2016 20:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1353,7 +1353,7 @@ Sol_N150_l1-eps-converted-to.pdf img/cap6/Imm_PF_01/ControlSol_N150_l1.eps>
 (epstopdf)             \includegraphics on input line 460.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_PF_01/ControlSol_N150_l1-eps-converted-to.pdf, id=1339, 849.1725p
+<img/cap6/Imm_PF_01/ControlSol_N150_l1-eps-converted-to.pdf, id=1340, 849.1725p
 t x 596.2275pt>
 File: img/cap6/Imm_PF_01/ControlSol_N150_l1-eps-converted-to.pdf Graphic file (
 type pdf)
@@ -1375,7 +1375,7 @@ Sol_N150_l2-eps-converted-to.pdf img/cap6/Imm_PF_01/ControlSol_N150_l2.eps>
 (epstopdf)             \includegraphics on input line 460.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_PF_01/ControlSol_N150_l2-eps-converted-to.pdf, id=1340, 849.1725p
+<img/cap6/Imm_PF_01/ControlSol_N150_l2-eps-converted-to.pdf, id=1342, 849.1725p
 t x 596.2275pt>
 File: img/cap6/Imm_PF_01/ControlSol_N150_l2-eps-converted-to.pdf Graphic file (
 type pdf)
@@ -1397,7 +1397,7 @@ Sol_N150_l3-eps-converted-to.pdf img/cap6/Imm_PF_01/ControlSol_N150_l3.eps>
 (epstopdf)             \includegraphics on input line 460.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_PF_01/ControlSol_N150_l3-eps-converted-to.pdf, id=1342, 849.1725p
+<img/cap6/Imm_PF_01/ControlSol_N150_l3-eps-converted-to.pdf, id=1344, 849.1725p
 t x 596.2275pt>
 File: img/cap6/Imm_PF_01/ControlSol_N150_l3-eps-converted-to.pdf Graphic file (
 type pdf)
@@ -1419,7 +1419,7 @@ Sol_N150_l4-eps-converted-to.pdf img/cap6/Imm_PF_01/ControlSol_N150_l4.eps>
 (epstopdf)             \includegraphics on input line 460.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_PF_01/ControlSol_N150_l4-eps-converted-to.pdf, id=1344, 849.1725p
+<img/cap6/Imm_PF_01/ControlSol_N150_l4-eps-converted-to.pdf, id=1346, 849.1725p
 t x 596.2275pt>
 File: img/cap6/Imm_PF_01/ControlSol_N150_l4-eps-converted-to.pdf Graphic file (
 type pdf)
@@ -1441,7 +1441,7 @@ Sol_N150_l5-eps-converted-to.pdf img/cap6/Imm_PF_01/ControlSol_N150_l5.eps>
 (epstopdf)             \includegraphics on input line 460.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_PF_01/ControlSol_N150_l5-eps-converted-to.pdf, id=1346, 849.1725p
+<img/cap6/Imm_PF_01/ControlSol_N150_l5-eps-converted-to.pdf, id=1348, 849.1725p
 t x 596.2275pt>
 File: img/cap6/Imm_PF_01/ControlSol_N150_l5-eps-converted-to.pdf Graphic file (
 type pdf)
@@ -1463,7 +1463,7 @@ Sol_N150_l6-eps-converted-to.pdf img/cap6/Imm_PF_01/ControlSol_N150_l6.eps>
 (epstopdf)             \includegraphics on input line 460.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_PF_01/ControlSol_N150_l6-eps-converted-to.pdf, id=1348, 849.1725p
+<img/cap6/Imm_PF_01/ControlSol_N150_l6-eps-converted-to.pdf, id=1350, 849.1725p
 t x 596.2275pt>
 File: img/cap6/Imm_PF_01/ControlSol_N150_l6-eps-converted-to.pdf Graphic file (
 type pdf)
@@ -1496,7 +1496,7 @@ Sol_N150_l1-eps-converted-to.pdf img/cap6/Imm_CG_01/ControlSol_N150_l1.eps>
 (epstopdf)             \includegraphics on input line 529.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_CG_01/ControlSol_N150_l1-eps-converted-to.pdf, id=1521, 849.1725p
+<img/cap6/Imm_CG_01/ControlSol_N150_l1-eps-converted-to.pdf, id=1523, 849.1725p
 t x 596.2275pt>
 File: img/cap6/Imm_CG_01/ControlSol_N150_l1-eps-converted-to.pdf Graphic file (
 type pdf)
@@ -1518,7 +1518,7 @@ Sol_N150_l2-eps-converted-to.pdf img/cap6/Imm_CG_01/ControlSol_N150_l2.eps>
 (epstopdf)             \includegraphics on input line 529.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_CG_01/ControlSol_N150_l2-eps-converted-to.pdf, id=1522, 849.1725p
+<img/cap6/Imm_CG_01/ControlSol_N150_l2-eps-converted-to.pdf, id=1525, 849.1725p
 t x 596.2275pt>
 File: img/cap6/Imm_CG_01/ControlSol_N150_l2-eps-converted-to.pdf Graphic file (
 type pdf)
@@ -1540,7 +1540,7 @@ Sol_N150_l3-eps-converted-to.pdf img/cap6/Imm_CG_01/ControlSol_N150_l3.eps>
 (epstopdf)             \includegraphics on input line 529.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_CG_01/ControlSol_N150_l3-eps-converted-to.pdf, id=1524, 849.1725p
+<img/cap6/Imm_CG_01/ControlSol_N150_l3-eps-converted-to.pdf, id=1527, 849.1725p
 t x 596.2275pt>
 File: img/cap6/Imm_CG_01/ControlSol_N150_l3-eps-converted-to.pdf Graphic file (
 type pdf)
@@ -1562,7 +1562,7 @@ Sol_N150_l4-eps-converted-to.pdf img/cap6/Imm_CG_01/ControlSol_N150_l4.eps>
 (epstopdf)             \includegraphics on input line 529.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_CG_01/ControlSol_N150_l4-eps-converted-to.pdf, id=1526, 849.1725p
+<img/cap6/Imm_CG_01/ControlSol_N150_l4-eps-converted-to.pdf, id=1529, 849.1725p
 t x 596.2275pt>
 File: img/cap6/Imm_CG_01/ControlSol_N150_l4-eps-converted-to.pdf Graphic file (
 type pdf)
@@ -1584,7 +1584,7 @@ Sol_N150_l5-eps-converted-to.pdf img/cap6/Imm_CG_01/ControlSol_N150_l5.eps>
 (epstopdf)             \includegraphics on input line 529.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_CG_01/ControlSol_N150_l5-eps-converted-to.pdf, id=1528, 849.1725p
+<img/cap6/Imm_CG_01/ControlSol_N150_l5-eps-converted-to.pdf, id=1531, 849.1725p
 t x 596.2275pt>
 File: img/cap6/Imm_CG_01/ControlSol_N150_l5-eps-converted-to.pdf Graphic file (
 type pdf)
@@ -1606,7 +1606,7 @@ Sol_N150_l6-eps-converted-to.pdf img/cap6/Imm_CG_01/ControlSol_N150_l6.eps>
 (epstopdf)             \includegraphics on input line 529.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_CG_01/ControlSol_N150_l6-eps-converted-to.pdf, id=1530, 849.1725p
+<img/cap6/Imm_CG_01/ControlSol_N150_l6-eps-converted-to.pdf, id=1533, 849.1725p
 t x 596.2275pt>
 File: img/cap6/Imm_CG_01/ControlSol_N150_l6-eps-converted-to.pdf Graphic file (
 type pdf)
@@ -1636,17 +1636,17 @@ converted-to.pdf>
 (epstopdf)                    size: 16269 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_02/Control
 Sol_N150_l1-eps-converted-to.pdf img/cap6/Imm_PF_02/ControlSol_N150_l1.eps>
-(epstopdf)             \includegraphics on input line 603.
+(epstopdf)             \includegraphics on input line 602.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_PF_02/ControlSol_N150_l1-eps-converted-to.pdf, id=1699, 849.1725p
+<img/cap6/Imm_PF_02/ControlSol_N150_l1-eps-converted-to.pdf, id=1702, 849.1725p
 t x 596.2275pt>
 File: img/cap6/Imm_PF_02/ControlSol_N150_l1-eps-converted-to.pdf Graphic file (
 type pdf)
 
 <use img/cap6/Imm_PF_02/ControlSol_N150_l1-eps-converted-to.pdf>
 Package pdftex.def Info: img/cap6/Imm_PF_02/ControlSol_N150_l1-eps-converted-to
-.pdf used on input line 603.
+.pdf used on input line 602.
 (pdftex.def)             Requested size: 61.45703pt x 43.15033pt.
 Package epstopdf Info: Source file: <img/cap6/Imm_PF_02/ControlSol_N150_l2.eps>
 
@@ -1658,17 +1658,17 @@ converted-to.pdf>
 (epstopdf)                    size: 16465 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_02/Control
 Sol_N150_l2-eps-converted-to.pdf img/cap6/Imm_PF_02/ControlSol_N150_l2.eps>
-(epstopdf)             \includegraphics on input line 603.
+(epstopdf)             \includegraphics on input line 602.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_PF_02/ControlSol_N150_l2-eps-converted-to.pdf, id=1700, 849.1725p
+<img/cap6/Imm_PF_02/ControlSol_N150_l2-eps-converted-to.pdf, id=1704, 849.1725p
 t x 596.2275pt>
 File: img/cap6/Imm_PF_02/ControlSol_N150_l2-eps-converted-to.pdf Graphic file (
 type pdf)
 
 <use img/cap6/Imm_PF_02/ControlSol_N150_l2-eps-converted-to.pdf>
 Package pdftex.def Info: img/cap6/Imm_PF_02/ControlSol_N150_l2-eps-converted-to
-.pdf used on input line 603.
+.pdf used on input line 602.
 (pdftex.def)             Requested size: 61.45703pt x 43.15033pt.
 Package epstopdf Info: Source file: <img/cap6/Imm_PF_02/ControlSol_N150_l3.eps>
 
@@ -1680,17 +1680,17 @@ converted-to.pdf>
 (epstopdf)                    size: 16773 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_02/Control
 Sol_N150_l3-eps-converted-to.pdf img/cap6/Imm_PF_02/ControlSol_N150_l3.eps>
-(epstopdf)             \includegraphics on input line 603.
+(epstopdf)             \includegraphics on input line 602.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_PF_02/ControlSol_N150_l3-eps-converted-to.pdf, id=1702, 849.1725p
+<img/cap6/Imm_PF_02/ControlSol_N150_l3-eps-converted-to.pdf, id=1706, 849.1725p
 t x 596.2275pt>
 File: img/cap6/Imm_PF_02/ControlSol_N150_l3-eps-converted-to.pdf Graphic file (
 type pdf)
 
 <use img/cap6/Imm_PF_02/ControlSol_N150_l3-eps-converted-to.pdf>
 Package pdftex.def Info: img/cap6/Imm_PF_02/ControlSol_N150_l3-eps-converted-to
-.pdf used on input line 603.
+.pdf used on input line 602.
 (pdftex.def)             Requested size: 61.45703pt x 43.15033pt.
 Package epstopdf Info: Source file: <img/cap6/Imm_PF_02/ControlSol_N150_l4.eps>
 
@@ -1702,17 +1702,17 @@ converted-to.pdf>
 (epstopdf)                    size: 17362 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_02/Control
 Sol_N150_l4-eps-converted-to.pdf img/cap6/Imm_PF_02/ControlSol_N150_l4.eps>
-(epstopdf)             \includegraphics on input line 603.
+(epstopdf)             \includegraphics on input line 602.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_PF_02/ControlSol_N150_l4-eps-converted-to.pdf, id=1704, 849.1725p
+<img/cap6/Imm_PF_02/ControlSol_N150_l4-eps-converted-to.pdf, id=1708, 849.1725p
 t x 596.2275pt>
 File: img/cap6/Imm_PF_02/ControlSol_N150_l4-eps-converted-to.pdf Graphic file (
 type pdf)
 
 <use img/cap6/Imm_PF_02/ControlSol_N150_l4-eps-converted-to.pdf>
 Package pdftex.def Info: img/cap6/Imm_PF_02/ControlSol_N150_l4-eps-converted-to
-.pdf used on input line 603.
+.pdf used on input line 602.
 (pdftex.def)             Requested size: 61.45703pt x 43.15033pt.
 Package epstopdf Info: Source file: <img/cap6/Imm_PF_02/ControlSol_N150_l5.eps>
 
@@ -1724,17 +1724,17 @@ converted-to.pdf>
 (epstopdf)                    size: 18532 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_02/Control
 Sol_N150_l5-eps-converted-to.pdf img/cap6/Imm_PF_02/ControlSol_N150_l5.eps>
-(epstopdf)             \includegraphics on input line 603.
+(epstopdf)             \includegraphics on input line 602.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_PF_02/ControlSol_N150_l5-eps-converted-to.pdf, id=1706, 849.1725p
+<img/cap6/Imm_PF_02/ControlSol_N150_l5-eps-converted-to.pdf, id=1710, 849.1725p
 t x 596.2275pt>
 File: img/cap6/Imm_PF_02/ControlSol_N150_l5-eps-converted-to.pdf Graphic file (
 type pdf)
 
 <use img/cap6/Imm_PF_02/ControlSol_N150_l5-eps-converted-to.pdf>
 Package pdftex.def Info: img/cap6/Imm_PF_02/ControlSol_N150_l5-eps-converted-to
-.pdf used on input line 603.
+.pdf used on input line 602.
 (pdftex.def)             Requested size: 61.45703pt x 43.15033pt.
 Package epstopdf Info: Source file: <img/cap6/Imm_PF_02/ControlSol_N150_l6.eps>
 
@@ -1746,17 +1746,17 @@ converted-to.pdf>
 (epstopdf)                    size: 20943 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_02/Control
 Sol_N150_l6-eps-converted-to.pdf img/cap6/Imm_PF_02/ControlSol_N150_l6.eps>
-(epstopdf)             \includegraphics on input line 603.
+(epstopdf)             \includegraphics on input line 602.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_PF_02/ControlSol_N150_l6-eps-converted-to.pdf, id=1708, 849.1725p
+<img/cap6/Imm_PF_02/ControlSol_N150_l6-eps-converted-to.pdf, id=1712, 849.1725p
 t x 596.2275pt>
 File: img/cap6/Imm_PF_02/ControlSol_N150_l6-eps-converted-to.pdf Graphic file (
 type pdf)
 
 <use img/cap6/Imm_PF_02/ControlSol_N150_l6-eps-converted-to.pdf>
 Package pdftex.def Info: img/cap6/Imm_PF_02/ControlSol_N150_l6-eps-converted-to
-.pdf used on input line 603.
+.pdf used on input line 602.
 (pdftex.def)             Requested size: 61.45703pt x 43.15033pt.
 Package epstopdf Info: Source file: <img/cap6/Imm_PF_02/ControlSol_N150_l7.eps>
 
@@ -1768,17 +1768,17 @@ converted-to.pdf>
 (epstopdf)                    size: 25469 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_02/Control
 Sol_N150_l7-eps-converted-to.pdf img/cap6/Imm_PF_02/ControlSol_N150_l7.eps>
-(epstopdf)             \includegraphics on input line 603.
+(epstopdf)             \includegraphics on input line 602.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_PF_02/ControlSol_N150_l7-eps-converted-to.pdf, id=1710, 849.1725p
+<img/cap6/Imm_PF_02/ControlSol_N150_l7-eps-converted-to.pdf, id=1714, 849.1725p
 t x 596.2275pt>
 File: img/cap6/Imm_PF_02/ControlSol_N150_l7-eps-converted-to.pdf Graphic file (
 type pdf)
 
 <use img/cap6/Imm_PF_02/ControlSol_N150_l7-eps-converted-to.pdf>
 Package pdftex.def Info: img/cap6/Imm_PF_02/ControlSol_N150_l7-eps-converted-to
-.pdf used on input line 603.
+.pdf used on input line 602.
 (pdftex.def)             Requested size: 61.45703pt x 43.15033pt.
 Package epstopdf Info: Source file: <img/cap6/Imm_PF_02/ControlSol_N150_l8.eps>
 
@@ -1790,20 +1790,20 @@ converted-to.pdf>
 (epstopdf)                    size: 34033 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_PF_02/Control
 Sol_N150_l8-eps-converted-to.pdf img/cap6/Imm_PF_02/ControlSol_N150_l8.eps>
-(epstopdf)             \includegraphics on input line 603.
+(epstopdf)             \includegraphics on input line 602.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_PF_02/ControlSol_N150_l8-eps-converted-to.pdf, id=1712, 849.1725p
+<img/cap6/Imm_PF_02/ControlSol_N150_l8-eps-converted-to.pdf, id=1716, 849.1725p
 t x 596.2275pt>
 File: img/cap6/Imm_PF_02/ControlSol_N150_l8-eps-converted-to.pdf Graphic file (
 type pdf)
 
 <use img/cap6/Imm_PF_02/ControlSol_N150_l8-eps-converted-to.pdf>
 Package pdftex.def Info: img/cap6/Imm_PF_02/ControlSol_N150_l8-eps-converted-to
-.pdf used on input line 603.
+.pdf used on input line 602.
 (pdftex.def)             Requested size: 61.45703pt x 43.15033pt.
 
-Overfull \vbox (17.7557pt too high) detected at line 603
+Overfull \vbox (17.478pt too high) detected at line 602
  []
 
 [31
@@ -1829,17 +1829,17 @@ converted-to.pdf>
 (epstopdf)                    size: 16281 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_CG_02/Control
 Sol_N150_l1-eps-converted-to.pdf img/cap6/Imm_CG_02/ControlSol_N150_l1.eps>
-(epstopdf)             \includegraphics on input line 680.
+(epstopdf)             \includegraphics on input line 679.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_CG_02/ControlSol_N150_l1-eps-converted-to.pdf, id=1888, 849.1725p
+<img/cap6/Imm_CG_02/ControlSol_N150_l1-eps-converted-to.pdf, id=1891, 849.1725p
 t x 596.2275pt>
 File: img/cap6/Imm_CG_02/ControlSol_N150_l1-eps-converted-to.pdf Graphic file (
 type pdf)
 
 <use img/cap6/Imm_CG_02/ControlSol_N150_l1-eps-converted-to.pdf>
 Package pdftex.def Info: img/cap6/Imm_CG_02/ControlSol_N150_l1-eps-converted-to
-.pdf used on input line 680.
+.pdf used on input line 679.
 (pdftex.def)             Requested size: 61.45703pt x 43.15033pt.
 Package epstopdf Info: Source file: <img/cap6/Imm_CG_02/ControlSol_N150_l2.eps>
 
@@ -1851,17 +1851,17 @@ converted-to.pdf>
 (epstopdf)                    size: 16452 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_CG_02/Control
 Sol_N150_l2-eps-converted-to.pdf img/cap6/Imm_CG_02/ControlSol_N150_l2.eps>
-(epstopdf)             \includegraphics on input line 680.
+(epstopdf)             \includegraphics on input line 679.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_CG_02/ControlSol_N150_l2-eps-converted-to.pdf, id=1889, 849.1725p
+<img/cap6/Imm_CG_02/ControlSol_N150_l2-eps-converted-to.pdf, id=1893, 849.1725p
 t x 596.2275pt>
 File: img/cap6/Imm_CG_02/ControlSol_N150_l2-eps-converted-to.pdf Graphic file (
 type pdf)
 
 <use img/cap6/Imm_CG_02/ControlSol_N150_l2-eps-converted-to.pdf>
 Package pdftex.def Info: img/cap6/Imm_CG_02/ControlSol_N150_l2-eps-converted-to
-.pdf used on input line 680.
+.pdf used on input line 679.
 (pdftex.def)             Requested size: 61.45703pt x 43.15033pt.
 Package epstopdf Info: Source file: <img/cap6/Imm_CG_02/ControlSol_N150_l3.eps>
 
@@ -1873,17 +1873,17 @@ converted-to.pdf>
 (epstopdf)                    size: 16775 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_CG_02/Control
 Sol_N150_l3-eps-converted-to.pdf img/cap6/Imm_CG_02/ControlSol_N150_l3.eps>
-(epstopdf)             \includegraphics on input line 680.
+(epstopdf)             \includegraphics on input line 679.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_CG_02/ControlSol_N150_l3-eps-converted-to.pdf, id=1891, 849.1725p
+<img/cap6/Imm_CG_02/ControlSol_N150_l3-eps-converted-to.pdf, id=1895, 849.1725p
 t x 596.2275pt>
 File: img/cap6/Imm_CG_02/ControlSol_N150_l3-eps-converted-to.pdf Graphic file (
 type pdf)
 
 <use img/cap6/Imm_CG_02/ControlSol_N150_l3-eps-converted-to.pdf>
 Package pdftex.def Info: img/cap6/Imm_CG_02/ControlSol_N150_l3-eps-converted-to
-.pdf used on input line 680.
+.pdf used on input line 679.
 (pdftex.def)             Requested size: 61.45703pt x 43.15033pt.
 Package epstopdf Info: Source file: <img/cap6/Imm_CG_02/ControlSol_N150_l4.eps>
 
@@ -1895,17 +1895,17 @@ converted-to.pdf>
 (epstopdf)                    size: 17361 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_CG_02/Control
 Sol_N150_l4-eps-converted-to.pdf img/cap6/Imm_CG_02/ControlSol_N150_l4.eps>
-(epstopdf)             \includegraphics on input line 680.
+(epstopdf)             \includegraphics on input line 679.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_CG_02/ControlSol_N150_l4-eps-converted-to.pdf, id=1893, 849.1725p
+<img/cap6/Imm_CG_02/ControlSol_N150_l4-eps-converted-to.pdf, id=1897, 849.1725p
 t x 596.2275pt>
 File: img/cap6/Imm_CG_02/ControlSol_N150_l4-eps-converted-to.pdf Graphic file (
 type pdf)
 
 <use img/cap6/Imm_CG_02/ControlSol_N150_l4-eps-converted-to.pdf>
 Package pdftex.def Info: img/cap6/Imm_CG_02/ControlSol_N150_l4-eps-converted-to
-.pdf used on input line 680.
+.pdf used on input line 679.
 (pdftex.def)             Requested size: 61.45703pt x 43.15033pt.
 Package epstopdf Info: Source file: <img/cap6/Imm_CG_02/ControlSol_N150_l5.eps>
 
@@ -1917,17 +1917,17 @@ converted-to.pdf>
 (epstopdf)                    size: 18533 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_CG_02/Control
 Sol_N150_l5-eps-converted-to.pdf img/cap6/Imm_CG_02/ControlSol_N150_l5.eps>
-(epstopdf)             \includegraphics on input line 680.
+(epstopdf)             \includegraphics on input line 679.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_CG_02/ControlSol_N150_l5-eps-converted-to.pdf, id=1895, 849.1725p
+<img/cap6/Imm_CG_02/ControlSol_N150_l5-eps-converted-to.pdf, id=1899, 849.1725p
 t x 596.2275pt>
 File: img/cap6/Imm_CG_02/ControlSol_N150_l5-eps-converted-to.pdf Graphic file (
 type pdf)
 
 <use img/cap6/Imm_CG_02/ControlSol_N150_l5-eps-converted-to.pdf>
 Package pdftex.def Info: img/cap6/Imm_CG_02/ControlSol_N150_l5-eps-converted-to
-.pdf used on input line 680.
+.pdf used on input line 679.
 (pdftex.def)             Requested size: 61.45703pt x 43.15033pt.
 Package epstopdf Info: Source file: <img/cap6/Imm_CG_02/ControlSol_N150_l6.eps>
 
@@ -1939,17 +1939,17 @@ converted-to.pdf>
 (epstopdf)                    size: 20954 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_CG_02/Control
 Sol_N150_l6-eps-converted-to.pdf img/cap6/Imm_CG_02/ControlSol_N150_l6.eps>
-(epstopdf)             \includegraphics on input line 680.
+(epstopdf)             \includegraphics on input line 679.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_CG_02/ControlSol_N150_l6-eps-converted-to.pdf, id=1897, 849.1725p
+<img/cap6/Imm_CG_02/ControlSol_N150_l6-eps-converted-to.pdf, id=1901, 849.1725p
 t x 596.2275pt>
 File: img/cap6/Imm_CG_02/ControlSol_N150_l6-eps-converted-to.pdf Graphic file (
 type pdf)
 
 <use img/cap6/Imm_CG_02/ControlSol_N150_l6-eps-converted-to.pdf>
 Package pdftex.def Info: img/cap6/Imm_CG_02/ControlSol_N150_l6-eps-converted-to
-.pdf used on input line 680.
+.pdf used on input line 679.
 (pdftex.def)             Requested size: 61.45703pt x 43.15033pt.
 Package epstopdf Info: Source file: <img/cap6/Imm_CG_02/ControlSol_N150_l7.eps>
 
@@ -1961,17 +1961,17 @@ converted-to.pdf>
 (epstopdf)                    size: 25455 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_CG_02/Control
 Sol_N150_l7-eps-converted-to.pdf img/cap6/Imm_CG_02/ControlSol_N150_l7.eps>
-(epstopdf)             \includegraphics on input line 680.
+(epstopdf)             \includegraphics on input line 679.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_CG_02/ControlSol_N150_l7-eps-converted-to.pdf, id=1899, 849.1725p
+<img/cap6/Imm_CG_02/ControlSol_N150_l7-eps-converted-to.pdf, id=1903, 849.1725p
 t x 596.2275pt>
 File: img/cap6/Imm_CG_02/ControlSol_N150_l7-eps-converted-to.pdf Graphic file (
 type pdf)
 
 <use img/cap6/Imm_CG_02/ControlSol_N150_l7-eps-converted-to.pdf>
 Package pdftex.def Info: img/cap6/Imm_CG_02/ControlSol_N150_l7-eps-converted-to
-.pdf used on input line 680.
+.pdf used on input line 679.
 (pdftex.def)             Requested size: 61.45703pt x 43.15033pt.
 Package epstopdf Info: Source file: <img/cap6/Imm_CG_02/ControlSol_N150_l8.eps>
 
@@ -1983,17 +1983,17 @@ converted-to.pdf>
 (epstopdf)                    size: 34045 bytes
 (epstopdf)             Command: <repstopdf --outfile=img/cap6/Imm_CG_02/Control
 Sol_N150_l8-eps-converted-to.pdf img/cap6/Imm_CG_02/ControlSol_N150_l8.eps>
-(epstopdf)             \includegraphics on input line 680.
+(epstopdf)             \includegraphics on input line 679.
 Package epstopdf Info: Output file is already uptodate.
 
-<img/cap6/Imm_CG_02/ControlSol_N150_l8-eps-converted-to.pdf, id=1901, 849.1725p
+<img/cap6/Imm_CG_02/ControlSol_N150_l8-eps-converted-to.pdf, id=1905, 849.1725p
 t x 596.2275pt>
 File: img/cap6/Imm_CG_02/ControlSol_N150_l8-eps-converted-to.pdf Graphic file (
 type pdf)
 
 <use img/cap6/Imm_CG_02/ControlSol_N150_l8-eps-converted-to.pdf>
 Package pdftex.def Info: img/cap6/Imm_CG_02/ControlSol_N150_l8-eps-converted-to
-.pdf used on input line 680.
+.pdf used on input line 679.
 (pdftex.def)             Requested size: 61.45703pt x 43.15033pt.
  [34
 
@@ -2018,7 +2018,7 @@ _N150_l8-eps-converted-to.pdf>] [35
 ] [41
 
 ]
-Overfull \hbox (8.56705pt too wide) in paragraph at lines 831--831
+Overfull \hbox (8.56705pt too wide) in paragraph at lines 830--830
 [][]  
  []
 
@@ -2034,11 +2034,11 @@ Overfull \hbox (8.56705pt too wide) in paragraph at lines 831--831
 \tf@snm=\write8
 \openout8 = `Presentazione.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 833.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 833.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 832.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 832.
  (./Presentazione.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 833.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 833.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 832.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 832.
 Package rerunfilecheck Info: File `Presentazione.out' has not changed.
 (rerunfilecheck)             Checksum: 53E6B7A903665B3216A9E05749DD1943;581.
 
@@ -2049,14 +2049,14 @@ LaTeX Font Warning: Size substitutions with differences
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 833.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 832.
  ) 
 Here is how much of TeX's memory you used:
- 17748 strings out of 493633
- 330361 string characters out of 3143378
- 429599 words of memory out of 3000000
- 20392 multiletter control sequences out of 15000+200000
- 38722 words of font info for 123 fonts, out of 3000000 for 9000
+ 17749 strings out of 493633
+ 330379 string characters out of 3143378
+ 429562 words of memory out of 3000000
+ 20393 multiletter control sequences out of 15000+200000
+ 39348 words of font info for 125 fonts, out of 3000000 for 9000
  831 hyphenation exceptions out of 8191
  49i,20n,62p,426b,972s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/local/texlive/2011/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
@@ -2090,12 +2090,13 @@ f-dist/fonts/type1/public/cm-super/sfss1000.pfb></usr/local/texlive/2011/texmf-
 dist/fonts/type1/public/cm-super/sfss1095.pfb></usr/local/texlive/2011/texmf-di
 st/fonts/type1/public/cm-super/sfss1440.pfb></usr/local/texlive/2011/texmf-dist
 /fonts/type1/public/cm-super/sfsx1095.pfb></usr/local/texlive/2011/texmf-dist/f
-onts/type1/public/cm-super/sftt0900.pfb></usr/local/texlive/2011/texmf-dist/fon
-ts/type1/public/cm-super/sftt1095.pfb>
-Output written on Presentazione.pdf (42 pages, 957435 bytes).
+onts/type1/public/cm-super/sftt0800.pfb></usr/local/texlive/2011/texmf-dist/fon
+ts/type1/public/cm-super/sftt0900.pfb></usr/local/texlive/2011/texmf-dist/fonts
+/type1/public/cm-super/sftt1095.pfb>
+Output written on Presentazione.pdf (42 pages, 958874 bytes).
 PDF statistics:
- 2495 PDF objects out of 2984 (max. 8388607)
- 2327 compressed objects within 24 object streams
- 113 named destinations out of 1000 (max. 500000)
+ 2502 PDF objects out of 2984 (max. 8388607)
+ 2333 compressed objects within 24 object streams
+ 112 named destinations out of 1000 (max. 500000)
  330 words of extra memory for PDF output out of 10000 (max. 10000000)
 
