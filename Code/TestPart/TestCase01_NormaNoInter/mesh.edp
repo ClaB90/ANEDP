@@ -1,0 +1,6 @@
+real N=40;
+mesh Th = square( N, N, flags=1 );
+
+/* Con N=130 abbiamo una mesh con:
+ * -- Square mesh : nb vertices  =17161 ,  nb triangles = 33800 ,  nb boundary edges 520
+ */

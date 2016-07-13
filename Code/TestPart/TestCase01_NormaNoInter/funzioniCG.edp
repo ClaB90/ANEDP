@@ -1,0 +1,505 @@
+/****************** Politecnico di Milano - ANEDP project ******************/
+/* 														 					*
+ *  	authors Edoardo Arbib 							 					*
+ *				Claudia Bonomi 							 					*
+ *											   			 					*
+ *  	Descrizione: definizioni delle funzioni per CG		  				*
+ *						Problema di stato									*
+ *						Problema di controllo								*
+ *																			*
+ * 		Dipendenze:	main -> nsol, alpha						 				*
+ * 					state -> Yh, w0 						 				*
+ * 					adjoint -> varf problema aggiunto 						*
+ * 														 					*
+ * 		KEEP IN MIND -	Sh == operatore che risolve l'equazione di stato    *
+ * 						Ad == operatore che risolve l'equazione aggiunta    *
+ * 						I == I_(Ad(w)) che è la funzione indicatrice		*
+ * 								della matrice aggiunta applicata a w		*
+ * 														 					*
+ ****************************************************************************/
+
+
+/* La funzione stateCG risolve il problema di stato ad ogni passo temporale dato un termine noto
+ * e crea il vettore delle soluzioni di questo ad ogni passo temporale
+ * l'operatore implementato in questa funzione è l'operatore Sh applicato a PUad(xx) 
+ * in particolare il termine noto che verrà proiettato correttamente sullo spazio Uad
+ * quindi xx sarà della forma:
+ * 		xx = (-1./alpha)*Ad(w)
+ */
+func real[int,int] stateCG(real[int] &xx)
+{	
+	/* Valori dei moltiplicatori di lagrange sullo spazio Yh
+	 */
+	real listate,loldstate;
+    real[int] tmp(Yh.ndof);	
+	
+	/* il termine noto del problema di stato diventa
+	 */
+	varf tnnew(w,wtest) =   int2d(Th)( wold*wtest/dt )
+					  	  - int2d(Th)( gamma2*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) ) )
+							//contributo di u
+						  + int2d(Th)(gamma3*g*(PUabScal(listate)*wtest))
+						  + int2d(Th)(gamma4*g*(PUabScal(loldstate)*wtest)) 
+							//contributo di go 
+						  + int2d(Th)( gamma3*( g0*wtest ))
+				 		  + int2d(Th)( gamma4*( g0old*wtest ));
+	
+	real[int,int] stateSolCG(nsol,Yh.ndof);
+	
+	//inizializzo le variabili iniziali ogni volta che chiamo la funzione
+	wold=w0;
+	real savet =t;
+	t=dt;
+	
+	//Primo passo di EI con passo temporale dt/2
+    setscheme(0);
+	
+	//definisco i valori di uold
+    loldstate = xx[0];
+    listate = xx[1];
+	
+	g0partsx = g0nonprojsx;	
+	//Risolvo
+	//statexy(0);
+	S=s(Yh,Yh,solver=GMRES);
+	statebc=s(0,Yh);	
+	tmp = tnnew(0,Yh);
+	tmp += statebc;	
+	
+	// salvo la mia soluzione al passo precedente
+	stateSolCG(0,:)=(S^-1)*tmp;
+	
+	//aggiorno wold, uold e il tempo
+	wold[]=stateSolCG(0,:);
+	loldstate = listate;
+	t += dt;
+	
+    // Passi di CN
+	setscheme(1);
+    for(int i=1; i<nsol-1; i++)
+	{	
+		listate = xx[i+1];
+		g0partsx = g0nonprojsx;
+		
+		//Risolvo
+
+		tmp = tnnew(0,Yh);
+	    tmp += statebc;		
+		
+		// salvo la mia soluzione al passo precedente
+		stateSolCG(i,:)=(S^-1)*tmp;
+		
+		//aggiorno wold, uold, il tempo e g0old
+		wold[]=stateSolCG(i,:);
+		loldstate = listate;
+		t += dt;
+
+	}
+	
+    //Passo di EA
+	setscheme(2);
+	listate = xx[nsol-1];
+	
+	g0partdx = g0nonprojdx;	
+	
+	//Risolvo
+
+	S=s(Yh,Yh,solver=GMRES);
+	tmp=tnnew(0,Yh);
+	tmp += statebc;
+		
+	stateSolCG(nsol-1,:)=(S^-1)*tmp;
+	
+	t=savet;
+	
+	return stateSolCG;
+}
+
+/* La funzione adjCG risolve il problema aggiunto ad ogni passo temporale dato un termine noto
+ * e salva la soluzione in un opportuno vettore
+ * l'operatore implementato in questa funzione è l'operatore Ad
+ */
+func real[int,int] adjCG(real[int,int] &xx)
+{	
+	/* il termine noto del problema di adj rimarrà uguale ad h ed hnext definiti  in adjoint.edp
+	 * verranno assegnati i valori dei moltiplicatori di lagrange
+	 */
+	
+	/* vettori per le condizioni al bordo e per il termine noto
+	 */
+	real[int] tmpadj(Yh.ndof);
+	real[int] adjbc(Yh.ndof);
+	
+	//vettore delle solzioni ad ogni istante temporale
+	real[int,int] AdjSolCG(nsol,Yh.ndof);
+	
+	//valori iniziali al tempo T
+	int j = nsol-1;
+	pnext=pT;
+	AdjSolCG(j,:)=pT;
+	h[]=xx(j,:);
+	
+	//Calcolo il valore della matrice Adj e delle condizioni al bordo
+	Adj=adj(Yh,Yh,solver=GMRES);
+	adjbc=adj(0,Yh);
+    
+	while( j > 0 )
+		{	
+			
+			hnext[]=xx(j-1,:);
+			
+		    h[]=xx(j-1,:);
+			//h -= - help2;
+			
+			//calcolo il termine noto
+		    tmpadj = adjtn(0,Yh);
+			tmpadj += adjbc;
+		
+			//risolvo il problem aaggiunto
+			AdjSolCG(j-1,:)= ((Adj)^-1)*tmpadj;
+			
+			pnext[]=AdjSolCG(j-1,:);
+			j--;
+		}
+	
+	return AdjSolCG;
+}
+
+/* La funzione adjCG2 risolve il problema aggiunto ad ogni passo temporale dato un termine noto
+ * inoltre moltiplica il risultato per l'operatore B'
+ * e salva la soluzione in un opportuno vettore
+ * l'operatore implementato in questa funzione è l'operatore B'(Ad)
+ */
+func real[int] adjCG2(real[int,int]& xx)
+{	
+
+	real[int] Bp(nsol);
+	real[int,int] AdjSolCG(nsol,Yh.ndof);
+	Yh tmp;
+	
+	//solvo il problema aggiunto
+	AdjSolCG = adjCG(xx);
+
+	for(int i=0; i<nsol; ++i)
+		{
+			//integro la soluzione al t=i*dt nello spazio
+			tmp[]=AdjSolCG(i,:);
+			Bp[i]=(-1./alpha)*int2d(Th)(g*tmp);
+		}
+	
+	return Bp;
+}
+
+/* La funzione adjCG3 risolve il problema aggiunto ad ogni passo temporale dato un termine noto
+ * inoltre moltiplica il risultato per l'operatore B' ma non moltiplica per -(1/alpha)
+ * e salva la soluzione in un opportuno vettore
+ * l'operatore implementato in questa funzione è l'operatore B'(Ad)
+ */
+func real[int] adjCG3(real[int,int]& xx)
+{	
+
+	real[int] Bp(nsol);
+	real[int,int] AdjSolCG(nsol,Yh.ndof);
+	Yh tmp;
+	
+	AdjSolCG = adjCG(xx);
+
+	for(int i=0; i<nsol; ++i)
+		{
+			//integro la soluzione al t=i*dt nello spazio
+			tmp[]=AdjSolCG(i,:);
+			Bp[i]=int2d(Th)(g*tmp);
+		}
+	
+	return Bp;
+}
+
+/* La funzione projectAdjCG(real[int,int]& xx) proietta un vettore soluzione su Uab
+ * NB - se il risultato di questa funzione NON deve essere un in-put per StateCG
+ * 		l'operazione di proiezione deve essere fatta all'interno di StateCG, quando si crea la matrice,
+ * 		per minimizzare l'errore di approssimazione della soluzione 
+ */
+/*func real[int,int] projectAdjCG(real[int,int] &xx)
+{
+	real[int,int] tmp(nsol,Yh.ndof);
+	
+	//calcolo Sh^*l
+	tmp = adjCG(xx);
+	//molitiplico per (-1./alpha)
+	tmp = tmp*(-1./alpha);
+	//proietto su [a,b]
+	tmp = PUabMatrixPh(tmp,Yh.ndof);
+	
+	return tmp;
+}*/
+
+/* La funzione rightCG risolve il termine a destra dell'equazione
+ *  ( I + (1/alpha)*ShIAd)dl = - (l+wd) + ShP[a,b](-(1/alpha)Ad(l))
+ * necessaria per il primo passo dell'algortitmo Damped Newton
+ */
+func real[int,int] rightCG(real[int,int] &xx)
+{
+	real[int,int] righthandCG(nsol,Yh.ndof);
+	real[int,int] tmp2(nsol,Yh.ndof);
+	real[int] tmp(nsol);
+	
+	Yh store;
+	
+	//calcolo Ad(l)
+	tmp = adjCG2(xx);
+	//calcolo Sh(tmp) = P[a,b](-(1/alpha)(tmp))
+	tmp2 = stateCG(tmp);
+	
+	real savet=t;
+	t=dt/2.;
+	
+	// Per calcolare correttamente wd devo iterare nel tempo
+	for(int i=0; i<nsol; i++)
+	{
+		store=wd;
+		righthandCG(i,:) = (-1.)*xx(i,:)  + tmp2(i,:);
+		righthandCG(i,:) -=  store[];
+		t = t+dt;
+	}
+	
+	t=savet;
+	
+	return righthandCG;
+}
+
+/* La funzione mat1 risolve la prima parte del termine a sinistra dell'equazione
+ *  ( I + (1/alpha)*Sh(I(Ad)))dl = - (l+yd) + ShP[a,b](-(1/alpha)Ad(l))
+ * necessaria per il primo passo dell'algortitmo Damped Newton
+ * in particolare viene risolto il passo Sh(I(xx))
+ * in ingresso richede:
+ *		xx è vettore di ingresso del CG
+ * 		ww è Ad(w)
+ */
+func real[int,int] mat1(real[int] &xx, real[int] &ww) 
+{
+	real listate,loldstate;
+    real indold,indnew;
+	varf tnnew(w,wtest) =  int2d(Th)( wold*wtest/dt) 
+		  				 - int2d(Th)( gamma2*( dx(wold)*dx(wtest) + dy(wold)*dy(wtest) ) ) 
+							 /*introduco la funzione indicatrice nella varf
+							  * (indnew(x,y)<=b)*(indnew(x,y)>=a) == 1 se entrambe le condizioni sono rispettate 
+							  *									  == 0 altrimenti
+							  */	
+					     + int2d(Th)(gamma3*g*((indnew<=b)*(indnew>=a)*listate*wtest))
+						 + int2d(Th)(gamma4*g*((indold<=b)*(indold>=a)*loldstate*wtest));
+   
+	
+	real[int] temp(Yh.ndof);
+	real[int,int] stateSolCG(nsol,Yh.ndof);
+	
+	wold=0;
+	
+	//Primo passo di EI con passo temporale dt/2
+    setscheme(0);
+	
+	//valori inziali
+	t=dt;
+	loldstate=xx[0];
+    listate=xx[1];
+	indold=ww[0];
+	indnew=ww[1];
+	g0partsx = g0nonprojsx;
+	
+	
+	//Calcolo la matice di stato e il vettore delle condizioni al bordo
+	S=s(Yh,Yh,solver=GMRES);	
+	statebc=s(0,Yh);
+	
+	//risolvo
+	temp = tnnew(0,Yh);
+	temp += statebc;
+	stateSolCG(0,:)=(S^-1)*temp;
+	
+	//aggiorno valori
+	wold[]=stateSolCG(0,:);
+	loldstate=listate;
+	indold=indnew;
+	t+=dt;
+	
+	//inizio coi passi di CN
+    setscheme(1);
+	for(int i=1; i<nsol-1; i++)
+	{	
+		//aggiorno valori
+		listate = xx[i+1];
+		indnew=ww[i+1];
+	    g0partsx = g0nonprojsx;		
+		
+		//Risolvo
+		temp=tnnew(0,Yh);
+		temp+=statebc;
+		stateSolCG(i,:)=(S^-1)*temp;
+		
+		//aggiorno valori
+		wold[]=stateSolCG(i,:);
+		loldstate = listate;
+		indold=indnew;
+        t+=dt;
+	}
+	
+	//Ultimo passo di EA con passo temporale dt/2
+    setscheme(2);
+	listate = xx[nsol-1];
+	indnew=ww[nsol-1];
+	
+	//aggiorno valori g0
+	g0partdx = g0nonprojdx;	
+	
+	//ricalcolo matrice
+	S=s(Yh,Yh,solver=GMRES);
+	
+	//Risolvo
+    temp=tnnew(0,Yh);
+    temp+=statebc;
+	stateSolCG(nsol-1,:)=(S^-1)*temp;
+	
+	return stateSolCG;
+}
+	
+/* La funzione mat2 risolve il termine a sinsitra dell'equazione
+ *  ( I + (1/alpha)*ShIAd)dl = - (l+yd) + ShP[a,b](-(1/alpha)Ad(l))
+ * necessaria per il primo passo dell'algortitmo Damped Newton
+ * dove xx = l
+ *  	ww = vetttore di ingresso del metodo CG
+ */	
+func real[int,int] mat2(real[int,int] &ww, real[int,int] &xx)
+{
+	real[int,int] res(nsol,Yh.ndof);
+	real[int] tmp(nsol), tmp2(nsol);
+	
+	//Calcolo 1/alpha)*ShIAd(l)
+	tmp = adjCG2(xx);
+	tmp2 = adjCG3(ww);
+	
+	res=mat1(tmp2,tmp);
+	res=(1./alpha)*res;
+	res=res+ww;
+	
+	return res;
+}
+
+/* La funzione phi(w) risolve la seguente equazione:
+ *	phi(w) = (1/2)*(||w||L2)^2 - (alpha/2)(||u(w)||L2)^2 + < w, wd - Sh(u(w))>L2
+ * dove:
+ * 	 u(w) = P[a,b]((-1/alpha)*Ad(w))
+ */	
+func real phi(real[int,int] &xx)
+{
+	real tmp, savet=t, normu;
+	real[int,int] tmp2(nsol,Yh.ndof);
+	real[int] uw(nsol);
+	
+	Bpk = adjCG2(xx);
+	tmp2 = stateCG(Bpk);
+
+	uw=PUab(Bpk);
+	
+	//calcolo normaL2 di xx
+	tmp = (normL2Yh(xx))^2/2.;
+	//calcolo normaL2 di uw
+	tmp += (-alpha/2.)*(normL2Pr(uw))^2;
+	//calcolo il prodotto vettoriale < w, wd - Sh(u(w))>L2
+	tmp += prodottoL2CS(xx, tmp2);
+	
+	return tmp;
+}
+
+/* La funzione phi2(Bpk,w,state) = phi(w) ma prende in ingresso 
+ * il vettore soluzione dell'aggiunto Bpk calcolato come 
+ *   Bpk = adjCG(w) 
+ * ed il vettore soluzione dello stato state calcolato come 
+ *   state = stateCG(Bpk)
+ */
+func real phi2(real[int] &Bpk, real[int,int] &xx, real[int,int] &state)
+{
+	real tmp, savet=t, normu;
+	real[int] uw(nsol);
+	
+	uw=PUab(Bpk);
+	
+	//calcolo normaL2 di xx
+	tmp = (normL2Yh(xx))^2/2.;
+	//calcolo normaL2 di uw
+	tmp += (-alpha/2.)*(normL2Pr(uw))^2;
+	//calcolo il prodotto vettoriale < w, wd - Sh(u(w))>L2
+	tmp += prodottoL2CS(xx, state);
+	
+	return tmp;
+}
+
+/* La funzione CG(xx,ww) risolve il sistema di equazioni
+ *	( I + (1/alpha)*ShIAd)dl = - (l+yd) + ShP[a,b](-(1/alpha)Ad(l))
+ * e ricava dl utilizzando il metodo del gradiente coniugato
+ * dove xx = vettore di ingresso del CG
+ *      ww = l = incognita al passo zero
+ */	
+func real[int,int] CG(real[int,int] &xx, real[int,int] &ww)
+{
+	real[int,int] r(nsol,Yh.ndof), rold(nsol,Yh.ndof), b(nsol,Yh.ndof);
+	real[int,int] pk(nsol,Yh.ndof);
+	real[int,int] A(nsol,Yh.ndof), Apk(nsol,Yh.ndof);
+	real[int,int] xk(nsol,Yh.ndof);
+	
+	real alphaCG, eps=10^(-08.);
+	
+	cout << " CG " << endl;
+	cout << "  passso zero" << endl;
+	//calcolo b
+	b = rightCG(ww);
+	
+	// alla prima itearazione betaCG è fissato a zero
+	real betaCG=0.;
+	int k=0;
+	
+	//la mia soluzione parte da xx;
+	xk = xx;
+	
+	//Per entrare nel ciclio
+	//Per la prima iterazione devo calcolare r0 = rightCG(l) - Ax0
+	A=mat2(xx,ww);
+	r = b;
+	r -= A;
+	//cout << " residuo0 " << prodottoL2(r,r) << endl;
+
+	//per la prima iterazione pk sono uguali ad r
+	pk = r;
+	Apk = mat2(pk,ww);
+	k = k+1;
+	
+	real normCG=normL2Yh(r);
+	while( normCG > eps )
+	{
+		cout << "  iterazione CG " << k << endl;
+		//trovo alpha
+		Apk = mat2(pk,ww);
+		alphaCG = prodottoL2(pk,r)/prodottoL2(pk,Apk);
+		
+		//trovo xk
+		xk += alphaCG*pk;
+		
+		//salvo la rold e trovo rk
+		rold = r;
+		A=mat2(xk,ww);
+		r = b;
+		r -= A;
+		
+		betaCG = prodottoL2(Apk,r)/prodottoL2(Apk,pk);
+		//modifico pk
+		pk *= -betaCG;
+		pk += r;
+		
+		k++;  
+		
+		//salvo la mia soluzione a questo passo
+		normCG = normL2Yh(r);
+		cout << " residuo1 " << normCG-eps << endl;
+	
+	}
+	
+	return xk;
+}

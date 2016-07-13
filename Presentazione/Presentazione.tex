@@ -318,7 +318,7 @@ Lo script che permette l'esecuzione del programma è denominato main.edp
 \frametitle{Implementazione: Funzione per il calcolo dell'Errore}
 \begin{frame}
 
-Per il calcolo di ogni norma e prodotto scalare il metodo numerico di integrazione in tempo utilizzato è il metodo di Cavalieri Simpson.
+Per il calcolo di ogni norma e prodotto scalare, relativi al calcolo dell'errore, il metodo numerico di integrazione in tempo utilizzato è il metodo di Cavalieri Simpson.
 
 \begin{figure}
 \centering
@@ -532,7 +532,7 @@ $\alpha$ & $\pi^{-4}$ & 1 \\
 \frametitle{Test Case 01 Semi-Newton}
 
 \begin{table}
-\caption{Newton per Test case 01: errori e EOC }
+\caption{Semi-Newton per Test case 01: errori e EOC }
 \label{newtonI}
 \centering
 
@@ -555,7 +555,7 @@ $\alpha$ & $\pi^{-4}$ & 1 \\
 \begin{frame}
 \frametitle{Test Case 01 Semi-Newton}
 \begin{table}
-\caption{Newton per Test case 01: errori e EOC }
+\caption{Semi-Newton per Test case 01: errori e EOC }
 \label{newtonIbis}
 \centering
 
@@ -681,7 +681,7 @@ $\alpha$ & $\pi^{-4}$ & 1 \\
 \begin{frame}
 \frametitle{Test Case 02 Semi-Newton}
 \begin{table}
-\caption{Newton per Test case II: errori e EOC }
+\caption{Semi-Newton per Test case II: errori e EOC }
 \label{newtonII}
 \centering
 
@@ -706,7 +706,7 @@ $\alpha$ & $\pi^{-4}$ & 1 \\
 \begin{frame}
 \frametitle{Test Case 02 Semi-Newton}
 \begin{table}
-\caption{Newton per Test case II: errori e EOC }
+\caption{Semi-Newton per Test case II: errori e EOC }
 \label{newtonIIbis}
 \centering
 
@@ -748,16 +748,17 @@ Semi Newton & 2 & 2-3 \\
 Criteri di tolleranza aggiuntivi per Semi-Newton utilizzati nel TestCase 02
 \begin{tabular}{cc}
  & \\
-$\norma{\nabla\phi(w^k)} - \norma{\nabla\phi(w^{k+1})} > t_0$ & $\norma{\nabla\phi(w^k) - \nabla\phi(w^{k+1})} > t_0$
+$\norma{\nabla\phi(w^k)} - \norma{\nabla\phi(w^{k+1})} \leq t_0$ & $\norma{\nabla\phi(w^k) - \nabla\phi(w^{k+1})} \leq t_0$
 \end{tabular}
+\par\bigskip
 dove t0 è una tolleranza fissata
 \end{frame}
 
 \section{Conclusioni}
 \begin{frame}
 Entrambi gli algoritmi implementati confermano i risultati teorici per l'ordine di convergenza dell'errore nei problemi di controllo ottimo parabolico se viene utilizzato uno schema di Petrov Galerkin.
-Per il primo test case, nel quale $\alpha$ è minore, il metodo di Newton converge più velocemente che quello di punto fisso.
-
+%Per il primo test case, nel quale $\alpha$ è minore, il metodo di Newton converge più velocemente che quello di punto fisso.
+\par\bigskip
 Possibili lavori futuri:
 \begin{enumerate}
 \item analisi analitica di semi-Newton nel caso per i problemi di controllo ottimo parabolici
